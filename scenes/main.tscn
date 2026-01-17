@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://64c44cgafm2v"]
-
-[ext_resource type="PackedScene" uid="uid://wr6gmlpc4o2x" path="res://src/world/overworld/overworld.tscn" id="1_overworld"]
-
-[node name="Main" type="Node"]
-
-[node name="Overworld" parent="." instance=ExtResource("1_overworld")]
-position = Vector2(6, 3)
