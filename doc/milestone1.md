@@ -20,6 +20,7 @@ res://
 │       └── Sfx/
 ├── Common/
 ├── Config/
+├── Core/
 ├── Entities/
 │   ├── Player/
 │   ├── Camera/
@@ -91,7 +92,7 @@ skill_3     → 3
 
 #### 1.3 Create Autoload Singletons
 
-**File**: `Utilities/event_bus.gd`
+**File**: `Core/event_bus.gd`
 ```gdscript
 extends Node
 
@@ -113,7 +114,7 @@ signal player_spawned(player: Node)
 signal player_moved(position: Vector2)
 ```
 
-**File**: `Utilities/game_manager.gd`
+**File**: `Core/game_manager.gd`
 ```gdscript
 extends Node
 
@@ -142,8 +143,8 @@ func is_in_combat() -> bool:
 
 **Configure Autoload** (`Project → Project Settings → Autoload`):
 ```
-EventBus      → res://Utilities/event_bus.gd
-GameManager   → res://Utilities/game_manager.gd
+EventBus      → res://Core/event_bus.gd
+GameManager   → res://Core/game_manager.gd
 ```
 
 ---
@@ -152,7 +153,7 @@ GameManager   → res://Utilities/game_manager.gd
 
 #### 2.1 Create Base Entity Class
 
-**File**: `Entities/organism.gd`
+**File**: `Entities/Organisms/organism.gd`
 
 This is the base class for all living things (player, enemies, NPCs).
 
@@ -609,9 +610,9 @@ func _process(_delta):
 ## File Checklist
 
 ### Scripts to Create
-- [ ] `Utilities/event_bus.gd`
-- [ ] `Utilities/game_manager.gd`
-- [ ] `Entities/organism.gd`
+- [ ] `Core/event_bus.gd`
+- [ ] `Core/game_manager.gd`
+- [ ] `Entities/Organisms/organism.gd`
 - [ ] `Entities/Player/player.gd`
 - [ ] `Entities/Player/player_movement.gd`
 - [ ] `Stages/Overworld/overworld.gd`
@@ -628,6 +629,7 @@ res://
 │   └── Audio/
 ├── Common/
 ├── Config/
+├── Core/
 ├── Entities/
 │   ├── Player/
 │   │   └── Sprites/
