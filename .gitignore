@@ -3,3 +3,4 @@
 /android/
 .github/
 .DS_STORE
+.vscode/

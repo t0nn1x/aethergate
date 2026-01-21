@@ -1,7 +1,6 @@
-class_name GameManager
 extends Node
 
-enum GameState { MAIN_MENU, LOADING, OVERWORLD, LOCATION, COMBAT, PAUSED }
+enum GameState {MAIN_MENU, LOADING, OVERWORLD, LOCATION, COMBAT, PAUSED}
 
 var current_state: GameState = GameState.MAIN_MENU
 var current_location: String = ""

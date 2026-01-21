@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy6x5c6drw5ot"]
+
+[ext_resource type="Script" uid="uid://citdv614f6uom" path="res://Map/Overworld/Chunks/chunk.gd" id="1"]
+[ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://Map/Overworld/Tilesets/terrain.tres" id="2"]
+
+[node name="Chunk" type="Node2D"]
+position = Vector2(0, 2304)
+script = ExtResource("1")
+chunk_coord = Vector2i(0, 1)
+preview_neighbors = true
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2")
+
+[node name="Objects" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2")
+
+[node name="Overlay" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2")
