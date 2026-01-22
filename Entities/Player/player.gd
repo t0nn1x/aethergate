@@ -21,7 +21,12 @@ var _flip_tween: Tween = null
 @export var idle_bob_speed: float = 3
 @export var move_bob_speed: float = 6
 @export var bob_amplitude_pixels: float = 1.5
-@export var flip_duration: float = 0.15
+@export var flip_duration: float = 0.20
+@export var camera_zoom_step: float = 0.05
+@export var camera_zoom_min: float = 0.05
+@export var camera_zoom_max: float = 4.0
+@export var camera_zoom_in_action: StringName = "camera_zoom_in"
+@export var camera_zoom_out_action: StringName = "camera_zoom_out"
 
 func _ready() -> void:
 	super._ready()
@@ -50,6 +55,7 @@ func setup_camera() -> void:
 	camera.enabled = true
 	camera.zoom = Vector2(2, 2)  # Adjust based on your tile size
 	camera.position_smoothing_enabled = false
+	_apply_camera_zoom(camera.zoom.x)
 
 func set_facing(direction_x: float) -> void:
 	if direction_x == 0.0:
@@ -67,6 +73,18 @@ func _process(delta: float) -> void:
 	_bob_time += delta * speed
 	var offset = int(round(sin(_bob_time) * bob_amplitude_pixels))
 	sprite.position = Vector2(_base_sprite_offset.x, _base_sprite_offset.y + offset)
+
+func _unhandled_input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed(camera_zoom_in_action):
+		_apply_camera_zoom(camera.zoom.x + camera_zoom_step)
+	if Input.is_action_just_pressed(camera_zoom_out_action):
+		_apply_camera_zoom(camera.zoom.x - camera_zoom_step)
+
+func _apply_camera_zoom(value: float) -> void:
+	if not camera:
+		return
+	var snapped = clamp(snappedf(value, camera_zoom_step), camera_zoom_min, camera_zoom_max)
+	camera.zoom = Vector2(snapped, snapped)
 
 func _animate_flip(should_face_left: bool) -> void:
 	_facing_left = should_face_left

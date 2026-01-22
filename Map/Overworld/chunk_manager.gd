@@ -219,3 +219,15 @@ func _normalize_dir(value: String) -> String:
 	while normalized.ends_with("/") or normalized.ends_with("\\"):
 		normalized = normalized.substr(0, normalized.length() - 1)
 	return normalized
+
+func world_to_chunk(world_pos: Vector2) -> Vector2i:
+	return _world_to_chunk(world_pos)
+
+func get_loaded_chunk_coords() -> Array[Vector2i]:
+	var coords: Array[Vector2i] = []
+	for coord in _loaded_chunks.keys():
+		coords.append(coord)
+	return coords
+
+func get_loaded_chunk_count() -> int:
+	return _loaded_chunks.size()
