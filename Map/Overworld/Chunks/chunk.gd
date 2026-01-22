@@ -5,7 +5,16 @@ extends Node2D
 const PREVIEW_ROOT_NAME := "_PreviewNeighbors"
 const PREVIEW_Z_INDEX := 100
 const MIN_ENFORCE_INTERVAL := 0.1
-const PREVIEW_OFFSETS := [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]
+const PREVIEW_OFFSETS := [
+	Vector2i.LEFT,
+	Vector2i.RIGHT,
+	Vector2i.UP,
+	Vector2i.DOWN,
+	Vector2i(-1, -1),
+	Vector2i(1, -1),
+	Vector2i(-1, 1),
+	Vector2i(1, 1)
+]
 
 @export var chunk_coord: Vector2i = Vector2i.ZERO: set = _set_chunk_coord
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
