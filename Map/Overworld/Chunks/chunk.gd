@@ -5,16 +5,7 @@ extends Node2D
 const PREVIEW_ROOT_NAME := "_PreviewNeighbors"
 const PREVIEW_Z_INDEX := 100
 const MIN_ENFORCE_INTERVAL := 0.1
-const PREVIEW_OFFSETS := [
-	Vector2i.LEFT,
-	Vector2i.RIGHT,
-	Vector2i.UP,
-	Vector2i.DOWN,
-	Vector2i(-1, -1),
-	Vector2i(1, -1),
-	Vector2i(-1, 1),
-	Vector2i(1, 1)
-]
+const DEFAULT_PREVIEW_RADIUS := 2
 
 @export var chunk_coord: Vector2i = Vector2i.ZERO: set = _set_chunk_coord
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
@@ -27,6 +18,7 @@ const PREVIEW_OFFSETS := [
 @export var enforce_interval_seconds: float = 0.5
 
 @export var preview_neighbors: bool = false: set = _set_preview_neighbors
+@export var preview_radius: int = DEFAULT_PREVIEW_RADIUS: set = _set_preview_radius
 @export var enforce_bounds_in_editor: bool = false: set = _set_enforce_bounds_in_editor
 @export var cleanup_out_of_bounds: bool = false: set = _set_cleanup_out_of_bounds
 
@@ -65,6 +57,14 @@ func _set_preview_neighbors(value: bool) -> void:
 	if preview_neighbors == value:
 		return
 	preview_neighbors = value
+	if Engine.is_editor_hint():
+		_refresh_preview()
+
+func _set_preview_radius(value: int) -> void:
+	var sanitized = max(value, 1)
+	if preview_radius == sanitized:
+		return
+	preview_radius = sanitized
 	if Engine.is_editor_hint():
 		_refresh_preview()
 
@@ -170,7 +170,7 @@ func _refresh_preview() -> void:
 	_preview_root.owner = null
 	add_child(_preview_root)
 	var loaded_count = 0
-	for offset in PREVIEW_OFFSETS:
+	for offset in _preview_offsets(preview_radius):
 		var coord = chunk_coord + offset
 		var path = chunk_scene_dir.path_join("chunk_%d_%d.tscn" % [coord.x, coord.y])
 		var scene = load(path)
@@ -195,6 +195,7 @@ func _configure_preview_chunk(instance: OverworldChunk, coord: Vector2i) -> void
 	instance._is_preview_instance = true
 	instance._preview_origin_coord = chunk_coord
 	instance.preview_neighbors = false
+	instance.preview_radius = preview_radius
 	instance.enforce_bounds_in_editor = false
 	instance.cleanup_out_of_bounds = false
 	instance.show_bounds = true
@@ -203,6 +204,15 @@ func _configure_preview_chunk(instance: OverworldChunk, coord: Vector2i) -> void
 	instance.chunk_size_tiles = chunk_size_tiles
 	instance.tile_size = tile_size
 	instance.chunk_coord = coord
+
+func _preview_offsets(radius: int) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for x in range(-radius, radius + 1):
+		for y in range(-radius, radius + 1):
+			if x == 0 and y == 0:
+				continue
+			result.append(Vector2i(x, y))
+	return result
 
 func _coerce_chunk_size(value: int) -> int:
 	return max(value, 1)
