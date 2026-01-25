@@ -9,7 +9,7 @@ const CHUNK_SCENE_PREFIX := "chunk_"
 const CHUNK_TEMPLATE_NAME := "chunk_template.tscn"
 const CHUNK_SCENE_EXT := ".tscn"
 
-@export_dir var chunk_scene_dir: String = "res://Map/Overworld/Chunks": set = _set_chunk_scene_dir
+@export_dir var chunk_scene_dir: String = "res://Map/Overworld/Chunks/Midra": set = _set_chunk_scene_dir
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
 @export var tile_size: Vector2i = Vector2i(48, 48): set = _set_tile_size
 @export var load_radius: int = 2: set = _set_load_radius
@@ -94,7 +94,7 @@ func _world_to_chunk(world_pos: Vector2) -> Vector2i:
 		return Vector2i.ZERO
 	return Vector2i(
 		floor(world_pos.x / chunk_world_size.x),
-		floor(world_pos.y / chunk_world_size.y)
+		-floor(world_pos.y / chunk_world_size.y)
 	)
 
 func _chunk_world_size() -> Vector2:

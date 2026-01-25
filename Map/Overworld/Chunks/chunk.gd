@@ -19,7 +19,7 @@ const PREVIEW_OFFSETS := [
 @export var chunk_coord: Vector2i = Vector2i.ZERO: set = _set_chunk_coord
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
 @export var tile_size: Vector2i = Vector2i(48, 48): set = _set_tile_size
-@export_dir var chunk_scene_dir: String = "res://Map/Overworld/Chunks": set = _set_chunk_scene_dir
+@export_dir var chunk_scene_dir: String = "res://Map/Overworld/Chunks/Midra": set = _set_chunk_scene_dir
 @export var show_bounds: bool = true: set = _set_show_bounds
 @export var bounds_color: Color = Color(0.2, 0.7, 1.0, 0.6): set = _set_bounds_color
 @export var bounds_fill_color: Color = Color(0.2, 0.7, 1.0, 0.08): set = _set_bounds_fill_color
@@ -123,7 +123,7 @@ func _update_position() -> void:
 		return
 	position = Vector2(
 		chunk_coord.x * chunk_size_tiles * tile_size.x,
-		chunk_coord.y * chunk_size_tiles * tile_size.y
+		-chunk_coord.y * chunk_size_tiles * tile_size.y
 	)
 
 func _update_bounds() -> void:
@@ -218,4 +218,4 @@ func _normalize_dir(value: String) -> String:
 
 func _preview_offset() -> Vector2:
 	var delta = chunk_coord - _preview_origin_coord
-	return Vector2(delta.x, delta.y) * _chunk_pixel_size()
+	return Vector2(delta.x, -delta.y) * _chunk_pixel_size()
