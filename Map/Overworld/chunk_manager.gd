@@ -12,7 +12,7 @@ const CHUNK_SCENE_EXT := ".tscn"
 @export_dir var chunk_scene_dir: String = "res://Map/Overworld/Chunks/Midra": set = _set_chunk_scene_dir
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
 @export var tile_size: Vector2i = Vector2i(48, 48): set = _set_tile_size
-@export var load_radius: int = 2: set = _set_load_radius
+@export var load_radius: int = 1: set = _set_load_radius
 @export var chunks_root_path: NodePath = ^"../Chunks"
 @export var preview_all_in_editor: bool = false: set = _set_preview_all_in_editor
 @export var refresh_editor_preview: bool = false: set = _set_refresh_editor_preview
