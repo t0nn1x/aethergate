@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cg4xcim03imgm"]
+[gd_resource type="TileSet" format=3 uid="uid://cg4xcim03imgm"]
 
 [ext_resource type="Texture2D" uid="uid://drsvu77nyspjl" path="res://Map/Overworld/Tilesets/A1 - Liquids And Misc.png" id="1_1p4hw"]
 [ext_resource type="Texture2D" uid="uid://dm8a34xxand7h" path="res://Map/Overworld/Tilesets/A2 - Terrain and Misc.png" id="2_qqsuo"]
