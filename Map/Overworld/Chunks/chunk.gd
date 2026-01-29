@@ -28,9 +28,15 @@ var _is_preview_instance: bool = false
 var _preview_origin_coord: Vector2i = Vector2i.ZERO
 
 func _ready() -> void:
+	if Engine.is_editor_hint() and not _is_preview_instance:
+		preview_neighbors = false
 	_on_geometry_changed()
 	if Engine.is_editor_hint():
 		_refresh_preview()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_EDITOR_PRE_SAVE and preview_neighbors:
+		preview_neighbors = false
 
 func _process(delta: float) -> void:
 	if not Engine.is_editor_hint():
