@@ -5,6 +5,12 @@ extends CanvasLayer
 @export var update_interval_seconds: float = 0.2
 @export var player_path: NodePath
 @export var chunk_manager_path: NodePath = ^"../ChunkManager"
+@export var speed_step: float = 25.0
+@export var speed_hold_rate: float = 150.0
+@export var speed_min: float = 0.0
+@export var speed_max: float = 1000.0
+@export var speed_increase_action: StringName = "debug_speed_up"
+@export var speed_decrease_action: StringName = "debug_speed_down"
 
 @onready var label: Label = $Label
 
@@ -20,6 +26,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not enabled:
 		return
+	_handle_speed_input(delta)
 	_time_accum += delta
 	if _time_accum < update_interval_seconds:
 		return
@@ -48,6 +55,7 @@ func _update_text() -> void:
 	lines.append("FPS: %d" % Engine.get_frames_per_second())
 	if _player:
 		lines.append("Player: (%.0f, %.0f)" % [_player.global_position.x, _player.global_position.y])
+		lines.append("Speed: %.0f" % _player.movement_speed)
 		var camera = _player.get_node_or_null("Camera2D")
 		if camera and camera is Camera2D:
 			lines.append("Zoom: %.2f" % camera.zoom.x)
@@ -64,3 +72,19 @@ func _update_text() -> void:
 		else:
 			lines.append("Loaded: 0")
 	label.text = "\n".join(lines)
+
+func _handle_speed_input(delta: float) -> void:
+	if not _player:
+		_resolve_nodes()
+	if not _player:
+		return
+	if Input.is_action_just_pressed(speed_increase_action):
+		_adjust_player_speed(speed_step)
+	if Input.is_action_just_pressed(speed_decrease_action):
+		_adjust_player_speed(-speed_step)
+	var direction = Input.get_action_strength(speed_increase_action) - Input.get_action_strength(speed_decrease_action)
+	if direction != 0.0 and speed_hold_rate > 0.0:
+		_adjust_player_speed(direction * speed_hold_rate * delta)
+
+func _adjust_player_speed(delta: float) -> void:
+	_player.movement_speed = clamp(_player.movement_speed + delta, speed_min, speed_max)

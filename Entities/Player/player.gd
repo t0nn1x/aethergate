@@ -17,6 +17,7 @@ var _facing_left: bool = false
 var _is_moving: bool = false
 var _bob_time: float = 0.0
 var _flip_tween: Tween = null
+var _camera_zoom_target: float = 1.0
 
 @export var idle_bob_speed: float = 3
 @export var move_bob_speed: float = 6
@@ -25,6 +26,7 @@ var _flip_tween: Tween = null
 @export var camera_zoom_step: float = 0.05
 @export var camera_zoom_min: float = 0.05
 @export var camera_zoom_max: float = 4.0
+@export var camera_zoom_hold_speed: float = 0.5
 @export var camera_zoom_in_action: StringName = "camera_zoom_in"
 @export var camera_zoom_out_action: StringName = "camera_zoom_out"
 
@@ -55,7 +57,8 @@ func setup_camera() -> void:
 	camera.enabled = true
 	camera.zoom = Vector2(2, 2)  # Adjust based on your tile size
 	camera.position_smoothing_enabled = false
-	_apply_camera_zoom(camera.zoom.x)
+	_camera_zoom_target = camera.zoom.x
+	_apply_camera_zoom(_camera_zoom_target)
 
 func set_facing(direction_x: float) -> void:
 	if direction_x == 0.0:
@@ -73,17 +76,30 @@ func _process(delta: float) -> void:
 	_bob_time += delta * speed
 	var offset = int(round(sin(_bob_time) * bob_amplitude_pixels))
 	sprite.position = Vector2(_base_sprite_offset.x, _base_sprite_offset.y + offset)
+	_apply_camera_zoom_hold(delta)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed(camera_zoom_in_action):
-		_apply_camera_zoom(camera.zoom.x + camera_zoom_step)
+		_apply_camera_zoom(_camera_zoom_target + camera_zoom_step)
 	if Input.is_action_just_pressed(camera_zoom_out_action):
-		_apply_camera_zoom(camera.zoom.x - camera_zoom_step)
+		_apply_camera_zoom(_camera_zoom_target - camera_zoom_step)
+
+func _apply_camera_zoom_hold(delta: float) -> void:
+	if camera_zoom_hold_speed <= 0.0:
+		return
+	var direction = Input.get_action_strength(camera_zoom_in_action) - Input.get_action_strength(camera_zoom_out_action)
+	if direction == 0.0:
+		return
+	_apply_camera_zoom(_camera_zoom_target + direction * camera_zoom_hold_speed * delta)
 
 func _apply_camera_zoom(value: float) -> void:
 	if not camera:
 		return
-	var snapped = clamp(snappedf(value, camera_zoom_step), camera_zoom_min, camera_zoom_max)
+	_camera_zoom_target = clamp(value, camera_zoom_min, camera_zoom_max)
+	var snapped = _camera_zoom_target
+	if camera_zoom_step > 0.0:
+		snapped = snappedf(_camera_zoom_target, camera_zoom_step)
+	snapped = clamp(snapped, camera_zoom_min, camera_zoom_max)
 	camera.zoom = Vector2(snapped, snapped)
 
 func _animate_flip(should_face_left: bool) -> void:
