@@ -3,10 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://knf1njd8g1vq" path="res://Map/Overworld/Tilesets/Mountains/Big_Mount_Base.png" id="1_nwq6k"]
 [ext_resource type="Texture2D" uid="uid://dgixrhvd7x54d" path="res://Map/Overworld/Tilesets/Mountains/Big_Mount_Top.png" id="2_medis"]
 [ext_resource type="Texture2D" uid="uid://djxdvh0vfi5j7" path="res://Map/Overworld/Tilesets/Mountains/Mid_Mount_Base.png" id="3_n1n84"]
+[ext_resource type="Texture2D" uid="uid://cgsnto1ugo5ol" path="res://Map/Overworld/Tilesets/Cities/Desert_Castle.png" id="3_r8ndf"]
+[ext_resource type="Texture2D" uid="uid://ddp4bcl0247ek" path="res://Map/Overworld/Tilesets/Cities/Flying_Islands.png" id="4_ohk57"]
 [ext_resource type="Texture2D" uid="uid://bt3bigdnl865a" path="res://Map/Overworld/Tilesets/Mountains/Mid_Mount_Top.png" id="4_r8ndf"]
 [ext_resource type="Texture2D" uid="uid://e47ceph7xje0" path="res://Map/Overworld/Tilesets/Mountains/Mountain_Entry.png" id="5_ohk57"]
+[ext_resource type="Texture2D" uid="uid://svl5qu2q0g0p" path="res://Map/Overworld/Tilesets/Cities/Fort.png" id="5_osv6f"]
 [ext_resource type="Texture2D" uid="uid://dqs8yjtj343c3" path="res://Map/Overworld/Tilesets/Mountains/Small_Mounts.png" id="6_osv6f"]
+[ext_resource type="Texture2D" uid="uid://cnm6hijnvtc0w" path="res://Map/Overworld/Tilesets/Cities/Magic_Castle.png" id="6_st8yg"]
 [ext_resource type="Texture2D" path="res://Map/Overworld/Tilesets/Buildings.png" id="7_nwq6k"]
+[ext_resource type="Texture2D" uid="uid://bfw4ubdwjdi1k" path="res://Map/Overworld/Tilesets/Cities/Normal_Castle.png" id="7_wltt4"]
+[ext_resource type="Texture2D" uid="uid://dcgnne0dddwju" path="res://Map/Overworld/Tilesets/Cities/Ores_Castle.png" id="8_88xtd"]
 [ext_resource type="Texture2D" path="res://Map/Overworld/Tilesets/Vegetation.png" id="8_medis"]
 [ext_resource type="Texture2D" uid="uid://drru5vskg2jy2" path="res://Map/Overworld/Tilesets/Mountains/Mountain_Castle.png" id="9_n1n84"]
 
@@ -74,6 +80,128 @@ texture = ExtResource("2_medis")
 42:5/0 = 0
 42:5/0/texture_origin = Vector2i(0, -10)
 42:5/0/z_index = 1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ohk57"]
+texture = ExtResource("3_r8ndf")
+0:0/size_in_atlas = Vector2i(9, 12)
+0:0/0 = 0
+9:0/size_in_atlas = Vector2i(9, 12)
+9:0/0 = 0
+18:0/size_in_atlas = Vector2i(9, 12)
+18:0/0 = 0
+0:12/size_in_atlas = Vector2i(9, 12)
+0:12/0 = 0
+9:12/size_in_atlas = Vector2i(9, 12)
+9:12/0 = 0
+18:12/size_in_atlas = Vector2i(9, 12)
+18:12/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_osv6f"]
+texture = ExtResource("4_ohk57")
+0:0/size_in_atlas = Vector2i(9, 15)
+0:0/0 = 0
+9:0/size_in_atlas = Vector2i(9, 15)
+9:0/0 = 0
+18:0/size_in_atlas = Vector2i(9, 15)
+18:0/0 = 0
+0:15/size_in_atlas = Vector2i(9, 15)
+0:15/0 = 0
+9:15/size_in_atlas = Vector2i(9, 15)
+9:15/0 = 0
+18:15/size_in_atlas = Vector2i(9, 15)
+18:15/0 = 0
+0:30/size_in_atlas = Vector2i(9, 16)
+0:30/0 = 0
+9:30/size_in_atlas = Vector2i(9, 16)
+9:30/0 = 0
+18:30/size_in_atlas = Vector2i(9, 16)
+18:30/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_st8yg"]
+texture = ExtResource("5_osv6f")
+3:2/size_in_atlas = Vector2i(6, 10)
+3:2/0 = 0
+12:2/size_in_atlas = Vector2i(6, 10)
+12:2/0 = 0
+21:2/size_in_atlas = Vector2i(6, 10)
+21:2/0 = 0
+3:14/size_in_atlas = Vector2i(6, 10)
+3:14/0 = 0
+12:14/size_in_atlas = Vector2i(6, 10)
+12:14/0 = 0
+21:14/size_in_atlas = Vector2i(6, 10)
+21:14/0 = 0
+3:26/size_in_atlas = Vector2i(6, 10)
+3:26/0 = 0
+12:26/size_in_atlas = Vector2i(6, 10)
+12:26/0 = 0
+21:26/size_in_atlas = Vector2i(6, 10)
+21:26/0 = 0
+3:38/size_in_atlas = Vector2i(6, 10)
+3:38/0 = 0
+12:38/size_in_atlas = Vector2i(6, 10)
+12:38/0 = 0
+21:38/size_in_atlas = Vector2i(6, 10)
+21:38/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wltt4"]
+texture = ExtResource("6_st8yg")
+0:0/size_in_atlas = Vector2i(9, 12)
+0:0/0 = 0
+9:0/size_in_atlas = Vector2i(9, 12)
+9:0/0 = 0
+0:12/size_in_atlas = Vector2i(9, 12)
+0:12/0 = 0
+9:12/size_in_atlas = Vector2i(9, 12)
+9:12/0 = 0
+0:24/size_in_atlas = Vector2i(9, 12)
+0:24/0 = 0
+9:24/size_in_atlas = Vector2i(9, 12)
+9:24/0 = 0
+0:36/size_in_atlas = Vector2i(9, 12)
+0:36/0 = 0
+9:36/size_in_atlas = Vector2i(9, 12)
+9:36/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_88xtd"]
+texture = ExtResource("7_wltt4")
+0:0/size_in_atlas = Vector2i(9, 12)
+0:0/0 = 0
+9:0/size_in_atlas = Vector2i(9, 12)
+9:0/0 = 0
+18:0/size_in_atlas = Vector2i(9, 12)
+18:0/0 = 0
+0:12/size_in_atlas = Vector2i(9, 12)
+0:12/0 = 0
+9:12/size_in_atlas = Vector2i(9, 12)
+9:12/0 = 0
+18:12/size_in_atlas = Vector2i(9, 12)
+18:12/0 = 0
+0:24/size_in_atlas = Vector2i(9, 12)
+0:24/0 = 0
+9:24/size_in_atlas = Vector2i(9, 12)
+9:24/0 = 0
+18:24/size_in_atlas = Vector2i(9, 12)
+18:24/0 = 0
+0:36/size_in_atlas = Vector2i(9, 12)
+0:36/0 = 0
+9:36/size_in_atlas = Vector2i(9, 12)
+9:36/0 = 0
+18:36/size_in_atlas = Vector2i(9, 12)
+18:36/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lx15m"]
+texture = ExtResource("8_88xtd")
+0:0/size_in_atlas = Vector2i(9, 12)
+0:0/0 = 0
+9:0/size_in_atlas = Vector2i(9, 12)
+9:0/0 = 0
+18:0/size_in_atlas = Vector2i(9, 12)
+18:0/0 = 0
+0:12/size_in_atlas = Vector2i(9, 12)
+0:12/0 = 0
+9:12/size_in_atlas = Vector2i(9, 12)
+9:12/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bxdb7"]
 texture = ExtResource("3_n1n84")
@@ -871,3 +999,9 @@ sources/5 = SubResource("TileSetAtlasSource_k3oj4")
 sources/7 = SubResource("TileSetAtlasSource_medis")
 sources/8 = SubResource("TileSetAtlasSource_n1n84")
 sources/9 = SubResource("TileSetAtlasSource_r8ndf")
+sources/10 = SubResource("TileSetAtlasSource_ohk57")
+sources/11 = SubResource("TileSetAtlasSource_osv6f")
+sources/12 = SubResource("TileSetAtlasSource_st8yg")
+sources/13 = SubResource("TileSetAtlasSource_wltt4")
+sources/14 = SubResource("TileSetAtlasSource_88xtd")
+sources/15 = SubResource("TileSetAtlasSource_lx15m")
