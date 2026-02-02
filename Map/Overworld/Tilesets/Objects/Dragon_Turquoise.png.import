@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ohfdl8wx0fpu"
-path="res://.godot/imported/!$Overworld_Worldtree.png-5d6bb04178269603899cdde3c704d2f5.ctex"
+uid="uid://btdyw8vh43ie0"
+path="res://.godot/imported/Dragon_Turquoise.png-ebbef7f27df2946da8930f45bd2f5258.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Overworld_Worldtree.png"
-dest_files=["res://.godot/imported/!$Overworld_Worldtree.png-5d6bb04178269603899cdde3c704d2f5.ctex"]
+source_file="res://Map/Overworld/Tilesets/Objects/Dragon_Turquoise.png"
+dest_files=["res://.godot/imported/Dragon_Turquoise.png-ebbef7f27df2946da8930f45bd2f5258.ctex"]
 
 [params]
 

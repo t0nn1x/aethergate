@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp7cu5ync4l8q"
-path="res://.godot/imported/!$Overworld_Village1.png-2fcdee6c8fab3517d6c9f576f64d9284.ctex"
+uid="uid://d0y7gyqx55n2"
+path="res://.godot/imported/Dragon_Brown.png-83ed37d0920ed54b7551f7fde6137511.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Overworld_Village1.png"
-dest_files=["res://.godot/imported/!$Overworld_Village1.png-2fcdee6c8fab3517d6c9f576f64d9284.ctex"]
+source_file="res://Map/Overworld/Tilesets/Objects/Dragon_Brown.png"
+dest_files=["res://.godot/imported/Dragon_Brown.png-83ed37d0920ed54b7551f7fde6137511.ctex"]
 
 [params]
 

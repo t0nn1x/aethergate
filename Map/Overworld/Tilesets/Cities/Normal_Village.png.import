@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nnsn025ao0s1"
-path="res://.godot/imported/!$Overworld_magicshield.png-45d93be690b61ba60decc0d85b26a0ef.ctex"
+uid="uid://4bjoxigcyjaa"
+path="res://.godot/imported/Normal_Village.png-f4a25f50671d188074743c081c930579.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Overworld_magicshield.png"
-dest_files=["res://.godot/imported/!$Overworld_magicshield.png-45d93be690b61ba60decc0d85b26a0ef.ctex"]
+source_file="res://Map/Overworld/Tilesets/Cities/Normal_Village.png"
+dest_files=["res://.godot/imported/Normal_Village.png-f4a25f50671d188074743c081c930579.ctex"]
 
 [params]
 

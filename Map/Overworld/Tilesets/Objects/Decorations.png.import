@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl14b1u8j08ck"
-path="res://.godot/imported/!Overworld_towers.png-7befe9257ab48959198ca8b7c1394148.ctex"
+uid="uid://bs4x4h2ktvasr"
+path="res://.godot/imported/Decorations.png-92df7414373e0594bcb25afd00b8848a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!Overworld_towers.png"
-dest_files=["res://.godot/imported/!Overworld_towers.png-7befe9257ab48959198ca8b7c1394148.ctex"]
+source_file="res://Map/Overworld/Tilesets/Objects/Decorations.png"
+dest_files=["res://.godot/imported/Decorations.png-92df7414373e0594bcb25afd00b8848a.ctex"]
 
 [params]
 

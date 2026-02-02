@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1qywq0muxxjj"
-path="res://.godot/imported/!$Overworld_village_sea.png-ef2d79269aa1dca9a55f3a192a36ee50.ctex"
+uid="uid://bsou6gbjjqnku"
+path="res://.godot/imported/Ships.png-ffa41f8dd24314be926a0d9219851d45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Overworld_village_sea.png"
-dest_files=["res://.godot/imported/!$Overworld_village_sea.png-ef2d79269aa1dca9a55f3a192a36ee50.ctex"]
+source_file="res://Map/Overworld/Tilesets/Objects/Ships.png"
+dest_files=["res://.godot/imported/Ships.png-ffa41f8dd24314be926a0d9219851d45.ctex"]
 
 [params]
 

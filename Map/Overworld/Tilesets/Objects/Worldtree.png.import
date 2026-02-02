@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr5yt0ed3c7vm"
-path="res://.godot/imported/!$Overworld_Mountain2.png-a5110af374d71986ef41280d85436b59.ctex"
+uid="uid://b4sc4omjsr5jq"
+path="res://.godot/imported/Worldtree.png-64d590991b58f9823489cd3664cbe400.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Overworld_Mountain2.png"
-dest_files=["res://.godot/imported/!$Overworld_Mountain2.png-a5110af374d71986ef41280d85436b59.ctex"]
+source_file="res://Map/Overworld/Tilesets/Objects/Worldtree.png"
+dest_files=["res://.godot/imported/Worldtree.png-64d590991b58f9823489cd3664cbe400.ctex"]
 
 [params]
 

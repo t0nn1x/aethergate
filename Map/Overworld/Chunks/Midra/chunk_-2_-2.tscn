@@ -20,4 +20,5 @@ tile_set = ExtResource("2")
 tile_set = ExtResource("2")
 
 [node name="Objects" type="TileMapLayer" parent="." unique_id=1741699043]
+tile_map_data = PackedByteArray("AABhAGYACwAAAAAAAAA6AGcACwASAA8AAABMAFgACwASAA8AAAA6AG8AAAAAABsAAAA6AGQACQAAAEEAAAA=")
 tile_set = ExtResource("3_dqxy7")

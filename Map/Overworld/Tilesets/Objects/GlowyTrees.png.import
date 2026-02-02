@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvkk6l0dwmp2h"
-path="res://.godot/imported/!$fantasy_vehicle_dragon.png-d1021102c6b28f16f893b10a69eb242c.ctex"
+uid="uid://ck2ec5iihkth1"
+path="res://.godot/imported/GlowyTrees.png-362d7f8cf78333fbae24b43ef01bed05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$fantasy_vehicle_dragon.png"
-dest_files=["res://.godot/imported/!$fantasy_vehicle_dragon.png-d1021102c6b28f16f893b10a69eb242c.ctex"]
+source_file="res://Map/Overworld/Tilesets/Objects/GlowyTrees.png"
+dest_files=["res://.godot/imported/GlowyTrees.png-362d7f8cf78333fbae24b43ef01bed05.ctex"]
 
 [params]
 
