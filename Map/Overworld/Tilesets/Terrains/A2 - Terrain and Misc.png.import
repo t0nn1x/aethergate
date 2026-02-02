@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://biyd2koewinc7"
-path="res://.godot/imported/!$Cloud1_dark2.png-187f125834c06ef5a78ed88d0ce9c9fb.ctex"
+uid="uid://dm8a34xxand7h"
+path="res://.godot/imported/A2 - Terrain and Misc.png-447b1aae164f7d097d1d19fc7ab20b8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Cloud1_dark2.png"
-dest_files=["res://.godot/imported/!$Cloud1_dark2.png-187f125834c06ef5a78ed88d0ce9c9fb.ctex"]
+source_file="res://Map/Overworld/Tilesets/Terrains/A2 - Terrain and Misc.png"
+dest_files=["res://.godot/imported/A2 - Terrain and Misc.png-447b1aae164f7d097d1d19fc7ab20b8c.ctex"]
 
 [params]
 

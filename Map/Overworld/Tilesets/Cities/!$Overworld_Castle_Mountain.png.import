@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bksqdy50ta6cn"
-path="res://.godot/imported/!$Overworld_Castle_magic.png-ec286fd63f3729a93ccff37274e185ba.ctex"
+uid="uid://kmiopy33thny"
+path="res://.godot/imported/!$Overworld_Castle_Mountain.png-2796d57840f3a3401c91640004d0f712.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Overworld_Castle_magic.png"
-dest_files=["res://.godot/imported/!$Overworld_Castle_magic.png-ec286fd63f3729a93ccff37274e185ba.ctex"]
+source_file="res://Map/Overworld/Tilesets/Cities/!$Overworld_Castle_Mountain.png"
+dest_files=["res://.godot/imported/!$Overworld_Castle_Mountain.png-2796d57840f3a3401c91640004d0f712.ctex"]
 
 [params]
 

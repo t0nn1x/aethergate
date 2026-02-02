@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y5odc1djf3g6"
-path="res://.godot/imported/!$Cloud_thunder.png-f0f62b6224803ee714ad4a254b4c2c2b.ctex"
+uid="uid://drsvu77nyspjl"
+path="res://.godot/imported/A1 - Liquids And Misc.png-58b76933f9d77fe85e636e71d14c4195.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Objects/!$Cloud_thunder.png"
-dest_files=["res://.godot/imported/!$Cloud_thunder.png-f0f62b6224803ee714ad4a254b4c2c2b.ctex"]
+source_file="res://Map/Overworld/Tilesets/Terrains/A1 - Liquids And Misc.png"
+dest_files=["res://.godot/imported/A1 - Liquids And Misc.png-58b76933f9d77fe85e636e71d14c4195.ctex"]
 
 [params]
 

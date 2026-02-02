@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdcxklycx34xl"
-path="res://.godot/imported/Fantasy_World_Mountains.png-6948c6b005b0ed11b600846db0f9a0d5.ctex"
+uid="uid://cndtwkes4nj7q"
+path="res://.godot/imported/!$Cloud1.png-e6b7bbeebbda915d9d967002d727f372.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Fantasy_World_Mountains.png"
-dest_files=["res://.godot/imported/Fantasy_World_Mountains.png-6948c6b005b0ed11b600846db0f9a0d5.ctex"]
+source_file="res://Map/Overworld/Tilesets/Clouds/!$Cloud1.png"
+dest_files=["res://.godot/imported/!$Cloud1.png-e6b7bbeebbda915d9d967002d727f372.ctex"]
 
 [params]
 
