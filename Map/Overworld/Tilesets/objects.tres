@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bt3bigdnl865a" path="res://Map/Overworld/Tilesets/Mountains/Mid_Mount_Top.png" id="4_r8ndf"]
 [ext_resource type="Texture2D" uid="uid://e47ceph7xje0" path="res://Map/Overworld/Tilesets/Mountains/Mountain_Entry.png" id="5_ohk57"]
 [ext_resource type="Texture2D" uid="uid://dqs8yjtj343c3" path="res://Map/Overworld/Tilesets/Mountains/Small_Mounts.png" id="6_osv6f"]
-[ext_resource type="Texture2D" uid="uid://cqjwu1h3x47ny" path="res://Map/Overworld/Tilesets/Buildings.png" id="7_nwq6k"]
-[ext_resource type="Texture2D" uid="uid://bblhd64h8pwd7" path="res://Map/Overworld/Tilesets/Vegetation.png" id="8_medis"]
+[ext_resource type="Texture2D" path="res://Map/Overworld/Tilesets/Buildings.png" id="7_nwq6k"]
+[ext_resource type="Texture2D" path="res://Map/Overworld/Tilesets/Vegetation.png" id="8_medis"]
+[ext_resource type="Texture2D" uid="uid://drru5vskg2jy2" path="res://Map/Overworld/Tilesets/Mountains/Mountain_Castle.png" id="9_n1n84"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p20l1"]
 texture = ExtResource("1_nwq6k")
@@ -809,6 +810,57 @@ texture = ExtResource("8_medis")
 42:42/size_in_atlas = Vector2i(3, 3)
 42:42/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r8ndf"]
+texture = ExtResource("9_n1n84")
+0:65/size_in_atlas = Vector2i(21, 16)
+0:65/0 = 0
+0:65/0/texture_origin = Vector2i(0, -23)
+0:65/0/z_index = 1
+21:65/size_in_atlas = Vector2i(21, 16)
+21:65/0 = 0
+21:65/0/texture_origin = Vector2i(0, -23)
+21:65/0/z_index = 1
+42:65/size_in_atlas = Vector2i(21, 16)
+42:65/0 = 0
+42:65/0/texture_origin = Vector2i(0, -23)
+42:65/0/z_index = 1
+0:45/size_in_atlas = Vector2i(21, 16)
+0:45/0 = 0
+0:45/0/texture_origin = Vector2i(0, -10)
+0:45/0/z_index = 1
+21:45/size_in_atlas = Vector2i(21, 16)
+21:45/0 = 0
+21:45/0/texture_origin = Vector2i(0, -10)
+21:45/0/z_index = 1
+42:45/size_in_atlas = Vector2i(21, 16)
+42:45/0 = 0
+42:45/0/texture_origin = Vector2i(0, -10)
+42:45/0/z_index = 1
+0:25/size_in_atlas = Vector2i(21, 16)
+0:25/0 = 0
+0:25/0/texture_origin = Vector2i(0, -14)
+0:25/0/z_index = 1
+21:25/size_in_atlas = Vector2i(21, 16)
+21:25/0 = 0
+21:25/0/texture_origin = Vector2i(0, -14)
+21:25/0/z_index = 1
+42:25/size_in_atlas = Vector2i(21, 16)
+42:25/0 = 0
+42:25/0/texture_origin = Vector2i(0, -14)
+42:25/0/z_index = 1
+0:5/size_in_atlas = Vector2i(21, 16)
+0:5/0 = 0
+0:5/0/texture_origin = Vector2i(0, -20)
+0:5/0/z_index = 1
+21:5/size_in_atlas = Vector2i(21, 16)
+21:5/0 = 0
+21:5/0/texture_origin = Vector2i(0, -20)
+21:5/0/z_index = 1
+42:5/size_in_atlas = Vector2i(21, 16)
+42:5/0 = 0
+42:5/0/texture_origin = Vector2i(0, -20)
+42:5/0/z_index = 1
+
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_p20l1")
 sources/1 = SubResource("TileSetAtlasSource_kh1fm")
@@ -818,3 +870,4 @@ sources/4 = SubResource("TileSetAtlasSource_jkcqo")
 sources/5 = SubResource("TileSetAtlasSource_k3oj4")
 sources/7 = SubResource("TileSetAtlasSource_medis")
 sources/8 = SubResource("TileSetAtlasSource_n1n84")
+sources/9 = SubResource("TileSetAtlasSource_r8ndf")
