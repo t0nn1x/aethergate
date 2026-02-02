@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b73lieanm4ocb"
-path="res://.godot/imported/!$Overworld_flying.png-64f16fb24ea2ec5f3b36b80a04c83a5d.ctex"
+uid="uid://cgsnto1ugo5ol"
+path="res://.godot/imported/Desert_Castle.png-3769213b7d24d96e164b24f1e18675a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Cities/!$Overworld_flying.png"
-dest_files=["res://.godot/imported/!$Overworld_flying.png-64f16fb24ea2ec5f3b36b80a04c83a5d.ctex"]
+source_file="res://Map/Overworld/Tilesets/Cities/Desert_Castle.png"
+dest_files=["res://.godot/imported/Desert_Castle.png-3769213b7d24d96e164b24f1e18675a9.ctex"]
 
 [params]
 

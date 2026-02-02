@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2it8lug008r1"
-path="res://.godot/imported/!$Overworld_Castle1_desert.png-7c7b064c4ac12a6b5f83484e75ec05a3.ctex"
+uid="uid://dcgnne0dddwju"
+path="res://.godot/imported/Ores_Castle.png-04017c907e50bab05333c576dac4a335.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/Overworld/Tilesets/Cities/!$Overworld_Castle1_desert.png"
-dest_files=["res://.godot/imported/!$Overworld_Castle1_desert.png-7c7b064c4ac12a6b5f83484e75ec05a3.ctex"]
+source_file="res://Map/Overworld/Tilesets/Cities/Ores_Castle.png"
+dest_files=["res://.godot/imported/Ores_Castle.png-04017c907e50bab05333c576dac4a335.ctex"]
 
 [params]
 
