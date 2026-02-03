@@ -10,10 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://svl5qu2q0g0p" path="res://Map/Overworld/Tilesets/Cities/Fort.png" id="5_osv6f"]
 [ext_resource type="Texture2D" uid="uid://dqs8yjtj343c3" path="res://Map/Overworld/Tilesets/Mountains/Small_Mounts.png" id="6_osv6f"]
 [ext_resource type="Texture2D" uid="uid://cnm6hijnvtc0w" path="res://Map/Overworld/Tilesets/Cities/Magic_Castle.png" id="6_st8yg"]
-[ext_resource type="Texture2D" path="res://Map/Overworld/Tilesets/Buildings.png" id="7_nwq6k"]
+[ext_resource type="Texture2D" uid="uid://cqjwu1h3x47ny" path="res://Map/Overworld/Tilesets/Objects/Buildings.png" id="7_nwq6k"]
 [ext_resource type="Texture2D" uid="uid://bfw4ubdwjdi1k" path="res://Map/Overworld/Tilesets/Cities/Normal_Castle.png" id="7_wltt4"]
 [ext_resource type="Texture2D" uid="uid://dcgnne0dddwju" path="res://Map/Overworld/Tilesets/Cities/Ores_Castle.png" id="8_88xtd"]
-[ext_resource type="Texture2D" path="res://Map/Overworld/Tilesets/Vegetation.png" id="8_medis"]
+[ext_resource type="Texture2D" uid="uid://bblhd64h8pwd7" path="res://Map/Overworld/Tilesets/Objects/Vegetation.png" id="8_medis"]
 [ext_resource type="Texture2D" uid="uid://bs4x4h2ktvasr" path="res://Map/Overworld/Tilesets/Objects/Decorations.png" id="9_lx15m"]
 [ext_resource type="Texture2D" uid="uid://drru5vskg2jy2" path="res://Map/Overworld/Tilesets/Mountains/Mountain_Castle.png" id="9_n1n84"]
 [ext_resource type="Texture2D" uid="uid://bl14b1u8j08ck" path="res://Map/Overworld/Tilesets/Objects/Towers.png" id="10_fow4m"]
@@ -455,12 +455,14 @@ texture = ExtResource("3_n1n84")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nbjq1"]
 texture = ExtResource("14_ngtc2")
-1:1/size_in_atlas = Vector2i(7, 11)
-1:1/0 = 0
-10:1/size_in_atlas = Vector2i(7, 11)
-10:1/0 = 0
-19:1/size_in_atlas = Vector2i(7, 11)
-19:1/0 = 0
+texture_region_size = Vector2i(16, 18)
+use_texture_padding = false
+1:0/size_in_atlas = Vector2i(7, 11)
+1:0/0 = 0
+10:0/size_in_atlas = Vector2i(7, 11)
+10:0/0 = 0
+19:0/size_in_atlas = Vector2i(7, 11)
+19:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qqpm"]
 texture = ExtResource("15_41yaj")
@@ -510,6 +512,44 @@ texture = ExtResource("5_ohk57")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k3oj4"]
 texture = ExtResource("6_osv6f")
+0:1/size_in_atlas = Vector2i(6, 5)
+0:1/0 = 0
+6:1/size_in_atlas = Vector2i(6, 5)
+6:1/0 = 0
+12:1/size_in_atlas = Vector2i(6, 5)
+12:1/0 = 0
+0:7/size_in_atlas = Vector2i(6, 5)
+0:7/0 = 0
+6:7/size_in_atlas = Vector2i(6, 5)
+6:7/0 = 0
+12:7/size_in_atlas = Vector2i(6, 5)
+12:7/0 = 0
+18:7/size_in_atlas = Vector2i(6, 5)
+18:7/0 = 0
+0:13/size_in_atlas = Vector2i(6, 5)
+0:13/0 = 0
+6:13/size_in_atlas = Vector2i(6, 5)
+6:13/0 = 0
+12:13/size_in_atlas = Vector2i(6, 5)
+12:13/0 = 0
+18:13/size_in_atlas = Vector2i(6, 5)
+18:13/0 = 0
+0:19/size_in_atlas = Vector2i(6, 5)
+0:19/0 = 0
+6:19/size_in_atlas = Vector2i(6, 5)
+6:19/0 = 0
+12:19/size_in_atlas = Vector2i(6, 5)
+12:19/0 = 0
+18:19/size_in_atlas = Vector2i(6, 5)
+18:19/0 = 0
+0:25/size_in_atlas = Vector2i(6, 5)
+0:25/0 = 0
+6:25/size_in_atlas = Vector2i(6, 5)
+6:25/0 = 0
+12:25/size_in_atlas = Vector2i(6, 5)
+12:25/0 = 0
+18:25/size_in_atlas = Vector2i(6, 5)
+18:25/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_medis"]
 texture = ExtResource("7_nwq6k")
