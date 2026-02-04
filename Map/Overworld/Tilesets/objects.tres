@@ -572,6 +572,26 @@ texture = ExtResource("20_nbjq1")
 26:24/0 = 0
 30:26/size_in_atlas = Vector2i(6, 4)
 30:26/0 = 0
+33:21/size_in_atlas = Vector2i(3, 3)
+33:21/0 = 0
+36:24/size_in_atlas = Vector2i(3, 4)
+36:24/0 = 0
+39:24/size_in_atlas = Vector2i(3, 4)
+39:24/0 = 0
+45:25/size_in_atlas = Vector2i(3, 2)
+45:25/0 = 0
+39:30/size_in_atlas = Vector2i(3, 3)
+39:30/0 = 0
+36:31/size_in_atlas = Vector2i(3, 5)
+36:31/0 = 0
+39:34/size_in_atlas = Vector2i(3, 2)
+39:34/0 = 0
+42:36/size_in_atlas = Vector2i(6, 5)
+42:36/0 = 0
+42:25/size_in_atlas = Vector2i(3, 5)
+42:25/0 = 0
+42:30/size_in_atlas = Vector2i(6, 5)
+42:30/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_medis"]
 texture = ExtResource("7_nwq6k")
