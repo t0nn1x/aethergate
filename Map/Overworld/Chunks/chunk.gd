@@ -123,6 +123,9 @@ func _create_y_sorted_sprite(layer: TileMapLayer, cell: Vector2i, tile_info: Dic
 	sprite.flip_h = tile_data.flip_h
 	sprite.flip_v = tile_data.flip_v
 	
+	# Inherit z_index from the source layer to maintain render order
+	sprite.z_index = layer.z_index
+	
 	if tile_data.transpose:
 		sprite.rotation = PI * 0.5
 	
