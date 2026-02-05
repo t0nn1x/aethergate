@@ -141,15 +141,22 @@ func _create_y_sorted_sprite(layer: TileMapLayer, cell: Vector2i, tile_info: Dic
 
 func _needs_y_sorting(tile_data: TileData, region_size: Vector2, cell_tile_size: Vector2) -> bool:
 	## Returns true if this tile needs to be extracted for y-sorting with the player
-	## Checks custom metadata property "disable_y_sort" - if true, skip this tile
+	## Supports two custom metadata properties:
+	## - "disable_y_sort" = true: Skip this tile (for excluding small objects)
+	## - "enable_y_sort" = true: Force extraction (for terrain brushes, decorations)
 	## Otherwise uses default heuristics
 	
-	# Check for custom metadata property "disable_y_sort"
-	# If explicitly set to true, skip this tile entirely
+	# Check for "disable_y_sort" - explicit exclusion
 	if tile_data.get_custom_data_by_layer_id(0) != null:
 		var disable_value = tile_data.get_custom_data("disable_y_sort")
 		if disable_value is bool and disable_value == true:
 			return false
+	
+	# Check for "enable_y_sort" - explicit inclusion
+	if tile_data.get_custom_data_by_layer_id(0) != null:
+		var enable_value = tile_data.get_custom_data("enable_y_sort")
+		if enable_value is bool and enable_value == true:
+			return true
 	
 	# Default heuristics: extract tiles that are tall or have special properties
 	if tile_data.z_index > 0:
