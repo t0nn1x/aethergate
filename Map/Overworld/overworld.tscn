@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://Core/Debug/debug_overlay.tscn" id="4"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
+y_sort_enabled = true
 script = ExtResource("1")
 
 [node name="Terrain" type="Node2D" parent="." unique_id=853383915]
@@ -22,8 +23,7 @@ position = Vector2(-4439, 4793)
 
 [node name="Chunks" type="Node2D" parent="." unique_id=1987845926]
 
-[node name="WorldYSort" type="Node2D" parent="." unique_id=2257392057]
-groups=["world_y_sort"]
+[node name="WorldYSort" type="Node2D" parent="." unique_id=-2037575239]
 y_sort_enabled = true
 
 [node name="ChunkManager" type="Node2D" parent="." unique_id=1419170274]

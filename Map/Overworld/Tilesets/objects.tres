@@ -56,6 +56,7 @@ texture = ExtResource("2_medis")
 0:45/0 = 0
 0:45/0/texture_origin = Vector2i(0, -10)
 0:45/0/z_index = 1
+0:45/0/y_sort_origin = -30
 21:45/size_in_atlas = Vector2i(21, 16)
 21:45/0 = 0
 21:45/0/texture_origin = Vector2i(0, -10)
@@ -451,6 +452,7 @@ texture = ExtResource("3_n1n84")
 0:6/0 = 0
 12:6/size_in_atlas = Vector2i(12, 6)
 12:6/0 = 0
+12:6/0/y_sort_origin = -40
 24:6/size_in_atlas = Vector2i(12, 6)
 24:6/0 = 0
 
@@ -487,14 +489,19 @@ texture = ExtResource("16_nbjq1")
 texture = ExtResource("4_r8ndf")
 0:0/size_in_atlas = Vector2i(12, 6)
 0:0/0 = 0
+0:0/0/z_index = 1
 0:6/size_in_atlas = Vector2i(12, 6)
 0:6/0 = 0
+0:6/0/z_index = 1
 15:0/size_in_atlas = Vector2i(12, 6)
 15:0/0 = 0
+15:0/0/z_index = 1
 15:6/size_in_atlas = Vector2i(12, 6)
 15:6/0 = 0
+15:6/0/z_index = 1
 30:0/size_in_atlas = Vector2i(12, 6)
 30:0/0 = 0
+30:0/0/z_index = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jkcqo"]
 texture = ExtResource("5_ohk57")
