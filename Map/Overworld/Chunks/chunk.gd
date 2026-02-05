@@ -140,18 +140,24 @@ func _create_y_sorted_sprite(layer: TileMapLayer, cell: Vector2i, tile_info: Dic
 	return sprite
 
 func _needs_y_sorting(tile_data: TileData, region_size: Vector2, cell_tile_size: Vector2) -> bool:
-	## Returns true if this tile needs to be extracted for y-sorting
-	## Conditions: tile extends above its cell OR has special z_index
+	## Returns true if this tile needs to be extracted for y-sorting with the player
+	## Checks custom metadata property "disable_y_sort" - if true, skip this tile
+	## Otherwise uses default heuristics
 	
-	# Tile has explicit z_index (meant to be above ground)
+	# Check for custom metadata property "disable_y_sort"
+	# If explicitly set to true, skip this tile entirely
+	if tile_data.get_custom_data_by_layer_id(0) != null:
+		var disable_value = tile_data.get_custom_data("disable_y_sort")
+		if disable_value is bool and disable_value == true:
+			return false
+	
+	# Default heuristics: extract tiles that are tall or have special properties
 	if tile_data.z_index > 0:
 		return true
 	
-	# Tile has negative texture_origin.y (drawn above cell center)
-	if tile_data.texture_origin.y < 0:
+	if tile_data.texture_origin.y < -8:
 		return true
 	
-	# Tile texture is taller than the cell (extends upward)
 	if region_size.y > cell_tile_size.y:
 		return true
 	
