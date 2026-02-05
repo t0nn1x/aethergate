@@ -22,6 +22,10 @@ position = Vector2(-4439, 4793)
 
 [node name="Chunks" type="Node2D" parent="." unique_id=1987845926]
 
+[node name="WorldYSort" type="Node2D" parent="." unique_id=2257392057]
+groups=["world_y_sort"]
+y_sort_enabled = true
+
 [node name="ChunkManager" type="Node2D" parent="." unique_id=1419170274]
 script = ExtResource("3")
 preview_all_in_editor = true

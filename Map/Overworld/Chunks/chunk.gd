@@ -26,6 +26,8 @@ var _preview_root: Node2D = null
 var _enforce_timer: float = 0.0
 var _is_preview_instance: bool = false
 var _preview_origin_coord: Vector2i = Vector2i.ZERO
+var _extracted_sprites: Array[Sprite2D] = []
+var world_y_sort: Node2D = null  ## Set by ChunkManager before adding to tree
 
 func _ready() -> void:
 	if Engine.is_editor_hint() and not _is_preview_instance:
@@ -33,6 +35,133 @@ func _ready() -> void:
 	_on_geometry_changed()
 	if Engine.is_editor_hint():
 		_refresh_preview()
+		return
+	_extract_y_sorted_objects()
+
+func _exit_tree() -> void:
+	if Engine.is_editor_hint():
+		return
+	_cleanup_extracted_sprites()
+
+func _extract_y_sorted_objects() -> void:
+	## Extract tall tiles from TileMapLayers into sprites for proper y-sorting with entities
+	if not world_y_sort:
+		push_warning("OverworldChunk: WorldYSort not found, y-sorting won't work")
+		return
+	
+	for child in get_children():
+		if child is TileMapLayer:
+			_extract_layer_tiles(child)
+
+func _extract_layer_tiles(layer: TileMapLayer) -> void:
+	## Extract y-sortable tiles from a single TileMapLayer
+	var tile_set := layer.tile_set
+	if not tile_set:
+		return
+	
+	var cells_to_remove: Array[Vector2i] = []
+	var tileset_tile_size := Vector2(tile_set.tile_size)
+	
+	for cell in layer.get_used_cells():
+		var tile_info := _get_tile_info(layer, tile_set, cell)
+		if not tile_info:
+			continue
+		
+		if not _needs_y_sorting(tile_info.tile_data, tile_info.region_size, tileset_tile_size):
+			continue
+		
+		var sprite := _create_y_sorted_sprite(layer, cell, tile_info, tileset_tile_size)
+		world_y_sort.add_child(sprite)
+		_extracted_sprites.append(sprite)
+		cells_to_remove.append(cell)
+	
+	# Remove extracted tiles from the layer
+	for cell in cells_to_remove:
+		layer.erase_cell(cell)
+
+func _get_tile_info(layer: TileMapLayer, tile_set: TileSet, cell: Vector2i) -> Dictionary:
+	## Get all relevant information about a tile at a cell position
+	var tile_data := layer.get_cell_tile_data(cell)
+	if not tile_data:
+		return {}
+	
+	var source_id := layer.get_cell_source_id(cell)
+	if source_id < 0:
+		return {}
+	
+	var source := tile_set.get_source(source_id)
+	if not source is TileSetAtlasSource:
+		return {}
+	
+	var atlas_source: TileSetAtlasSource = source
+	var atlas_coords := layer.get_cell_atlas_coords(cell)
+	var alternative := layer.get_cell_alternative_tile(cell)
+	var region: Rect2i = atlas_source.get_tile_texture_region(atlas_coords, alternative)
+	
+	if region.size == Vector2i.ZERO:
+		return {}
+	
+	return {
+		"tile_data": tile_data,
+		"atlas_source": atlas_source,
+		"region": region,
+		"region_size": Vector2(region.size)
+	}
+
+func _create_y_sorted_sprite(layer: TileMapLayer, cell: Vector2i, tile_info: Dictionary, tileset_tile_size: Vector2) -> Sprite2D:
+	## Create a sprite from tile information, positioned for y-sorting
+	var tile_data: TileData = tile_info.tile_data
+	var atlas_source: TileSetAtlasSource = tile_info.atlas_source
+	var region: Rect2i = tile_info.region
+	
+	var sprite := Sprite2D.new()
+	sprite.name = "YSort_%s_%d_%d" % [layer.name, cell.x, cell.y]
+	sprite.texture = atlas_source.texture
+	sprite.region_enabled = true
+	sprite.region_rect = Rect2(region.position, region.size)
+	sprite.centered = true
+	sprite.flip_h = tile_data.flip_h
+	sprite.flip_v = tile_data.flip_v
+	
+	if tile_data.transpose:
+		sprite.rotation = PI * 0.5
+	
+	# Calculate positions
+	var cell_center_local := layer.map_to_local(cell)
+	var cell_center_global := layer.to_global(cell_center_local)
+	var texture_origin := Vector2(tile_data.texture_origin)
+	var texture_center := cell_center_global + texture_origin
+	var sort_y := cell_center_global.y + tileset_tile_size.y * 0.5
+	
+	# Position sprite at sort point with visual offset
+	sprite.position = Vector2(texture_center.x, sort_y)
+	sprite.offset.y = texture_center.y - sort_y
+	
+	return sprite
+
+func _needs_y_sorting(tile_data: TileData, region_size: Vector2, cell_tile_size: Vector2) -> bool:
+	## Returns true if this tile needs to be extracted for y-sorting
+	## Conditions: tile extends above its cell OR has special z_index
+	
+	# Tile has explicit z_index (meant to be above ground)
+	if tile_data.z_index > 0:
+		return true
+	
+	# Tile has negative texture_origin.y (drawn above cell center)
+	if tile_data.texture_origin.y < 0:
+		return true
+	
+	# Tile texture is taller than the cell (extends upward)
+	if region_size.y > cell_tile_size.y:
+		return true
+	
+	return false
+
+func _cleanup_extracted_sprites() -> void:
+	for sprite in _extracted_sprites:
+		if is_instance_valid(sprite):
+			sprite.queue_free()
+	_extracted_sprites.clear()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_EDITOR_PRE_SAVE and preview_neighbors:

@@ -46,7 +46,6 @@ func _ready() -> void:
 	EventBus.player_spawned.emit(self)
 
 func setup_visuals() -> void:
-	z_index = 10
 	_base_collision_offset = collision_shape.position
 	_base_sprite_offset = sprite.position
 	_base_sprite_scale = sprite.scale

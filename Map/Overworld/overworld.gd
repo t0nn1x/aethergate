@@ -8,6 +8,7 @@ extends Node2D
 @onready var navigation_region: NavigationRegion2D = $Navigation/NavigationRegion2D
 @onready var player_spawn: Marker2D = $SpawnPoints/PlayerSpawnPoint
 @onready var entities: Node2D = $Entities
+@onready var world_y_sort: Node2D = $WorldYSort
 
 var player: Player = null
 
@@ -24,12 +25,10 @@ func spawn_player() -> void:
 	player = player_scene.instantiate()
 
 	# Add to entities
-	entities.add_child(player)
+	world_y_sort.add_child(player)
 
 	# Position at spawn point
 	player.global_position = player_spawn.global_position
-
-	print("Player spawned at: ", player.global_position)
 
 func get_navigation_region() -> NavigationRegion2D:
 	return navigation_region

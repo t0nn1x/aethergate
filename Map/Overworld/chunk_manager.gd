@@ -14,6 +14,7 @@ const CHUNK_SCENE_EXT := ".tscn"
 @export var tile_size: Vector2i = Vector2i(48, 48): set = _set_tile_size
 @export var load_radius: int = 1: set = _set_load_radius
 @export var chunks_root_path: NodePath = ^"../Chunks"
+@export var world_y_sort_path: NodePath = ^"../WorldYSort"
 @export var preview_all_in_editor: bool = false: set = _set_preview_all_in_editor
 @export var refresh_editor_preview: bool = false: set = _set_refresh_editor_preview
 
@@ -130,6 +131,7 @@ func _load_chunk(coord: Vector2i) -> void:
 		instance.chunk_coord = coord
 		instance.chunk_size_tiles = chunk_size_tiles
 		instance.tile_size = tile_size
+		instance.world_y_sort = get_node_or_null(world_y_sort_path)
 	var chunks_root: Node = get_node_or_null(chunks_root_path)
 	if not chunks_root:
 		add_child(instance)

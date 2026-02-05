@@ -5,6 +5,7 @@
 [ext_resource type="TileSet" uid="uid://drh67q7act3gk" path="res://Map/Overworld/Tilesets/objects.tres" id="3_dqxy7"]
 
 [node name="Chunk" type="Node2D" unique_id=600177039]
+y_sort_enabled = true
 position = Vector2(-4608, 4608)
 script = ExtResource("1")
 chunk_coord = Vector2i(-2, -2)
