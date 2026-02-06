@@ -29,6 +29,8 @@ var _preview_origin_coord: Vector2i = Vector2i.ZERO
 var _extracted_sprites: Array[Sprite2D] = []
 var world_y_sort: Node2D = null  ## Set by ChunkManager before adding to tree
 
+static var _water_material: ShaderMaterial = null
+
 func _ready() -> void:
 	if Engine.is_editor_hint() and not _is_preview_instance:
 		preview_neighbors = false
@@ -36,12 +38,28 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		_refresh_preview()
 		return
+	_apply_water_shader()
 	_extract_y_sorted_objects()
 
 func _exit_tree() -> void:
 	if Engine.is_editor_hint():
 		return
 	_cleanup_extracted_sprites()
+
+func _apply_water_shader() -> void:
+	## Apply the shared water ShaderMaterial to the Base TileMapLayer.
+	if _water_material == null:
+		var shader := load("res://Map/Overworld/Shaders/water.gdshader") as Shader
+		if shader:
+			_water_material = ShaderMaterial.new()
+			_water_material.shader = shader
+		else:
+			push_warning("OverworldChunk: water.gdshader not found")
+			return
+
+	var base_layer := get_node_or_null("Base") as TileMapLayer
+	if base_layer:
+		base_layer.material = _water_material
 
 func _extract_y_sorted_objects() -> void:
 	## Extract qualifying tiles from TileMapLayers into sprites for proper y-sorting.
