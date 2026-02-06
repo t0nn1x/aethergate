@@ -3,6 +3,12 @@
 [ext_resource type="Script" uid="uid://bume2vfytjwef" path="res://Entities/Player/player.gd" id="1"]
 [ext_resource type="Script" uid="uid://vvxeqggtpor3" path="res://Entities/Player/player_movement.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://dpmv7kklxobr4" path="res://Entities/Player/Sprites/Zorfath32.png" id="2_lu8i8"]
+[ext_resource type="Shader" uid="uid://dws727wjsskme" path="res://Common/Shaders/silhouette.gdshader" id="3_sil"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
+shader = ExtResource("3_sil")
+shader_parameter/silhouette_color = Color(0.050980393, 0.69803923, 0.9254902, 1)
+shader_parameter/occlusion_threshold = 0.1
 
 [sub_resource type="CircleShape2D" id="1"]
 radius = 12.0
@@ -47,12 +53,20 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=73119585]
+scale = Vector2(0.5, 0.5)
 collision_layer = 2
 collision_mask = 257
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1706837913]
+position = Vector2(0, -16)
+texture = ExtResource("2_lu8i8")
+hframes = 4
+
+[node name="Silhouette" type="Sprite2D" parent="." unique_id=1257953016]
+z_index = 100
+z_as_relative = false
+material = SubResource("ShaderMaterial_sil")
 position = Vector2(0, -16)
 texture = ExtResource("2_lu8i8")
 hframes = 4

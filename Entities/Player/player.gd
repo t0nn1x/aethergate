@@ -5,6 +5,7 @@ extends Organism
 ## Handles player-specific initialization and references
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var silhouette: Sprite2D = $Silhouette
 @onready var camera: Camera2D = $Camera2D
 @onready var movement: PlayerMovement = $PlayerMovement
 @onready var animator: AnimationPlayer = $AnimationPlayer
@@ -75,6 +76,7 @@ func _process(delta: float) -> void:
 	_bob_time += delta * speed
 	var offset = int(round(sin(_bob_time) * bob_amplitude_pixels))
 	sprite.position = Vector2(_base_sprite_offset.x, _base_sprite_offset.y + offset)
+	_sync_silhouette()
 	_apply_camera_zoom_hold(delta)
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -107,6 +109,11 @@ func _animate_flip(should_face_left: bool) -> void:
 		_flip_tween.kill()
 	var duration = max(flip_duration, 0.01)
 	var target_scale_x = _base_sprite_scale.x
+	
+	# Instantly hide silhouette for the entire flip
+	if silhouette:
+		silhouette.modulate.a = 0.0
+	
 	_flip_tween = create_tween()
 	_flip_tween.set_trans(Tween.TRANS_SINE)
 	_flip_tween.set_ease(Tween.EASE_IN_OUT)
@@ -119,6 +126,21 @@ func _animate_flip(should_face_left: bool) -> void:
 		)
 	)
 	_flip_tween.tween_property(sprite, "scale:x", target_scale_x, duration * 0.5)
+	# Restore silhouette after flip fully completes
+	_flip_tween.tween_callback(func() -> void:
+		if silhouette:
+			silhouette.modulate.a = 1.0
+	)
+
+## Keeps the silhouette sprite in sync with the main sprite
+func _sync_silhouette() -> void:
+	if not silhouette:
+		return
+	
+	silhouette.position = sprite.position
+	silhouette.frame = sprite.frame
+	silhouette.flip_h = sprite.flip_h
+	silhouette.scale = sprite.scale
 
 func _on_death() -> void:
 	print("Player died!")
