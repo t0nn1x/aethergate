@@ -16,7 +16,7 @@ script = ExtResource("1")
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=193451309]
 
 [node name="PlayerSpawnPoint" type="Marker2D" parent="SpawnPoints" unique_id=1162151603]
-position = Vector2(-4439, 4793)
+position = Vector2(-3011, 5197)
 
 [node name="Entities" type="Node2D" parent="." unique_id=1882641600]
 
