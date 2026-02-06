@@ -44,7 +44,14 @@ func _exit_tree() -> void:
 	_cleanup_extracted_sprites()
 
 func _extract_y_sorted_objects() -> void:
-	## Extract tall tiles from TileMapLayers into sprites for proper y-sorting with entities
+	## Extract qualifying tiles from TileMapLayers into sprites for proper y-sorting.
+	##
+	## Layer behavior:
+	##   "Objects" layer → extract ALL tiles, UNLESS tile has disable_y_sort = true
+	##   Any other layer  → extract NOTHING, UNLESS tile has enable_y_sort = true
+	##
+	## This allows Objects tiles to opt-out (stay flat on ground) and terrain tiles
+	## to opt-in (e.g. forest trees that should y-sort with the player).
 	if not world_y_sort:
 		push_warning("OverworldChunk: WorldYSort not found, y-sorting won't work")
 		return
@@ -54,10 +61,15 @@ func _extract_y_sorted_objects() -> void:
 			_extract_layer_tiles(child)
 
 func _extract_layer_tiles(layer: TileMapLayer) -> void:
-	## Extract y-sortable tiles from a single TileMapLayer
+	## Extract tiles from a single TileMapLayer based on its name and custom data flags.
 	var tile_set := layer.tile_set
 	if not tile_set:
 		return
+	
+	var is_objects_layer := layer.name == "Objects"
+	# Cache whether this tileset has the relevant custom data layer (avoids per-tile errors)
+	var has_disable_flag := tile_set.get_custom_data_layer_by_name("disable_y_sort") != -1
+	var has_enable_flag := tile_set.get_custom_data_layer_by_name("enable_y_sort") != -1
 	
 	var cells_to_remove: Array[Vector2i] = []
 	var tileset_tile_size := Vector2(tile_set.tile_size)
@@ -67,29 +79,34 @@ func _extract_layer_tiles(layer: TileMapLayer) -> void:
 		if not tile_info:
 			continue
 		
-		var sort_result := _get_sort_behavior(tile_info.tile_data, tile_info.region_size, tileset_tile_size)
-		
-		if sort_result == SortBehavior.SKIP:
+		if not _should_extract(tile_info.tile_data, is_objects_layer, has_disable_flag, has_enable_flag):
 			continue
 		
 		var sprite := _create_y_sorted_sprite(layer, cell, tile_info, tileset_tile_size)
+		world_y_sort.add_child(sprite)
 		_extracted_sprites.append(sprite)
 		cells_to_remove.append(cell)
-		
-		if sort_result == SortBehavior.Y_SORT:
-			# Add to WorldYSort for dynamic y-sorting with player
-			world_y_sort.add_child(sprite)
-		elif sort_result == SortBehavior.NO_SORT:
-			# Add as child of chunk - renders below player, no y-sorting
-			# Convert from global to chunk-local coordinates
-			sprite.position -= global_position
-			sprite.offset.y -= 0
-			sprite.z_index = 0
-			add_child(sprite)
 	
-	# Remove extracted tiles from the layer
+	# Remove extracted tiles from the layer so they don't render twice
 	for cell in cells_to_remove:
 		layer.erase_cell(cell)
+
+func _should_extract(tile_data: TileData, is_objects_layer: bool, has_disable_flag: bool, has_enable_flag: bool) -> bool:
+	## Decide if a tile should be extracted into WorldYSort.
+	if is_objects_layer:
+		# Objects layer: extract everything UNLESS disable_y_sort is true
+		if has_disable_flag:
+			var val = tile_data.get_custom_data("disable_y_sort")
+			if val is bool and val == true:
+				return false
+		return true
+	else:
+		# Terrain / other layers: skip everything UNLESS enable_y_sort is true
+		if has_enable_flag:
+			var val = tile_data.get_custom_data("enable_y_sort")
+			if val is bool and val == true:
+				return true
+		return false
 
 func _get_tile_info(layer: TileMapLayer, tile_set: TileSet, cell: Vector2i) -> Dictionary:
 	## Get all relevant information about a tile at a cell position
@@ -135,8 +152,8 @@ func _create_y_sorted_sprite(layer: TileMapLayer, cell: Vector2i, tile_info: Dic
 	sprite.flip_h = tile_data.flip_h
 	sprite.flip_v = tile_data.flip_v
 	
-	# Inherit z_index from the source layer to maintain render order
-	sprite.z_index = layer.z_index
+	# z_index = 0 so sprites sort purely by Y position within WorldYSort
+	sprite.z_index = 0
 	
 	if tile_data.transpose:
 		sprite.rotation = PI * 0.5
@@ -153,36 +170,6 @@ func _create_y_sorted_sprite(layer: TileMapLayer, cell: Vector2i, tile_info: Dic
 	sprite.offset.y = texture_center.y - sort_y
 	
 	return sprite
-
-enum SortBehavior { SKIP, Y_SORT, NO_SORT }
-
-func _get_sort_behavior(tile_data: TileData, region_size: Vector2, cell_tile_size: Vector2) -> SortBehavior:
-	## Determines how a tile should be handled for y-sorting:
-	## - SKIP: Leave in TileMapLayer as-is
-	## - Y_SORT: Extract and add to WorldYSort (sorts with player)
-	## - NO_SORT: Extract and add to chunk (always renders below player)
-	
-	# "disable_y_sort" = true → extract but don't y-sort (always below player)
-	var disable_value = tile_data.get_custom_data("disable_y_sort")
-	if disable_value is bool and disable_value == true:
-		return SortBehavior.NO_SORT
-	
-	# "enable_y_sort" = true → force y-sort with player
-	var enable_value = tile_data.get_custom_data("enable_y_sort")
-	if enable_value is bool and enable_value == true:
-		return SortBehavior.Y_SORT
-	
-	# Default heuristics
-	if tile_data.z_index > 0:
-		return SortBehavior.Y_SORT
-	
-	if tile_data.texture_origin.y < -8:
-		return SortBehavior.Y_SORT
-	
-	if region_size.y > cell_tile_size.y:
-		return SortBehavior.Y_SORT
-	
-	return SortBehavior.SKIP
 
 func _cleanup_extracted_sprites() -> void:
 	for sprite in _extracted_sprites:
