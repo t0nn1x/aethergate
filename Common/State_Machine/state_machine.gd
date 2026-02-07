@@ -14,18 +14,34 @@ signal state_changed(old_state: State, new_state: State)
 var current_state: State = null
 
 func _ready() -> void:
-	# Wait for the owner to be ready so components can resolve references.
-	await owner.ready
+	# Wait for the parent host to be ready so components can resolve references.
+	var host: Node = get_parent()
+	if host:
+		await host.ready
 
 	# Assign state_machine reference to all child states.
 	for child in get_children():
 		if child is State:
 			child.state_machine = self
 
+	var start_state: State = null
+	if initial_state != null and initial_state is State:
+		start_state = initial_state
+	if start_state == null:
+		start_state = get_node_or_null("IdleState") as State
+	if start_state == null:
+		for child in get_children():
+			if child is State:
+				start_state = child
+				break
+
 	# Enter the initial state.
-	if initial_state:
-		current_state = initial_state
+	if start_state:
+		initial_state = start_state
+		current_state = start_state
 		current_state.enter()
+	else:
+		push_warning("StateMachine: no initial_state assigned and no IdleState child found.")
 
 func _process(delta: float) -> void:
 	if current_state:

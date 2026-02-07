@@ -1,12 +1,141 @@
 class_name PlayerInputComponent
 extends Node
 
-## Placeholder input component for future tap-to-move / mobile input.
-## Currently unused — movement is handled by PlayerMovementComponent via WASD.
+## Handles click/tap move requests.
+
+signal move_target_queued(world_position: Vector2, from_hold: bool)
 
 var creature: Creature
+
+@export var click_move_action: StringName = "click_move"
+@export var hold_retarget_enabled: bool = true
+@export var hold_retarget_interval: float = 0.06
+@export var hold_retarget_min_distance: float = 8.0
+
+var _pending_move_target: Vector2 = Vector2.ZERO
+var _has_pending_move_target: bool = false
+var _is_pointer_held: bool = false
+var _active_touch_index: int = -1
+var _last_pointer_screen_position: Vector2 = Vector2.ZERO
+var _hold_retarget_timer: float = 0.0
+var _has_last_hold_target: bool = false
+var _last_hold_target_world: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
 	creature = get_parent() as Creature
 	assert(creature, "PlayerInputComponent must be a child of a Creature.")
+
+
+func _process(delta: float) -> void:
+	if not hold_retarget_enabled or not _is_pointer_held:
+		return
+	if not creature or not creature.is_alive:
+		return
+	if _active_touch_index == -1:
+		var viewport := creature.get_viewport()
+		if viewport:
+			_last_pointer_screen_position = viewport.get_mouse_position()
+
+	_hold_retarget_timer -= delta
+	if _hold_retarget_timer > 0.0:
+		return
+	_hold_retarget_timer = max(hold_retarget_interval, 0.01)
+	_queue_move_target(_last_pointer_screen_position, true)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not creature or not creature.is_alive:
+		return
+
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index != MOUSE_BUTTON_LEFT and not mouse_event.is_action(click_move_action):
+			return
+		_last_pointer_screen_position = mouse_event.position
+		if mouse_event.pressed:
+			if _is_pointer_over_ui(mouse_event.position):
+				_set_pointer_held(false)
+				return
+			_set_pointer_held(true, -1)
+			_queue_move_target(mouse_event.position, false)
+		else:
+			_set_pointer_held(false)
+		return
+
+	if event is InputEventMouseMotion:
+		var motion_event := event as InputEventMouseMotion
+		if _is_pointer_held and _active_touch_index == -1:
+			_last_pointer_screen_position = motion_event.position
+		return
+
+	if event is InputEventScreenTouch:
+		var touch_event := event as InputEventScreenTouch
+		if touch_event.pressed:
+			if _is_pointer_over_ui(touch_event.position):
+				return
+			_last_pointer_screen_position = touch_event.position
+			_set_pointer_held(true, touch_event.index)
+			_queue_move_target(touch_event.position, false)
+		elif _is_pointer_held and touch_event.index == _active_touch_index:
+			_set_pointer_held(false)
+		return
+
+	if event is InputEventScreenDrag:
+		var drag_event := event as InputEventScreenDrag
+		if not _is_pointer_held:
+			return
+		if drag_event.index != _active_touch_index:
+			return
+		_last_pointer_screen_position = drag_event.position
+
+
+## Returns and clears one pending move target request.
+## Returns null when no request is queued.
+func consume_move_target_request() -> Variant:
+	if not _has_pending_move_target:
+		return null
+	_has_pending_move_target = false
+	return _pending_move_target
+
+
+func _queue_move_target(screen_position: Vector2, from_hold: bool) -> void:
+	if _is_pointer_over_ui(screen_position):
+		return
+	var world_position: Vector2 = _screen_to_world(screen_position)
+	if from_hold and _has_last_hold_target:
+		if world_position.distance_to(_last_hold_target_world) < max(hold_retarget_min_distance, 0.0):
+			return
+	_last_hold_target_world = world_position
+	_has_last_hold_target = true
+	_pending_move_target = world_position
+	_has_pending_move_target = true
+	move_target_queued.emit(world_position, from_hold)
+
+
+func _screen_to_world(screen_position: Vector2) -> Vector2:
+	var viewport := creature.get_viewport()
+	if viewport == null:
+		return creature.global_position
+	return viewport.get_canvas_transform().affine_inverse() * screen_position
+
+
+func _is_pointer_over_ui(_screen_position: Vector2) -> bool:
+	var viewport := creature.get_viewport()
+	if viewport == null:
+		return false
+
+	var hovered: Control = viewport.gui_get_hovered_control()
+	if hovered and hovered.is_visible_in_tree():
+		return true
+
+	var focused: Control = viewport.gui_get_focus_owner()
+	return focused != null and focused.is_visible_in_tree()
+
+
+func _set_pointer_held(value: bool, touch_index: int = -1) -> void:
+	_is_pointer_held = value
+	_active_touch_index = touch_index if value else -1
+	_hold_retarget_timer = 0.0
+	if not value:
+		_has_last_hold_target = false

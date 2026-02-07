@@ -56,6 +56,14 @@ func _update_text() -> void:
 	if _player:
 		lines.append("Player: (%.0f, %.0f)" % [_player.global_position.x, _player.global_position.y])
 		lines.append("Speed: %.0f" % _player.movement_speed)
+		if _player is CharacterBody2D:
+			var body := _player as CharacterBody2D
+			lines.append("Velocity: (%.1f, %.1f)" % [body.velocity.x, body.velocity.y])
+		var state_machine := _player.get_node_or_null("StateMachine") as StateMachine
+		if state_machine and state_machine.current_state:
+			lines.append("State: %s" % state_machine.current_state.name)
+		elif state_machine:
+			lines.append("State: <none>")
 		var camera = _player.get_node_or_null("Camera2D")
 		if camera and camera is Camera2D:
 			lines.append("Zoom: %.2f" % camera.zoom.x)

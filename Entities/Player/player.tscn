@@ -7,14 +7,21 @@
 [ext_resource type="Script" uid="uid://brpmyo0esxf07" path="res://Entities/Player/Components/player_visual_component.gd" id="4_vis"]
 [ext_resource type="Script" uid="uid://c2n2pnl8vdast" path="res://Entities/Player/Components/player_camera_component.gd" id="5_cam"]
 [ext_resource type="Script" uid="uid://sv652uydmdsg" path="res://Entities/Player/Components/player_input_component.gd" id="6_inp"]
+[ext_resource type="Script" uid="uid://wavdrnjf57qy" path="res://Entities/Creatures/Components/creature_navigation_component.gd" id="7_navcomp"]
+[ext_resource type="Script" uid="uid://04brhsvoybps" path="res://Common/State_Machine/state_machine.gd" id="8_sm"]
+[ext_resource type="Script" uid="uid://w6c770iqxjfm" path="res://Entities/Player/States/player_idle_state.gd" id="9_idle"]
+[ext_resource type="Script" uid="uid://dj2egesej8jpb" path="res://Entities/Player/States/player_path_move_state.gd" id="11_path"]
+[ext_resource type="Script" uid="uid://brfnb42yvma5" path="res://Entities/Player/Components/player_move_pointer_component.gd" id="12_ptr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
 shader = ExtResource("3_sil")
-shader_parameter/silhouette_color = Color(0.050980393, 0.69803923, 0.9254902, 1)
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/shade_color = Color(0, 0, 0, 0.3)
+shader_parameter/outline_thickness = 1.0
 shader_parameter/occlusion_threshold = 0.1
 
 [sub_resource type="CircleShape2D" id="1"]
-radius = 8.0
+radius = 12.0
 
 [sub_resource type="Animation" id="Animation_5c2io"]
 length = 0.001
@@ -75,14 +82,22 @@ texture = ExtResource("2_lu8i8")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1401535832]
-position = Vector2(-6, -8)
+position = Vector2(-6, -12)
 shape = SubResource("1")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=274540341]
 
 [node name="PlayerInputComponent" type="Node" parent="." unique_id=528017405]
 script = ExtResource("6_inp")
 
+[node name="PlayerMovePointerComponent" type="Node2D" parent="." unique_id=2046603510]
+script = ExtResource("12_ptr")
+
 [node name="PlayerMovementComponent" type="Node" parent="." unique_id=2085666588]
 script = ExtResource("2")
+
+[node name="CreatureNavigationComponent" type="Node" parent="." unique_id=179005056]
+script = ExtResource("7_navcomp")
 
 [node name="PlayerVisualComponent" type="Node" parent="." unique_id=702199848]
 script = ExtResource("4_vis")
@@ -92,6 +107,16 @@ script = ExtResource("5_cam")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=648469325]
 zoom = Vector2(0.5, 0.5)
+
+[node name="StateMachine" type="Node" parent="." unique_id=774756551]
+script = ExtResource("8_sm")
+initial_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=114518502]
+script = ExtResource("9_idle")
+
+[node name="PathMoveState" type="Node" parent="StateMachine" unique_id=197181701]
+script = ExtResource("11_path")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1504161981]
 libraries/ = SubResource("AnimationLibrary_4wf4l")

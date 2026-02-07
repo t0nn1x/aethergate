@@ -3,9 +3,12 @@ extends Creature
 
 ## The player character.
 ## A thin shell that extends Creature. All behavior lives in child components:
-## - PlayerMovementComponent: WASD input
+## - PlayerInputComponent: tap/click target queue
+## - PlayerMovementComponent: movement executor
+## - CreatureNavigationComponent: pathfinding target/direction provider
 ## - PlayerVisualComponent: sprite bob, flip, silhouette sync
 ## - PlayerCameraComponent: zoom controls
+## - StateMachine + movement states: mode switching (idle/path)
 
 func _ready() -> void:
 	# Set player stats directly (no creature_data resource for the player).

@@ -4,6 +4,11 @@
 [ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://Map/Overworld/Tilesets/terrain.tres" id="2"]
 [ext_resource type="TileSet" uid="uid://drh67q7act3gk" path="res://Map/Overworld/Tilesets/objects.tres" id="3_dx1td"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dx1td"]
+vertices = PackedVector2Array(560.27344, 2317, 349.1797, 2317, 562.5781, 2233.789)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(573, 2219, 570, 2327, 296, 2327, 299, 2216)])
+
 [node name="Chunk" type="Node2D" unique_id=481344485]
 position = Vector2(-4608, 2304)
 script = ExtResource("1")
@@ -25,3 +30,8 @@ tile_set = ExtResource("2")
 
 [node name="Objects" type="TileMapLayer" parent="." unique_id=838846005]
 tile_set = ExtResource("3_dx1td")
+
+[node name="Navigation" type="Node2D" parent="." unique_id=803690530]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Navigation" unique_id=806115084]
+navigation_polygon = SubResource("NavigationPolygon_dx1td")

@@ -6,6 +6,8 @@ const PREVIEW_ROOT_NAME := "_PreviewNeighbors"
 const PREVIEW_Z_INDEX := 100
 const MIN_ENFORCE_INTERVAL := 0.1
 const DEFAULT_PREVIEW_RADIUS := 2
+const COLLISION_CACHE_PREFIX := "_CollisionCache_"
+const NAVIGATION_OBSTACLE_ROOT_NAME := "_NavigationObstacles"
 
 @export var chunk_coord: Vector2i = Vector2i.ZERO: set = _set_chunk_coord
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
@@ -27,6 +29,8 @@ var _enforce_timer: float = 0.0
 var _is_preview_instance: bool = false
 var _preview_origin_coord: Vector2i = Vector2i.ZERO
 var _extracted_sprites: Array[Sprite2D] = []
+var _navigation_obstacles: Array[NavigationObstacle2D] = []
+var _navigation_obstacle_root: Node2D = null
 var world_y_sort: Node2D = null  ## Set by ChunkManager before adding to tree
 
 static var _water_material: ShaderMaterial = null
@@ -76,7 +80,10 @@ func _extract_y_sorted_objects() -> void:
 	
 	for child in get_children():
 		if child is TileMapLayer:
-			_extract_layer_tiles(child)
+			var layer := child as TileMapLayer
+			if layer.name.begins_with(COLLISION_CACHE_PREFIX):
+				continue
+			_extract_layer_tiles(layer)
 
 func _extract_layer_tiles(layer: TileMapLayer) -> void:
 	## Extract tiles from a single TileMapLayer based on its name and custom data flags.
@@ -91,23 +98,114 @@ func _extract_layer_tiles(layer: TileMapLayer) -> void:
 	
 	var cells_to_remove: Array[Vector2i] = []
 	var tileset_tile_size := Vector2(tile_set.tile_size)
+	var collision_cache_layer := _get_or_create_collision_cache_layer(layer)
 	
 	for cell in layer.get_used_cells():
 		var tile_info := _get_tile_info(layer, tile_set, cell)
 		if not tile_info:
 			continue
-		
-		if not _should_extract(tile_info.tile_data, is_objects_layer, has_disable_flag, has_enable_flag):
+
+		var should_extract := _should_extract(tile_info.tile_data, is_objects_layer, has_disable_flag, has_enable_flag)
+		var has_collision := _tile_has_collision(tile_set, tile_info.tile_data)
+		if has_collision and (is_objects_layer or should_extract):
+			_create_navigation_obstacle_for_cell(layer, cell, tileset_tile_size)
+
+		if not should_extract:
 			continue
 		
 		var sprite := _create_y_sorted_sprite(layer, cell, tile_info, tileset_tile_size)
 		world_y_sort.add_child(sprite)
 		_extracted_sprites.append(sprite)
+		_copy_cell_to_collision_layer(layer, collision_cache_layer, cell)
 		cells_to_remove.append(cell)
 	
 	# Remove extracted tiles from the layer so they don't render twice
 	for cell in cells_to_remove:
 		layer.erase_cell(cell)
+
+func _get_or_create_collision_cache_layer(source_layer: TileMapLayer) -> TileMapLayer:
+	var layer_name := "%s%s" % [COLLISION_CACHE_PREFIX, source_layer.name]
+	var existing := get_node_or_null(layer_name) as TileMapLayer
+	if existing:
+		return existing
+
+	var collision_layer := TileMapLayer.new()
+	collision_layer.name = layer_name
+	collision_layer.tile_set = source_layer.tile_set
+	collision_layer.y_sort_enabled = false
+	collision_layer.visible = false
+	collision_layer.enabled = true
+	add_child(collision_layer)
+	collision_layer.owner = null
+	return collision_layer
+
+func _copy_cell_to_collision_layer(source_layer: TileMapLayer, collision_layer: TileMapLayer, cell: Vector2i) -> void:
+	if not source_layer or not collision_layer:
+		return
+
+	var source_id := source_layer.get_cell_source_id(cell)
+	if source_id < 0:
+		return
+
+	collision_layer.tile_set = source_layer.tile_set
+	collision_layer.set_cell(
+		cell,
+		source_id,
+		source_layer.get_cell_atlas_coords(cell),
+		source_layer.get_cell_alternative_tile(cell)
+	)
+
+func _tile_has_collision(tile_set: TileSet, tile_data: TileData) -> bool:
+	if not tile_set or not tile_data:
+		return false
+
+	var physics_layer_count := tile_set.get_physics_layers_count()
+	for layer_id in range(physics_layer_count):
+		if tile_data.get_collision_polygons_count(layer_id) > 0:
+			return true
+
+	return false
+
+func _get_or_create_navigation_obstacle_root() -> Node2D:
+	if _navigation_obstacle_root and is_instance_valid(_navigation_obstacle_root):
+		return _navigation_obstacle_root
+
+	var existing_root := get_node_or_null(NAVIGATION_OBSTACLE_ROOT_NAME) as Node2D
+	if existing_root:
+		_navigation_obstacle_root = existing_root
+		return _navigation_obstacle_root
+
+	var root := Node2D.new()
+	root.name = NAVIGATION_OBSTACLE_ROOT_NAME
+	add_child(root)
+	root.owner = null
+	_navigation_obstacle_root = root
+	return _navigation_obstacle_root
+
+func _create_navigation_obstacle_for_cell(layer: TileMapLayer, cell: Vector2i, tileset_tile_size: Vector2) -> void:
+	var obstacle_root := _get_or_create_navigation_obstacle_root()
+	if not obstacle_root:
+		return
+
+	var obstacle := NavigationObstacle2D.new()
+	obstacle.name = "NavObstacle_%s_%d_%d" % [layer.name, cell.x, cell.y]
+	obstacle.avoidance_enabled = true
+
+	var half_size := tileset_tile_size * 0.5 - Vector2(2.0, 2.0)
+	half_size.x = max(half_size.x, 2.0)
+	half_size.y = max(half_size.y, 2.0)
+
+	obstacle.vertices = PackedVector2Array([
+		Vector2(-half_size.x, -half_size.y),
+		Vector2(half_size.x, -half_size.y),
+		Vector2(half_size.x, half_size.y),
+		Vector2(-half_size.x, half_size.y),
+	])
+	obstacle.position = layer.to_global(layer.map_to_local(cell))
+
+	obstacle_root.add_child(obstacle)
+	obstacle.owner = null
+	_navigation_obstacles.append(obstacle)
 
 func _should_extract(tile_data: TileData, is_objects_layer: bool, has_disable_flag: bool, has_enable_flag: bool) -> bool:
 	## Decide if a tile should be extracted into WorldYSort.
@@ -194,6 +292,15 @@ func _cleanup_extracted_sprites() -> void:
 		if is_instance_valid(sprite):
 			sprite.queue_free()
 	_extracted_sprites.clear()
+
+	for obstacle in _navigation_obstacles:
+		if is_instance_valid(obstacle):
+			obstacle.queue_free()
+	_navigation_obstacles.clear()
+
+	if is_instance_valid(_navigation_obstacle_root):
+		_navigation_obstacle_root.queue_free()
+	_navigation_obstacle_root = null
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_EDITOR_PRE_SAVE and preview_neighbors:

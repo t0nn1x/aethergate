@@ -1,7 +1,7 @@
 class_name PlayerMovementComponent
 extends Node
 
-## Handles WASD movement for the player creature.
+## Executes movement requested by player states.
 
 var creature: Creature
 var visual: PlayerVisualComponent
@@ -14,21 +14,37 @@ func _ready() -> void:
 	visual = creature.get_node_or_null("PlayerVisualComponent") as PlayerVisualComponent
 
 
-func _physics_process(_delta: float) -> void:
-	if not creature or not creature.is_alive:
+func apply_navigation_movement(direction: Vector2) -> void:
+	if not _can_move():
 		return
+	if direction == Vector2.ZERO:
+		stop_movement()
+		return
+	_apply_velocity(direction.normalized())
 
-	var input_vector: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
-	if input_vector != Vector2.ZERO:
-		creature.velocity = input_vector * creature.movement_speed
-		_apply_movement(true)
-
-		if input_vector.x != 0.0 and visual:
-			visual.set_facing(input_vector.x)
-	elif creature.velocity != Vector2.ZERO:
+func stop_movement() -> void:
+	if not creature:
+		return
+	if creature.velocity != Vector2.ZERO:
 		creature.velocity = Vector2.ZERO
 		_apply_movement(false)
+	elif visual:
+		visual.set_moving(false)
+
+
+func _can_move() -> bool:
+	return creature != null and creature.is_alive
+
+
+func _apply_velocity(direction: Vector2) -> void:
+	creature.velocity = direction * creature.movement_speed
+	_apply_movement(true)
+
+	if not visual:
+		return
+	if direction.x != 0.0:
+		visual.set_facing(direction.x)
 
 
 ## Apply movement, snap to pixel grid, emit event.
