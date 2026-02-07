@@ -5,6 +5,12 @@ signal enemy_died(enemy: Node)
 signal player_damaged(damage: int)
 signal skill_used(skill_id: String, caster: Node)
 
+# Creature events
+signal creature_spawned(creature: Node)
+signal creature_died(creature: Node, creature_data: Resource)
+signal creature_aggro(creature: Node, target: Node)
+signal creature_deaggro(creature: Node)
+
 # World events
 signal location_entered(location_name: String)
 signal chunk_loaded(chunk_pos: Vector2i)

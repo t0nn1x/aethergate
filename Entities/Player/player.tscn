@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://b5kavdctdhcfg"]
 
 [ext_resource type="Script" uid="uid://bume2vfytjwef" path="res://Entities/Player/player.gd" id="1"]
-[ext_resource type="Script" uid="uid://vvxeqggtpor3" path="res://Entities/Player/player_movement.gd" id="2"]
+[ext_resource type="Script" uid="uid://0x5d1qflun1b" path="res://Entities/Player/Components/player_movement_component.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://dpmv7kklxobr4" path="res://Entities/Player/Sprites/Zorfath32.png" id="2_lu8i8"]
 [ext_resource type="Shader" uid="uid://dws727wjsskme" path="res://Common/Shaders/silhouette.gdshader" id="3_sil"]
+[ext_resource type="Script" uid="uid://brpmyo0esxf07" path="res://Entities/Player/Components/player_visual_component.gd" id="4_vis"]
+[ext_resource type="Script" uid="uid://c2n2pnl8vdast" path="res://Entities/Player/Components/player_camera_component.gd" id="5_cam"]
+[ext_resource type="Script" uid="uid://sv652uydmdsg" path="res://Entities/Player/Components/player_input_component.gd" id="6_inp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
 shader = ExtResource("3_sil")
@@ -11,7 +14,7 @@ shader_parameter/silhouette_color = Color(0.050980393, 0.69803923, 0.9254902, 1)
 shader_parameter/occlusion_threshold = 0.1
 
 [sub_resource type="CircleShape2D" id="1"]
-radius = 12.0
+radius = 8.0
 
 [sub_resource type="Animation" id="Animation_5c2io"]
 length = 0.001
@@ -72,11 +75,20 @@ texture = ExtResource("2_lu8i8")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1401535832]
-position = Vector2(-3, -12)
+position = Vector2(-6, -8)
 shape = SubResource("1")
 
-[node name="PlayerMovement" type="Node" parent="." unique_id=2085666588]
+[node name="PlayerInputComponent" type="Node" parent="." unique_id=528017405]
+script = ExtResource("6_inp")
+
+[node name="PlayerMovementComponent" type="Node" parent="." unique_id=2085666588]
 script = ExtResource("2")
+
+[node name="PlayerVisualComponent" type="Node" parent="." unique_id=702199848]
+script = ExtResource("4_vis")
+
+[node name="PlayerCameraComponent" type="Node" parent="." unique_id=220595576]
+script = ExtResource("5_cam")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=648469325]
 zoom = Vector2(0.5, 0.5)
