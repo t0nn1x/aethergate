@@ -4,6 +4,7 @@ extends Node
 ## Handles click/tap move requests.
 
 signal move_target_queued(world_position: Vector2, from_hold: bool)
+signal pointer_hold_changed(is_held: bool)
 
 var creature: Creature
 
@@ -141,11 +142,14 @@ func _is_pointer_over_ui(_screen_position: Vector2) -> bool:
 
 
 func _set_pointer_held(value: bool, touch_index: int = -1) -> void:
+	var was_held := _is_pointer_held
 	_is_pointer_held = value
 	_active_touch_index = touch_index if value else -1
 	_hold_retarget_timer = 0.0
 	if not value:
 		_has_last_hold_target = false
+	if was_held != _is_pointer_held:
+		pointer_hold_changed.emit(_is_pointer_held)
 
 
 func _is_world_position_in_blocked_polygon(world_position: Vector2) -> bool:
