@@ -13,7 +13,7 @@ var _camera_zoom_target: float = 1.0
 @export var camera_zoom_hold_speed: float = 0.5
 @export var camera_zoom_in_action: StringName = "camera_zoom_in"
 @export var camera_zoom_out_action: StringName = "camera_zoom_out"
-@export var default_zoom: float = 2.0
+@export var default_zoom: float = 4.0
 
 func _ready() -> void:
 	creature = get_parent() as Creature

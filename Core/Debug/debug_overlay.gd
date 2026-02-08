@@ -11,6 +11,7 @@ extends CanvasLayer
 @export var speed_max: float = 1000.0
 @export var speed_increase_action: StringName = "debug_speed_up"
 @export var speed_decrease_action: StringName = "debug_speed_down"
+@export var screen_padding: Vector2 = Vector2(8.0, 8.0)
 
 @onready var label: Label = $Label
 
@@ -20,6 +21,10 @@ var _time_accum: float = 0.0
 
 func _ready() -> void:
 	visible = enabled
+	var viewport := get_viewport()
+	if viewport and not viewport.size_changed.is_connected(_on_viewport_size_changed):
+		viewport.size_changed.connect(_on_viewport_size_changed)
+	_apply_safe_area_padding()
 	_resolve_nodes()
 	_update_text()
 
@@ -33,6 +38,9 @@ func _process(delta: float) -> void:
 	_time_accum = 0.0
 	_resolve_nodes()
 	_update_text()
+
+func _on_viewport_size_changed() -> void:
+	_apply_safe_area_padding()
 
 func _resolve_nodes() -> void:
 	if player_path != NodePath():
@@ -80,6 +88,16 @@ func _update_text() -> void:
 		else:
 			lines.append("Loaded: 0")
 	label.text = "\n".join(lines)
+
+func _apply_safe_area_padding() -> void:
+	if not label:
+		return
+	var safe_rect: Rect2i = DisplayServer.get_display_safe_area()
+	var safe_offset := Vector2(
+		float(max(safe_rect.position.x, 0)),
+		float(max(safe_rect.position.y, 0))
+	)
+	label.position = screen_padding + safe_offset
 
 func _handle_speed_input(delta: float) -> void:
 	if not _player:

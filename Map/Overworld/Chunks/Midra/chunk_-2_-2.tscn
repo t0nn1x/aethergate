@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" path="res://Entities/Interactables/Bridge/bridge_zone.tscn" id="4_vp8hi"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vp8hi"]
-vertices = PackedVector2Array(353.3125, 242.1875, 409.6797, 149.03125, 441.89063, 261.7578, 404.52344, 308, 344.8203, 268.72656, 244.25781, 248.96094, 303.47656, 251.92188, 295.28906, 270.1172, 272.21094, 275.14844, 632.0078, 114.390625, 640.9531, 312.9375, 578.52344, 310.02344, 527.9922, 239.67188, 524.96875, 145.96875, 534.5469, 3, 352.35938, 4.9921875, 179.99219, 143.47656, 306.28906, 235.03125, 281.9922, 222.88281, 262.46094, 233.15625, 243.84375, 247.64063, 178.00781, 308, 271.8672, 276.28906, 282.6172, 287.03125, 308.25, 284.97656)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13, 14), PackedInt32Array(15, 14, 13, 1, 16), PackedInt32Array(16, 1, 0, 17, 18), PackedInt32Array(16, 18, 19), PackedInt32Array(16, 19, 20), PackedInt32Array(21, 16, 20, 5), PackedInt32Array(21, 5, 8, 22), PackedInt32Array(21, 22, 23), PackedInt32Array(3, 21, 23, 24), PackedInt32Array(3, 24, 4)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(443, 262, 405, 309, 177, 309, 179, 143, 352, 4, 535, 2, 633, 114, 642, 314, 578, 311, 527, 240, 524, 147, 411, 150)])
+vertices = PackedVector2Array(504.28125, 504.9922, 521.60156, 495.46094, 506.71094, 524.3281, 2303, 1, 2303, 2303, 1613, 1453.0078, 1613, 1445, 416.6328, 338.39844, 430.28125, 345.6797, 402.39844, 353.1328, 591.2578, 479.4922, 1466.9922, 1404, 595.4219, 505.03906, 577.64844, 486.28125, 1496, 1485.0391, 1, 2303, 1468.0078, 1500, 592.5469, 459.8672, 569.0781, 443.2422, 583.4219, 437.5078, 420.6797, 251.96094, 439.1172, 254.72656, 393.46875, 311.29688, 414.7422, 323, 425.28906, 323, 481, 414, 481, 407.60938, 484.53125, 409.3828, 461.71094, 443.1172, 464.3203, 414, 398.5625, 151.28906, 411.39063, 159.17969, 387.03906, 183.54688, 1, 1, 468.35938, 449.78125, 473.5703, 453.2422, 444.60156, 492.21094, 1467.8281, 1483.9922, 1467.75, 1476, 1467.5, 1452, 1496, 1476, 1428, 1402, 1428, 1442, 1388.1172, 1442, 568.5703, 538, 578.78906, 520.6172, 1386.8672, 1452, 1428, 1452, 1428, 1475, 1359, 1475, 1359, 1482, 1428, 1482, 1428, 1500, 421, 403.03906, 421, 396, 442.71094, 396, 462.1797, 408.65625, 1460.9922, 1500, 1435.0078, 1500, 1433.9922, 1402, 1462.0078, 1404, 1467.4297, 1445, 397.85938, 239.52344, 464.6875, 507.02344, 586.15625, 466.25, 577.2578, 426.22656, 591.4531, 414.0703, 568.64844, 390.22656, 563.1719, 386.57813, 565.8906, 377.5, 579.15625, 363.21875, 493.10156, 133.78906, 472.07813, 145.78906, 462.4375, 138.07031, 574.21094, 277.71094, 498.10938, 213.64063, 500.89063, 202.54688, 511.79688, 193.64063, 516.78906, 183.64063, 526.14844, 176.36719, 567.1094, 332.1172, 577.1172, 317.1172, 569, 296.79688, 569, 290.1797, 523.09375, 166.14844, 529.4375, 156.64063, 526.6875, 538, 382.89063, 385.5625, 395.04688, 391.64063, 396.09375, 401.96094, 384.96094, 204.36719, 401.89844, 221.3125, 384.04688, 378.60938, 404.29688, 143.25781, 412.8125, 137.9375, 443.79688, 133.92969, 431.79688, 141.92969, 504.52344, 143.14063)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 8, 9), PackedInt32Array(10, 3, 6, 11, 12, 13), PackedInt32Array(14, 5, 4, 15, 16), PackedInt32Array(17, 18, 19, 3), PackedInt32Array(20, 21, 22), PackedInt32Array(23, 24, 7), PackedInt32Array(25, 26, 27), PackedInt32Array(25, 27, 28), PackedInt32Array(29, 25, 28), PackedInt32Array(30, 31, 32, 33), PackedInt32Array(34, 35, 36), PackedInt32Array(16, 37, 14), PackedInt32Array(38, 39, 5, 40), PackedInt32Array(41, 42, 43, 44, 45, 12), PackedInt32Array(46, 47, 48, 49), PackedInt32Array(50, 51, 52, 15), PackedInt32Array(53, 54, 55, 56, 29, 28, 36), PackedInt32Array(57, 58, 59, 60), PackedInt32Array(6, 61, 11), PackedInt32Array(12, 11, 60, 59), PackedInt32Array(12, 59, 41), PackedInt32Array(62, 20, 22), PackedInt32Array(63, 0, 2, 15), PackedInt32Array(3, 10, 64, 17), PackedInt32Array(14, 40, 5), PackedInt32Array(57, 16, 15), PackedInt32Array(58, 57, 15), PackedInt32Array(52, 58, 15), PackedInt32Array(19, 65, 66, 3), PackedInt32Array(28, 34, 36), PackedInt32Array(3, 67, 68, 69, 70), PackedInt32Array(71, 72, 73), PackedInt32Array(74, 75, 76, 77), PackedInt32Array(74, 77, 78, 79, 3), PackedInt32Array(3, 66, 67), PackedInt32Array(3, 70, 80, 81), PackedInt32Array(3, 81, 82, 83, 74), PackedInt32Array(3, 79, 84, 85), PackedInt32Array(44, 49, 50, 15, 86), PackedInt32Array(87, 88, 89), PackedInt32Array(90, 91, 62, 33), PackedInt32Array(22, 23, 7, 9), PackedInt32Array(89, 53, 36), PackedInt32Array(44, 43, 46, 49), PackedInt32Array(2, 86, 15), PackedInt32Array(36, 63, 15), PackedInt32Array(89, 36, 15, 33, 87), PackedInt32Array(92, 87, 33), PackedInt32Array(9, 92, 33, 22), PackedInt32Array(62, 22, 33), PackedInt32Array(32, 90, 33), PackedInt32Array(93, 30, 33), PackedInt32Array(94, 93, 33), PackedInt32Array(95, 96, 94, 33), PackedInt32Array(3, 85, 97, 71), PackedInt32Array(33, 3, 71), PackedInt32Array(33, 71, 73, 95)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2304, 2304, 0, 2304, 0, 0, 2304, 0)])
 agent_radius = 1.0
 
 [node name="Chunk" type="Node2D" unique_id=600177039]
@@ -34,11 +34,35 @@ tile_set = ExtResource("2")
 [node name="Navigation" type="Node2D" parent="." unique_id=14392004]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Navigation" unique_id=993143122]
+position = Vector2(1, 2)
 navigation_polygon = SubResource("NavigationPolygon_vp8hi")
 
 [node name="Polygon2D" type="Polygon2D" parent="Navigation/NavigationRegion2D" unique_id=404466149]
 modulate = Color(1, 1, 1, 0)
-polygon = PackedVector2Array(291, 129, 365, 131, 361, 159, 263, 160)
+position = Vector2(140, 10)
+polygon = PackedVector2Array(265, 134, 273, 129, 292, 133, 304, 125, 322, 129, 332, 137, 353, 125, 364, 134, 388, 147, 382, 156, 385, 166, 376, 173, 371, 183, 360, 192, 357, 204, 433, 268, 428, 280, 428, 287, 436, 307, 426, 322, 438, 353, 425, 367, 422, 377, 428, 381, 450, 404, 436, 416, 442, 427, 427, 433, 451, 450, 445, 456, 450, 469, 436, 476, 454, 495, 438, 510, 428, 527, 387, 527, 368, 514, 384, 483, 364, 494, 325, 496, 306, 482, 335, 443, 329, 439, 323, 433, 346, 399, 340, 396, 340, 403, 325, 403, 323, 398, 303, 385, 280, 385, 280, 392, 257, 391, 256, 381, 244, 375, 245, 369, 263, 344, 293, 336, 278, 328, 287, 312, 275, 312, 255, 301, 301, 244, 281, 241, 259, 229, 263, 211, 246, 194, 248, 174, 273, 149, 260, 141)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Navigation/NavigationRegion2D" unique_id=717340297]
+polygon = PackedVector2Array(1429, 1403, 1429, 1499, 1434, 1499, 1433, 1403)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Navigation/NavigationRegion2D" unique_id=719211856]
+polygon = PackedVector2Array(1463, 1405, 1466, 1405, 1467, 1499, 1462, 1499)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Navigation/NavigationRegion2D" unique_id=1663837814]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(1467, 1446, 1612, 1446, 1612, 1452, 1467, 1451)
+
+[node name="Polygon2D5" type="Polygon2D" parent="Navigation/NavigationRegion2D" unique_id=1262028707]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(1389, 1443, 1428, 1443, 1428, 1451, 1388, 1451)
+
+[node name="Polygon2D6" type="Polygon2D" parent="Navigation/NavigationRegion2D" unique_id=27622569]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(1429, 1476, 1429, 1481, 1360, 1481, 1360, 1476)
+
+[node name="Polygon2D7" type="Polygon2D" parent="Navigation/NavigationRegion2D" unique_id=1046309827]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(1468, 1477, 1495, 1477, 1495, 1484, 1468, 1483)
 
 [node name="BridgeZone" parent="." unique_id=238316222 instance=ExtResource("4_vp8hi")]
 position = Vector2(1448, 1451)

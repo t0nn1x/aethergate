@@ -14,7 +14,7 @@ func _ready() -> void:
 	# Set player stats directly (no creature_data resource for the player).
 	creature_name = "Player"
 	max_health = 100.0
-	movement_speed = 200.0
+	movement_speed = 100.0
 	current_health = max_health
 
 	super._ready()
