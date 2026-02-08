@@ -11,6 +11,8 @@ var creature: Creature
 @export var hold_retarget_enabled: bool = true
 @export var hold_retarget_interval: float = 0.06
 @export var hold_retarget_min_distance: float = 8.0
+@export var reject_targets_inside_navigation_polygons: bool = true
+@export var blocker_polygon_refresh_interval: float = 0.5
 
 var _pending_move_target: Vector2 = Vector2.ZERO
 var _has_pending_move_target: bool = false
@@ -20,11 +22,14 @@ var _last_pointer_screen_position: Vector2 = Vector2.ZERO
 var _hold_retarget_timer: float = 0.0
 var _has_last_hold_target: bool = false
 var _last_hold_target_world: Vector2 = Vector2.ZERO
+var _cached_blocker_polygons: Array[Polygon2D] = []
+var _next_blocker_refresh_msec: int = 0
 
 
 func _ready() -> void:
 	creature = get_parent() as Creature
 	assert(creature, "PlayerInputComponent must be a child of a Creature.")
+	_refresh_blocker_polygons_cache()
 
 
 func _process(delta: float) -> void:
@@ -103,6 +108,8 @@ func _queue_move_target(screen_position: Vector2, from_hold: bool) -> void:
 	if _is_pointer_over_ui(screen_position):
 		return
 	var world_position: Vector2 = _screen_to_world(screen_position)
+	if _is_world_position_in_blocked_polygon(world_position):
+		return
 	if from_hold and _has_last_hold_target:
 		if world_position.distance_to(_last_hold_target_world) < max(hold_retarget_min_distance, 0.0):
 			return
@@ -139,3 +146,48 @@ func _set_pointer_held(value: bool, touch_index: int = -1) -> void:
 	_hold_retarget_timer = 0.0
 	if not value:
 		_has_last_hold_target = false
+
+
+func _is_world_position_in_blocked_polygon(world_position: Vector2) -> bool:
+	if not reject_targets_inside_navigation_polygons:
+		return false
+
+	_refresh_blocker_polygons_cache_if_needed()
+	for polygon in _cached_blocker_polygons:
+		if not is_instance_valid(polygon):
+			continue
+		var local_point: Vector2 = polygon.to_local(world_position)
+		if Geometry2D.is_point_in_polygon(local_point, polygon.polygon):
+			return true
+	return false
+
+
+func _refresh_blocker_polygons_cache_if_needed() -> void:
+	var now_msec: int = Time.get_ticks_msec()
+	if now_msec < _next_blocker_refresh_msec and not _cached_blocker_polygons.is_empty():
+		return
+	_refresh_blocker_polygons_cache()
+
+
+func _refresh_blocker_polygons_cache() -> void:
+	_cached_blocker_polygons.clear()
+	_next_blocker_refresh_msec = Time.get_ticks_msec() + int(max(blocker_polygon_refresh_interval, 0.05) * 1000.0)
+
+	if not creature:
+		return
+	var tree := creature.get_tree()
+	if tree == null:
+		return
+
+	var root: Node = tree.current_scene if tree.current_scene else tree.root
+	if root == null:
+		return
+
+	for node in root.find_children("*", "NavigationRegion2D", true, false):
+		var region := node as NavigationRegion2D
+		if region == null:
+			continue
+		for child in region.find_children("*", "Polygon2D", true, false):
+			var polygon := child as Polygon2D
+			if polygon and polygon.polygon.size() >= 3:
+				_cached_blocker_polygons.append(polygon)
