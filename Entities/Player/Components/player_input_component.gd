@@ -47,6 +47,9 @@ func _process(delta: float) -> void:
 	if _hold_retarget_timer > 0.0:
 		return
 	_hold_retarget_timer = max(hold_retarget_interval, 0.01)
+	if _active_touch_index == -1:
+		_queue_move_target_world(_get_mouse_world_position(), _last_pointer_screen_position, true)
+		return
 	_queue_move_target(_last_pointer_screen_position, true)
 
 
@@ -58,13 +61,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index != MOUSE_BUTTON_LEFT and not mouse_event.is_action(click_move_action):
 			return
-		_last_pointer_screen_position = mouse_event.position
+		_last_pointer_screen_position = _get_mouse_viewport_position(mouse_event.position)
 		if mouse_event.pressed:
-			if _is_pointer_over_ui(mouse_event.position):
+			if _is_pointer_over_ui(_last_pointer_screen_position):
 				_set_pointer_held(false)
 				return
 			_set_pointer_held(true, -1)
-			_queue_move_target(mouse_event.position, false)
+			_queue_move_target_world(_get_mouse_world_position(), _last_pointer_screen_position, false)
 		else:
 			_set_pointer_held(false)
 		return
@@ -72,7 +75,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var motion_event := event as InputEventMouseMotion
 		if _is_pointer_held and _active_touch_index == -1:
-			_last_pointer_screen_position = motion_event.position
+			_last_pointer_screen_position = _get_mouse_viewport_position(motion_event.position)
 		return
 
 	if event is InputEventScreenTouch:
@@ -106,9 +109,13 @@ func consume_move_target_request() -> Variant:
 
 
 func _queue_move_target(screen_position: Vector2, from_hold: bool) -> void:
+	var world_position: Vector2 = _screen_to_world(screen_position)
+	_queue_move_target_world(world_position, screen_position, from_hold)
+
+
+func _queue_move_target_world(world_position: Vector2, screen_position: Vector2, from_hold: bool) -> void:
 	if _is_pointer_over_ui(screen_position):
 		return
-	var world_position: Vector2 = _screen_to_world(screen_position)
 	if _is_world_position_in_blocked_polygon(world_position):
 		return
 	if from_hold and _has_last_hold_target:
@@ -126,6 +133,41 @@ func _screen_to_world(screen_position: Vector2) -> Vector2:
 	if viewport == null:
 		return creature.global_position
 	return viewport.get_canvas_transform().affine_inverse() * screen_position
+
+
+func _get_mouse_viewport_position(fallback_position: Vector2) -> Vector2:
+	var viewport := creature.get_viewport()
+	if viewport == null:
+		return fallback_position
+	return viewport.get_mouse_position()
+
+
+func _get_mouse_world_position() -> Vector2:
+	if creature == null:
+		return Vector2.ZERO
+
+	var tree := creature.get_tree()
+	if tree:
+		var pixel_root: Node = tree.get_first_node_in_group("pixel_viewport_root")
+		if pixel_root:
+			var viewport_container := pixel_root.get_node_or_null("WorldViewportContainer") as SubViewportContainer
+			var world_viewport := pixel_root.get_node_or_null("WorldViewportContainer/WorldViewport") as SubViewport
+			if viewport_container and world_viewport:
+				var root_mouse: Vector2 = tree.root.get_mouse_position()
+				var container_mouse: Vector2 = viewport_container.get_global_transform_with_canvas().affine_inverse() * root_mouse
+				var container_size: Vector2 = viewport_container.size
+				if container_size.x > 0.0 and container_size.y > 0.0:
+					var normalized: Vector2 = Vector2(
+						container_mouse.x / container_size.x,
+						container_mouse.y / container_size.y
+					)
+					var viewport_mouse: Vector2 = Vector2(
+						normalized.x * float(world_viewport.size.x),
+						normalized.y * float(world_viewport.size.y)
+					)
+					return world_viewport.get_canvas_transform().affine_inverse() * viewport_mouse
+
+	return creature.get_global_mouse_position()
 
 
 func _is_pointer_over_ui(_screen_position: Vector2) -> bool:
