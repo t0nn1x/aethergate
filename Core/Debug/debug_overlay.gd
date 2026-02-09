@@ -75,6 +75,9 @@ func _update_text() -> void:
 		var camera = _player.get_node_or_null("Camera2D")
 		if camera and camera is Camera2D:
 			lines.append("Zoom: %.2f" % camera.zoom.x)
+		var scene_root: Node = get_tree().current_scene
+		if scene_root and scene_root.has_method("get_world_zoom"):
+			lines.append("RenderZoom: %.2f" % float(scene_root.call("get_world_zoom")))
 		if _chunk_manager:
 			var chunk = _chunk_manager.world_to_chunk(_player.global_position)
 			lines.append("Chunk: (%d, %d)" % [chunk.x, chunk.y])
