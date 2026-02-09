@@ -35,7 +35,7 @@ func _apply_centered_window_size(window: Window, target_size: Vector2i) -> void:
 		min(target_size.y, usable_rect.size.y)
 	)
 	window.size = clamped_size
-	window.position = usable_rect.position + ((usable_rect.size - clamped_size) / 2)
+	window.position = usable_rect.position + Vector2i((usable_rect.size - clamped_size) / 2.0)
 
 func _is_desktop_platform() -> bool:
 	for feature in DESKTOP_FEATURES:

@@ -145,28 +145,6 @@ func _get_mouse_viewport_position(fallback_position: Vector2) -> Vector2:
 func _get_mouse_world_position() -> Vector2:
 	if creature == null:
 		return Vector2.ZERO
-
-	var tree := creature.get_tree()
-	if tree:
-		var pixel_root: Node = tree.get_first_node_in_group("pixel_viewport_root")
-		if pixel_root:
-			var viewport_container := pixel_root.get_node_or_null("WorldViewportContainer") as SubViewportContainer
-			var world_viewport := pixel_root.get_node_or_null("WorldViewportContainer/WorldViewport") as SubViewport
-			if viewport_container and world_viewport:
-				var root_mouse: Vector2 = tree.root.get_mouse_position()
-				var container_mouse: Vector2 = viewport_container.get_global_transform_with_canvas().affine_inverse() * root_mouse
-				var container_size: Vector2 = viewport_container.size
-				if container_size.x > 0.0 and container_size.y > 0.0:
-					var normalized: Vector2 = Vector2(
-						container_mouse.x / container_size.x,
-						container_mouse.y / container_size.y
-					)
-					var viewport_mouse: Vector2 = Vector2(
-						normalized.x * float(world_viewport.size.x),
-						normalized.y * float(world_viewport.size.y)
-					)
-					return world_viewport.get_canvas_transform().affine_inverse() * viewport_mouse
-
 	return creature.get_global_mouse_position()
 
 

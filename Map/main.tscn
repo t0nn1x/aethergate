@@ -6,16 +6,4 @@
 [node name="Main" type="Node" unique_id=1348717381]
 script = ExtResource("2_main")
 
-[node name="WorldViewportContainer" type="SubViewportContainer" parent="." unique_id=1883472946]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 1
-stretch = true
-
-[node name="WorldViewport" type="SubViewport" parent="WorldViewportContainer"]
-disable_3d = true
-size = Vector2i(320, 180)
-handle_input_locally = true
-
-[node name="Overworld" parent="WorldViewport" unique_id=1362546912 instance=ExtResource("1")]
+[node name="Overworld" parent="." unique_id=1362546912 instance=ExtResource("1")]
