@@ -10,7 +10,7 @@ var camera: Camera2D
 var _zoom_target: float = 4.0
 
 @export var camera_zoom_step: float = 1.0
-@export var camera_zoom_min: float = 1.0
+@export var camera_zoom_min: float = 3.0
 @export var camera_zoom_max: float = 6.0
 @export var camera_zoom_hold_speed: float = 1.0
 @export var camera_zoom_smooth_speed: float = 12.0
