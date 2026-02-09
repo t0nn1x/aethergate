@@ -7,9 +7,9 @@ extends Node
 @onready var world_viewport_container: SubViewportContainer = $WorldViewportContainer
 @onready var world_viewport: SubViewport = $WorldViewportContainer/WorldViewport
 
-var _zoom_min: float = 1.0
-var _zoom_max: float = 6.0
-var _zoom: float = 1.0
+var _zoom_min: float = 2.0
+var _zoom_max: float = 5.0
+var _zoom: float = 3.0
 
 
 func _ready() -> void:

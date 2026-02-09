@@ -10,10 +10,11 @@ var camera: Camera2D
 var _camera_zoom_target: float = 1.0
 var _zoom_in_fallback_was_down: bool = false
 var _zoom_out_fallback_was_down: bool = false
+var _zoom_hold_progress: float = 0.0
 
-@export var camera_zoom_step: float = 0.2
-@export var camera_zoom_min: float = 1.0
-@export var camera_zoom_max: float = 6.0
+@export var camera_zoom_step: float = 1.0
+@export var camera_zoom_min: float = 2.0
+@export var camera_zoom_max: float = 5.0
 @export var camera_zoom_hold_speed: float = 2.0
 @export var camera_zoom_smooth_speed: float = 12.0
 @export var camera_zoom_snap_threshold: float = 0.01
@@ -33,7 +34,7 @@ func _ready() -> void:
 	camera.enabled = true
 	camera.position_smoothing_enabled = false
 
-	var startup_zoom: float = clampf(_get_default_zoom_for_platform(), camera_zoom_min, camera_zoom_max)
+	var startup_zoom: float = _snap_zoom_target(_get_default_zoom_for_platform())
 	_camera_zoom_target = startup_zoom
 	camera.zoom = Vector2(_camera_zoom_target, _camera_zoom_target)
 
@@ -66,17 +67,28 @@ func _apply_camera_zoom_discrete_input() -> void:
 func _apply_camera_zoom_hold(delta: float) -> void:
 	if camera_zoom_hold_speed <= 0.0:
 		return
-	var direction: float = Input.get_action_strength(camera_zoom_in_action) - Input.get_action_strength(camera_zoom_out_action)
+	var direction: float = signf(Input.get_action_strength(camera_zoom_in_action) - Input.get_action_strength(camera_zoom_out_action))
 	if direction == 0.0:
+		_zoom_hold_progress = 0.0
 		return
-	_apply_camera_zoom(_camera_zoom_target + direction * camera_zoom_hold_speed * delta)
+
+	_zoom_hold_progress += camera_zoom_hold_speed * delta
+	while _zoom_hold_progress >= 1.0:
+		_zoom_hold_progress -= 1.0
+		_apply_camera_zoom(_camera_zoom_target + direction * camera_zoom_step)
 
 
 func _apply_camera_zoom(value: float) -> void:
 	if not camera:
 		return
 
-	_camera_zoom_target = clampf(value, camera_zoom_min, camera_zoom_max)
+	_camera_zoom_target = _snap_zoom_target(value)
+
+
+func _snap_zoom_target(value: float) -> float:
+	var min_zoom: float = float(ceili(camera_zoom_min))
+	var max_zoom: float = maxf(float(floori(camera_zoom_max)), min_zoom)
+	return clampf(roundf(value), min_zoom, max_zoom)
 
 
 func _update_camera_zoom_smoothing(delta: float) -> void:
