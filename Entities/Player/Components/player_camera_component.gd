@@ -9,14 +9,14 @@ var creature: Creature
 var camera: Camera2D
 var _camera_zoom_target: float = 1.0
 
-@export var camera_zoom_step: float = 0.05
-@export var camera_zoom_min: float = 0.05
-@export var camera_zoom_max: float = 4.0
-@export var camera_zoom_hold_speed: float = 0.5
+@export var camera_zoom_step: float = 1.0
+@export var camera_zoom_min: float = 1.0
+@export var camera_zoom_max: float = 6.0
+@export var camera_zoom_hold_speed: float = 2.0
 @export var camera_zoom_in_action: StringName = "camera_zoom_in"
 @export var camera_zoom_out_action: StringName = "camera_zoom_out"
 @export var default_zoom_mobile: float = 4.0
-@export var default_zoom_desktop: float = 2.5
+@export var default_zoom_desktop: float = 3.0
 
 func _ready() -> void:
 	creature = get_parent() as Creature
@@ -53,9 +53,9 @@ func _apply_camera_zoom(value: float) -> void:
 	if not camera:
 		return
 	_camera_zoom_target = clamp(value, camera_zoom_min, camera_zoom_max)
-	var snapped_zoom: float = _camera_zoom_target
-	if camera_zoom_step > 0.0:
-		snapped_zoom = snappedf(_camera_zoom_target, camera_zoom_step)
+	# Always round to the nearest integer — non-integer zoom causes pixel shimmer
+	# because 1 game pixel can't map evenly to a fractional number of screen pixels.
+	var snapped_zoom: float = round(_camera_zoom_target)
 	snapped_zoom = clamp(snapped_zoom, camera_zoom_min, camera_zoom_max)
 	camera.zoom = Vector2(snapped_zoom, snapped_zoom)
 

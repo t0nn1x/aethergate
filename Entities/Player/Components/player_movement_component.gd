@@ -47,13 +47,12 @@ func _apply_velocity(direction: Vector2) -> void:
 		visual.set_facing(direction.x)
 
 
-## Apply movement, snap to pixel grid, emit event.
+## Apply movement and emit event.
 func _apply_movement(moving: bool) -> void:
 	if visual:
 		visual.set_moving(moving)
 
 	creature.move_and_slide()
-	creature.global_position = creature.global_position.round()
 
 	if moving:
 		EventBus.player_moved.emit(creature.global_position)
