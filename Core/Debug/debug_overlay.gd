@@ -92,10 +92,22 @@ func _update_text() -> void:
 func _apply_safe_area_padding() -> void:
 	if not label:
 		return
+	var viewport := get_viewport()
+	if not viewport:
+		label.position = screen_padding
+		return
+	var viewport_size := viewport.get_visible_rect().size
 	var safe_rect: Rect2i = DisplayServer.get_display_safe_area()
+	var safe_position := safe_rect.position
+	# On desktop, safe area position may be in global desktop coordinates.
+	# Only apply offsets that are already in viewport-local bounds.
+	if safe_position.x < 0 or safe_position.y < 0:
+		safe_position = Vector2i.ZERO
+	elif safe_position.x >= int(viewport_size.x) or safe_position.y >= int(viewport_size.y):
+		safe_position = Vector2i.ZERO
 	var safe_offset := Vector2(
-		float(max(safe_rect.position.x, 0)),
-		float(max(safe_rect.position.y, 0))
+		float(safe_position.x),
+		float(safe_position.y)
 	)
 	label.position = screen_padding + safe_offset
 

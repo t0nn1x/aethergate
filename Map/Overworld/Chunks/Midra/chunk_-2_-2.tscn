@@ -11,7 +11,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(
 outlines = Array[PackedVector2Array]([PackedVector2Array(2304, 2304, 0, 2304, 0, 0, 2304, 0)])
 agent_radius = 1.0
 
-[node name="Chunk" type="Node2D" unique_id=600177039]
+[node name="Chunk2" type="Node2D" unique_id=600177039]
 y_sort_enabled = true
 position = Vector2(-4608, 4608)
 script = ExtResource("1")
@@ -34,6 +34,7 @@ tile_set = ExtResource("2")
 [node name="Navigation" type="Node2D" parent="." unique_id=14392004]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Navigation" unique_id=993143122]
+visible = false
 position = Vector2(1, 2)
 navigation_polygon = SubResource("NavigationPolygon_vp8hi")
 
