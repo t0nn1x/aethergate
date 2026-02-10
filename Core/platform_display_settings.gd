@@ -11,13 +11,16 @@ func _enter_tree() -> void:
 	call_deferred("_apply_platform_window_defaults")
 
 func _apply_platform_window_defaults() -> void:
-	if not _is_desktop_platform():
-		return
-
 	var root_window := get_tree().root
 	if not root_window:
 		return
 
+	if _is_desktop_platform():
+		_apply_desktop_window_defaults(root_window)
+		return
+
+
+func _apply_desktop_window_defaults(root_window: Window) -> void:
 	if OS.has_feature("windows"):
 		# Windows default: start windowed at Full HD.
 		root_window.mode = Window.MODE_WINDOWED
