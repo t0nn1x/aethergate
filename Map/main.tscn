@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://cg8mdpx8fcids"]
-
-[ext_resource type="PackedScene" uid="uid://b3enup6sc8jpm" path="res://Map/Overworld/overworld.tscn" id="1"]
-[ext_resource type="Script" uid="uid://c1rk1s2gmud1" path="res://Map/main.gd" id="2_main"]
-
-[node name="Main" type="Node" unique_id=1348717381]
-script = ExtResource("2_main")
-
-[node name="Overworld" parent="." unique_id=1362546912 instance=ExtResource("1")]
