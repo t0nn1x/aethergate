@@ -19,6 +19,7 @@ var pointer_strip_texture: Texture2D
 var _pointer_sprite: AnimatedSprite2D
 var _is_pointer_held: bool = false
 var _animated_since_hold_start: bool = false
+var _has_valid_pointer_position: bool = false
 
 
 func _ready() -> void:
@@ -38,7 +39,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	var should_show: bool = _is_pointer_held
+	var should_show: bool = _is_pointer_held and _has_valid_pointer_position
 	if not should_show and navigation_component:
 		should_show = not navigation_component.is_navigation_finished()
 
@@ -54,6 +55,7 @@ func _process(_delta: float) -> void:
 
 func _on_move_target_queued(world_position: Vector2, _from_hold: bool) -> void:
 	global_position = world_position
+	_has_valid_pointer_position = true
 
 	if _is_pointer_held:
 		# During an active hold, run intro animation only once (on initial press).
@@ -74,6 +76,8 @@ func _on_move_target_queued(world_position: Vector2, _from_hold: bool) -> void:
 func _on_pointer_hold_changed(is_held: bool) -> void:
 	_is_pointer_held = is_held
 	if _is_pointer_held:
+		# Do not show pointer at stale/player position before first queued target.
+		_has_valid_pointer_position = false
 		_animated_since_hold_start = false
 
 
