@@ -31,6 +31,7 @@ tile_map_data = PackedByteArray("AAANAAYAAgAOAAIAAAAOAAYAAgAPAAMAAAAPAAYAAgAQAAA
 tile_set = ExtResource("2_c24rx")
 
 [node name="Navigation" type="Node2D" parent="." unique_id=14392004]
+visible = false
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Navigation" unique_id=993143122]
 position = Vector2(1, 2)
