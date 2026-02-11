@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://w6c770iqxjfm" path="res://src/Entities/Player/States/player_idle_state.gd" id="9_idle"]
 [ext_resource type="Script" uid="uid://dj2egesej8jpb" path="res://src/Entities/Player/States/player_path_move_state.gd" id="11_path"]
 [ext_resource type="Script" uid="uid://brfnb42yvma5" path="res://src/Entities/Player/Components/player_move_pointer_component.gd" id="12_ptr"]
+[ext_resource type="Script" path="res://src/Entities/Player/Components/player_context.gd" id="13_ctx"]
+[ext_resource type="Script" path="res://src/Entities/Player/Components/player_move_target_blocker_component.gd" id="14_blocker"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
 shader = ExtResource("3_sil")
@@ -89,6 +91,12 @@ shape = SubResource("1")
 
 [node name="PlayerInputComponent" type="Node" parent="." unique_id=528017405]
 script = ExtResource("6_inp")
+
+[node name="PlayerContext" type="Node" parent="." unique_id=534992111]
+script = ExtResource("13_ctx")
+
+[node name="PlayerMoveTargetBlockerComponent" type="Node" parent="." unique_id=818319334]
+script = ExtResource("14_blocker")
 
 [node name="PlayerMovePointerComponent" type="Node2D" parent="." unique_id=2046603510]
 script = ExtResource("12_ptr")

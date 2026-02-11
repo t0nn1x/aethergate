@@ -28,20 +28,24 @@ var _last_pointer_screen_position: Vector2 = Vector2.ZERO
 var _hold_retarget_timer: float = 0.0
 var _has_last_hold_target: bool = false
 var _last_hold_target_world: Vector2 = Vector2.ZERO
-var _cached_blocker_polygons: Array[Polygon2D] = []
-var _next_blocker_refresh_msec: int = 0
 var _touch_points: Dictionary = {}
 var _is_multi_touch_active: bool = false
 var _touch_tap_candidate_index: int = -1
 var _touch_tap_candidate_start_position: Vector2 = Vector2.ZERO
 var _touch_tap_candidate_latest_position: Vector2 = Vector2.ZERO
 var _suppress_touch_tap_until_clear: bool = false
+var _target_blocker: PlayerMoveTargetBlockerComponent
+var _warned_missing_target_blocker: bool = false
 
 
 func _ready() -> void:
 	creature = get_parent() as Creature
 	assert(creature, "PlayerInputComponent must be a child of a Creature.")
-	_refresh_blocker_polygons_cache()
+	_target_blocker = creature.get_node_or_null("PlayerMoveTargetBlockerComponent") as PlayerMoveTargetBlockerComponent
+	if _target_blocker:
+		_target_blocker.blocker_polygon_refresh_interval = blocker_polygon_refresh_interval
+	elif reject_targets_inside_navigation_polygons and OS.is_debug_build():
+		push_warning("PlayerInputComponent: PlayerMoveTargetBlockerComponent is missing.")
 
 
 func _process(delta: float) -> void:
@@ -166,15 +170,17 @@ func _queue_move_target(screen_position: Vector2, from_hold: bool) -> void:
 func _queue_move_target_world(world_position: Vector2, screen_position: Vector2, from_hold: bool) -> void:
 	if _is_pointer_over_ui(screen_position):
 		return
-	if _is_world_position_in_blocked_polygon(world_position):
+	var resolved_world_position: Vector2 = _resolve_blocked_world_target(world_position)
+	if _is_world_position_in_blocked_polygon(resolved_world_position):
 		return
 	if from_hold and _has_last_hold_target:
-		if world_position.distance_to(_last_hold_target_world) < max(hold_retarget_min_distance, 0.0):
+		if resolved_world_position.distance_to(_last_hold_target_world) < max(hold_retarget_min_distance, 0.0):
 			return
-	_last_hold_target_world = world_position
+	_last_hold_target_world = resolved_world_position
 	_has_last_hold_target = true
-	_pending_move_target = world_position
+	_pending_move_target = resolved_world_position
 	_has_pending_move_target = true
+	# Keep the marker at the exact click/tap location, even when movement snaps.
 	move_target_queued.emit(world_position, from_hold)
 
 
@@ -279,43 +285,21 @@ func _is_mobile_platform() -> bool:
 func _is_world_position_in_blocked_polygon(world_position: Vector2) -> bool:
 	if not reject_targets_inside_navigation_polygons:
 		return false
+	if _target_blocker == null:
+		if not _warned_missing_target_blocker and OS.is_debug_build():
+			push_warning("PlayerInputComponent: move target blocker unavailable; blocked-target checks are disabled.")
+			_warned_missing_target_blocker = true
+		return false
 
-	_refresh_blocker_polygons_cache_if_needed()
-	for polygon in _cached_blocker_polygons:
-		if not is_instance_valid(polygon):
-			continue
-		var local_point: Vector2 = polygon.to_local(world_position)
-		if Geometry2D.is_point_in_polygon(local_point, polygon.polygon):
-			return true
-	return false
-
-
-func _refresh_blocker_polygons_cache_if_needed() -> void:
-	var now_msec: int = Time.get_ticks_msec()
-	if now_msec < _next_blocker_refresh_msec and not _cached_blocker_polygons.is_empty():
-		return
-	_refresh_blocker_polygons_cache()
+	_target_blocker.blocker_polygon_refresh_interval = blocker_polygon_refresh_interval
+	return _target_blocker.is_world_position_blocked(world_position)
 
 
-func _refresh_blocker_polygons_cache() -> void:
-	_cached_blocker_polygons.clear()
-	_next_blocker_refresh_msec = Time.get_ticks_msec() + int(max(blocker_polygon_refresh_interval, 0.05) * 1000.0)
+func _resolve_blocked_world_target(world_position: Vector2) -> Vector2:
+	if not reject_targets_inside_navigation_polygons:
+		return world_position
+	if _target_blocker == null:
+		return world_position
 
-	if not creature:
-		return
-	var tree := creature.get_tree()
-	if tree == null:
-		return
-
-	var root: Node = tree.current_scene if tree.current_scene else tree.root
-	if root == null:
-		return
-
-	for node in root.find_children("*", "NavigationRegion2D", true, false):
-		var region := node as NavigationRegion2D
-		if region == null:
-			continue
-		for child in region.find_children("*", "Polygon2D", true, false):
-			var polygon := child as Polygon2D
-			if polygon and polygon.polygon.size() >= 3:
-				_cached_blocker_polygons.append(polygon)
+	_target_blocker.blocker_polygon_refresh_interval = blocker_polygon_refresh_interval
+	return _target_blocker.resolve_world_target(world_position)

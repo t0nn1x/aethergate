@@ -3,60 +3,62 @@ extends State
 
 @export var idle_state_path: NodePath = ^"../IdleState"
 
-var _player: Player
-var _input: PlayerInputComponent
-var _movement: PlayerMovementComponent
-var _navigation
+var _context: PlayerContext
 var _idle_state: State
 
 
 func physics_update(_delta: float) -> State:
-	_cache_refs()
+	_cache_context()
 	if not _is_ready():
-		if _navigation == null and _idle_state:
-			return _idle_state
 		return null
-	if not _player.is_alive:
-		_navigation.clear_target()
-		_movement.stop_movement()
+	if not _context.player.is_alive:
+		_context.navigation_component.clear_target()
+		_context.movement_component.stop_movement()
 		return null
 
-	var requested_target: Variant = _input.consume_move_target_request()
+	var requested_target: Variant = _context.input_component.consume_move_target_request()
 	if requested_target is Vector2:
-		_navigation.set_target_position(requested_target)
+		_context.navigation_component.set_target_position(requested_target)
 
-	if _navigation.is_navigation_finished():
-		_navigation.clear_target()
-		_movement.stop_movement()
+	if _context.navigation_component.is_navigation_finished():
+		_context.navigation_component.clear_target()
+		_context.movement_component.stop_movement()
 		return _idle_state
 
-	var direction: Vector2 = _navigation.get_navigation_direction(_player.global_position)
+	var direction: Vector2 = _context.navigation_component.get_navigation_direction(_context.player.global_position)
 	if direction == Vector2.ZERO:
-		_movement.stop_movement()
+		_context.movement_component.stop_movement()
 		return null
 
-	_movement.apply_navigation_movement(direction)
+	_context.movement_component.apply_navigation_movement(direction)
 	return null
 
 
-func _cache_refs() -> void:
-	if _player == null:
-		if state_machine and state_machine.get_parent() is Player:
-			_player = state_machine.get_parent() as Player
-		else:
-			_player = get_parent().get_parent() as Player
-	if not _player:
-		return
+func _cache_context() -> void:
+	if _context == null:
+		var owner: Player = _resolve_player_owner()
+		if owner:
+			_context = owner.get_node_or_null("PlayerContext") as PlayerContext
+			if _context:
+				_context.refresh()
+			elif OS.is_debug_build():
+				push_warning("PlayerPathMoveState: PlayerContext node is missing.")
 
-	if _input == null:
-		_input = _player.get_node_or_null("PlayerInputComponent") as PlayerInputComponent
-	if _movement == null:
-		_movement = _player.get_node_or_null("PlayerMovementComponent") as PlayerMovementComponent
-	if _navigation == null:
-		_navigation = _player.get_node_or_null("CreatureNavigationComponent")
 	if _idle_state == null:
-		_idle_state = get_node_or_null(idle_state_path) as State
+		if _context and _context.idle_state:
+			_idle_state = _context.idle_state
+		else:
+			_idle_state = get_node_or_null(idle_state_path) as State
+
+
+func _resolve_player_owner() -> Player:
+	if state_machine and state_machine.get_parent() is Player:
+		return state_machine.get_parent() as Player
+	var parent := get_parent()
+	if parent and parent.get_parent() is Player:
+		return parent.get_parent() as Player
+	return null
 
 
 func _is_ready() -> bool:
-	return _input != null and _movement != null and _idle_state != null
+	return _context != null and _context.is_ready_for_player_states() and _idle_state != null
