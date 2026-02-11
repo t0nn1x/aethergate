@@ -71,6 +71,8 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Event-bus migrations preserve compatibility (legacy bridge/fallback exists while callers are being moved)
 - [ ] No `get_nodes_in_group` polling in hot runtime paths where composition-root injection is expected
 - [ ] Solo-first code keeps multiplayer seams (identity fields + authority checks) and does not bake in single-player-only assumptions
+- [ ] `TextureRect` stretch/repeat settings match intent (avoid accidental tiling from `STRETCH_TILE` + expanded rects unless explicitly desired)
+- [ ] Parallax/background folders either enforce same-sized layer images or use explicit canonical-size filtering before assignment
 
 ## Output Format
 

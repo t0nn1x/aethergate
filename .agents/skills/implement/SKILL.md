@@ -142,6 +142,7 @@ TaskUpdate(taskId, status: "in_progress")
 - For new Godot autoload channels, avoid direct compile-time singleton identifiers in gameplay scripts unless guaranteed; prefer `/root/<Singleton>` lookup + compatibility fallback during migration
 - If replacing group discovery with DI, verify composition-root wiring assigns dependencies before gameplay loops start
 - For solo-first gameplay work, keep multiplayer seams intact (identity fields + authority checks) instead of hardcoding single-player assumptions
+- For Godot UI backgrounds/parallax, verify runtime render is single-composition (no unintended row/column tiling) and that randomized folders do not mix incompatible layer dimensions
 
 **3.5: Mark as completed**
 ```

@@ -59,6 +59,8 @@ To fix this effectively, I need more context:
 - Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
 - Autoload identifier parse traps (new singleton names referenced directly in scripts before `project.godot` autoload resolution)
 - Runtime group-discovery in hot paths (`_process`/`_physics_process`) that should be replaced with injected dependencies
+- UI background composition traps: `TextureRect.STRETCH_TILE` combined with enlarged fit rects/material repeat causing unintended multi-row tiling
+- Mixed-size parallax layer sets (different source dimensions in one folder) that produce random zoom/crop framing across starts
 
 ### Step 3: Implement the Fix
 
