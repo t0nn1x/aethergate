@@ -62,6 +62,12 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Edge cases tested
 - [ ] Mocking appropriateness
 
+### Godot-Specific
+- [ ] NodePath resolution correctness (`self` vs `parent`)
+- [ ] No strict-typing inference traps (`Variant` inference from `max/min/clamp` and similar)
+- [ ] Scene/script reference integrity after moves (`.tscn` `ext_resource` paths and `.uid`)
+- [ ] Input/navigation behavior still works (tap-to-move, hold retarget, blocked target resolution)
+
 ## Output Format
 
 ```markdown

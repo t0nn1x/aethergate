@@ -73,6 +73,18 @@ You have access to specialized Godot MCP tools:
 ## Project Structure Best Practices
 
 ```
+
+## Aethergate Conventions
+
+This project uses bounded contexts. Prefer these locations:
+
+- `src/Gameplay/Player` - player components, states, input adapters, services, config resources
+- `src/Gameplay/Navigation` - navigation components and movement target policies
+- `src/World/Overworld` - overworld stage orchestration and registries
+- `src/World/Streaming` - chunk loading/streaming and chunk helper modules
+- `src/UI/Debug` - debug UI and debug metrics providers
+
+Avoid adding new runtime orchestration scripts back into `src/Map/Overworld` unless they are chunk scene scripts directly tied to map content.
 project/
 ├── project.godot           # Project configuration
 ├── scenes/                 # All scene files

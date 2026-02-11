@@ -105,6 +105,10 @@ Create tasks using `TaskCreate` with clear, actionable items:
 - Tasks should be ordered by dependency (do X before Y)
 - Include file paths where changes will be made
 - Be specific about what to implement, not vague
+- For Godot folder/script migrations, add explicit tasks for:
+  - `.tscn` script/resource path rewiring
+  - `.uid` continuity checks after moves
+  - behavior parity checks (input, movement, state transitions, chunk loading)
 
 ### Step 6: Set Up Dependencies
 

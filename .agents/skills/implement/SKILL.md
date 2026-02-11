@@ -137,6 +137,8 @@ TaskUpdate(taskId, status: "in_progress")
 - Check code compiles/runs
 - Verify functionality works
 - Fix any immediate issues
+- For Godot services/components, verify NodePath lookup base (`self` vs `parent`) for all dependencies
+- Run a runtime smoke check for critical loops affected by the change (input -> movement, state transitions, chunk load flow)
 
 **3.5: Mark as completed**
 ```

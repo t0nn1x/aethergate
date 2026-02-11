@@ -55,6 +55,8 @@ To fix this effectively, I need more context:
 - The root cause (not just symptoms)
 - Related code that might be affected
 - Existing error handling
+- Godot strict typing traps (e.g. `:= max/min/clamp` inferring `Variant` when warnings are errors)
+- Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
 
 ### Step 3: Implement the Fix
 
@@ -90,6 +92,7 @@ try {
 - Check the code compiles/runs
 - Verify the logic is correct
 - Ensure no regressions introduced
+- For Godot refactors, verify that every referenced script/resource in `.tscn` still exists
 
 ### Step 5: Suggest Test Coverage
 
