@@ -42,6 +42,11 @@ Created: 2026-02-11
 - [x] Task 16: Add explicit `desktop` and `mobile` platform profiles and resolve one active profile at startup.
 - [x] Task 17: Wire player input, camera zoom, and navigation components to consume config from the shared service.
 
+### Phase 7: Composition Root + State/Event Boundaries
+- [x] Task 18: Use `Overworld` as composition root to inject player/chunk/debug/blocker dependencies and remove runtime group discovery in core loops.
+- [x] Task 19: Split global event channels into bounded-context buses (`PlayerEvents`, `WorldEvents`, `UIEvents`) and migrate player event emitters.
+- [x] Task 20: Harden `GameManager` with explicit transition-map validation and `game_state_changed` signal.
+
 ## Logging Requirements
 - Log warnings for missing critical runtime nodes (`PlayerContext` or blocker component) in debug builds.
 - Keep logs behind debug checks where possible to avoid noisy release output.

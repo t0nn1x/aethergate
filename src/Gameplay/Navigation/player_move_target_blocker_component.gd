@@ -23,7 +23,7 @@ func _ready() -> void:
 	_creature = get_parent() as Creature
 	assert(_creature, "PlayerMoveTargetBlockerComponent must be a child of a Creature.")
 	_navigation_agent = _creature.get_node_or_null("NavigationAgent2D") as NavigationAgent2D
-	_resolve_blocker_registry()
+	_resolve_blocker_registry_from_path()
 	_refresh_blocker_polygons_from_registry()
 
 
@@ -53,24 +53,24 @@ func resolve_world_target(world_position: Vector2) -> Vector2:
 	return world_position
 
 
-func _resolve_blocker_registry() -> void:
+func set_blocker_registry(registry: NavigationBlockerRegistry) -> void:
+	if _blocker_registry and _blocker_registry.blocker_polygons_changed.is_connected(_on_blocker_polygons_changed):
+		_blocker_registry.blocker_polygons_changed.disconnect(_on_blocker_polygons_changed)
+	_blocker_registry = registry
+	if _blocker_registry and not _blocker_registry.blocker_polygons_changed.is_connected(_on_blocker_polygons_changed):
+		_blocker_registry.blocker_polygons_changed.connect(_on_blocker_polygons_changed)
+	_refresh_blocker_polygons_from_registry()
+
+
+func _resolve_blocker_registry_from_path() -> void:
 	var resolved_registry: NavigationBlockerRegistry = null
 	if blocker_registry_path != NodePath():
 		resolved_registry = _creature.get_node_or_null(blocker_registry_path) as NavigationBlockerRegistry
-
 	if resolved_registry == null:
-		var registries: Array = get_tree().get_nodes_in_group("navigation_blocker_registry")
-		if not registries.is_empty():
-			resolved_registry = registries[0] as NavigationBlockerRegistry
-
-	_blocker_registry = resolved_registry
-	if _blocker_registry == null:
 		if OS.is_debug_build():
 			push_warning("PlayerMoveTargetBlockerComponent: NavigationBlockerRegistry not found.")
 		return
-
-	if not _blocker_registry.blocker_polygons_changed.is_connected(_on_blocker_polygons_changed):
-		_blocker_registry.blocker_polygons_changed.connect(_on_blocker_polygons_changed)
+	set_blocker_registry(resolved_registry)
 
 
 func _refresh_blocker_polygons_from_registry() -> void:

@@ -23,6 +23,9 @@ config/icon="res://icon.svg"
 
 ProjectConfig="*res://src/Config/project_config_service.gd"
 PlatformDisplaySettings="*res://src/Core/platform_display_settings.gd"
+PlayerEvents="*res://src/Core/Events/player_events.gd"
+WorldEvents="*res://src/Core/Events/world_events.gd"
+UIEvents="*res://src/Core/Events/ui_events.gd"
 EventBus="*res://src/Core/event_bus.gd"
 GameManager="*res://src/Core/game_manager.gd"
 

@@ -4,7 +4,6 @@ extends Node2D
 
 signal chunks_changed
 
-const PLAYER_GROUP := "player"
 const CHUNK_SCENE_PREFIX := "chunk_"
 const CHUNK_SCENE_EXT := ".tscn"
 
@@ -26,26 +25,27 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		_build_editor_preview()
 		return
-	call_deferred("_find_player")
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	if not _player:
-		_find_player()
 		return
 	var center = _world_to_chunk(_player.global_position)
 	if center != _current_center:
 		_current_center = center
 		_update_loaded_chunks(center)
 
-func _find_player() -> void:
-	var players = get_tree().get_nodes_in_group(PLAYER_GROUP)
-	if players.size() == 0:
+func set_tracked_player(player_node: Node2D) -> void:
+	_player = player_node
+	if _player == null:
 		return
-	_player = players[0]
 	_current_center = _world_to_chunk(_player.global_position)
 	_update_loaded_chunks(_current_center)
+
+
+func clear_tracked_player() -> void:
+	_player = null
 
 func _set_preview_all_in_editor(value: bool) -> void:
 	preview_all_in_editor = value

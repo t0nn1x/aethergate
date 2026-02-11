@@ -21,9 +21,17 @@ func _ready() -> void:
 
 	# Register with game systems.
 	add_to_group("player")
-	EventBus.player_spawned.emit(self)
+	_emit_player_spawned_event()
 
 func _on_death() -> void:
 	print("Player died!")
 	# Don't queue_free — handle respawn instead.
 	GameManager.change_state(GameManager.GameState.PAUSED)
+
+
+func _emit_player_spawned_event() -> void:
+	var player_events: Node = get_node_or_null("/root/PlayerEvents")
+	if player_events and player_events.has_signal("player_spawned"):
+		player_events.emit_signal("player_spawned", self)
+		return
+	EventBus.player_spawned.emit(self)
