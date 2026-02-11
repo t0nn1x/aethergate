@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://c2nh6l0g01wbr" path="res://src/Map/Overworld/overworld.gd" id="1"]
 [ext_resource type="Script" uid="uid://cv3xjubqcqbpl" path="res://src/Map/Overworld/chunk_manager.gd" id="3"]
 [ext_resource type="PackedScene" path="res://src/Core/Debug/debug_overlay.tscn" id="4"]
+[ext_resource type="Script" path="res://src/Map/Overworld/overworld_player_spawner.gd" id="5_spawner"]
+[ext_resource type="Script" path="res://src/Map/Overworld/overworld_session_controller.gd" id="6_session"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -26,6 +28,12 @@ rotation = -0.7853982
 
 [node name="WorldYSort" type="Node2D" parent="." unique_id=-2037575239]
 y_sort_enabled = true
+
+[node name="OverworldPlayerSpawner" type="Node" parent="." unique_id=1776301222]
+script = ExtResource("5_spawner")
+
+[node name="OverworldSessionController" type="Node" parent="." unique_id=1712515616]
+script = ExtResource("6_session")
 
 [node name="ChunkManager" type="Node2D" parent="." unique_id=1419170274]
 script = ExtResource("3")

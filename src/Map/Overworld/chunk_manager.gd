@@ -3,13 +3,8 @@ class_name ChunkManager
 extends Node2D
 
 const PLAYER_GROUP := "player"
-const PREVIEW_ROOT_NAME := "_EditorPreviewAll"
-const PREVIEW_Z_INDEX := 100
 const CHUNK_SCENE_PREFIX := "chunk_"
-const CHUNK_TEMPLATE_NAME := "chunk_template.tscn"
 const CHUNK_SCENE_EXT := ".tscn"
-const COLLISION_CACHE_PREFIX := "_CollisionCache_"
-const OBJECTS_LAYER_NAME := "Objects"
 
 @export_dir var chunk_scene_dir: String = "res://src/Map/Overworld/Chunks/Midra": set = _set_chunk_scene_dir
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
@@ -155,67 +150,14 @@ func _unload_chunk(coord: Vector2i) -> void:
 func _build_editor_preview() -> void:
 	if not Engine.is_editor_hint():
 		return
-	_clear_editor_preview()
-	if not preview_all_in_editor:
-		return
-	_editor_preview_root = Node2D.new()
-	_editor_preview_root.name = PREVIEW_ROOT_NAME
-	_editor_preview_root.z_index = PREVIEW_Z_INDEX
-	_editor_preview_root.owner = null
-	add_child(_editor_preview_root)
-	var dir = DirAccess.open(chunk_scene_dir)
-	if not dir:
-		return
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
-	while file_name != "":
-		if _is_chunk_scene(file_name):
-			var path = chunk_scene_dir.path_join(file_name)
-			var coord = _parse_chunk_coord(file_name)
-			var scene = load(path)
-			if scene:
-				var instance = scene.instantiate()
-				instance.name = "_Preview_%s" % file_name.substr(0, file_name.length() - CHUNK_SCENE_EXT.length())
-				instance.owner = null
-				if instance is OverworldChunk:
-					_configure_preview_chunk(instance, coord)
-				_editor_preview_root.add_child(instance)
-		file_name = dir.get_next()
-	dir.list_dir_end()
-
-func _clear_editor_preview() -> void:
-	if _editor_preview_root and is_instance_valid(_editor_preview_root):
-		_editor_preview_root.queue_free()
-	_editor_preview_root = null
-
-func _is_chunk_scene(file_name: String) -> bool:
-	if not file_name.begins_with(CHUNK_SCENE_PREFIX) or not file_name.ends_with(CHUNK_SCENE_EXT):
-		return false
-	if file_name == CHUNK_TEMPLATE_NAME:
-		return false
-	var prefix_len = CHUNK_SCENE_PREFIX.length()
-	var base = file_name.substr(prefix_len, file_name.length() - prefix_len - CHUNK_SCENE_EXT.length())
-	var parts = base.split("_")
-	if parts.size() != 2:
-		return false
-	return parts[0].is_valid_int() and parts[1].is_valid_int()
-
-func _parse_chunk_coord(file_name: String) -> Vector2i:
-	var prefix_len = CHUNK_SCENE_PREFIX.length()
-	var base = file_name.substr(prefix_len, file_name.length() - prefix_len - CHUNK_SCENE_EXT.length())
-	var parts = base.split("_")
-	return Vector2i(int(parts[0]), int(parts[1]))
-
-func _configure_preview_chunk(instance: OverworldChunk, coord: Vector2i) -> void:
-	instance.chunk_coord = coord
-	instance.chunk_size_tiles = chunk_size_tiles
-	instance.tile_size = tile_size
-	instance.preview_neighbors = false
-	instance.enforce_bounds_in_editor = false
-	instance.cleanup_out_of_bounds = false
-	instance.show_bounds = true
-	instance.bounds_line_width = max(instance.bounds_line_width, 1.0)
-	instance.z_index = PREVIEW_Z_INDEX
+	_editor_preview_root = ChunkManagerEditorPreview.rebuild_preview(
+		self,
+		_editor_preview_root,
+		preview_all_in_editor,
+		chunk_scene_dir,
+		chunk_size_tiles,
+		tile_size
+	)
 
 func _coerce_chunk_size(value: int) -> int:
 	return max(value, 1)
@@ -226,85 +168,10 @@ func _coerce_tile_size(value: Vector2i) -> Vector2i:
 func _stitch_loaded_chunk_borders() -> void:
 	if Engine.is_editor_hint():
 		return
-	var size := _coerce_chunk_size(chunk_size_tiles)
-	for coord in _loaded_chunks.keys():
-		var chunk := _loaded_chunks.get(coord, null) as OverworldChunk
-		if not chunk or not is_instance_valid(chunk):
-			continue
-		_stitch_chunk_border_layers(chunk, size)
-
-func _stitch_chunk_border_layers(chunk: OverworldChunk, size: int) -> void:
-	for child in chunk.get_children():
-		if not (child is TileMapLayer):
-			continue
-		var layer := child as TileMapLayer
-		if layer.name.begins_with(COLLISION_CACHE_PREFIX):
-			continue
-		if layer.name == OBJECTS_LAYER_NAME:
-			continue
-		_stitch_layer_border(chunk.chunk_coord, layer, size)
-
-func _stitch_layer_border(coord: Vector2i, layer: TileMapLayer, size: int) -> void:
-	var max_index := size - 1
-	_clear_border_overlap_cells(layer, size)
-
-	var left_layer := _get_chunk_layer(coord + Vector2i.LEFT, layer.name)
-	var right_layer := _get_chunk_layer(coord + Vector2i.RIGHT, layer.name)
-	var up_layer := _get_chunk_layer(coord + Vector2i(0, 1), layer.name)
-	var down_layer := _get_chunk_layer(coord + Vector2i(0, -1), layer.name)
-
-	for y in range(size):
-		_copy_cell(left_layer, Vector2i(max_index, y), layer, Vector2i(-1, y))
-		_copy_cell(right_layer, Vector2i(0, y), layer, Vector2i(size, y))
-	for x in range(size):
-		_copy_cell(up_layer, Vector2i(x, max_index), layer, Vector2i(x, -1))
-		_copy_cell(down_layer, Vector2i(x, 0), layer, Vector2i(x, size))
-
-	var up_left_layer := _get_chunk_layer(coord + Vector2i(-1, 1), layer.name)
-	var up_right_layer := _get_chunk_layer(coord + Vector2i(1, 1), layer.name)
-	var down_left_layer := _get_chunk_layer(coord + Vector2i(-1, -1), layer.name)
-	var down_right_layer := _get_chunk_layer(coord + Vector2i(1, -1), layer.name)
-
-	_copy_cell(up_left_layer, Vector2i(max_index, max_index), layer, Vector2i(-1, -1))
-	_copy_cell(up_right_layer, Vector2i(0, max_index), layer, Vector2i(size, -1))
-	_copy_cell(down_left_layer, Vector2i(max_index, 0), layer, Vector2i(-1, size))
-	_copy_cell(down_right_layer, Vector2i(0, 0), layer, Vector2i(size, size))
-
-func _copy_cell(
-	source_layer: TileMapLayer,
-	source_cell: Vector2i,
-	target_layer: TileMapLayer,
-	target_cell: Vector2i
-) -> void:
-	if not source_layer or not target_layer:
-		return
-	var source_id := source_layer.get_cell_source_id(source_cell)
-	if source_id < 0:
-		return
-	target_layer.set_cell(
-		target_cell,
-		source_id,
-		source_layer.get_cell_atlas_coords(source_cell),
-		source_layer.get_cell_alternative_tile(source_cell)
+	ChunkBorderStitcher.stitch_loaded_chunk_borders(
+		_loaded_chunks,
+		_coerce_chunk_size(chunk_size_tiles)
 	)
-
-func _clear_border_overlap_cells(layer: TileMapLayer, size: int) -> void:
-	for y in range(size):
-		layer.erase_cell(Vector2i(-1, y))
-		layer.erase_cell(Vector2i(size, y))
-	for x in range(size):
-		layer.erase_cell(Vector2i(x, -1))
-		layer.erase_cell(Vector2i(x, size))
-	layer.erase_cell(Vector2i(-1, -1))
-	layer.erase_cell(Vector2i(size, -1))
-	layer.erase_cell(Vector2i(-1, size))
-	layer.erase_cell(Vector2i(size, size))
-
-func _get_chunk_layer(coord: Vector2i, layer_name: String) -> TileMapLayer:
-	var chunk := _loaded_chunks.get(coord, null) as OverworldChunk
-	if not chunk or not is_instance_valid(chunk):
-		return null
-	return chunk.get_node_or_null(layer_name) as TileMapLayer
 
 func _normalize_dir(value: String) -> String:
 	var normalized = value
