@@ -37,6 +37,8 @@ func _ready() -> void:
 func request_move_target(world_position: Vector2, from_hold: bool = false) -> Variant:
 	if not _creature or not _creature.is_alive:
 		return null
+	if _creature.has_method("has_input_authority") and not bool(_creature.call("has_input_authority")):
+		return null
 	if _navigation_component == null:
 		return null
 

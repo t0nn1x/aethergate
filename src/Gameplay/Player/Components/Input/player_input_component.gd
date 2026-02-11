@@ -52,6 +52,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if not _has_input_authority():
+		return
 	if not _should_process_hold_retarget():
 		return
 	_sync_pointer_position_for_hold_retarget()
@@ -64,6 +66,8 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not creature or not creature.is_alive:
+		return
+	if not _has_input_authority():
 		return
 
 	if event is InputEventMouseButton:
@@ -247,3 +251,11 @@ func _resolve_project_config_service() -> ProjectConfigService:
 	if project_config_service_path == NodePath():
 		return null
 	return get_node_or_null(project_config_service_path) as ProjectConfigService
+
+
+func _has_input_authority() -> bool:
+	if creature == null:
+		return false
+	if creature.has_method("has_input_authority"):
+		return bool(creature.call("has_input_authority"))
+	return true

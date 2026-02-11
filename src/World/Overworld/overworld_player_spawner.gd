@@ -17,9 +17,12 @@ func _ready() -> void:
 	assert(_overworld, "OverworldPlayerSpawner must be a child of Overworld.")
 
 
-func spawn_player() -> Player:
-	if _overworld and is_instance_valid(_overworld.player):
-		return _overworld.player
+func spawn_player(player_id: int = 1, is_local_player: bool = true, owner_peer_id: int = 1) -> Player:
+	var existing_player: Player = null
+	if _overworld:
+		existing_player = _overworld.get_player_by_id(player_id)
+	if existing_player and is_instance_valid(existing_player):
+		return existing_player
 
 	if player_scene == null:
 		push_warning("OverworldPlayerSpawner: player_scene is not assigned.")
@@ -36,8 +39,9 @@ func spawn_player() -> Player:
 		push_warning("OverworldPlayerSpawner: failed to instantiate player scene as Player.")
 		return null
 
+	player_instance.configure_identity(player_id, owner_peer_id, is_local_player)
 	world_y_sort.add_child(player_instance)
 	player_instance.global_position = spawn_point.global_position
-	_overworld.register_player(player_instance)
+	_overworld.register_player(player_instance, player_id, is_local_player)
 	player_spawned.emit(player_instance)
 	return player_instance

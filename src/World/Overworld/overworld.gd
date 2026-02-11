@@ -5,6 +5,7 @@ extends Node2D
 ## Holds stage-level node references. Session orchestration is delegated.
 
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
+@export var default_local_player_id: int = 1
 
 @onready var terrain: Node2D = $Terrain
 @onready var navigation_region: NavigationRegion2D = $Navigation/NavigationRegion2D
@@ -14,7 +15,10 @@ extends Node2D
 @onready var navigation_blocker_registry: NavigationBlockerRegistry = $NavigationBlockerRegistry
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 
+## Backward-compatible local-player reference.
 var player: Player = null
+var _players_by_id: Dictionary = {}
+
 
 func _ready() -> void:
 	print("Overworld loaded")
@@ -25,15 +29,24 @@ func _ready() -> void:
 		if not chunk_manager.chunks_changed.is_connected(_on_chunks_changed):
 			chunk_manager.chunks_changed.connect(_on_chunks_changed)
 
+
 ## Backward-compatible helper for existing callers.
 func spawn_player() -> void:
 	var spawner: OverworldPlayerSpawner = get_node_or_null("OverworldPlayerSpawner") as OverworldPlayerSpawner
 	if spawner:
-		spawner.spawn_player()
+		spawner.spawn_player(default_local_player_id, true, 1)
 
-func register_player(player_instance: Player) -> void:
-	player = player_instance
-	_wire_player_dependencies(player_instance)
+
+func register_player(player_instance: Player, player_id: int = 1, is_local_player: bool = true) -> void:
+	if player_instance == null:
+		return
+
+	_players_by_id[player_id] = player_instance
+	if is_local_player:
+		player = player_instance
+		_wire_local_player_dependencies(player_instance)
+	_wire_shared_player_dependencies(player_instance)
+
 
 func get_navigation_region() -> NavigationRegion2D:
 	return navigation_region
@@ -41,6 +54,24 @@ func get_navigation_region() -> NavigationRegion2D:
 
 func get_navigation_blocker_registry() -> NavigationBlockerRegistry:
 	return navigation_blocker_registry
+
+
+func get_player_by_id(player_id: int) -> Player:
+	var player_instance: Player = _players_by_id.get(player_id, null) as Player
+	if player_instance and is_instance_valid(player_instance):
+		return player_instance
+	return null
+
+
+func get_local_player() -> Player:
+	return player
+
+
+func get_registered_player_ids() -> Array[int]:
+	var ids: Array[int] = []
+	for id_variant in _players_by_id.keys():
+		ids.append(int(id_variant))
+	return ids
 
 
 func _on_chunks_changed() -> void:
@@ -52,10 +83,10 @@ func _wire_stage_dependencies() -> void:
 	if debug_overlay and chunk_manager:
 		debug_overlay.set_chunk_manager(chunk_manager)
 	if player:
-		_wire_player_dependencies(player)
+		_wire_local_player_dependencies(player)
 
 
-func _wire_player_dependencies(player_instance: Player) -> void:
+func _wire_local_player_dependencies(player_instance: Player) -> void:
 	if player_instance == null:
 		return
 
@@ -63,6 +94,11 @@ func _wire_player_dependencies(player_instance: Player) -> void:
 		chunk_manager.set_tracked_player(player_instance)
 	if debug_overlay:
 		debug_overlay.set_player_node(player_instance)
+
+
+func _wire_shared_player_dependencies(player_instance: Player) -> void:
+	if player_instance == null:
+		return
 
 	var blocker_component: PlayerMoveTargetBlockerComponent = player_instance.get_node_or_null("PlayerMoveTargetBlockerComponent") as PlayerMoveTargetBlockerComponent
 	if blocker_component and navigation_blocker_registry:

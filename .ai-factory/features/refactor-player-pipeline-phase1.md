@@ -47,6 +47,11 @@ Created: 2026-02-11
 - [x] Task 19: Split global event channels into bounded-context buses (`PlayerEvents`, `WorldEvents`, `UIEvents`) and migrate player event emitters.
 - [x] Task 20: Harden `GameManager` with explicit transition-map validation and `game_state_changed` signal.
 
+### Phase 8: Solo-First Multiplayer Seams
+- [x] Task 21: Add player identity/ownership seams (`player_id`, `owner_peer_id`, `is_local_player`) and authority helper methods.
+- [x] Task 22: Remove hard single-player overworld assumption by adding player registry keyed by `player_id` while preserving local-player compatibility API.
+- [x] Task 23: Gate input/move-request/movement by authority checks to keep solo behavior but prepare network ownership handoff.
+
 ## Logging Requirements
 - Log warnings for missing critical runtime nodes (`PlayerContext` or blocker component) in debug builds.
 - Keep logs behind debug checks where possible to avoid noisy release output.

@@ -34,7 +34,11 @@ func stop_movement() -> void:
 
 
 func _can_move() -> bool:
-	return creature != null and creature.is_alive
+	if creature == null or not creature.is_alive:
+		return false
+	if creature.has_method("has_movement_authority"):
+		return bool(creature.call("has_movement_authority"))
+	return true
 
 
 func _apply_velocity(direction: Vector2) -> void:
