@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_player_spawner.gd" id="5_spawner"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_session_controller.gd" id="6_session"]
 [ext_resource type="Script" path="res://src/World/Overworld/navigation_blocker_registry.gd" id="7_registry"]
+[ext_resource type="PackedScene" path="res://src/UI/GUI/MainScreen/main_screen.tscn" id="8_main_screen"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -39,9 +40,12 @@ script = ExtResource("5_spawner")
 
 [node name="OverworldSessionController" type="Node" parent="." unique_id=1712515616]
 script = ExtResource("6_session")
+auto_start_session_on_ready = false
 
 [node name="ChunkManager" type="Node2D" parent="." unique_id=1419170274]
 script = ExtResource("3")
 preview_all_in_editor = true
 
 [node name="DebugOverlay" parent="." unique_id=847243072 instance=ExtResource("4")]
+
+[node name="MainScreen" parent="." unique_id=635295012 instance=ExtResource("8_main_screen")]

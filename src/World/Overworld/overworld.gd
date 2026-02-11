@@ -5,6 +5,8 @@ extends Node2D
 ## Holds stage-level node references. Session orchestration is delegated.
 
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
+@export var main_screen_path: NodePath = ^"MainScreen"
+@export var session_controller_path: NodePath = ^"OverworldSessionController"
 @export var default_local_player_id: int = 1
 
 @onready var terrain: Node2D = $Terrain
@@ -14,6 +16,8 @@ extends Node2D
 @onready var chunk_manager: ChunkManager = $ChunkManager
 @onready var navigation_blocker_registry: NavigationBlockerRegistry = $NavigationBlockerRegistry
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
+@onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
+@onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
 ## Backward-compatible local-player reference.
 var player: Player = null
@@ -23,11 +27,13 @@ var _players_by_id: Dictionary = {}
 func _ready() -> void:
 	print("Overworld loaded")
 	_wire_stage_dependencies()
+	_wire_main_screen_signals()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
 		if not chunk_manager.chunks_changed.is_connected(_on_chunks_changed):
 			chunk_manager.chunks_changed.connect(_on_chunks_changed)
+	_start_session_if_menu_is_missing()
 
 
 ## Backward-compatible helper for existing callers.
@@ -84,6 +90,42 @@ func _wire_stage_dependencies() -> void:
 		debug_overlay.set_chunk_manager(chunk_manager)
 	if player:
 		_wire_local_player_dependencies(player)
+
+
+func _wire_main_screen_signals() -> void:
+	if main_screen == null:
+		if OS.is_debug_build():
+			push_warning("Overworld: MainScreen is missing. Session will auto-start.")
+		return
+
+	if not main_screen.play_pressed.is_connected(_on_main_screen_play_pressed):
+		main_screen.play_pressed.connect(_on_main_screen_play_pressed)
+	if not main_screen.settings_requested.is_connected(_on_main_screen_settings_requested):
+		main_screen.settings_requested.connect(_on_main_screen_settings_requested)
+	if not main_screen.quit_requested.is_connected(_on_main_screen_quit_requested):
+		main_screen.quit_requested.connect(_on_main_screen_quit_requested)
+
+
+func _start_session_if_menu_is_missing() -> void:
+	if main_screen != null:
+		main_screen.show_menu()
+		return
+	if session_controller:
+		session_controller.start_session()
+
+
+func _on_main_screen_play_pressed() -> void:
+	print("[Overworld] play_started")
+	if session_controller:
+		session_controller.start_session()
+
+
+func _on_main_screen_settings_requested() -> void:
+	print("[Overworld] settings_opened")
+
+
+func _on_main_screen_quit_requested() -> void:
+	print("[Overworld] quit_requested")
 
 
 func _wire_local_player_dependencies(player_instance: Player) -> void:

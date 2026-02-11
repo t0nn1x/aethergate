@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=6 format=3]
+
+[ext_resource type="FontFile" path="res://Assets/Fonts/compass/Compass 9.ttf" id="1_font"]
+[ext_resource type="StyleBoxTexture" path="res://src/UI/GUI/MainScreen/styles/button_normal_9slice.tres" id="2_normal"]
+[ext_resource type="StyleBoxTexture" path="res://src/UI/GUI/MainScreen/styles/button_hover_9slice.tres" id="3_hover"]
+[ext_resource type="StyleBoxTexture" path="res://src/UI/GUI/MainScreen/styles/button_pressed_9slice.tres" id="4_pressed"]
+[ext_resource type="StyleBoxTexture" path="res://src/UI/GUI/MainScreen/styles/panel_wood_9slice.tres" id="5_panel"]
+
+[resource]
+default_font = ExtResource("1_font")
+Button/colors/font_color = Color(0.976471, 0.905882, 0.615686, 1)
+Button/colors/font_focus_color = Color(0.976471, 0.905882, 0.615686, 1)
+Button/colors/font_hover_color = Color(1, 0.945098, 0.698039, 1)
+Button/colors/font_outline_color = Color(0.145098, 0.0823529, 0.0117647, 1)
+Button/colors/font_pressed_color = Color(0.945098, 0.85098, 0.545098, 1)
+Button/constants/h_separation = 8
+Button/constants/outline_size = 2
+Button/font_sizes/font_size = 32
+Button/styles/focus = ExtResource("2_normal")
+Button/styles/hover = ExtResource("3_hover")
+Button/styles/normal = ExtResource("2_normal")
+Button/styles/pressed = ExtResource("4_pressed")
+Label/colors/font_color = Color(0.976471, 0.905882, 0.615686, 1)
+Label/colors/font_outline_color = Color(0.145098, 0.0823529, 0.0117647, 1)
+Label/font_sizes/font_size = 40
+Label/constants/outline_size = 2
+PanelContainer/styles/panel = ExtResource("5_panel")
