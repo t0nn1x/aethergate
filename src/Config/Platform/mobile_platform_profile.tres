@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="GamePlatformProfile" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="GamePlatformProfile" format=3 uid="uid://0vm3lqq7fxj2"]
 
-[ext_resource type="Script" path="res://src/Config/Platform/game_platform_profile.gd" id="1"]
+[ext_resource type="Script" uid="uid://c0b1kgaj0sobo" path="res://src/Config/Platform/game_platform_profile.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 profile_name = "mobile"
 allow_mouse_pointer_input = false
 allow_touch_input = true
-touch_hold_retarget_enabled = false
-default_camera_zoom = 4.0
 pinch_zoom_enabled = true
 mouse_wheel_zoom_enabled = false

@@ -1,14 +1,6 @@
-[gd_resource type="Resource" script_class="PlayerInputConfig" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="PlayerInputConfig" format=3 uid="uid://3mph4wvilglg"]
 
-[ext_resource type="Script" path="res://src/Gameplay/Player/Config/player_input_config.gd" id="1"]
+[ext_resource type="Script" uid="uid://bc8laf3yyct6u" path="res://src/Gameplay/Player/Config/player_input_config.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
-click_move_action = &"click_move"
-hold_retarget_enabled = true
-touch_hold_retarget_enabled_mobile = false
-touch_tap_max_drag_distance = 12.0
-hold_retarget_interval = 0.06
-hold_retarget_min_distance = 8.0
-reject_targets_inside_navigation_polygons = true
-disable_move_while_multitouch = true
