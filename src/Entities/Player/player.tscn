@@ -1,19 +1,20 @@
 [gd_scene format=3 uid="uid://b5kavdctdhcfg"]
 
 [ext_resource type="Script" uid="uid://bume2vfytjwef" path="res://src/Entities/Player/player.gd" id="1"]
-[ext_resource type="Script" uid="uid://0x5d1qflun1b" path="res://src/Entities/Player/Components/player_movement_component.gd" id="2"]
+[ext_resource type="Script" uid="uid://0x5d1qflun1b" path="res://src/Gameplay/Player/Components/player_movement_component.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://dpmv7kklxobr4" path="res://src/Entities/Player/Sprites/Zorfath32.png" id="2_lu8i8"]
 [ext_resource type="Shader" uid="uid://dws727wjsskme" path="res://src/Common/Shaders/silhouette.gdshader" id="3_sil"]
-[ext_resource type="Script" uid="uid://brpmyo0esxf07" path="res://src/Entities/Player/Components/player_visual_component.gd" id="4_vis"]
-[ext_resource type="Script" uid="uid://c2n2pnl8vdast" path="res://src/Entities/Player/Components/player_camera_component.gd" id="5_cam"]
-[ext_resource type="Script" uid="uid://sv652uydmdsg" path="res://src/Entities/Player/Components/player_input_component.gd" id="6_inp"]
-[ext_resource type="Script" uid="uid://wavdrnjf57qy" path="res://src/Entities/Creatures/Components/creature_navigation_component.gd" id="7_navcomp"]
+[ext_resource type="Script" uid="uid://brpmyo0esxf07" path="res://src/Gameplay/Player/Components/player_visual_component.gd" id="4_vis"]
+[ext_resource type="Script" uid="uid://c2n2pnl8vdast" path="res://src/Gameplay/Player/Components/player_camera_component.gd" id="5_cam"]
+[ext_resource type="Script" uid="uid://sv652uydmdsg" path="res://src/Gameplay/Player/Components/player_input_component.gd" id="6_inp"]
+[ext_resource type="Script" uid="uid://wavdrnjf57qy" path="res://src/Gameplay/Navigation/creature_navigation_component.gd" id="7_navcomp"]
 [ext_resource type="Script" uid="uid://04brhsvoybps" path="res://src/Common/State_Machine/state_machine.gd" id="8_sm"]
-[ext_resource type="Script" uid="uid://w6c770iqxjfm" path="res://src/Entities/Player/States/player_idle_state.gd" id="9_idle"]
-[ext_resource type="Script" uid="uid://dj2egesej8jpb" path="res://src/Entities/Player/States/player_path_move_state.gd" id="11_path"]
-[ext_resource type="Script" uid="uid://brfnb42yvma5" path="res://src/Entities/Player/Components/player_move_pointer_component.gd" id="12_ptr"]
-[ext_resource type="Script" path="res://src/Entities/Player/Components/player_context.gd" id="13_ctx"]
-[ext_resource type="Script" path="res://src/Entities/Player/Components/player_move_target_blocker_component.gd" id="14_blocker"]
+[ext_resource type="Script" uid="uid://w6c770iqxjfm" path="res://src/Gameplay/Player/States/player_idle_state.gd" id="9_idle"]
+[ext_resource type="Script" uid="uid://dj2egesej8jpb" path="res://src/Gameplay/Player/States/player_path_move_state.gd" id="11_path"]
+[ext_resource type="Script" uid="uid://brfnb42yvma5" path="res://src/Gameplay/Player/Components/player_move_pointer_component.gd" id="12_ptr"]
+[ext_resource type="Script" path="res://src/Gameplay/Player/Components/player_context.gd" id="13_ctx"]
+[ext_resource type="Script" path="res://src/Gameplay/Navigation/player_move_target_blocker_component.gd" id="14_blocker"]
+[ext_resource type="Script" path="res://src/Gameplay/Player/Services/player_move_request_service.gd" id="15_move_service"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
 shader = ExtResource("3_sil")
@@ -92,6 +93,9 @@ shape = SubResource("1")
 [node name="PlayerInputComponent" type="Node" parent="." unique_id=528017405]
 script = ExtResource("6_inp")
 
+[node name="PlayerMoveRequestService" type="Node" parent="." unique_id=2105770868]
+script = ExtResource("15_move_service")
+
 [node name="PlayerContext" type="Node" parent="." unique_id=534992111]
 script = ExtResource("13_ctx")
 
@@ -120,6 +124,11 @@ process_callback = 0
 [node name="StateMachine" type="Node" parent="." unique_id=774756551]
 script = ExtResource("8_sm")
 initial_state = NodePath("IdleState")
+enforce_transition_map = true
+allowed_transitions = {
+"IdleState": PackedStringArray("PathMoveState"),
+"PathMoveState": PackedStringArray("IdleState")
+}
 
 [node name="IdleState" type="Node" parent="StateMachine" unique_id=114518502]
 script = ExtResource("9_idle")
