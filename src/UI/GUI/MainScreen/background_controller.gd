@@ -13,11 +13,22 @@ extends Node
 @export var composition_vertical_offset: float = 0.0
 @export var base_scroll_speed: float = 22.0
 @export var layer_scroll_speed_multipliers: PackedFloat32Array = PackedFloat32Array([0.08, 0.12, 0.18, 0.26, 0.36, 0.5])
+@export_range(1, 64, 1) var max_background_set_probe_count: int = 24
+@export_range(1, 32, 1) var max_layer_probe_count: int = 8
+
+enum LayerFitMode {
+	CONTAIN,
+	COVER
+}
+
+@export var layer_fit_mode: LayerFitMode = LayerFitMode.COVER
 
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _layer_nodes: Array[TextureRect] = []
 var _scroll_shader: Shader
 var _viewport: Viewport
+
+const LAYER_FILE_EXTENSIONS := ["png", "webp", "jpg", "jpeg"]
 
 
 func _ready() -> void:
@@ -25,6 +36,7 @@ func _ready() -> void:
 	_collect_layer_nodes()
 	_wire_viewport_resize()
 	_apply_random_background_set()
+	print("[FIX][BackgroundController] layer_fit_mode=%s" % ("COVER" if layer_fit_mode == LayerFitMode.COVER else "CONTAIN"))
 
 
 func _collect_layer_nodes() -> void:
@@ -101,19 +113,25 @@ func _apply_random_background_set() -> void:
 func _get_background_folders() -> Array[String]:
 	var folders: Array[String] = []
 	var dir: DirAccess = DirAccess.open(backgrounds_root)
-	if dir == null:
-		return folders
+	if dir != null:
+		dir.list_dir_begin()
+		while true:
+			var entry: String = dir.get_next()
+			if entry.is_empty():
+				break
+			if entry.begins_with("."):
+				continue
+			if dir.current_is_dir() and _matches_background_set_prefix(entry):
+				folders.append(entry)
+		dir.list_dir_end()
 
-	dir.list_dir_begin()
-	while true:
-		var entry: String = dir.get_next()
-		if entry.is_empty():
-			break
-		if entry.begins_with("."):
-			continue
-		if dir.current_is_dir() and _matches_background_set_prefix(entry):
-			folders.append(entry)
-	dir.list_dir_end()
+	if folders.is_empty():
+		folders = _probe_background_folders()
+		if not folders.is_empty():
+			print(
+				"[FIX][BackgroundController] DirAccess listing unavailable/empty. Using export-safe background-set probe (%d sets)."
+				% folders.size()
+			)
 
 	folders.sort()
 	return folders
@@ -128,20 +146,26 @@ func _matches_background_set_prefix(folder_name: String) -> bool:
 func _get_sorted_layer_paths(folder_path: String) -> Array[String]:
 	var files: Array[String] = []
 	var dir: DirAccess = DirAccess.open(folder_path)
-	if dir == null:
-		return files
+	if dir != null:
+		dir.list_dir_begin()
+		while true:
+			var entry: String = dir.get_next()
+			if entry.is_empty():
+				break
+			if dir.current_is_dir():
+				continue
+			if not entry.to_lower().ends_with(".png"):
+				continue
+			files.append("%s/%s" % [folder_path, entry])
+		dir.list_dir_end()
 
-	dir.list_dir_begin()
-	while true:
-		var entry: String = dir.get_next()
-		if entry.is_empty():
-			break
-		if dir.current_is_dir():
-			continue
-		if not entry.to_lower().ends_with(".png"):
-			continue
-		files.append("%s/%s" % [folder_path, entry])
-	dir.list_dir_end()
+	if files.is_empty():
+		files = _probe_layer_paths(folder_path, max_layer_probe_count)
+		if not files.is_empty():
+			print(
+				"[FIX][BackgroundController] DirAccess layer listing unavailable/empty for %s. Using export-safe layer probe (%d layers)."
+				% [folder_path, files.size()]
+			)
 
 	files.sort_custom(func(a: String, b: String) -> bool:
 		return _layer_path_sort_key(a) < _layer_path_sort_key(b)
@@ -186,6 +210,48 @@ func _get_sorted_layer_paths(folder_path: String) -> Array[String]:
 	return typed_paths
 
 
+func _probe_background_folders() -> Array[String]:
+	var folders: Array[String] = []
+	var trimmed_prefix: String = background_set_prefix.strip_edges()
+	if trimmed_prefix.is_empty():
+		return folders
+
+	for set_index in range(1, max_background_set_probe_count + 1):
+		var folder_name: String = "%s %d" % [trimmed_prefix, set_index]
+		var folder_path: String = "%s/%s" % [backgrounds_root, folder_name]
+		if _folder_has_any_layer(folder_path):
+			folders.append(folder_name)
+
+	return folders
+
+
+func _folder_has_any_layer(folder_path: String) -> bool:
+	return not _resolve_layer_resource_path(folder_path, 1).is_empty()
+
+
+func _probe_layer_paths(folder_path: String, max_layers: int) -> Array[String]:
+	var files: Array[String] = []
+	var miss_count: int = 0
+	for layer_index in range(1, max_layers + 1):
+		var path: String = _resolve_layer_resource_path(folder_path, layer_index)
+		if path.is_empty():
+			miss_count += 1
+			if not files.is_empty() and miss_count >= 2:
+				break
+			continue
+		files.append(path)
+		miss_count = 0
+	return files
+
+
+func _resolve_layer_resource_path(folder_path: String, layer_index: int) -> String:
+	for extension in LAYER_FILE_EXTENSIONS:
+		var path: String = "%s/%d.%s" % [folder_path, layer_index, extension]
+		if ResourceLoader.exists(path, "Texture2D"):
+			return path
+	return ""
+
+
 func _layer_path_sort_key(path: String) -> int:
 	var name: String = path.get_file().get_basename()
 	if name.is_valid_int():
@@ -228,7 +294,13 @@ func _apply_layer_fit(layer: TextureRect, texture: Texture2D) -> void:
 	if base_size.x <= 0.0 or base_size.y <= 0.0:
 		base_size = Vector2(1.0, 1.0)
 
-	var scale_factor: float = minf(viewport_size.x / base_size.x, viewport_size.y / base_size.y)
+	var width_scale: float = viewport_size.x / base_size.x
+	var height_scale: float = viewport_size.y / base_size.y
+	var scale_factor: float = (
+		maxf(width_scale, height_scale)
+		if layer_fit_mode == LayerFitMode.COVER
+		else minf(width_scale, height_scale)
+	)
 	# Clamp so zoom can only keep full fit or zoom further out, never in.
 	var zoom_factor: float = clampf(composition_zoom, 0.01, 1.0)
 	scale_factor *= zoom_factor
