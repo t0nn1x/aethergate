@@ -57,6 +57,8 @@ To fix this effectively, I need more context:
 - Existing error handling
 - Godot strict typing traps (e.g. `:= max/min/clamp` inferring `Variant` when warnings are errors)
 - Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
+- Autoload identifier parse traps (new singleton names referenced directly in scripts before `project.godot` autoload resolution)
+- Runtime group-discovery in hot paths (`_process`/`_physics_process`) that should be replaced with injected dependencies
 
 ### Step 3: Implement the Fix
 
@@ -93,6 +95,7 @@ try {
 - Verify the logic is correct
 - Ensure no regressions introduced
 - For Godot refactors, verify that every referenced script/resource in `.tscn` still exists
+- If touching autoload-driven code, verify `project.godot` `[autoload]` entries and keep a compatibility fallback path while migrating callers
 
 ### Step 5: Suggest Test Coverage
 

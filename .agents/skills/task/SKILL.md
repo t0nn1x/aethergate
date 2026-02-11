@@ -109,6 +109,8 @@ Create tasks using `TaskCreate` with clear, actionable items:
   - `.tscn` script/resource path rewiring
   - `.uid` continuity checks after moves
   - behavior parity checks (input, movement, state transitions, chunk loading)
+  - autoload migration safety (`project.godot` update + temporary compatibility bridge)
+  - composition-root injection tasks replacing runtime `get_nodes_in_group` scans in hot loops
 
 ### Step 6: Set Up Dependencies
 

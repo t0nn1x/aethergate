@@ -67,6 +67,9 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] No strict-typing inference traps (`Variant` inference from `max/min/clamp` and similar)
 - [ ] Scene/script reference integrity after moves (`.tscn` `ext_resource` paths and `.uid`)
 - [ ] Input/navigation behavior still works (tap-to-move, hold retarget, blocked target resolution)
+- [ ] New autoload channels are registered in `project.godot` and not referenced through undeclared compile-time singleton names
+- [ ] Event-bus migrations preserve compatibility (legacy bridge/fallback exists while callers are being moved)
+- [ ] No `get_nodes_in_group` polling in hot runtime paths where composition-root injection is expected
 
 ## Output Format
 
