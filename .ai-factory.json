@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "agent": "universal",
+  "skillsDir": ".agents/skills",
+  "installedSkills": [
+    "ai-factory",
+    "architecture",
+    "best-practices",
+    "commit",
+    "deploy",
+    "evolve",
+    "feature",
+    "fix",
+    "godot-best-practices",
+    "godot-development",
+    "godot-gdscript-patterns",
+    "godot-ui",
+    "implement",
+    "review",
+    "security-checklist",
+    "skill-generator",
+    "task"
+  ],
+  "mcp": {
+    "github": true,
+    "filesystem": true,
+    "postgres": false
+  }
+}
