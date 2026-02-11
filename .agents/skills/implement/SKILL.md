@@ -143,6 +143,7 @@ TaskUpdate(taskId, status: "in_progress")
 - If replacing group discovery with DI, verify composition-root wiring assigns dependencies before gameplay loops start
 - For solo-first gameplay work, keep multiplayer seams intact (identity fields + authority checks) instead of hardcoding single-player assumptions
 - For Godot UI backgrounds/parallax, verify runtime render is single-composition (no unintended row/column tiling) and that randomized folders do not mix incompatible layer dimensions
+- For mobile/export targets, avoid relying solely on `DirAccess` listing for `res://` assets; ensure a manifest or `ResourceLoader.exists()` fallback is implemented
 
 **3.5: Mark as completed**
 ```

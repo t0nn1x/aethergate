@@ -61,6 +61,7 @@ To fix this effectively, I need more context:
 - Runtime group-discovery in hot paths (`_process`/`_physics_process`) that should be replaced with injected dependencies
 - UI background composition traps: `TextureRect.STRETCH_TILE` combined with enlarged fit rects/material repeat causing unintended multi-row tiling
 - Mixed-size parallax layer sets (different source dimensions in one folder) that produce random zoom/crop framing across starts
+- Export/mobile resource discovery traps: runtime `DirAccess` listing under `res://` returning empty in packaged builds (prefer manifest or `ResourceLoader.exists()` probe fallback)
 
 ### Step 3: Implement the Fix
 

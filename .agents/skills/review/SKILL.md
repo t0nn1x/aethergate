@@ -73,6 +73,7 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Solo-first code keeps multiplayer seams (identity fields + authority checks) and does not bake in single-player-only assumptions
 - [ ] `TextureRect` stretch/repeat settings match intent (avoid accidental tiling from `STRETCH_TILE` + expanded rects unless explicitly desired)
 - [ ] Parallax/background folders either enforce same-sized layer images or use explicit canonical-size filtering before assignment
+- [ ] Mobile/export resource loading does not rely only on `DirAccess` listing under `res://` (manifest or `ResourceLoader.exists()` fallback is present)
 
 ## Output Format
 

@@ -14,6 +14,7 @@ Expert guidance for porting desktop games to mobile platforms.
 - **NEVER forget finger occlusion** — User's finger blocks 50-100px radius. Position critical info ABOVE touch controls, not below.
 - **NEVER run at full performance when backgrounded** — Mobile OSs kill apps that drain battery in background. Pause physics, reduce FPS to 1-5 when app loses focus.
 - **NEVER use desktop-only features** — Mouse hover, right-click, keyboard shortcuts, scroll wheel don't exist on mobile. Provide touch alternatives.
+- **NEVER rely only on `DirAccess` listing for `res://` assets in exports** — Packaged mobile builds may not expose directory enumeration reliably. Use manifest-based paths or `ResourceLoader.exists()` probing fallback.
 
 ---
 
