@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AetherProjectConfig" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/Config/aether_project_config.gd" id="1"]
+[ext_resource type="Resource" path="res://src/Config/Platform/desktop_platform_profile.tres" id="2"]
+[ext_resource type="Resource" path="res://src/Config/Platform/mobile_platform_profile.tres" id="3"]
+[ext_resource type="Resource" path="res://src/Gameplay/Player/Config/player_input_config.tres" id="4"]
+[ext_resource type="Resource" path="res://src/Gameplay/Player/Config/player_movement_config.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+desktop_platform_profile = ExtResource("2")
+mobile_platform_profile = ExtResource("3")
+player_input_config = ExtResource("4")
+player_movement_config = ExtResource("5")

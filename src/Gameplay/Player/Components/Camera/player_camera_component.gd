@@ -8,8 +8,11 @@ const DESKTOP_FEATURES: PackedStringArray = ["windows", "macos", "linuxbsd"]
 var creature: Creature
 var camera: Camera2D
 var _zoom_target: float = 4.0
+var _platform_profile: GamePlatformProfile
+var _mouse_wheel_zoom_enabled: bool = true
 var _pinch_zoom_tracker: PlayerPinchZoomTracker = PlayerPinchZoomTracker.new()
 
+@export var project_config_service_path: NodePath = ^"/root/ProjectConfig"
 @export var camera_zoom_step: float = 1.0
 @export var camera_zoom_min: float = 2.0
 @export var camera_zoom_max: float = 6.0
@@ -35,6 +38,7 @@ func _ready() -> void:
 	camera.enabled = true
 	camera.position_smoothing_enabled = false
 
+	_apply_project_config()
 	_zoom_target = _sanitize_zoom(_get_default_zoom_for_platform())
 	camera.zoom = Vector2(_zoom_target, _zoom_target)
 
@@ -95,6 +99,8 @@ func _sanitize_zoom(value: float) -> float:
 
 
 func _get_default_zoom_for_platform() -> float:
+	if _platform_profile != null:
+		return _platform_profile.default_camera_zoom
 	for feature in DESKTOP_FEATURES:
 		if OS.has_feature(feature):
 			return default_zoom_desktop
@@ -102,9 +108,11 @@ func _get_default_zoom_for_platform() -> float:
 
 
 func _handle_mouse_wheel_zoom(event: InputEvent) -> bool:
+	if not _mouse_wheel_zoom_enabled:
+		return false
 	if event is not InputEventMouseButton:
 		return false
-	var mouse_event := event as InputEventMouseButton
+	var mouse_event: InputEventMouseButton = event as InputEventMouseButton
 	if not mouse_event.pressed:
 		return false
 	if mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -120,12 +128,12 @@ func _handle_pinch_zoom(event: InputEvent) -> bool:
 	if not pinch_zoom_enabled:
 		return false
 	if event is InputEventScreenTouch:
-		var touch_event := event as InputEventScreenTouch
+		var touch_event: InputEventScreenTouch = event as InputEventScreenTouch
 		_pinch_zoom_tracker.register_touch(touch_event.index, touch_event.position, touch_event.pressed)
 		_apply_pinch_zoom_target()
 		return true
 	if event is InputEventScreenDrag:
-		var drag_event := event as InputEventScreenDrag
+		var drag_event: InputEventScreenDrag = event as InputEventScreenDrag
 		if _pinch_zoom_tracker.has_touch(drag_event.index):
 			_pinch_zoom_tracker.update_touch_position(drag_event.index, drag_event.position)
 			_apply_pinch_zoom_target()
@@ -141,3 +149,24 @@ func _apply_pinch_zoom_target() -> void:
 	)
 	if pinch_zoom_target is float:
 		_set_zoom_target(float(pinch_zoom_target))
+
+
+func _apply_project_config() -> void:
+	var project_config_service: ProjectConfigService = _resolve_project_config_service()
+	if project_config_service == null:
+		if OS.is_debug_build():
+			push_warning("PlayerCameraComponent: ProjectConfig autoload is missing.")
+		return
+
+	_platform_profile = project_config_service.get_platform_profile()
+	if _platform_profile == null:
+		return
+
+	pinch_zoom_enabled = _platform_profile.pinch_zoom_enabled
+	_mouse_wheel_zoom_enabled = _platform_profile.mouse_wheel_zoom_enabled
+
+
+func _resolve_project_config_service() -> ProjectConfigService:
+	if project_config_service_path == NodePath():
+		return null
+	return get_node_or_null(project_config_service_path) as ProjectConfigService

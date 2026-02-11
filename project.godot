@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+ProjectConfig="*res://src/Config/project_config_service.gd"
 PlatformDisplaySettings="*res://src/Core/platform_display_settings.gd"
 EventBus="*res://src/Core/event_bus.gd"
 GameManager="*res://src/Core/game_manager.gd"

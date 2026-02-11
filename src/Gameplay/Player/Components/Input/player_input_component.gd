@@ -6,11 +6,10 @@ extends Node
 signal move_target_queued(world_position: Vector2, from_hold: bool)
 signal pointer_hold_changed(is_held: bool)
 
-const MOBILE_FEATURES: PackedStringArray = ["android", "ios", "mobile"]
-
 var creature: Creature
 
 @export var move_request_service_path: NodePath = ^"PlayerMoveRequestService"
+@export var project_config_service_path: NodePath = ^"/root/ProjectConfig"
 @export var input_config: PlayerInputConfig = preload("res://src/Gameplay/Player/Config/player_input_config.tres")
 
 @export var click_move_action: StringName = "click_move"
@@ -30,6 +29,9 @@ var _has_last_hold_target: bool = false
 var _last_hold_target_world: Vector2 = Vector2.ZERO
 
 var _move_request_service: PlayerMoveRequestService
+var _platform_profile: GamePlatformProfile
+var _allow_mouse_pointer_input: bool = true
+var _allow_touch_input: bool = true
 var _mouse_adapter: PlayerMouseInputAdapter = PlayerMouseInputAdapter.new()
 var _touch_adapter: PlayerTouchInputAdapter = PlayerTouchInputAdapter.new()
 
@@ -38,6 +40,7 @@ func _ready() -> void:
 	creature = get_parent() as Creature
 	assert(creature, "PlayerInputComponent must be a child of a Creature.")
 
+	_apply_project_config()
 	_apply_input_config()
 	_move_request_service = creature.get_node_or_null(move_request_service_path) as PlayerMoveRequestService
 	if _move_request_service:
@@ -64,14 +67,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton:
+		if not _allow_mouse_pointer_input:
+			return
 		_mouse_adapter.handle_button(self, event as InputEventMouseButton, click_move_action)
 		return
 
 	if event is InputEventMouseMotion:
+		if not _allow_mouse_pointer_input:
+			return
 		_mouse_adapter.handle_motion(self, event as InputEventMouseMotion)
 		return
 
 	if event is InputEventScreenTouch:
+		if not _allow_touch_input:
+			return
 		_touch_adapter.handle_touch(
 			self,
 			event as InputEventScreenTouch,
@@ -81,6 +90,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventScreenDrag:
+		if not _allow_touch_input:
+			return
 		_touch_adapter.handle_drag(self, event as InputEventScreenDrag, disable_move_while_multitouch)
 
 
@@ -107,7 +118,7 @@ func _should_process_hold_retarget() -> bool:
 func _sync_pointer_position_for_hold_retarget() -> void:
 	if _active_touch_index != -1:
 		return
-	var viewport := creature.get_viewport()
+	var viewport: Viewport = creature.get_viewport()
 	if viewport:
 		_last_pointer_screen_position = viewport.get_mouse_position()
 
@@ -142,14 +153,14 @@ func _queue_move_target_world(world_position: Vector2, screen_position: Vector2,
 
 
 func _screen_to_world(screen_position: Vector2) -> Vector2:
-	var viewport := creature.get_viewport()
+	var viewport: Viewport = creature.get_viewport()
 	if viewport == null:
 		return creature.global_position
 	return viewport.get_canvas_transform().affine_inverse() * screen_position
 
 
 func _get_mouse_viewport_position(fallback_position: Vector2) -> Vector2:
-	var viewport := creature.get_viewport()
+	var viewport: Viewport = creature.get_viewport()
 	if viewport == null:
 		return fallback_position
 	return viewport.get_mouse_position()
@@ -162,7 +173,7 @@ func _get_mouse_world_position() -> Vector2:
 
 
 func _is_pointer_over_ui(_screen_position: Vector2) -> bool:
-	var viewport := creature.get_viewport()
+	var viewport: Viewport = creature.get_viewport()
 	if viewport == null:
 		return false
 
@@ -186,16 +197,9 @@ func _set_pointer_held(value: bool, touch_index: int = -1) -> void:
 
 
 func _is_touch_hold_retarget_enabled() -> bool:
-	if _is_mobile_platform():
-		return touch_hold_retarget_enabled_mobile
-	return hold_retarget_enabled
-
-
-func _is_mobile_platform() -> bool:
-	for feature in MOBILE_FEATURES:
-		if OS.has_feature(feature):
-			return true
-	return false
+	if _platform_profile != null:
+		return _platform_profile.touch_hold_retarget_enabled
+	return touch_hold_retarget_enabled_mobile
 
 
 func _on_move_target_queued(world_position: Vector2, from_hold: bool) -> void:
@@ -218,3 +222,28 @@ func _apply_input_config() -> void:
 	hold_retarget_min_distance = input_config.hold_retarget_min_distance
 	reject_targets_inside_navigation_polygons = input_config.reject_targets_inside_navigation_polygons
 	disable_move_while_multitouch = input_config.disable_move_while_multitouch
+
+
+func _apply_project_config() -> void:
+	var project_config_service: ProjectConfigService = _resolve_project_config_service()
+	if project_config_service == null:
+		if OS.is_debug_build():
+			push_warning("PlayerInputComponent: ProjectConfig autoload is missing.")
+		return
+
+	var project_input_config: PlayerInputConfig = project_config_service.get_player_input_config()
+	if project_input_config != null:
+		input_config = project_input_config
+
+	_platform_profile = project_config_service.get_platform_profile()
+	if _platform_profile == null:
+		return
+
+	_allow_mouse_pointer_input = _platform_profile.allow_mouse_pointer_input
+	_allow_touch_input = _platform_profile.allow_touch_input
+
+
+func _resolve_project_config_service() -> ProjectConfigService:
+	if project_config_service_path == NodePath():
+		return null
+	return get_node_or_null(project_config_service_path) as ProjectConfigService

@@ -23,6 +23,25 @@ Created: 2026-02-11
 - [x] Task 5: Refactor `PlayerInputComponent` to delegate blocker checks to the new component and remove local blocker cache logic.
 - [x] Task 6: Wire new components in `player.tscn`, validate script references, and run lightweight regression checks.
 
+### Phase 3: Overworld Session Orchestration
+- [x] Task 7: Add `OverworldPlayerSpawner` to own player spawn + registration flow.
+- [x] Task 8: Add `OverworldSessionController` to own startup state transition + initial spawn orchestration.
+- [x] Task 9: Refactor `overworld.gd` to stage-only responsibilities and wire new components in `overworld.tscn`.
+
+### Phase 4: Chunk Manager Responsibility Split
+- [x] Task 10: Extract editor preview build logic from `chunk_manager.gd` into `ChunkManagerEditorPreview`.
+- [x] Task 11: Extract runtime border stitching logic from `chunk_manager.gd` into `ChunkBorderStitcher`.
+- [x] Task 12: Keep `chunk_manager.gd` focused on runtime loading orchestration and delegate preview/stitching helpers.
+
+### Phase 5: OverworldChunk Responsibility Split (Incremental)
+- [x] Task 13: Extract chunk editor-neighbor preview orchestration from `chunk.gd` into `OverworldChunkEditorPreview`.
+- [x] Task 14: Extract shared water shader assignment from `chunk.gd` into `OverworldChunkWaterShader`.
+
+### Phase 6: Project Config Foundation
+- [x] Task 15: Add a global `ProjectConfig` resource and autoload service to centralize runtime-tunable values.
+- [x] Task 16: Add explicit `desktop` and `mobile` platform profiles and resolve one active profile at startup.
+- [x] Task 17: Wire player input, camera zoom, and navigation components to consume config from the shared service.
+
 ## Logging Requirements
 - Log warnings for missing critical runtime nodes (`PlayerContext` or blocker component) in debug builds.
 - Keep logs behind debug checks where possible to avoid noisy release output.

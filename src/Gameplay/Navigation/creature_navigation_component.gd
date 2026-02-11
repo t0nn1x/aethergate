@@ -5,6 +5,7 @@ extends Node
 ## Requires a NavigationAgent2D child on the creature (auto-created if missing).
 
 @export var navigation_agent_path: NodePath = ^"NavigationAgent2D"
+@export var project_config_service_path: NodePath = ^"/root/ProjectConfig"
 @export var path_desired_distance: float = 4.0
 @export var target_desired_distance: float = 6.0
 @export var avoidance_enabled: bool = true
@@ -30,6 +31,7 @@ func _ready() -> void:
 		navigation_agent.name = "NavigationAgent2D"
 		creature.add_child(navigation_agent)
 
+	_apply_project_config()
 	_apply_movement_config()
 	_apply_agent_settings()
 	if not navigation_agent.velocity_computed.is_connected(_on_navigation_agent_velocity_computed):
@@ -120,6 +122,24 @@ func _apply_movement_config() -> void:
 	avoidance_enabled = movement_config.avoidance_enabled
 	agent_radius = movement_config.agent_radius
 	max_target_snap_distance = movement_config.max_target_snap_distance
+
+
+func _apply_project_config() -> void:
+	var project_config_service: ProjectConfigService = _resolve_project_config_service()
+	if project_config_service == null:
+		if OS.is_debug_build():
+			push_warning("CreatureNavigationComponent: ProjectConfig autoload is missing.")
+		return
+
+	var project_movement_config: PlayerMovementConfig = project_config_service.get_player_movement_config()
+	if project_movement_config != null:
+		movement_config = project_movement_config
+
+
+func _resolve_project_config_service() -> ProjectConfigService:
+	if project_config_service_path == NodePath():
+		return null
+	return get_node_or_null(project_config_service_path) as ProjectConfigService
 
 
 func _on_navigation_agent_velocity_computed(safe_velocity: Vector2) -> void:
