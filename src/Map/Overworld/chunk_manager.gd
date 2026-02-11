@@ -114,7 +114,9 @@ func _update_loaded_chunks(center: Vector2i) -> void:
 			if not _loaded_chunks.has(coord):
 				_load_chunk(coord)
 				changed = true
-	for coord in _loaded_chunks.keys():
+	var loaded_coords: Array = _loaded_chunks.keys()
+	for coord_variant in loaded_coords:
+		var coord: Vector2i = coord_variant
 		if not needed.has(coord):
 			_unload_chunk(coord)
 			changed = true
@@ -122,27 +124,17 @@ func _update_loaded_chunks(center: Vector2i) -> void:
 		call_deferred("_stitch_loaded_chunk_borders")
 
 func _load_chunk(coord: Vector2i) -> void:
-	var path = _chunk_scene_path(coord)
-	if not ResourceLoader.exists(path):
+	var scene: PackedScene = _load_chunk_scene(coord)
+	if scene == null:
 		return
-	var scene = load(path)
-	if not scene:
-		return
-	var instance = scene.instantiate()
-	if instance is OverworldChunk:
-		instance.chunk_coord = coord
-		instance.chunk_size_tiles = chunk_size_tiles
-		instance.tile_size = tile_size
-		instance.world_y_sort = get_node_or_null(world_y_sort_path)
-	var chunks_root: Node = get_node_or_null(chunks_root_path)
-	if not chunks_root:
-		add_child(instance)
-	else:
-		chunks_root.add_child(instance)
+
+	var instance: Node = scene.instantiate()
+	_configure_loaded_chunk_instance(instance, coord)
+	_get_chunks_root().add_child(instance)
 	_loaded_chunks[coord] = instance
 
 func _unload_chunk(coord: Vector2i) -> void:
-	var instance = _loaded_chunks.get(coord, null)
+	var instance: Node = _loaded_chunks.get(coord, null) as Node
 	if instance and is_instance_valid(instance):
 		instance.queue_free()
 	_loaded_chunks.erase(coord)
@@ -178,6 +170,30 @@ func _normalize_dir(value: String) -> String:
 	while normalized.ends_with("/") or normalized.ends_with("\\"):
 		normalized = normalized.substr(0, normalized.length() - 1)
 	return normalized
+
+func _load_chunk_scene(coord: Vector2i) -> PackedScene:
+	var path := _chunk_scene_path(coord)
+	if not ResourceLoader.exists(path):
+		return null
+
+	var resource: Resource = load(path)
+	return resource as PackedScene
+
+func _configure_loaded_chunk_instance(instance: Node, coord: Vector2i) -> void:
+	if instance is not OverworldChunk:
+		return
+
+	var chunk: OverworldChunk = instance as OverworldChunk
+	chunk.chunk_coord = coord
+	chunk.chunk_size_tiles = chunk_size_tiles
+	chunk.tile_size = tile_size
+	chunk.world_y_sort = get_node_or_null(world_y_sort_path) as Node2D
+
+func _get_chunks_root() -> Node:
+	var chunks_root: Node = get_node_or_null(chunks_root_path)
+	if chunks_root:
+		return chunks_root
+	return self
 
 func world_to_chunk(world_pos: Vector2) -> Vector2i:
 	return _world_to_chunk(world_pos)
