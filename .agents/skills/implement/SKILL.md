@@ -144,6 +144,7 @@ TaskUpdate(taskId, status: "in_progress")
 - For solo-first gameplay work, keep multiplayer seams intact (identity fields + authority checks) instead of hardcoding single-player assumptions
 - For Godot UI backgrounds/parallax, verify runtime render is single-composition (no unintended row/column tiling) and that randomized folders do not mix incompatible layer dimensions
 - For mobile/export targets, avoid relying solely on `DirAccess` listing for `res://` assets; ensure a manifest or `ResourceLoader.exists()` fallback is implemented
+- For reusable audio work, prefer a centralized autoload/service (pooled SFX + music control) over scene-local duplicated audio setup blocks
 
 **3.5: Mark as completed**
 ```

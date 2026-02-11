@@ -62,6 +62,7 @@ To fix this effectively, I need more context:
 - UI background composition traps: `TextureRect.STRETCH_TILE` combined with enlarged fit rects/material repeat causing unintended multi-row tiling
 - Mixed-size parallax layer sets (different source dimensions in one folder) that produce random zoom/crop framing across starts
 - Export/mobile resource discovery traps: runtime `DirAccess` listing under `res://` returning empty in packaged builds (prefer manifest or `ResourceLoader.exists()` probe fallback)
+- UI/audio architecture traps: duplicating player setup/loading logic in multiple scenes instead of using a centralized autoload service with pooled players
 
 ### Step 3: Implement the Fix
 

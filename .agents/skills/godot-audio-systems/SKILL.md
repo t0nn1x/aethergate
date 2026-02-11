@@ -14,6 +14,7 @@ Expert guidance for Godot's audio engine and mixing architecture.
 - **NEVER forget to set `autoplay = false` on music players** — Music autoplays on scene load by default. Causes overlapping tracks when changing scenes.
 - **NEVER use AudioStreamPlayer3D without attenuation model** — Default attenuation is NONE (no falloff). Set `attenuation_model` to ATTENUATION_INVERSE_DISTANCE or audio is global.
 - **NEVER play AudioStreamPlayer without checking `playing` first** — Restarting an already-playing sound cuts it off. Check `if not player.playing:` before play().
+- **NEVER duplicate identical UI audio setup in each screen script** — Centralize in an autoload audio service and call one-line methods from UI scenes.
 
 ---
 
