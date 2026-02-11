@@ -165,36 +165,24 @@ func _update_position() -> void:
 	)
 
 func _update_bounds() -> void:
-	if Engine.is_editor_hint():
-		queue_redraw()
+	OverworldChunkEditorBounds.queue_redraw_if_needed(self)
 
 func _draw() -> void:
-	if not show_bounds or not Engine.is_editor_hint():
-		return
-	var size = _chunk_pixel_size()
-	if size.x <= 0.0 or size.y <= 0.0:
-		return
-	if bounds_fill_color.a > 0.0:
-		draw_rect(Rect2(Vector2.ZERO, size), bounds_fill_color, true)
-	var line_width = bounds_line_width if bounds_line_width > 0.0 else 1.0
-	draw_rect(Rect2(Vector2.ZERO, size), bounds_color, false, line_width)
-
-func _chunk_pixel_size() -> Vector2:
-	return Vector2(
-		chunk_size_tiles * tile_size.x,
-		chunk_size_tiles * tile_size.y
+	OverworldChunkEditorBounds.draw_bounds(
+		self,
+		show_bounds,
+		chunk_size_tiles,
+		tile_size,
+		bounds_fill_color,
+		bounds_color,
+		bounds_line_width
 	)
 
+func _chunk_pixel_size() -> Vector2:
+	return OverworldChunkEditorBounds.chunk_pixel_size(chunk_size_tiles, tile_size)
+
 func _enforce_bounds() -> void:
-	var max_x = max(chunk_size_tiles, 1)
-	var max_y = max(chunk_size_tiles, 1)
-	for child in get_children():
-		if child is TileMapLayer:
-			var layer: TileMapLayer = child
-			var used_cells = layer.get_used_cells()
-			for cell in used_cells:
-				if cell.x < 0 or cell.y < 0 or cell.x >= max_x or cell.y >= max_y:
-					layer.erase_cell(cell)
+	OverworldChunkEditorBounds.enforce_tile_bounds(self, chunk_size_tiles)
 
 func _refresh_preview() -> void:
 	_preview_root = OverworldChunkEditorPreview.rebuild_preview(self, _preview_root)
