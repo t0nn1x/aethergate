@@ -14,6 +14,15 @@ signal quit_requested()
 @export var menu_vbox_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox"
 @export var title_label_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleLabel"
 @export var auto_focus_play_button: bool = false
+@export var audio_service_path: NodePath = ^"/root/MusicPlayer"
+@export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/UI/Assets/Sounds/UI_Button_Click_2.mp3"
+@export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/UI/Assets/Sounds/UI_Button_Click_1.mp3"
+@export_dir var menu_music_root_path: String = "res://src/UI/Assets/Music"
+@export_range(-40.0, 12.0, 0.1) var hover_volume_db: float = -10.0
+@export_range(-40.0, 12.0, 0.1) var click_volume_db: float = -3.0
+@export_range(-40.0, 12.0, 0.1) var menu_music_volume_db: float = -14.0
+@export var sfx_bus_name: String = "SFX"
+@export var music_bus_name: String = "Music"
 
 var _play_button: Button
 var _settings_button: Button
@@ -25,11 +34,13 @@ var _menu_vbox: VBoxContainer
 var _title_label: Label
 var _viewport: Viewport
 var _is_mobile_layout_active: bool = false
+var _music_player_service: Node
 
 
 func _ready() -> void:
 	_viewport = get_viewport()
 	_cache_nodes()
+	_setup_audio()
 	_configure_touch_interactions()
 	_connect_signals()
 	_setup_focus_chain()
@@ -41,12 +52,14 @@ func _ready() -> void:
 	else:
 		call_deferred("_clear_button_focus")
 	_log_button_sizes()
+	_start_menu_music_if_needed()
 	print("[MainScreen] menu_open")
 
 
 func show_menu() -> void:
 	visible = true
 	_apply_responsive_layout()
+	_start_menu_music_if_needed()
 	if auto_focus_play_button:
 		call_deferred("_focus_play_button")
 	else:
@@ -57,6 +70,7 @@ func show_menu() -> void:
 func hide_menu() -> void:
 	visible = false
 	_set_settings_panel_visible(false)
+	_stop_menu_music()
 	print("[MainScreen] menu_closed")
 
 
@@ -88,6 +102,45 @@ func _cache_nodes() -> void:
 		push_warning("MainScreen: Title label is missing.")
 
 
+func _setup_audio() -> void:
+	_music_player_service = get_node_or_null(audio_service_path)
+	if _music_player_service == null:
+		push_warning("MainScreen: MusicPlayer service not found at '%s'." % audio_service_path)
+		return
+
+	_music_player_service.configure_ui_sounds(
+		hover_sound_path,
+		hover_volume_db,
+		click_sound_path,
+		click_volume_db,
+		sfx_bus_name
+	)
+	_music_player_service.play_random_music_from_folder(
+		menu_music_root_path,
+		menu_music_volume_db,
+		music_bus_name,
+		true,
+		true
+	)
+
+
+func _start_menu_music_if_needed() -> void:
+	if _music_player_service == null or not visible:
+		return
+	_music_player_service.play_random_music_from_folder(
+		menu_music_root_path,
+		menu_music_volume_db,
+		music_bus_name,
+		true,
+		false
+	)
+
+
+func _stop_menu_music() -> void:
+	if _music_player_service:
+		_music_player_service.stop_music()
+
+
 func _connect_signals() -> void:
 	if _play_button and not _play_button.pressed.is_connected(_on_play_pressed):
 		_play_button.pressed.connect(_on_play_pressed)
@@ -97,6 +150,23 @@ func _connect_signals() -> void:
 		_quit_button.pressed.connect(_on_quit_pressed)
 	if _close_settings_button and not _close_settings_button.pressed.is_connected(_on_close_settings_pressed):
 		_close_settings_button.pressed.connect(_on_close_settings_pressed)
+	_wire_button_audio_signals()
+
+
+func _wire_button_audio_signals() -> void:
+	var buttons: Array = [_play_button, _settings_button, _quit_button, _close_settings_button]
+	for node: Variant in buttons:
+		var button: Button = node as Button
+		if button == null:
+			continue
+		if not button.mouse_entered.is_connected(_on_button_hovered):
+			button.mouse_entered.connect(_on_button_hovered)
+		if not button.focus_entered.is_connected(_on_button_hovered):
+			button.focus_entered.connect(_on_button_hovered)
+
+
+func _on_button_hovered() -> void:
+	_play_hover_sound()
 
 
 func _setup_focus_chain() -> void:
@@ -337,25 +407,39 @@ func _clear_button_focus() -> void:
 			button.release_focus()
 
 
+func _play_hover_sound() -> void:
+	if _music_player_service:
+		_music_player_service.play_ui_hover()
+
+
+func _play_click_sound() -> void:
+	if _music_player_service:
+		_music_player_service.play_ui_click()
+
+
 func _on_play_pressed() -> void:
+	_play_click_sound()
 	print("[MainScreen] play_pressed")
 	hide_menu()
 	play_pressed.emit()
 
 
 func _on_settings_pressed() -> void:
+	_play_click_sound()
 	print("[MainScreen] settings_opened")
 	_set_settings_panel_visible(true)
 	settings_requested.emit()
 
 
 func _on_close_settings_pressed() -> void:
+	_play_click_sound()
 	print("[MainScreen] settings_closed")
 	_set_settings_panel_visible(false)
 	_clear_button_focus()
 
 
 func _on_quit_pressed() -> void:
+	_play_click_sound()
 	print("[MainScreen] quit_requested")
 	quit_requested.emit()
 	if OS.has_feature("web"):

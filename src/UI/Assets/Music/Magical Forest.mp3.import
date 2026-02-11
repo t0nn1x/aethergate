@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dl3a30n3cdkr1"
+path="res://.godot/imported/Magical Forest.mp3-2569ac218fdd9cb904b1fe5058dc6f6b.mp3str"
+
+[deps]
+
+source_file="res://src/UI/Assets/Music/Magical Forest.mp3"
+dest_files=["res://.godot/imported/Magical Forest.mp3-2569ac218fdd9cb904b1fe5058dc6f6b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
