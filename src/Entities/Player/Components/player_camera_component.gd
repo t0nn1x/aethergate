@@ -8,10 +8,7 @@ const DESKTOP_FEATURES: PackedStringArray = ["windows", "macos", "linuxbsd"]
 var creature: Creature
 var camera: Camera2D
 var _zoom_target: float = 4.0
-var _touch_points: Dictionary = {}
-var _pinch_active: bool = false
-var _pinch_start_distance: float = 0.0
-var _pinch_start_zoom: float = 4.0
+var _pinch_zoom_tracker: PlayerPinchZoomTracker = PlayerPinchZoomTracker.new()
 
 @export var camera_zoom_step: float = 1.0
 @export var camera_zoom_min: float = 2.0
@@ -124,53 +121,23 @@ func _handle_pinch_zoom(event: InputEvent) -> bool:
 		return false
 	if event is InputEventScreenTouch:
 		var touch_event := event as InputEventScreenTouch
-		if touch_event.pressed:
-			_touch_points[touch_event.index] = touch_event.position
-		else:
-			_touch_points.erase(touch_event.index)
-		_update_pinch_zoom_target()
+		_pinch_zoom_tracker.register_touch(touch_event.index, touch_event.position, touch_event.pressed)
+		_apply_pinch_zoom_target()
 		return true
 	if event is InputEventScreenDrag:
 		var drag_event := event as InputEventScreenDrag
-		if _touch_points.has(drag_event.index):
-			_touch_points[drag_event.index] = drag_event.position
-			_update_pinch_zoom_target()
+		if _pinch_zoom_tracker.has_touch(drag_event.index):
+			_pinch_zoom_tracker.update_touch_position(drag_event.index, drag_event.position)
+			_apply_pinch_zoom_target()
 			return true
 	return false
 
 
-func _update_pinch_zoom_target() -> void:
-	if _touch_points.size() != 2:
-		_pinch_active = false
-		return
-
-	var touch_positions: Array[Vector2] = _get_two_touch_positions()
-	if touch_positions.size() < 2:
-		_pinch_active = false
-		return
-
-	var current_distance: float = touch_positions[0].distance_to(touch_positions[1])
-	if current_distance <= pinch_min_distance:
-		return
-
-	if not _pinch_active:
-		_pinch_active = true
-		_pinch_start_distance = current_distance
-		_pinch_start_zoom = _zoom_target
-		return
-
-	if _pinch_start_distance <= 0.0:
-		return
-
-	var ratio: float = current_distance / _pinch_start_distance
-	var adjusted_ratio: float = pow(ratio, maxf(pinch_zoom_sensitivity, 0.01))
-	_set_zoom_target(_pinch_start_zoom * adjusted_ratio)
-
-
-func _get_two_touch_positions() -> Array[Vector2]:
-	var positions: Array[Vector2] = []
-	for value in _touch_points.values():
-		positions.append(value as Vector2)
-		if positions.size() >= 2:
-			break
-	return positions
+func _apply_pinch_zoom_target() -> void:
+	var pinch_zoom_target: Variant = _pinch_zoom_tracker.compute_zoom_target(
+		_zoom_target,
+		pinch_min_distance,
+		pinch_zoom_sensitivity
+	)
+	if pinch_zoom_target is float:
+		_set_zoom_target(float(pinch_zoom_target))
