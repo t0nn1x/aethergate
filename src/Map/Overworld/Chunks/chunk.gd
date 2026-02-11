@@ -2,8 +2,6 @@
 class_name OverworldChunk
 extends Node2D
 
-const PREVIEW_ROOT_NAME := "_PreviewNeighbors"
-const PREVIEW_Z_INDEX := 100
 const MIN_ENFORCE_INTERVAL := 0.1
 const DEFAULT_PREVIEW_RADIUS := 2
 const COLLISION_CACHE_PREFIX := "_CollisionCache_"
@@ -33,8 +31,6 @@ var _navigation_obstacles: Array[NavigationObstacle2D] = []
 var _navigation_obstacle_root: Node2D = null
 var world_y_sort: Node2D = null  ## Set by ChunkManager before adding to tree
 
-static var _water_material: ShaderMaterial = null
-
 func _ready() -> void:
 	if Engine.is_editor_hint() and not _is_preview_instance:
 		preview_neighbors = false
@@ -51,19 +47,8 @@ func _exit_tree() -> void:
 	_cleanup_extracted_sprites()
 
 func _apply_water_shader() -> void:
-	## Apply the shared water ShaderMaterial to the Base TileMapLayer.
-	if _water_material == null:
-		var shader := load("res://src/Map/Overworld/Shaders/water.gdshader") as Shader
-		if shader:
-			_water_material = ShaderMaterial.new()
-			_water_material.shader = shader
-		else:
-			push_warning("OverworldChunk: water.gdshader not found")
-			return
-
-	var base_layer := get_node_or_null("Base") as TileMapLayer
-	if base_layer:
-		base_layer.material = _water_material
+	## Apply shared water ShaderMaterial to the Base tile layer.
+	OverworldChunkWaterShader.apply_to_chunk(self, "Base")
 
 func _extract_y_sorted_objects() -> void:
 	## Extract qualifying tiles from TileMapLayers into sprites for proper y-sorting.
@@ -433,60 +418,7 @@ func _enforce_bounds() -> void:
 					layer.erase_cell(cell)
 
 func _refresh_preview() -> void:
-	if not Engine.is_editor_hint():
-		return
-	_clear_preview()
-	if not preview_neighbors:
-		return
-	_preview_root = Node2D.new()
-	_preview_root.name = PREVIEW_ROOT_NAME
-	_preview_root.z_index = PREVIEW_Z_INDEX
-	_preview_root.owner = null
-	add_child(_preview_root)
-	var loaded_count = 0
-	for offset in _preview_offsets(preview_radius):
-		var coord = chunk_coord + offset
-		var path = chunk_scene_dir.path_join("chunk_%d_%d.tscn" % [coord.x, coord.y])
-		var scene = load(path)
-		if not scene:
-			continue
-		var instance = scene.instantiate()
-		if instance is OverworldChunk:
-			_configure_preview_chunk(instance, coord)
-		instance.name = "_Preview_%d_%d" % [coord.x, coord.y]
-		instance.owner = null
-		_preview_root.add_child(instance)
-		loaded_count += 1
-	if loaded_count == 0:
-		push_warning("Preview neighbors: no scenes found for %s in %s" % [chunk_coord, chunk_scene_dir])
-
-func _clear_preview() -> void:
-	if _preview_root and is_instance_valid(_preview_root):
-		_preview_root.queue_free()
-		_preview_root = null
-
-func _configure_preview_chunk(instance: OverworldChunk, coord: Vector2i) -> void:
-	instance._is_preview_instance = true
-	instance._preview_origin_coord = chunk_coord
-	instance.preview_neighbors = false
-	instance.preview_radius = preview_radius
-	instance.enforce_bounds_in_editor = false
-	instance.cleanup_out_of_bounds = false
-	instance.show_bounds = true
-	instance.bounds_line_width = max(instance.bounds_line_width, 1.0)
-	instance.z_index = PREVIEW_Z_INDEX
-	instance.chunk_size_tiles = chunk_size_tiles
-	instance.tile_size = tile_size
-	instance.chunk_coord = coord
-
-func _preview_offsets(radius: int) -> Array[Vector2i]:
-	var result: Array[Vector2i] = []
-	for x in range(-radius, radius + 1):
-		for y in range(-radius, radius + 1):
-			if x == 0 and y == 0:
-				continue
-			result.append(Vector2i(x, y))
-	return result
+	_preview_root = OverworldChunkEditorPreview.rebuild_preview(self, _preview_root)
 
 func _coerce_chunk_size(value: int) -> int:
 	return max(value, 1)
