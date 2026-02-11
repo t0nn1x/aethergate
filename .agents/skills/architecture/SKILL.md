@@ -362,3 +362,31 @@ A: Extract that component as a service
 Q: Unclear requirements?
 A: Keep it simple, refactor when patterns emerge
 ```
+
+---
+
+## Solo-First Multiplayer Strategy (Game Projects)
+
+Use this when the game ships single-player first but multiplayer is planned later.
+
+- Define authority seams now:
+  - Add `has_input_authority()` and `has_movement_authority()` on controllable actors.
+  - Gate input handling and movement execution through those methods.
+- Keep simulation deterministic enough:
+  - Separate input intent from movement execution.
+  - Keep movement and state transitions in one place, not spread across UI/input scripts.
+- Introduce stable identity early:
+  - Add `player_id`, `owner_peer_id`, `is_local_player` to player entities.
+  - Use a registry (`players_by_id`) in world/overworld instead of a single global player reference.
+- Centralize orchestration boundaries:
+  - Route move requests through services (request -> validate/snap -> apply target).
+  - Avoid direct cross-component calls where one component mutates another component's internals.
+- Preserve local-first velocity:
+  - No full networking stack required yet.
+  - Avoid hard-coding singleton assumptions that make future replication expensive.
+
+Minimum readiness checklist before multiplayer phase:
+- Input and movement are authority-gated.
+- Player spawn supports identity/ownership parameters.
+- World APIs can resolve by `player_id` (not only "the player").
+- Domain events are local bus-compatible and can be mirrored to network later.

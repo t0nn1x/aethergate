@@ -70,6 +70,7 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] New autoload channels are registered in `project.godot` and not referenced through undeclared compile-time singleton names
 - [ ] Event-bus migrations preserve compatibility (legacy bridge/fallback exists while callers are being moved)
 - [ ] No `get_nodes_in_group` polling in hot runtime paths where composition-root injection is expected
+- [ ] Solo-first code keeps multiplayer seams (identity fields + authority checks) and does not bake in single-player-only assumptions
 
 ## Output Format
 

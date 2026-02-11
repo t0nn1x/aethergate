@@ -84,11 +84,13 @@ This project uses bounded contexts. Prefer these locations:
 - `src/World/Streaming` - chunk loading/streaming and chunk helper modules
 - `src/UI/Debug` - debug UI and debug metrics providers
 - `src/Core/Events` - bounded event channels (`PlayerEvents`, `WorldEvents`, `UIEvents`) while keeping `EventBus` as migration shim
+- `src/Multiplayer/Shared` - multiplayer seams that remain engine-agnostic (identity, authority, replication contracts)
 
 Avoid adding new runtime orchestration scripts back into `src/Map/Overworld` unless they are chunk scene scripts directly tied to map content.
 Use `Overworld` as the composition root for stage/runtime wiring.
 Avoid `get_nodes_in_group` polling inside hot runtime loops when dependencies can be injected.
 When introducing new autoload channels, update `project.godot` and prefer runtime `/root/<Singleton>` lookup or a fallback-safe migration to avoid parse-time undeclared identifier errors.
+Prefer solo-first progression with multiplayer seams: keep entity identity/ownership fields and authority checks even before RPC is added.
 project/
 ├── project.godot           # Project configuration
 ├── scenes/                 # All scene files

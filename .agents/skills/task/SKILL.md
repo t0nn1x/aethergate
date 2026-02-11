@@ -111,6 +111,7 @@ Create tasks using `TaskCreate` with clear, actionable items:
   - behavior parity checks (input, movement, state transitions, chunk loading)
   - autoload migration safety (`project.godot` update + temporary compatibility bridge)
   - composition-root injection tasks replacing runtime `get_nodes_in_group` scans in hot loops
+  - solo-first multiplayer seams (`player_id`/ownership fields and authority-gated input/simulation)
 
 ### Step 6: Set Up Dependencies
 

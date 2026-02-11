@@ -393,6 +393,15 @@ See `references/patterns/save-load-system.md` for comprehensive guide.
 | `node != null` for freed nodes | Returns true for freed | Use `is_instance_valid()` |
 | Circular dependencies | Load errors, unclear flow | Dependency injection or signals |
 
+## Solo-First Multiplayer Seams
+
+When building single-player first, keep these low-cost seams in place:
+- Add identity fields early on controllable entities (`player_id`, `owner_peer_id`, `is_local_player`).
+- Gate input and movement by authority checks (`has_input_authority()`, `has_movement_authority()`).
+- Keep input as intent and route execution through services (easy RPC bridge later).
+- Avoid global assumptions that there is only one player in world/session code.
+- Keep event channels domain-oriented so network transports can be introduced later.
+
 ## Additional Resources
 
 ### Pattern Guides
