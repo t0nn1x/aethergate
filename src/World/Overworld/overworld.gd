@@ -125,7 +125,7 @@ func _on_main_screen_settings_requested() -> void:
 
 
 func _on_main_screen_quit_requested() -> void:
-	print("[Overworld] quit_requested")
+	print("[FIX][Quit] quit_requested signal received by Overworld")
 
 
 func _wire_local_player_dependencies(player_instance: Player) -> void:

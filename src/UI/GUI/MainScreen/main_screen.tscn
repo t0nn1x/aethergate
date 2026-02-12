@@ -8,6 +8,7 @@
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
 layer = 30
 script = ExtResource("1_main")
+menu_music_folder_path = "res://src/UI/Assets/Music"
 
 [node name="Root" type="Control" parent="." unique_id=1118522623]
 layout_mode = 3

@@ -16,8 +16,8 @@ signal quit_requested()
 @export var auto_focus_play_button: bool = false
 @export var audio_service_path: NodePath = ^"/root/MusicPlayer"
 @export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/UI/Assets/Sounds/UI_Button_Click_2.mp3"
-@export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/UI/Assets/Sounds/UI_Button_Click_1.mp3"
-@export_dir var menu_music_root_path: String = "res://src/UI/Assets/Music"
+@export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/UI/Assets/Sounds/UI_Button_Click_8.mp3"
+@export_dir var menu_music_folder_path: String = ""
 @export_range(-40.0, 12.0, 0.1) var hover_volume_db: float = -10.0
 @export_range(-40.0, 12.0, 0.1) var click_volume_db: float = -3.0
 @export_range(-40.0, 12.0, 0.1) var menu_music_volume_db: float = -14.0
@@ -42,6 +42,7 @@ func _ready() -> void:
 	_cache_nodes()
 	_setup_audio()
 	_configure_touch_interactions()
+	_configure_platform_specific_ui()
 	_connect_signals()
 	_setup_focus_chain()
 	_wire_viewport_resize()
@@ -115,25 +116,19 @@ func _setup_audio() -> void:
 		click_volume_db,
 		sfx_bus_name
 	)
-	_music_player_service.play_random_music_from_folder(
-		menu_music_root_path,
+	_music_player_service.configure_menu_music_from_folder(
+		menu_music_folder_path,
 		menu_music_volume_db,
 		music_bus_name,
-		true,
 		true
 	)
+	_music_player_service.play_menu_music(true)
 
 
 func _start_menu_music_if_needed() -> void:
 	if _music_player_service == null or not visible:
 		return
-	_music_player_service.play_random_music_from_folder(
-		menu_music_root_path,
-		menu_music_volume_db,
-		music_bus_name,
-		true,
-		false
-	)
+	_music_player_service.play_menu_music(false)
 
 
 func _stop_menu_music() -> void:
@@ -170,14 +165,18 @@ func _on_button_hovered() -> void:
 
 
 func _setup_focus_chain() -> void:
-	if _play_button == null or _settings_button == null or _quit_button == null:
-		push_warning("MainScreen: focus chain setup skipped (missing button references).")
+	var menu_buttons: Array[Button] = _get_focusable_menu_buttons()
+	if menu_buttons.is_empty():
+		push_warning("MainScreen: focus chain setup skipped (no focusable menu buttons).")
 		return
 
-	_play_button.focus_neighbor_bottom = _settings_button.get_path()
-	_settings_button.focus_neighbor_top = _play_button.get_path()
-	_settings_button.focus_neighbor_bottom = _quit_button.get_path()
-	_quit_button.focus_neighbor_top = _settings_button.get_path()
+	var button_count: int = menu_buttons.size()
+	for index in range(button_count):
+		var current: Button = menu_buttons[index]
+		var previous: Button = menu_buttons[(index - 1 + button_count) % button_count]
+		var next: Button = menu_buttons[(index + 1) % button_count]
+		current.focus_neighbor_top = previous.get_path()
+		current.focus_neighbor_bottom = next.get_path()
 
 
 func _wire_viewport_resize() -> void:
@@ -389,6 +388,33 @@ func _configure_touch_interactions() -> void:
 			button.add_to_group("touch_interactive")
 
 
+func _configure_platform_specific_ui() -> void:
+	if _quit_button == null:
+		return
+	if not _can_programmatically_quit():
+		_quit_button.visible = false
+		_quit_button.disabled = true
+		_quit_button.focus_mode = Control.FOCUS_NONE
+		print("[FIX][Quit] hiding Quit button on iOS (programmatic quit unsupported).")
+
+
+func _get_focusable_menu_buttons() -> Array[Button]:
+	var buttons: Array[Button] = []
+	var candidates: Array = [_play_button, _settings_button, _quit_button]
+	for node: Variant in candidates:
+		var button: Button = node as Button
+		if button == null:
+			continue
+		if not button.visible or button.disabled:
+			continue
+		buttons.append(button)
+	return buttons
+
+
+func _can_programmatically_quit() -> bool:
+	return OS.get_name() != "iOS"
+
+
 func _set_settings_panel_visible(is_visible: bool) -> void:
 	if _settings_panel:
 		_settings_panel.visible = is_visible
@@ -439,11 +465,17 @@ func _on_close_settings_pressed() -> void:
 
 
 func _on_quit_pressed() -> void:
+	if not _can_programmatically_quit():
+		print("[FIX][Quit] ignoring quit request on iOS.")
+		return
 	_play_click_sound()
 	print("[MainScreen] quit_requested")
 	quit_requested.emit()
-	if OS.has_feature("web"):
-		return
+	call_deferred("_quit_application")
+
+
+func _quit_application() -> void:
+	get_tree().root.propagate_notification(Node.NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
 
 
