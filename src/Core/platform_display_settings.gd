@@ -4,7 +4,6 @@ extends Node
 ## Keep iOS/mobile project display settings as-is, but allow desktop overrides.
 
 const DESKTOP_FEATURES: PackedStringArray = ["windows", "macos", "linuxbsd"]
-const WINDOWS_DEFAULT_SIZE := Vector2i(1920, 1080)
 
 func _enter_tree() -> void:
 	_apply_platform_window_defaults()
@@ -22,23 +21,30 @@ func _apply_platform_window_defaults() -> void:
 
 func _apply_desktop_window_defaults(root_window: Window) -> void:
 	if OS.has_feature("windows"):
-		# Windows default: start windowed at Full HD.
-		root_window.mode = Window.MODE_WINDOWED
-		_apply_centered_window_size(root_window, WINDOWS_DEFAULT_SIZE)
+		_apply_windows_fullscreen_defaults(root_window)
 		return
 
 	# Other desktop platforms default to fullscreen.
 	root_window.mode = Window.MODE_FULLSCREEN
-
-func _apply_centered_window_size(window: Window, target_size: Vector2i) -> void:
-	var screen := window.current_screen
-	var usable_rect := DisplayServer.screen_get_usable_rect(screen)
-	var clamped_size := Vector2i(
-		min(target_size.x, usable_rect.size.x),
-		min(target_size.y, usable_rect.size.y)
+	print(
+		"[FIX][Display] desktop_fullscreen_applied platform=%s mode=%s screen=%d size=%s"
+		% [OS.get_name(), root_window.mode, root_window.current_screen, DisplayServer.screen_get_size(root_window.current_screen)]
 	)
-	window.size = clamped_size
-	window.position = usable_rect.position + Vector2i((usable_rect.size - clamped_size) / 2.0)
+
+func _apply_windows_fullscreen_defaults(window: Window) -> void:
+	var screen: int = window.current_screen
+	if screen < 0:
+		screen = DisplayServer.window_get_current_screen()
+
+	# Match the target monitor bounds first, then switch to fullscreen.
+	window.position = DisplayServer.screen_get_position(screen)
+	window.size = DisplayServer.screen_get_size(screen)
+	window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+
+	print(
+		"[FIX][Display] windows_fullscreen_applied mode=%s screen=%d size=%s"
+		% [window.mode, screen, DisplayServer.screen_get_size(screen)]
+	)
 
 func _is_desktop_platform() -> bool:
 	for feature in DESKTOP_FEATURES:
