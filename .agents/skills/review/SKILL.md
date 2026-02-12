@@ -75,6 +75,7 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Parallax/background folders either enforce same-sized layer images or use explicit canonical-size filtering before assignment
 - [ ] Mobile/export resource loading does not rely only on `DirAccess` listing under `res://` (manifest or `ResourceLoader.exists()` fallback is present)
 - [ ] Audio responsibilities are centralized (autoload/service) instead of duplicated per UI scene; SFX playback uses pooling/reuse patterns
+- [ ] Platform-restricted lifecycle actions are handled correctly (e.g., iOS cannot programmatically quit; unsupported actions are hidden/disabled in UI and focus chain)
 
 ## Output Format
 
