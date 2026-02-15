@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_4rllg"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Ancient Bone Dragon/Sprites/AncientBoneDragon_128x32.png" id="2_2gq3h"]
+
+[resource]
+script = ExtResource("1_4rllg")
+creature_id = "dragons_ancient_bone_dragon"
+display_name = "Ancient Bone Dragon"
+creature_type = 4
+source_category = "Dragons"
+source_sprite_path = "res://src/Entities/Creatures/Types/Dragons/Ancient Bone Dragon/Sprites/AncientBoneDragon_128x32.png"
+sprite_sheet = ExtResource("2_2gq3h")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_fjc08"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Magical/Skulmire the Death Slime/Sprites/Skulmire_128x32.png" id="2_24muw"]
+
+[resource]
+script = ExtResource("1_fjc08")
+creature_id = "magical_skulmire_the_death_slime"
+display_name = "Skulmire the Death Slime"
+creature_type = 6
+source_category = "Magical"
+source_sprite_path = "res://src/Entities/Creatures/Types/Magical/Skulmire the Death Slime/Sprites/Skulmire_128x32.png"
+sprite_sheet = ExtResource("2_24muw")

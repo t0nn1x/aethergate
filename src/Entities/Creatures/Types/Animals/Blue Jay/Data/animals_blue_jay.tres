@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_3adt3"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Blue Jay/Sprites/BlueJay_128x32.png" id="2_kf0fx"]
+
+[resource]
+script = ExtResource("1_3adt3")
+creature_id = "animals_blue_jay"
+display_name = "Blue Jay"
+source_category = "Animals"
+source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Blue Jay/Sprites/BlueJay_128x32.png"
+sprite_sheet = ExtResource("2_kf0fx")

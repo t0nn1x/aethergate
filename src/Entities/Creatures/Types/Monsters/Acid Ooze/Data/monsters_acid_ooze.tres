@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_re1wo"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Acid Ooze/Sprites/AcidOoze_128x32.png" id="2_3ukwf"]
+
+[resource]
+script = ExtResource("1_re1wo")
+creature_id = "monsters_acid_ooze"
+display_name = "Acid Ooze"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Acid Ooze/Sprites/AcidOoze_128x32.png"
+sprite_sheet = ExtResource("2_3ukwf")

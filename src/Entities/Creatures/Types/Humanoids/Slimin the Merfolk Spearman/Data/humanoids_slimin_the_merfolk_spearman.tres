@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_haj7e"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Slimin the Merfolk Spearman/Sprites/Slimin_128x32.png" id="2_lfbwk"]
+
+[resource]
+script = ExtResource("1_haj7e")
+creature_id = "humanoids_slimin_the_merfolk_spearman"
+display_name = "Slimin the Merfolk Spearman"
+creature_type = 0
+source_category = "Humanoids"
+source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/Slimin the Merfolk Spearman/Sprites/Slimin_128x32.png"
+sprite_sheet = ExtResource("2_lfbwk")

@@ -4,7 +4,7 @@ This project uses a data-driven creature pipeline built around `*_128x32.png` sh
 
 ## 1. Add New Creature Art
 
-1. Place each sprite sheet under `src/Entities/Creatures/Types/<Category>/<Creature Name>/`.
+1. Place each sprite sheet under `src/Entities/Creatures/Types/<Category>/<Creature Name>/Sprites/`.
 2. File name must end with `_128x32.png`.
 3. Expected sheet layout:
    - Full sheet: `128x32`
@@ -12,7 +12,7 @@ This project uses a data-driven creature pipeline built around `*_128x32.png` sh
    - Frame size: `32x32`
 
 Example:
-- `src/Entities/Creatures/Types/Humanoids/Adventurous Adolescent/AdventurousAdolescent_128x32.png`
+- `src/Entities/Creatures/Types/Humanoids/Adventurous Adolescent/Sprites/AdventurousAdolescent_128x32.png`
 
 ## 2. Rebuild Creature Data + Catalog
 
@@ -23,7 +23,7 @@ Run the builder runner scene:
 ```
 
 This updates:
-- `src/Entities/Creatures/Resources/Data/*.tres`
+- `src/Entities/Creatures/Types/<Category>/<Creature Name>/Data/*.tres`
 - `src/Entities/Creatures/Resources/creature_catalog.tres`
 
 Notes:

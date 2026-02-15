@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vk48s"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Mature Bronze Dragon/Sprites/MatureBronzeDragon_128x32.png" id="2_4d7xm"]
+
+[resource]
+script = ExtResource("1_vk48s")
+creature_id = "dragons_mature_bronze_dragon"
+display_name = "Mature Bronze Dragon"
+creature_type = 4
+source_category = "Dragons"
+source_sprite_path = "res://src/Entities/Creatures/Types/Dragons/Mature Bronze Dragon/Sprites/MatureBronzeDragon_128x32.png"
+sprite_sheet = ExtResource("2_4d7xm")

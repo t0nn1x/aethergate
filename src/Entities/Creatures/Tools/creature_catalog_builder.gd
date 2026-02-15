@@ -5,7 +5,6 @@ extends RefCounted
 ## Deterministically builds CreatureData resources from *_128x32.png assets.
 
 const TYPES_ROOT: String = "res://src/Entities/Creatures/Types"
-const OUTPUT_DATA_DIR: String = "res://src/Entities/Creatures/Resources/Data"
 const CATALOG_PATH: String = "res://src/Entities/Creatures/Resources/creature_catalog.tres"
 const SPRITE_SUFFIX: String = "_128x32.png"
 const EXPECTED_SHEET_SIZE: Vector2i = Vector2i(128, 32)
@@ -33,7 +32,6 @@ func build_catalog() -> Dictionary:
 		"errors": 0,
 	}
 
-	_ensure_output_directory()
 	var sprite_paths: PackedStringArray = _find_sprite_paths(TYPES_ROOT)
 	if sprite_paths.is_empty():
 		push_warning("CreatureCatalogBuilder: no sprite sheets found in '%s'." % TYPES_ROOT)
@@ -65,6 +63,10 @@ func build_catalog() -> Dictionary:
 		seen_ids[creature_id] = true
 
 		var data_path: String = _entry_resource_path(entry)
+		if not _ensure_entry_output_directory(data_path):
+			result["errors"] += 1
+			continue
+
 		var creature_data: CreatureData = null
 		var existed: bool = ResourceLoader.exists(data_path)
 		if existed:
@@ -89,9 +91,7 @@ func build_catalog() -> Dictionary:
 			result["created"] += 1
 		creatures.append(load(data_path) as CreatureData)
 
-	var catalog: Resource = load(CATALOG_PATH)
-	if catalog == null:
-		catalog = CREATURE_CATALOG_SCRIPT.new()
+	var catalog: Resource = CREATURE_CATALOG_SCRIPT.new()
 	catalog.set("creatures", creatures)
 	catalog.call("rebuild_indices")
 	var catalog_save_error: Error = ResourceSaver.save(catalog, CATALOG_PATH)
@@ -149,12 +149,16 @@ func _parse_sprite_path(sprite_path: String) -> Dictionary:
 
 	var relative_path: String = sprite_path.trim_prefix(TYPES_ROOT + "/")
 	var parts: PackedStringArray = relative_path.split("/")
-	if parts.size() < 3:
+	if parts.size() < 4:
 		push_warning("CreatureCatalogBuilder: unexpected sprite path format '%s'." % sprite_path)
 		return {}
 
 	var category: String = parts[0]
 	var creature_folder: String = parts[1]
+	if parts[2].to_lower() != "sprites":
+		push_warning("CreatureCatalogBuilder: sprite must be under 'Sprites/' in '%s'." % sprite_path)
+		return {}
+
 	var creature_id: String = _sanitize("%s_%s" % [category, creature_folder])
 	if creature_id.is_empty():
 		push_warning("CreatureCatalogBuilder: failed to derive creature_id from '%s'." % sprite_path)
@@ -171,7 +175,12 @@ func _parse_sprite_path(sprite_path: String) -> Dictionary:
 
 
 func _entry_resource_path(entry: Dictionary) -> String:
-	return OUTPUT_DATA_DIR.path_join("%s.tres" % String(entry["creature_id"]))
+	var category: String = String(entry["category"])
+	var creature_folder: String = String(entry["display_name"])
+	return TYPES_ROOT.path_join(
+		"%s/%s/Data/%s.tres"
+		% [category, creature_folder, String(entry["creature_id"])]
+	)
 
 
 func _apply_entry_to_data(creature_data: CreatureData, entry: Dictionary) -> void:
@@ -211,14 +220,17 @@ func _resolve_creature_type(category: String) -> CreatureData.CreatureType:
 	return CreatureData.CreatureType.MONSTER
 
 
-func _ensure_output_directory() -> void:
-	var global_output_path: String = ProjectSettings.globalize_path(OUTPUT_DATA_DIR)
+func _ensure_entry_output_directory(data_path: String) -> bool:
+	var output_directory: String = data_path.get_base_dir()
+	var global_output_path: String = ProjectSettings.globalize_path(output_directory)
 	var dir_error: Error = DirAccess.make_dir_recursive_absolute(global_output_path)
 	if dir_error != OK and dir_error != ERR_ALREADY_EXISTS:
 		push_error(
 			"CreatureCatalogBuilder: failed to create output directory '%s' (err=%d)."
-			% [OUTPUT_DATA_DIR, dir_error]
+			% [output_directory, dir_error]
 		)
+		return false
+	return true
 
 
 func _sanitize(value: String) -> String:

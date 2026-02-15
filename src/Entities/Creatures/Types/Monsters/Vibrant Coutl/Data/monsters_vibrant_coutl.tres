@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_rig4r"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Vibrant Coutl/Sprites/VibrantCoutl_128x32.png" id="2_y5dh1"]
+
+[resource]
+script = ExtResource("1_rig4r")
+creature_id = "monsters_vibrant_coutl"
+display_name = "Vibrant Coutl"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Vibrant Coutl/Sprites/VibrantCoutl_128x32.png"
+sprite_sheet = ExtResource("2_y5dh1")
