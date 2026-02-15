@@ -91,6 +91,9 @@ Use `Overworld` as the composition root for stage/runtime wiring.
 Avoid `get_nodes_in_group` polling inside hot runtime loops when dependencies can be injected.
 When introducing new autoload channels, update `project.godot` and prefer runtime `/root/<Singleton>` lookup or a fallback-safe migration to avoid parse-time undeclared identifier errors.
 Prefer solo-first progression with multiplayer seams: keep entity identity/ownership fields and authority checks even before RPC is added.
+For platform display bootstrapping (e.g., `PlatformDisplaySettings`), keep startup window mode aligned with intended UX per platform (for example Windows fullscreen when expected), avoid usable-rect centering in fullscreen paths, and keep startup mode/resolution logs.
+For `@tool` inspector scripts, treat script-backed resources loaded in editor as placeholder-prone: avoid method-call coupling and prefer exported-property reads.
+For inspector UX/performance, avoid eager loading many texture previews in `_get_property_list`/`_get`; lazy-load current selection and cache cheap metadata.
 project/
 ├── project.godot           # Project configuration
 ├── scenes/                 # All scene files

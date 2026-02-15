@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_5m0gv"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/ratkin mutant/Sprites/RatkinMutant_128x32.png" id="2_2o2q8"]
+
+[resource]
+script = ExtResource("1_5m0gv")
+creature_id = "monsters_ratkin_mutant"
+display_name = "ratkin mutant"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/ratkin mutant/Sprites/RatkinMutant_128x32.png"
+sprite_sheet = ExtResource("2_2o2q8")

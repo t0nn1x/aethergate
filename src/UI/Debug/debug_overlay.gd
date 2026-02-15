@@ -5,6 +5,7 @@ extends CanvasLayer
 @export var update_interval_seconds: float = 0.2
 @export var player_path: NodePath
 @export var chunk_manager_path: NodePath = ^"../ChunkManager"
+@export var creature_spawner_path: NodePath = ^"../OverworldCreatureSpawner"
 @export var speed_step: float = 25.0
 @export var speed_hold_rate: float = 150.0
 @export var speed_min: float = 0.0
@@ -17,6 +18,7 @@ extends CanvasLayer
 
 var _player: Node2D = null
 var _chunk_manager: ChunkManager = null
+var _creature_spawner: OverworldCreatureSpawner = null
 var _time_accum: float = 0.0
 var _player_metrics_provider: PlayerDebugMetricsProvider = PlayerDebugMetricsProvider.new()
 var _chunk_metrics_provider: ChunkDebugMetricsProvider = ChunkDebugMetricsProvider.new()
@@ -52,6 +54,10 @@ func _resolve_nodes_from_paths() -> void:
 		var chunk_manager_node: Node = get_node_or_null(chunk_manager_path)
 		if chunk_manager_node is ChunkManager:
 			_chunk_manager = chunk_manager_node
+	if creature_spawner_path != NodePath():
+		var spawner_node: Node = get_node_or_null(creature_spawner_path)
+		if spawner_node is OverworldCreatureSpawner:
+			_creature_spawner = spawner_node
 
 
 func set_player_node(player_node: Node2D) -> void:
@@ -61,6 +67,11 @@ func set_player_node(player_node: Node2D) -> void:
 func set_chunk_manager(chunk_manager: ChunkManager) -> void:
 	_chunk_manager = chunk_manager
 
+
+func set_creature_spawner(creature_spawner: OverworldCreatureSpawner) -> void:
+	_creature_spawner = creature_spawner
+
+
 func _update_text() -> void:
 	if not label:
 		return
@@ -69,7 +80,7 @@ func _update_text() -> void:
 	if _player:
 		lines.append_array(_player_metrics_provider.collect(_player, _chunk_manager))
 	if _chunk_manager:
-		lines.append_array(_chunk_metrics_provider.collect(_chunk_manager))
+		lines.append_array(_chunk_metrics_provider.collect(_chunk_manager, _creature_spawner))
 	label.text = "\n".join(lines)
 
 func _apply_safe_area_padding() -> void:

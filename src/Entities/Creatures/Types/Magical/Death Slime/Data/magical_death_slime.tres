@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_ka60f"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Magical/Death Slime/Sprites/DeathSlime_128x32.png" id="2_8kfl0"]
+
+[resource]
+script = ExtResource("1_ka60f")
+creature_id = "magical_death_slime"
+display_name = "Death Slime"
+creature_type = 6
+source_category = "Magical"
+source_sprite_path = "res://src/Entities/Creatures/Types/Magical/Death Slime/Sprites/DeathSlime_128x32.png"
+sprite_sheet = ExtResource("2_8kfl0")

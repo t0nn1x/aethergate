@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_egvtb"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Croaking Toad/Sprites/CroakingToad_128x32.png" id="2_2ln3b"]
+
+[resource]
+script = ExtResource("1_egvtb")
+creature_id = "animals_croaking_toad"
+display_name = "Croaking Toad"
+source_category = "Animals"
+source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Croaking Toad/Sprites/CroakingToad_128x32.png"
+sprite_sheet = ExtResource("2_2ln3b")

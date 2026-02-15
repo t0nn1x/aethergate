@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_n8b2y"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Adult White Dragon/Sprites/AdultWhiteDragon_128x32.png" id="2_omb1j"]
+
+[resource]
+script = ExtResource("1_n8b2y")
+creature_id = "dragons_adult_white_dragon"
+display_name = "Adult White Dragon"
+creature_type = 4
+source_category = "Dragons"
+source_sprite_path = "res://src/Entities/Creatures/Types/Dragons/Adult White Dragon/Sprites/AdultWhiteDragon_128x32.png"
+sprite_sheet = ExtResource("2_omb1j")

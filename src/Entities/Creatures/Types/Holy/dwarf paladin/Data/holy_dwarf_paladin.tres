@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_t7bdo"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Holy/dwarf paladin/Sprites/dwarfpaladin_128x32.png" id="2_e1nnv"]
+
+[resource]
+script = ExtResource("1_t7bdo")
+creature_id = "holy_dwarf_paladin"
+display_name = "dwarf paladin"
+creature_type = 2
+source_category = "Holy"
+source_sprite_path = "res://src/Entities/Creatures/Types/Holy/dwarf paladin/Sprites/dwarfpaladin_128x32.png"
+sprite_sheet = ExtResource("2_e1nnv")

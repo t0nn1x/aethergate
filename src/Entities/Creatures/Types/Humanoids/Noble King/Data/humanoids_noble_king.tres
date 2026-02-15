@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_nxqsy"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Noble King/Sprites/NobleKing_128x32.png" id="2_xca23"]
+
+[resource]
+script = ExtResource("1_nxqsy")
+creature_id = "humanoids_noble_king"
+display_name = "Noble King"
+creature_type = 0
+source_category = "Humanoids"
+source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/Noble King/Sprites/NobleKing_128x32.png"
+sprite_sheet = ExtResource("2_xca23")

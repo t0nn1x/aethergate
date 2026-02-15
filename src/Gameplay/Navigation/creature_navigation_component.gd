@@ -125,6 +125,9 @@ func _apply_movement_config() -> void:
 
 
 func _apply_project_config() -> void:
+	if project_config_service_path == NodePath():
+		return
+
 	var project_config_service: ProjectConfigService = _resolve_project_config_service()
 	if project_config_service == null:
 		if OS.is_debug_build():

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vx00k"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Undead/Korix the Revenant/Sprites/Korix_128x32.png" id="2_dkbhn"]
+
+[resource]
+script = ExtResource("1_vx00k")
+creature_id = "undead_korix_the_revenant"
+display_name = "Korix the Revenant"
+creature_type = 7
+source_category = "Undead"
+source_sprite_path = "res://src/Entities/Creatures/Types/Undead/Korix the Revenant/Sprites/Korix_128x32.png"
+sprite_sheet = ExtResource("2_dkbhn")

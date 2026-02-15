@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_m2wkd"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Voracious Mouse/Sprites/VoraciousMouse_128x32.png" id="2_6mybc"]
+
+[resource]
+script = ExtResource("1_m2wkd")
+creature_id = "animals_voracious_mouse"
+display_name = "Voracious Mouse"
+source_category = "Animals"
+source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Voracious Mouse/Sprites/VoraciousMouse_128x32.png"
+sprite_sheet = ExtResource("2_6mybc")

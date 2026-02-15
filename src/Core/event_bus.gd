@@ -1,7 +1,7 @@
 extends Node
 
 ## Deprecated compatibility shim.
-## New code should use PlayerEvents / WorldEvents / UIEvents autoloads directly.
+## New code should use PlayerEvents / WorldEvents / UIEvents / CreatureEvents directly.
 
 # Legacy combat events
 signal enemy_died(enemy: Node)
@@ -10,8 +10,6 @@ signal skill_used(skill_id: String, caster: Node)
 # Legacy creature events
 signal creature_spawned(creature: Node)
 signal creature_died(creature: Node, creature_data: Resource)
-signal creature_aggro(creature: Node, target: Node)
-signal creature_deaggro(creature: Node)
 
 # Legacy world events
 signal location_entered(location_name: String)
@@ -31,6 +29,7 @@ func _ready() -> void:
 	_bridge_player_events()
 	_bridge_world_events()
 	_bridge_ui_events()
+	_bridge_creature_events()
 
 
 func _bridge_player_events() -> void:
@@ -75,6 +74,19 @@ func _bridge_ui_events() -> void:
 		ui_events.connect("item_picked_up", picked_callable)
 
 
+func _bridge_creature_events() -> void:
+	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
+	if creature_events == null:
+		return
+
+	var spawned_callable: Callable = Callable(self, "_on_creature_spawned")
+	var died_callable: Callable = Callable(self, "_on_creature_died")
+	if creature_events.has_signal("creature_spawned") and not creature_events.is_connected("creature_spawned", spawned_callable):
+		creature_events.connect("creature_spawned", spawned_callable)
+	if creature_events.has_signal("creature_died") and not creature_events.is_connected("creature_died", died_callable):
+		creature_events.connect("creature_died", died_callable)
+
+
 func _on_player_spawned(player: Node) -> void:
 	player_spawned.emit(player)
 
@@ -101,3 +113,11 @@ func _on_inventory_opened() -> void:
 
 func _on_item_picked_up(item_id: String, amount: int) -> void:
 	item_picked_up.emit(item_id, amount)
+
+
+func _on_creature_spawned(creature: Node) -> void:
+	creature_spawned.emit(creature)
+
+
+func _on_creature_died(creature: Node, creature_data: Resource) -> void:
+	creature_died.emit(creature, creature_data)

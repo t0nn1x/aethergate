@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_session_controller.gd" id="6_session"]
 [ext_resource type="Script" path="res://src/World/Overworld/navigation_blocker_registry.gd" id="7_registry"]
 [ext_resource type="PackedScene" path="res://src/UI/GUI/MainScreen/main_screen.tscn" id="8_main_screen"]
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_catalog_service.gd" id="9_catalog_service"]
+[ext_resource type="Script" path="res://src/World/Overworld/overworld_creature_spawner.gd" id="10_creature_spawner"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -37,6 +39,12 @@ search_root_path = NodePath("../Navigation")
 
 [node name="OverworldPlayerSpawner" type="Node" parent="." unique_id=1776301222]
 script = ExtResource("5_spawner")
+
+[node name="CreatureCatalogService" type="Node" parent="."]
+script = ExtResource("9_catalog_service")
+
+[node name="OverworldCreatureSpawner" type="Node" parent="."]
+script = ExtResource("10_creature_spawner")
 
 [node name="OverworldSessionController" type="Node" parent="." unique_id=1712515616]
 script = ExtResource("6_session")
