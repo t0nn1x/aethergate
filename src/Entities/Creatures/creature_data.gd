@@ -17,11 +17,12 @@ enum CreatureType {
 	DEMON,
 }
 
-## How the creature behaves toward the player by default.
+## Legacy temperament profile kept for data compatibility.
+## Autonomous combat behavior is currently disabled; this is reserved for turn-based systems.
 enum BehaviorProfile {
-	PASSIVE,   ## Flees when attacked, never initiates combat
-	NEUTRAL,   ## Ignores player unless provoked
-	AGGRESSIVE ## Attacks player on sight within aggro range
+	PASSIVE,   ## Reserved tag for future encounter logic
+	NEUTRAL,   ## Reserved tag for future encounter logic
+	AGGRESSIVE ## Reserved tag for future encounter logic
 }
 
 @export_group("Identity")
@@ -29,6 +30,7 @@ enum BehaviorProfile {
 @export var creature_id: String = ""
 @export var display_name: String = "Creature"
 @export var creature_type: CreatureType = CreatureType.ANIMAL
+## Reserved for turn-based encounter behavior selection.
 @export var behavior_profile: BehaviorProfile = BehaviorProfile.NEUTRAL
 ## Boss creatures keep full world scale (Vector2.ONE).
 @export var is_boss: bool = false
@@ -46,13 +48,16 @@ enum BehaviorProfile {
 @export var movement_speed: float = 70.0
 @export var damage: float = 10.0
 @export var armor: float = 0.0
+## Reserved for turn-based combat range tuning.
 @export var attack_range: float = 24.0
+## Reserved for turn-based cooldown/action cadence tuning.
 @export var attack_cooldown: float = 1.0
 
-@export_group("Detection")
-@export var aggro_range: float = 72.0
-@export var deaggro_range: float = 96.0
+@export_group("Ambient Wander")
+## Lightweight ambient movement around spawn point.
+@export var enable_ambient_wander: bool = true
 @export var wander_radius: float = 32.0
+@export_range(0.0, 10.0, 0.05) var wander_interval_seconds: float = 7.0
 
 @export_group("Sprite")
 @export var sprite_sheet: Texture2D
@@ -62,10 +67,12 @@ enum BehaviorProfile {
 @export var default_frame: int = 0
 @export var frame_width_pixels: int = 32
 @export var frame_height_pixels: int = 32
-@export_range(0.1, 60.0, 0.1) var idle_animation_fps: float = 2.5
+@export_range(0.1, 60.0, 0.1) var idle_animation_fps: float = 1.5
 
-@export_group("Behavior Tuning")
-@export_range(0.0, 10.0, 0.05) var wander_interval_seconds: float = 3.0
+@export_group("Autonomous Combat AI Legacy (Dormant)")
+## Legacy combat AI tuning fields kept for compatibility with existing .tres data.
+@export var aggro_range: float = 72.0
+@export var deaggro_range: float = 96.0
 @export_range(0.0, 5.0, 0.05) var chase_repath_interval_seconds: float = 0.45
 @export_range(0.0, 10.0, 0.05) var aggression_grace_seconds: float = 1.0
 @export var can_flee_when_low_health: bool = false
@@ -113,6 +120,12 @@ func validate_for_runtime(log_context: String = "") -> bool:
 		is_valid = false
 	if idle_animation_fps <= 0.0:
 		push_warning("CreatureData[%s]: idle_animation_fps must be > 0." % context)
+		is_valid = false
+	if enable_ambient_wander and wander_radius < 0.0:
+		push_warning("CreatureData[%s]: wander_radius must be >= 0." % context)
+		is_valid = false
+	if enable_ambient_wander and wander_interval_seconds <= 0.0:
+		push_warning("CreatureData[%s]: wander_interval_seconds must be > 0." % context)
 		is_valid = false
 	if non_boss_world_scale.x <= 0.0 or non_boss_world_scale.y <= 0.0:
 		push_warning("CreatureData[%s]: non_boss_world_scale must be > 0 on both axes." % context)

@@ -49,6 +49,8 @@ For each chunk scene that should spawn creatures:
 - `OverworldCreatureSpawner` listens to `ChunkManager.chunk_loaded/chunk_unloaded`.
 - On chunk load: spawns chunk markers into `WorldYSort`.
 - On chunk unload: despawns only creatures owned by that chunk.
+- Creatures use ambient wander only (roam near spawn point).
+- Combat AI remains disabled (no chase/attack state logic).
 - Creature events are emitted via `CreatureEvents` autoload with legacy bridge through `EventBus`.
 
 ## 5. Validation Commands
@@ -72,8 +74,10 @@ Runtime smoke test:
 - `missing creature_id '<id>'` warning:
   - Spawn marker ID is not present in `creature_catalog.tres`.
   - Re-run builder and verify ID spelling.
-- Creature appears but does not move/chase:
-  - Ensure creature scene has `CreatureNavigationComponent`, `CreatureMovementComponent`, `CreatureBrainComponent`, and state machine states.
-  - Verify behavior profile is not `PASSIVE` if combat behavior is expected.
+- Creature never wanders:
+  - Ensure creature scene has `CreatureMovementComponent` and `CreatureWanderComponent`.
+  - Check `CreatureData.enable_ambient_wander = true`, `wander_radius > 0`, `wander_interval_seconds > 0`.
+- Creature wanders too far:
+  - Lower `wander_radius` in that creature's `.tres` data.
 - Duplicate catalog IDs:
   - Two folders normalize to the same slug. Rename one folder and rebuild.

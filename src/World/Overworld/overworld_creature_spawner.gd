@@ -12,14 +12,12 @@ signal creature_despawned(creature: Creature, chunk_coord: Vector2i)
 @export var catalog_service_path: NodePath = ^"CreatureCatalogService"
 @export var world_y_sort_path: NodePath = ^"WorldYSort"
 @export var chunk_manager_path: NodePath = ^"ChunkManager"
-@export var player_spawner_path: NodePath = ^"OverworldPlayerSpawner"
 @export var creature_scene: PackedScene = preload("res://src/Entities/Creatures/creature.tscn")
 
 var _overworld: Overworld
 var _factory
 var _catalog_service
 var _chunk_manager
-var _player_spawner
 var _spawned_by_chunk: Dictionary = {}
 
 
@@ -45,10 +43,6 @@ func _ready() -> void:
 		if not _chunk_manager.chunk_unloaded.is_connected(_on_chunk_unloaded):
 			_chunk_manager.chunk_unloaded.connect(_on_chunk_unloaded)
 
-	_player_spawner = _overworld.get_node_or_null(player_spawner_path)
-	if _player_spawner and not _player_spawner.player_spawned.is_connected(_on_player_spawned):
-		_player_spawner.player_spawned.connect(_on_player_spawned)
-
 
 func spawn_creature_by_id(creature_id: String, world_position: Vector2, chunk_coord: Vector2i = INVALID_CHUNK_COORD) -> Creature:
 	if _catalog_service == null:
@@ -71,7 +65,6 @@ func spawn_creature_by_id(creature_id: String, world_position: Vector2, chunk_co
 	world_y_sort.add_child(creature)
 	creature.global_position = world_position
 	_register_chunk_spawn(chunk_coord, creature)
-	_assign_local_player_target(creature)
 	creature_spawned.emit(creature, chunk_coord)
 	return creature
 
@@ -116,15 +109,6 @@ func clear_all_spawned() -> void:
 		despawn_chunk_creatures(chunk_coord)
 
 
-func set_target_for_all_creatures(target: Node2D) -> void:
-	for chunk_coord_variant in _spawned_by_chunk.keys():
-		var spawned: Array = _spawned_by_chunk[chunk_coord_variant] as Array
-		for node_variant in spawned:
-			var creature: Creature = node_variant as Creature
-			if creature and is_instance_valid(creature):
-				_set_creature_target(creature, target)
-
-
 func _register_chunk_spawn(chunk_coord: Vector2i, creature: Creature) -> void:
 	if not _spawned_by_chunk.has(chunk_coord):
 		_spawned_by_chunk[chunk_coord] = []
@@ -137,22 +121,6 @@ func _resolve_marker_creature_id(marker: Marker2D) -> String:
 	if marker.name.begins_with("Spawn_"):
 		return marker.name.trim_prefix("Spawn_").strip_edges().to_lower()
 	return ""
-
-
-func _assign_local_player_target(creature: Creature) -> void:
-	var local_player: Player = _overworld.get_local_player()
-	if local_player == null:
-		return
-	_set_creature_target(creature, local_player)
-
-
-func _set_creature_target(creature: Creature, target: Node2D) -> void:
-	var brain: Node = creature.get_node_or_null("CreatureBrainComponent")
-	if brain and brain.has_method("set_target"):
-		brain.call("set_target", target)
-
-func _on_player_spawned(player: Player) -> void:
-	set_target_for_all_creatures(player)
 
 
 func _on_chunk_loaded(chunk: OverworldChunk, chunk_coord: Vector2i) -> void:

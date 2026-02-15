@@ -10,8 +10,6 @@ signal skill_used(skill_id: String, caster: Node)
 # Legacy creature events
 signal creature_spawned(creature: Node)
 signal creature_died(creature: Node, creature_data: Resource)
-signal creature_aggro(creature: Node, target: Node)
-signal creature_deaggro(creature: Node)
 
 # Legacy world events
 signal location_entered(location_name: String)
@@ -83,16 +81,10 @@ func _bridge_creature_events() -> void:
 
 	var spawned_callable: Callable = Callable(self, "_on_creature_spawned")
 	var died_callable: Callable = Callable(self, "_on_creature_died")
-	var aggro_callable: Callable = Callable(self, "_on_creature_aggro")
-	var deaggro_callable: Callable = Callable(self, "_on_creature_deaggro")
 	if creature_events.has_signal("creature_spawned") and not creature_events.is_connected("creature_spawned", spawned_callable):
 		creature_events.connect("creature_spawned", spawned_callable)
 	if creature_events.has_signal("creature_died") and not creature_events.is_connected("creature_died", died_callable):
 		creature_events.connect("creature_died", died_callable)
-	if creature_events.has_signal("creature_aggro") and not creature_events.is_connected("creature_aggro", aggro_callable):
-		creature_events.connect("creature_aggro", aggro_callable)
-	if creature_events.has_signal("creature_deaggro") and not creature_events.is_connected("creature_deaggro", deaggro_callable):
-		creature_events.connect("creature_deaggro", deaggro_callable)
 
 
 func _on_player_spawned(player: Node) -> void:
@@ -129,11 +121,3 @@ func _on_creature_spawned(creature: Node) -> void:
 
 func _on_creature_died(creature: Node, creature_data: Resource) -> void:
 	creature_died.emit(creature, creature_data)
-
-
-func _on_creature_aggro(creature: Node, target: Node) -> void:
-	creature_aggro.emit(creature, target)
-
-
-func _on_creature_deaggro(creature: Node) -> void:
-	creature_deaggro.emit(creature)

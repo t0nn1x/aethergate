@@ -197,8 +197,9 @@ func _apply_entry_to_data(creature_data: CreatureData, entry: Dictionary) -> voi
 	creature_data.frame_width_pixels = 32
 	creature_data.frame_height_pixels = 32
 
+	# Keep builder output focused on core identity/presentation; legacy AI fields stay untouched.
 	if creature_data.idle_animation_fps <= 0.0:
-		creature_data.idle_animation_fps = 2.5
+		creature_data.idle_animation_fps = 1.5
 	if creature_data.max_health <= 0.0:
 		creature_data.max_health = 50.0
 	if creature_data.movement_speed <= 0.0:

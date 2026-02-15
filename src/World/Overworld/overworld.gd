@@ -7,7 +7,6 @@ extends Node2D
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
 @export var main_screen_path: NodePath = ^"MainScreen"
 @export var session_controller_path: NodePath = ^"OverworldSessionController"
-@export var creature_spawner_path: NodePath = ^"OverworldCreatureSpawner"
 @export var default_local_player_id: int = 1
 
 @onready var terrain: Node2D = $Terrain
@@ -19,7 +18,6 @@ extends Node2D
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 @onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
-@onready var creature_spawner: Node = get_node_or_null(creature_spawner_path)
 
 ## Backward-compatible local-player reference.
 var player: Player = null
@@ -53,8 +51,6 @@ func register_player(player_instance: Player, player_id: int = 1, is_local_playe
 	if is_local_player:
 		player = player_instance
 		_wire_local_player_dependencies(player_instance)
-		if creature_spawner and creature_spawner.has_method("set_target_for_all_creatures"):
-			creature_spawner.call("set_target_for_all_creatures", player_instance)
 	_wire_shared_player_dependencies(player_instance)
 
 

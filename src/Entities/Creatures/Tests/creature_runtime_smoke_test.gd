@@ -1,6 +1,6 @@
 extends Node2D
 
-## Runtime smoke test for creature spawn, chase, movement, damage, and death cleanup.
+## Runtime smoke test for creature spawn, baseline movement, and death cleanup.
 
 signal completed(passed: bool)
 
@@ -44,10 +44,6 @@ func _run() -> void:
 			_add_failure("Factory failed to create creature index %d." % i)
 			continue
 
-		var brain: Node = creature.get_node_or_null("CreatureBrainComponent")
-		if brain:
-			brain.set("wander_probability", 0.0)
-
 		add_child(creature)
 		creature.global_position = Vector2(float(i) * 48.0, 0.0)
 		_spawned_creatures.append(creature)
@@ -57,7 +53,6 @@ func _run() -> void:
 
 	_validate_spawned_components()
 	await _validate_move_state()
-	await _validate_chase_state()
 	await _validate_damage_death_cleanup()
 	_cleanup_spawned_creatures()
 	_finish()
@@ -86,13 +81,7 @@ func _collect_samples(catalog) -> Array[CreatureData]:
 func _create_runtime_data(source: CreatureData, index: int) -> CreatureData:
 	var runtime_data: CreatureData = source.duplicate() as CreatureData
 	runtime_data.creature_id = "%s_smoke_%d" % [source.get_effective_creature_id(), index]
-	runtime_data.behavior_profile = CreatureData.BehaviorProfile.AGGRESSIVE
-	runtime_data.aggro_range = maxf(runtime_data.aggro_range, 220.0)
-	runtime_data.deaggro_range = maxf(runtime_data.deaggro_range, 260.0)
-	runtime_data.attack_range = 8.0
-	runtime_data.attack_cooldown = 0.2
-	runtime_data.chase_repath_interval_seconds = 0.1
-	runtime_data.wander_interval_seconds = 0.25
+	runtime_data.movement_speed = maxf(runtime_data.movement_speed, 70.0)
 	runtime_data.sprite_sheet = _create_dummy_sheet_texture(index)
 	return runtime_data
 
@@ -120,12 +109,24 @@ func _validate_spawned_components() -> void:
 			"CreatureMovementComponent is missing."
 		)
 		_assert(
+			creature.get_node_or_null("CreatureVisualComponent") != null,
+			"CreatureVisualComponent is missing."
+		)
+		_assert(
 			creature.get_node_or_null("CreatureNavigationComponent") != null,
 			"CreatureNavigationComponent is missing."
 		)
 		_assert(
-			creature.get_node_or_null("CreatureBrainComponent") != null,
-			"CreatureBrainComponent is missing."
+			creature.get_node_or_null("CreatureWanderComponent") != null,
+			"CreatureWanderComponent is missing."
+		)
+		_assert(
+			creature.get_node_or_null("CreatureBrainComponent") == null,
+			"CreatureBrainComponent should be absent in non-autonomous mode."
+		)
+		_assert(
+			creature.get_node_or_null("StateMachine") == null,
+			"Creature StateMachine should be absent in non-autonomous mode."
 		)
 
 
@@ -145,46 +146,6 @@ func _validate_move_state() -> void:
 	movement_component.call("apply_direction", Vector2.RIGHT)
 	_assert(creature.velocity.x > 0.0, "Movement apply_direction did not produce horizontal velocity.")
 	movement_component.call("stop_movement")
-
-
-func _validate_chase_state() -> void:
-	if _spawned_creatures.size() < 2:
-		return
-	var creature: Creature = _spawned_creatures[1]
-	if creature == null or not is_instance_valid(creature):
-		_add_failure("Chase test creature is invalid.")
-		return
-
-	var target_dummy := Node2D.new()
-	target_dummy.name = "SmokeTargetDummy"
-	add_child(target_dummy)
-	target_dummy.global_position = creature.global_position + Vector2(2.0, 0.0)
-
-	var brain: Node = creature.get_node_or_null("CreatureBrainComponent")
-	var state_machine: StateMachine = creature.get_node_or_null("StateMachine") as StateMachine
-	if brain == null:
-		_add_failure("Chase test missing CreatureBrainComponent.")
-		target_dummy.queue_free()
-		return
-	if state_machine == null:
-		_add_failure("Chase test missing StateMachine.")
-		target_dummy.queue_free()
-		return
-
-	brain.call("set_target", target_dummy)
-	for _i in 8:
-		await get_tree().physics_frame
-
-	var current_state_name: StringName = &""
-	if state_machine.current_state:
-		current_state_name = state_machine.current_state.name
-	_assert(
-		current_state_name == &"ChaseState" or current_state_name == &"AttackState",
-		"Expected ChaseState/AttackState after target assignment, got '%s'." % String(current_state_name)
-	)
-
-	target_dummy.queue_free()
-	await get_tree().process_frame
 
 
 func _validate_damage_death_cleanup() -> void:
