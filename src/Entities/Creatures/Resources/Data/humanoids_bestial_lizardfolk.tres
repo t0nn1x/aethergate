@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_8ls6l"]
+
+[resource]
+script = ExtResource("1_8ls6l")
+creature_id = "humanoids_bestial_lizardfolk"
+display_name = "bestial lizardfolk"
+creature_type = 0
+source_category = "Humanoids"
+source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/bestial lizardfolk/BestialLizardfolkIdleSide_128x32.png"

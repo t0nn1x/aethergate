@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_8k148"]
+
+[resource]
+script = ExtResource("1_8k148")
+creature_id = "animals_bouncing_rabbit"
+display_name = "Bouncing Rabbit"
+source_category = "Animals"
+source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Bouncing Rabbit/BouncingRabbit_128x32.png"

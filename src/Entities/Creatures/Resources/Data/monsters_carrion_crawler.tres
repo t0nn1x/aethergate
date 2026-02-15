@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_3fchp"]
+
+[resource]
+script = ExtResource("1_3fchp")
+creature_id = "monsters_carrion_crawler"
+display_name = "Carrion Crawler"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Carrion Crawler/CarrionCrawler_128x32.png"

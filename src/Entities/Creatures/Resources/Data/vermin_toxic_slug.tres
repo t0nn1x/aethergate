@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_5eryb"]
+
+[resource]
+script = ExtResource("1_5eryb")
+creature_id = "vermin_toxic_slug"
+display_name = "Toxic Slug"
+creature_type = 5
+source_category = "Vermin"
+source_sprite_path = "res://src/Entities/Creatures/Types/Vermin/Toxic Slug/ToxicSlug_128x32.png"

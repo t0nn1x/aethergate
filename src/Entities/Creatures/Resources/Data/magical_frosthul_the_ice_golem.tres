@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_x63dg"]
+
+[resource]
+script = ExtResource("1_x63dg")
+creature_id = "magical_frosthul_the_ice_golem"
+display_name = "Frosthul the Ice Golem"
+creature_type = 6
+source_category = "Magical"
+source_sprite_path = "res://src/Entities/Creatures/Types/Magical/Frosthul the Ice Golem/Frosthul_128x32.png"

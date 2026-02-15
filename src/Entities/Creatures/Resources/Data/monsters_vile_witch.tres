@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_knrcn"]
+
+[resource]
+script = ExtResource("1_knrcn")
+creature_id = "monsters_vile_witch"
+display_name = "vile witch"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/vile witch/VileWitch_128x32.png"

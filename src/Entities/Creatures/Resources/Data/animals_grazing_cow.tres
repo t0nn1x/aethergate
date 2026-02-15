@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_rxe2s"]
+
+[resource]
+script = ExtResource("1_rxe2s")
+creature_id = "animals_grazing_cow"
+display_name = "Grazing Cow"
+source_category = "Animals"
+source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Grazing Cow/GrazingCow_128x32.png"

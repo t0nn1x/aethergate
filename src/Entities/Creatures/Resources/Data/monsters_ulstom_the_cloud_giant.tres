@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_8i4qr"]
+
+[resource]
+script = ExtResource("1_8i4qr")
+creature_id = "monsters_ulstom_the_cloud_giant"
+display_name = "Ulstom the Cloud Giant"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Ulstom the Cloud Giant/Ulstom_128x32.png"

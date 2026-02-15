@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_eojkr"]
+
+[resource]
+script = ExtResource("1_eojkr")
+creature_id = "vermin_buzzing_bumblebee"
+display_name = "Buzzing Bumblebee"
+creature_type = 5
+source_category = "Vermin"
+source_sprite_path = "res://src/Entities/Creatures/Types/Vermin/Buzzing Bumblebee/BuzzingBumblebee_128x32.png"

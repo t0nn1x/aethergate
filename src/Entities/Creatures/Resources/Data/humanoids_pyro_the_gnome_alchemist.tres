@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_q2ruj"]
+
+[resource]
+script = ExtResource("1_q2ruj")
+creature_id = "humanoids_pyro_the_gnome_alchemist"
+display_name = "Pyro the Gnome Alchemist"
+creature_type = 0
+source_category = "Humanoids"
+source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/Pyro the Gnome Alchemist/Pyro_128x32.png"

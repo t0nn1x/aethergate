@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_866jq"]
+
+[resource]
+script = ExtResource("1_866jq")
+creature_id = "monsters_reltgaze_the_bloodshot_eye"
+display_name = "Reltgaze the Bloodshot Eye"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Reltgaze the Bloodshot Eye/Reltgaze_128x32.png"

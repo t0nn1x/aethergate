@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_bl4g8"]
+
+[resource]
+script = ExtResource("1_bl4g8")
+creature_id = "demons_demonic_arachnid"
+display_name = "demonic arachnid"
+creature_type = 8
+source_category = "Demons"
+source_sprite_path = "res://src/Entities/Creatures/Types/Demons/demonic arachnid/DemonicArachnid_128x32.png"

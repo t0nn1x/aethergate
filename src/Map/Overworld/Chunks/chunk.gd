@@ -19,6 +19,7 @@ const DEFAULT_PREVIEW_RADIUS := 2
 @export var preview_radius: int = DEFAULT_PREVIEW_RADIUS: set = _set_preview_radius
 @export var enforce_bounds_in_editor: bool = false: set = _set_enforce_bounds_in_editor
 @export var cleanup_out_of_bounds: bool = false: set = _set_cleanup_out_of_bounds
+@export var creature_spawn_root_path: NodePath = ^"CreatureSpawnPoints"
 
 var _preview_root: Node2D = null
 var _enforce_timer: float = 0.0
@@ -202,3 +203,15 @@ func _normalize_dir(value: String) -> String:
 func _preview_offset() -> Vector2:
 	var delta = chunk_coord - _preview_origin_coord
 	return Vector2(delta.x, -delta.y) * _chunk_pixel_size()
+
+
+func get_creature_spawn_markers() -> Array[Marker2D]:
+	var markers: Array[Marker2D] = []
+	var spawn_root: Node = get_node_or_null(creature_spawn_root_path)
+	if spawn_root == null:
+		return markers
+	for marker_node in spawn_root.find_children("*", "Marker2D", true, false):
+		var marker: Marker2D = marker_node as Marker2D
+		if marker:
+			markers.append(marker)
+	return markers

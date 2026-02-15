@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_yvmg6"]
+
+[resource]
+script = ExtResource("1_yvmg6")
+creature_id = "magical_fluttering_pixie"
+display_name = "fluttering pixie"
+creature_type = 6
+source_category = "Magical"
+source_sprite_path = "res://src/Entities/Creatures/Types/Magical/fluttering pixie/FlutteringPixie_128x32.png"

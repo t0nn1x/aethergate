@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_7bi4p"]
+
+[resource]
+script = ExtResource("1_7bi4p")
+creature_id = "humanoids_bugbear_elite"
+display_name = "Bugbear Elite"
+creature_type = 0
+source_category = "Humanoids"
+source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/Bugbear Elite/BugbearElite_128x32.png"

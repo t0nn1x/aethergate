@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_fefqa"]
+
+[resource]
+script = ExtResource("1_fefqa")
+creature_id = "monsters_wicked_wretch"
+display_name = "wicked wretch"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/wicked wretch/WickedWretch_128x32.png"

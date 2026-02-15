@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_aa2yo"]
+
+[resource]
+script = ExtResource("1_aa2yo")
+creature_id = "humanoids_ragged_miner"
+display_name = "Ragged Miner"
+creature_type = 0
+source_category = "Humanoids"
+source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/Ragged Miner/RaggedMiner_128x32.png"

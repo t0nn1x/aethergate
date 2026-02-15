@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_v32xy"]
+
+[resource]
+script = ExtResource("1_v32xy")
+creature_id = "magical_dryad_stabber"
+display_name = "Dryad Stabber"
+creature_type = 6
+source_category = "Magical"
+source_sprite_path = "res://src/Entities/Creatures/Types/Magical/Dryad Stabber/DryadStabber_128x32.png"

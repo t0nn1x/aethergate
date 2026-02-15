@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_rrrvr"]
+
+[resource]
+script = ExtResource("1_rrrvr")
+creature_id = "dragons_great_wyvern"
+display_name = "Great Wyvern"
+creature_type = 4
+source_category = "Dragons"
+source_sprite_path = "res://src/Entities/Creatures/Types/Dragons/Great Wyvern/GreatWyvern_128x32.png"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_88ddc"]
+
+[resource]
+script = ExtResource("1_88ddc")
+creature_id = "animals_clucking_chicken"
+display_name = "Clucking Chicken"
+source_category = "Animals"
+source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Clucking Chicken/CluckingChicken_128x32.png"

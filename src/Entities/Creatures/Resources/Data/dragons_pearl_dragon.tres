@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_6nbdl"]
+
+[resource]
+script = ExtResource("1_6nbdl")
+creature_id = "dragons_pearl_dragon"
+display_name = "Pearl Dragon"
+creature_type = 4
+source_category = "Dragons"
+source_sprite_path = "res://src/Entities/Creatures/Types/Dragons/Pearl Dragon/PearlDragon_128x32.png"

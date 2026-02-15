@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_15t2t"]
+
+[resource]
+script = ExtResource("1_15t2t")
+creature_id = "monsters_ambro_the_sasquatch"
+display_name = "Ambro the Sasquatch"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Ambro the Sasquatch/Ambro_128x32.png"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_43ll1"]
+
+[resource]
+script = ExtResource("1_43ll1")
+creature_id = "humanoids_beginner_enchanter"
+display_name = "beginner enchanter"
+creature_type = 0
+source_category = "Humanoids"
+source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/beginner enchanter/BeginnerEnchanter_128x32.png"

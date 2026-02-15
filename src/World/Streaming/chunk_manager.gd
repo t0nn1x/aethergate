@@ -3,6 +3,8 @@ class_name ChunkManager
 extends Node2D
 
 signal chunks_changed
+signal chunk_loaded(chunk: OverworldChunk, chunk_coord: Vector2i)
+signal chunk_unloaded(chunk_coord: Vector2i)
 
 const CHUNK_SCENE_PREFIX := "chunk_"
 const CHUNK_SCENE_EXT := ".tscn"
@@ -135,12 +137,15 @@ func _load_chunk(coord: Vector2i) -> void:
 	_configure_loaded_chunk_instance(instance, coord)
 	_get_chunks_root().add_child(instance)
 	_loaded_chunks[coord] = instance
+	if instance is OverworldChunk:
+		chunk_loaded.emit(instance as OverworldChunk, coord)
 
 func _unload_chunk(coord: Vector2i) -> void:
 	var instance: Node = _loaded_chunks.get(coord, null) as Node
 	if instance and is_instance_valid(instance):
 		instance.queue_free()
 	_loaded_chunks.erase(coord)
+	chunk_unloaded.emit(coord)
 
 func _build_editor_preview() -> void:
 	if not Engine.is_editor_hint():

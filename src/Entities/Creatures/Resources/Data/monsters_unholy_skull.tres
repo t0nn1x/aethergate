@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_35pan"]
+
+[resource]
+script = ExtResource("1_35pan")
+creature_id = "monsters_unholy_skull"
+display_name = "Unholy Skull"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Unholy Skull/UnholySkull_128x32.png"

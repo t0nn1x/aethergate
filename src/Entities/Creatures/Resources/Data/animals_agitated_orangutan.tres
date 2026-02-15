@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_ijbvx"]
+
+[resource]
+script = ExtResource("1_ijbvx")
+creature_id = "animals_agitated_orangutan"
+display_name = "Agitated Orangutan"
+source_category = "Animals"
+source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Agitated Orangutan/AgitatedOrangutan_128x32.png"

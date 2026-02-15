@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_4jhsv"]
+
+[resource]
+script = ExtResource("1_4jhsv")
+creature_id = "holy_holy_crusader"
+display_name = "Holy Crusader"
+creature_type = 2
+source_category = "Holy"
+source_sprite_path = "res://src/Entities/Creatures/Types/Holy/Holy Crusader/HolyCrusader_128x32.png"

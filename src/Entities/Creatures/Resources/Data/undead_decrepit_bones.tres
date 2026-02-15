@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_1uybi"]
+
+[resource]
+script = ExtResource("1_1uybi")
+creature_id = "undead_decrepit_bones"
+display_name = "Decrepit Bones"
+creature_type = 7
+source_category = "Undead"
+source_sprite_path = "res://src/Entities/Creatures/Types/Undead/Decrepit Bones/DecrepitBones_128x32.png"

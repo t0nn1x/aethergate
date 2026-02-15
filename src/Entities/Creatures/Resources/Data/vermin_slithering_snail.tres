@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_1edul"]
+
+[resource]
+script = ExtResource("1_1edul")
+creature_id = "vermin_slithering_snail"
+display_name = "Slithering Snail"
+creature_type = 5
+source_category = "Vermin"
+source_sprite_path = "res://src/Entities/Creatures/Types/Vermin/Slithering Snail/SlitheringSnail_128x32.png"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_yuxsm"]
+
+[resource]
+script = ExtResource("1_yuxsm")
+creature_id = "monsters_shrieker_mushroom"
+display_name = "Shrieker Mushroom"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Shrieker Mushroom/ShriekerMushroom_128x32.png"

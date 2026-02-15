@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_rig4r"]
+
+[resource]
+script = ExtResource("1_rig4r")
+creature_id = "monsters_vibrant_coutl"
+display_name = "Vibrant Coutl"
+creature_type = 3
+source_category = "Monsters"
+source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Vibrant Coutl/VibrantCoutl_128x32.png"

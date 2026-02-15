@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_mtrfo"]
+
+[resource]
+script = ExtResource("1_mtrfo")
+creature_id = "demons_infernal_scorcher"
+display_name = "infernal scorcher"
+creature_type = 8
+source_category = "Demons"
+source_sprite_path = "res://src/Entities/Creatures/Types/Demons/infernal scorcher/InfernalScorche_128x32.png"
