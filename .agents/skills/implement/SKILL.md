@@ -146,6 +146,7 @@ TaskUpdate(taskId, status: "in_progress")
 - For mobile/export targets, avoid relying solely on `DirAccess` listing for `res://` assets; ensure a manifest or `ResourceLoader.exists()` fallback is implemented
 - For reusable audio work, prefer a centralized autoload/service (pooled SFX + music control) over scene-local duplicated audio setup blocks
 - For platform-specific lifecycle actions (like app quit), implement capability guards: hide/disable unsupported UI actions (notably iOS quit) and keep focus navigation valid after removal
+- For platform display startup changes, verify window mode/size policy matches intended UX per platform (for example Windows fullscreen) and avoid windowed+usable-rect centering in fullscreen startup paths
 
 **3.5: Mark as completed**
 ```
