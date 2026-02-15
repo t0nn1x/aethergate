@@ -36,8 +36,20 @@ Creature spawns are chunk-driven.
 
 For each chunk scene that should spawn creatures:
 
+1. Add a `Node2D` named `CreatureSpawnZones`.
+2. Add `Polygon2D` children and attach `res://src/Gameplay/Creatures/Spawning/creature_spawn_zone.gd`.
+3. Configure zone rules:
+   - `spawn_rate_per_minute`
+   - `max_alive`
+   - `initial_spawn_count`
+   - one or more filters (`allowed_creature_ids`, `allowed_creature_types`, `allowed_source_categories`)
+   - optional player distance gates (`min_distance_to_player`, `max_distance_to_player`)
+4. Draw the zone polygon points directly on each zone node.
+
+Legacy marker fallback is still supported:
+
 1. Add a `Node2D` named `CreatureSpawnPoints`.
-2. Add `Marker2D` children for spawn points.
+2. Add `Marker2D` children for static spawn points.
 3. Define creature ID by one of:
    - Marker metadata key `creature_id` (recommended), or
    - Marker name prefix: `Spawn_<creature_id>`
@@ -47,7 +59,10 @@ For each chunk scene that should spawn creatures:
 ## 4. Runtime Integration
 
 - `OverworldCreatureSpawner` listens to `ChunkManager.chunk_loaded/chunk_unloaded`.
-- On chunk load: spawns chunk markers into `WorldYSort`.
+- On chunk load:
+  - if zones exist, registers zone state and spawns initial zone population;
+  - otherwise (or when zone spawning is disabled), falls back to marker spawns.
+- During runtime: zone spawns tick by spawn budget (`spawn_rate_per_minute`) and enforce `max_alive`.
 - On chunk unload: despawns only creatures owned by that chunk.
 - Creatures use ambient wander only (roam near spawn point).
 - Combat AI remains disabled (no chase/attack state logic).
@@ -67,6 +82,12 @@ Runtime smoke test:
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . --scene res://src/Entities/Creatures/Tests/creature_runtime_smoke_test.tscn --quit-after 200
 ```
 
+Spawn-zone helper validation:
+
+```bash
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --script res://src/Entities/Creatures/Tests/run_creature_spawn_zone_test.gd
+```
+
 ## Troubleshooting
 
 - `missing creature_id` warning:
@@ -81,3 +102,9 @@ Runtime smoke test:
   - Lower `wander_radius` in that creature's `.tres` data.
 - Duplicate catalog IDs:
   - Two folders normalize to the same slug. Rename one folder and rebuild.
+- `zone '<name>' has no creature filters configured` warning:
+  - Add at least one filter list entry (ID, type, or source category).
+- Zone never spawns creatures:
+  - Verify polygon has 3+ points and `max_alive > 0`.
+  - Verify filters resolve to actual catalog entries.
+  - Check player-distance gates are not too strict for your test position.

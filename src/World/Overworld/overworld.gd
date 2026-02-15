@@ -14,6 +14,7 @@ extends Node2D
 @onready var entities: Node2D = $Entities
 @onready var world_y_sort: Node2D = $WorldYSort
 @onready var chunk_manager: ChunkManager = $ChunkManager
+@onready var creature_spawner: OverworldCreatureSpawner = $OverworldCreatureSpawner
 @onready var navigation_blocker_registry: NavigationBlockerRegistry = $NavigationBlockerRegistry
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 @onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
@@ -88,6 +89,8 @@ func _on_chunks_changed() -> void:
 func _wire_stage_dependencies() -> void:
 	if debug_overlay and chunk_manager:
 		debug_overlay.set_chunk_manager(chunk_manager)
+	if debug_overlay and creature_spawner:
+		debug_overlay.set_creature_spawner(creature_spawner)
 	if player:
 		_wire_local_player_dependencies(player)
 

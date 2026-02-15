@@ -20,6 +20,7 @@ const DEFAULT_PREVIEW_RADIUS := 2
 @export var enforce_bounds_in_editor: bool = false: set = _set_enforce_bounds_in_editor
 @export var cleanup_out_of_bounds: bool = false: set = _set_cleanup_out_of_bounds
 @export var creature_spawn_root_path: NodePath = ^"CreatureSpawnPoints"
+@export var creature_spawn_zone_root_path: NodePath = ^"CreatureSpawnZones"
 
 var _preview_root: Node2D = null
 var _enforce_timer: float = 0.0
@@ -215,3 +216,15 @@ func get_creature_spawn_markers() -> Array[Marker2D]:
 		if marker:
 			markers.append(marker)
 	return markers
+
+
+func get_creature_spawn_zones() -> Array[Polygon2D]:
+	var zones: Array[Polygon2D] = []
+	var zone_root: Node = get_node_or_null(creature_spawn_zone_root_path)
+	if zone_root == null:
+		return zones
+	for zone_node in zone_root.find_children("*", "Polygon2D", true, false):
+		var zone: Polygon2D = zone_node as Polygon2D
+		if zone:
+			zones.append(zone)
+	return zones

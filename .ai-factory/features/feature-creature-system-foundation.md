@@ -18,6 +18,8 @@ Created: 2026-02-15
 - Commit 2 (after tasks 4-6): `feat(creatures): add runtime creature components and ai states`
 - Commit 3 (after tasks 7-9): `feat(overworld): add creature spawning integration with chunk lifecycle`
 - Commit 4 (after tasks 10-12): `test(creatures): add data validation and runtime smoke coverage`
+- Commit 5 (after tasks 13-16): `feat(overworld): add zone-based runtime creature spawning`
+- Commit 6 (after tasks 17-18): `test(creatures): add spawn-zone validation and authoring docs`
 
 ## Tasks
 
@@ -73,6 +75,31 @@ Created: 2026-02-15
   Files: `src/Entities/Creatures/README.md`
   Logging (minimal): not applicable.
 
+### Phase 5: Zone-Based Spawn System
+- [x] Task 13: Add `CreatureSpawnZone2D` scene helper node (`Polygon2D`) with exported spawn rules (rates, caps, filters, player-distance constraints) and helper methods for point sampling + polygon containment checks.
+  Files: `src/Gameplay/Creatures/Spawning/creature_spawn_zone.gd`
+  Logging (minimal): warn only on invalid polygon/filter configuration.
+
+- [x] Task 14: Extend chunk + spawner runtime to support zone-based spawning per loaded chunk (zone registry, spawn budget ticking, candidate resolution from catalog, max-alive enforcement, zone/chunk despawn cleanup), while preserving marker fallback for chunks without zones.
+  Files: `src/Map/Overworld/Chunks/chunk.gd`, `src/World/Overworld/overworld_creature_spawner.gd`
+  Logging (minimal): chunk/zone spawn summaries and warnings for invalid zone configs.
+
+- [x] Task 15: Add a pilot spawn zone in a live chunk scene and validate mixed operation (zone-based spawning + legacy markers compatibility path).
+  Files: `src/Map/Overworld/Chunks/Midra/chunk_-2_-2.tscn`
+  Logging (minimal): no extra runtime logs beyond Task 14.
+
+- [x] Task 16: Surface zone-spawn runtime counters for debugging (active zones, alive creatures, per-chunk zone counts) through existing debug overlay wiring.
+  Files: `src/World/Overworld/overworld_creature_spawner.gd`, `src/UI/Debug/debug_overlay.gd`, `src/UI/Debug/Providers/chunk_debug_metrics_provider.gd`
+  Logging (minimal): none; expose metrics as overlay lines.
+
+- [x] Task 17: Add headless validation for spawn-zone helper behavior (polygon sampling and filter normalization) with deterministic pass/fail output.
+  Files: `src/Entities/Creatures/Tests/creature_spawn_zone_test.gd`, `src/Entities/Creatures/Tests/run_creature_spawn_zone_test.gd`
+  Logging (minimal): print only failures and pass/fail summary.
+
+- [x] Task 18: Update creature authoring docs to include zone-based workflow (draw polygon, configure filters/rates, migration guidance from markers, troubleshooting invalid zones).
+  Files: `src/Entities/Creatures/README.md`
+  Logging (minimal): not applicable.
+
 ## Acceptance Criteria
 - Catalog-driven creature lookup works for all generated entries from `*_128x32.png` sources.
 - A single base creature scene + components can represent many creature variants via `CreatureData`.
@@ -83,3 +110,4 @@ Created: 2026-02-15
 ## Risks / Notes
 - Existing chunk scenes currently do not include creature spawn markers/config; a spawn-source format must be introduced during implementation.
 - Minimal logging reduces runtime noise and overhead, but debugging AI/spawn edge cases may require temporary targeted debug logs.
+- Zone + marker dual support is transitional; once chunks are migrated, marker fallback can be removed to reduce maintenance overhead.
