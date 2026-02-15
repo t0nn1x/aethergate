@@ -147,6 +147,7 @@ TaskUpdate(taskId, status: "in_progress")
 - For reusable audio work, prefer a centralized autoload/service (pooled SFX + music control) over scene-local duplicated audio setup blocks
 - For platform-specific lifecycle actions (like app quit), implement capability guards: hide/disable unsupported UI actions (notably iOS quit) and keep focus navigation valid after removal
 - For platform display startup changes, verify window mode/size policy matches intended UX per platform (for example Windows fullscreen) and avoid windowed+usable-rect centering in fullscreen startup paths
+- For Godot `@tool` inspector features, avoid method calls on placeholder script resources in editor context; read exported properties and keep inspector preview loading lazy/cached
 
 **3.5: Mark as completed**
 ```

@@ -65,6 +65,8 @@ To fix this effectively, I need more context:
 - UI/audio architecture traps: duplicating player setup/loading logic in multiple scenes instead of using a centralized autoload service with pooled players
 - Platform capability traps (iOS quit): if the platform disallows lifecycle actions like programmatic app exit, do not keep a clickable UI action that can never succeed; hide/disable it and adjust focus/navigation
 - Desktop startup display traps: platform display bootstrapping forcing windowed mode/usable-rect centering when the intended UX is fullscreen (especially Windows) and no startup mode logs exist to verify behavior
+- Godot `@tool` placeholder traps: script-backed resources loaded in editor can be placeholders; avoid relying on method calls from tool scripts (`resource.call(...)`) and prefer exported-property reads where possible
+- Inspector performance traps: avoid eager loading large preview sets inside `_get_property_list`/`_get`; lazy-load only selected preview assets and cache lightweight metadata
 
 ### Step 3: Implement the Fix
 
@@ -103,6 +105,7 @@ try {
 - For Godot refactors, verify that every referenced script/resource in `.tscn` still exists
 - If touching autoload-driven code, verify `project.godot` `[autoload]` entries and keep a compatibility fallback path while migrating callers
 - If touching startup display settings, verify platform window mode matches intended UX (for example Windows fullscreen startup) and confirm via startup mode/resolution logs
+- If touching `@tool` inspector code, verify inspector properties appear as expected and editor stays responsive (no repeated placeholder-call errors or heavy lag)
 
 ### Step 5: Suggest Test Coverage
 
