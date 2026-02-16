@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://01rtaco8geex"
-path="res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"
+uid="uid://m0oge51wihjh"
+path="res://.godot/imported/Cursor Target Move B.png-9b85f8eacfc2e0679c5a1de030afa894.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Logo/studio_logo.png"
-dest_files=["res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"]
+source_file="res://Assets/Cursors/28x28px/Cursor Target Move B.png"
+dest_files=["res://.godot/imported/Cursor Target Move B.png-9b85f8eacfc2e0679c5a1de030afa894.ctex"]
 
 [params]
 

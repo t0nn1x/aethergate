@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://01rtaco8geex"
-path="res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"
+uid="uid://1svlfe0wi8fw"
+path="res://.godot/imported/Cursor Mini Pickaxe Green.png-24b4b004a04942027fc022775f9cff57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Logo/studio_logo.png"
-dest_files=["res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"]
+source_file="res://Assets/Cursors/36x36px/Cursor Mini Pickaxe Green.png"
+dest_files=["res://.godot/imported/Cursor Mini Pickaxe Green.png-24b4b004a04942027fc022775f9cff57.ctex"]
 
 [params]
 

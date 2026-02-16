@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://01rtaco8geex"
-path="res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"
+uid="uid://c114neykhb5xa"
+path="res://.godot/imported/Cursor Mini Build Red.png-46a9c6d05d210797bc6072486463d4c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Logo/studio_logo.png"
-dest_files=["res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"]
+source_file="res://Assets/Cursors/24x24px/Cursor Mini Build Red.png"
+dest_files=["res://.godot/imported/Cursor Mini Build Red.png-46a9c6d05d210797bc6072486463d4c8.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://01rtaco8geex"
-path="res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"
+uid="uid://dvfhwug8ltcyg"
+path="res://.godot/imported/Cursor Scythe Green.png-a3c4cfb779096583ef61888882b13494.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Logo/studio_logo.png"
-dest_files=["res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"]
+source_file="res://Assets/Cursors/36x36px/Cursor Scythe Green.png"
+dest_files=["res://.godot/imported/Cursor Scythe Green.png-a3c4cfb779096583ef61888882b13494.ctex"]
 
 [params]
 

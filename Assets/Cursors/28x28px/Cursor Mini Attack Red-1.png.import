@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://01rtaco8geex"
-path="res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"
+uid="uid://bvk5ryg8bdh02"
+path="res://.godot/imported/Cursor Mini Attack Red-1.png-7e1bd52e6f598b977e5a73bd1a7362b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Logo/studio_logo.png"
-dest_files=["res://.godot/imported/studio_logo.png-4191fba61c10015e7ad053365a7f3de1.ctex"]
+source_file="res://Assets/Cursors/28x28px/Cursor Mini Attack Red-1.png"
+dest_files=["res://.godot/imported/Cursor Mini Attack Red-1.png-7e1bd52e6f598b977e5a73bd1a7362b8.ctex"]
 
 [params]
 
