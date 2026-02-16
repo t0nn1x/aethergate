@@ -11,6 +11,7 @@ extends Node
 @export var composition_base_size: Vector2 = Vector2(576.0, 324.0)
 @export var composition_zoom: float = 1.0
 @export var composition_vertical_offset: float = 0.0
+@export_range(0.0, 8.0, 0.5) var layer_overscan_pixels: float = 2.0
 @export var base_scroll_speed: float = 22.0
 @export var layer_scroll_speed_multipliers: PackedFloat32Array = PackedFloat32Array([0.08, 0.12, 0.18, 0.26, 0.36, 0.5])
 @export_range(1, 64, 1) var max_background_set_probe_count: int = 24
@@ -37,6 +38,7 @@ func _ready() -> void:
 	_wire_viewport_resize()
 	_apply_random_background_set()
 	print("[FIX][BackgroundController] layer_fit_mode=%s" % ("COVER" if layer_fit_mode == LayerFitMode.COVER else "CONTAIN"))
+	print("[FIX][BackgroundController] layer_overscan_pixels=%.1f texture_repeat=enabled" % layer_overscan_pixels)
 
 
 func _collect_layer_nodes() -> void:
@@ -307,16 +309,21 @@ func _apply_layer_fit(layer: TextureRect, texture: Texture2D) -> void:
 	var drawn_size: Vector2 = base_size * scale_factor
 	var offset: Vector2 = (viewport_size - drawn_size) * 0.5
 	offset.y += composition_vertical_offset
+	var overscan: float = maxf(layer_overscan_pixels, 0.0)
+	var left: float = floorf(offset.x) - overscan
+	var top: float = floorf(offset.y) - overscan
+	var right: float = ceilf(offset.x + drawn_size.x) + overscan
+	var bottom: float = ceilf(offset.y + drawn_size.y) + overscan
 
 	layer.anchors_preset = Control.PRESET_TOP_LEFT
 	layer.anchor_left = 0.0
 	layer.anchor_top = 0.0
 	layer.anchor_right = 0.0
 	layer.anchor_bottom = 0.0
-	layer.offset_left = offset.x
-	layer.offset_top = offset.y
-	layer.offset_right = offset.x + drawn_size.x
-	layer.offset_bottom = offset.y + drawn_size.y
+	layer.offset_left = left
+	layer.offset_top = top
+	layer.offset_right = right
+	layer.offset_bottom = bottom
 
 
 func _resolve_viewport_size() -> Vector2:
@@ -352,7 +359,7 @@ uniform float scroll_speed = 0.02;
 
 void fragment() {
 	vec2 uv = UV;
-	uv.x = fract(uv.x + TIME * scroll_speed);
+	uv.x += TIME * scroll_speed;
 	COLOR = texture(TEXTURE, uv);
 }
 """
@@ -361,4 +368,4 @@ void fragment() {
 	material.shader = _scroll_shader
 	material.set_shader_parameter("scroll_speed", uv_speed)
 	layer.material = material
-	layer.texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
+	layer.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
