@@ -150,6 +150,10 @@ func _on_navigation_agent_velocity_computed(safe_velocity: Vector2) -> void:
 	_has_safe_velocity = true
 
 
+func get_last_target_reject_reason() -> String:
+	return _last_target_reject_reason
+
+
 func _get_snapped_target_position(requested_world_pos: Vector2) -> Variant:
 	_last_target_reject_reason = ""
 

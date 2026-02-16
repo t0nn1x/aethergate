@@ -36,10 +36,14 @@ var _overworld: Overworld
 var _factory
 var _catalog_service
 var _chunk_manager
+var _navigation_blocker_registry: NavigationBlockerRegistry
 var _spawned_by_chunk: Dictionary = {}
 var _zone_states_by_chunk: Dictionary = {}
 var _spawn_tick_accumulator: float = 0.0
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var _cached_spawn_blocker_polygons: Array[Polygon2D] = []
+var _spawn_blocker_reject_policy: MoveTargetRejectInsidePolygonPolicy = MoveTargetRejectInsidePolygonPolicy.new()
+var _warned_missing_navigation_blocker_registry: bool = false
 
 
 func _ready() -> void:
@@ -64,6 +68,7 @@ func _ready() -> void:
 		if not _chunk_manager.chunk_unloaded.is_connected(_on_chunk_unloaded):
 			_chunk_manager.chunk_unloaded.connect(_on_chunk_unloaded)
 
+	call_deferred("_resolve_spawn_blocker_registry")
 	_rng.randomize()
 
 
@@ -106,6 +111,7 @@ func spawn_creature_by_id(
 
 	world_y_sort.add_child(creature)
 	creature.global_position = world_position
+	_wire_spawned_creature_navigation_dependencies(creature)
 	_register_chunk_spawn(chunk_coord, creature)
 	creature_spawned.emit(creature, chunk_coord)
 	return creature
@@ -208,6 +214,29 @@ func _register_chunk_spawn(chunk_coord: Vector2i, creature: Creature) -> void:
 	if not _spawned_by_chunk.has(chunk_coord):
 		_spawned_by_chunk[chunk_coord] = []
 	(_spawned_by_chunk[chunk_coord] as Array).append(creature)
+
+
+func _wire_spawned_creature_navigation_dependencies(creature: Creature) -> void:
+	if creature == null or _overworld == null:
+		return
+
+	var blocker_registry: NavigationBlockerRegistry = _overworld.get_navigation_blocker_registry()
+	if blocker_registry == null:
+		if OS.is_debug_build():
+			print("[CreatureSpawner] blocker registry unavailable for '%s'." % creature.name)
+		return
+
+	var blocker_component: PlayerMoveTargetBlockerComponent = creature.get_node_or_null(
+		"PlayerMoveTargetBlockerComponent"
+	) as PlayerMoveTargetBlockerComponent
+	if blocker_component == null:
+		if OS.is_debug_build():
+			print("[CreatureSpawner] blocker component missing on '%s'." % creature.name)
+		return
+
+	blocker_component.set_blocker_registry(blocker_registry)
+	if OS.is_debug_build():
+		print("[CreatureSpawner] blocker registry wired for '%s'." % creature.name)
 
 
 func _resolve_marker_creature_id(marker: Marker2D) -> String:
@@ -426,6 +455,8 @@ func _is_zone_spawn_position_valid(zone: Node, world_position: Vector2) -> bool:
 		return false
 	if not _zone_contains_world_position(zone, world_position):
 		return false
+	if _is_world_position_blocked_for_spawns(world_position):
+		return false
 
 	var local_player: Player = _overworld.get_local_player()
 	if local_player == null or not is_instance_valid(local_player):
@@ -558,3 +589,58 @@ func _clear_chunk_zone_states(chunk_coord: Vector2i) -> void:
 	if not _zone_states_by_chunk.has(chunk_coord):
 		return
 	_zone_states_by_chunk.erase(chunk_coord)
+
+
+func _resolve_spawn_blocker_registry() -> void:
+	if _overworld == null:
+		return
+	var registry: NavigationBlockerRegistry = _overworld.get_navigation_blocker_registry()
+	_set_spawn_blocker_registry(registry)
+	if registry == null and OS.is_debug_build() and not _warned_missing_navigation_blocker_registry:
+		_warned_missing_navigation_blocker_registry = true
+		push_warning(
+			"OverworldCreatureSpawner: NavigationBlockerRegistry missing; "
+			+ "zone spawns will not filter blocked polygons."
+		)
+
+
+func _set_spawn_blocker_registry(registry: NavigationBlockerRegistry) -> void:
+	if (
+		_navigation_blocker_registry
+		and _navigation_blocker_registry.blocker_polygons_changed.is_connected(
+			_on_spawn_blocker_polygons_changed
+		)
+	):
+		_navigation_blocker_registry.blocker_polygons_changed.disconnect(
+			_on_spawn_blocker_polygons_changed
+		)
+
+	_navigation_blocker_registry = registry
+	if (
+		_navigation_blocker_registry
+		and not _navigation_blocker_registry.blocker_polygons_changed.is_connected(
+			_on_spawn_blocker_polygons_changed
+		)
+	):
+		_navigation_blocker_registry.blocker_polygons_changed.connect(_on_spawn_blocker_polygons_changed)
+
+	_refresh_spawn_blocker_polygons()
+
+
+func _refresh_spawn_blocker_polygons() -> void:
+	_cached_spawn_blocker_polygons.clear()
+	if _navigation_blocker_registry == null:
+		return
+	_cached_spawn_blocker_polygons = _navigation_blocker_registry.get_blocker_polygons()
+
+
+func _on_spawn_blocker_polygons_changed(_count: int) -> void:
+	_refresh_spawn_blocker_polygons()
+
+
+func _is_world_position_blocked_for_spawns(world_position: Vector2) -> bool:
+	if _navigation_blocker_registry == null:
+		_resolve_spawn_blocker_registry()
+	if _cached_spawn_blocker_polygons.is_empty():
+		return false
+	return _spawn_blocker_reject_policy.is_blocked(world_position, _cached_spawn_blocker_polygons)

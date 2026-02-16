@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://src/Gameplay/Creatures/Components/Visual/creature_visual_component.gd" id="2_vis"]
 [ext_resource type="Script" path="res://src/Gameplay/Creatures/Components/Movement/creature_movement_component.gd" id="3_move"]
 [ext_resource type="Script" path="res://src/Gameplay/Creatures/Components/Wander/creature_wander_component.gd" id="4_wander"]
+[ext_resource type="Script" path="res://src/Gameplay/Navigation/player_move_target_blocker_component.gd" id="5_blocker"]
 [ext_resource type="Script" path="res://src/Gameplay/Navigation/creature_navigation_component.gd" id="11_nav"]
 [ext_resource type="Shader" path="res://src/Common/Shaders/silhouette.gdshader" id="7"]
 
@@ -47,6 +48,10 @@ project_config_service_path = NodePath("")
 avoidance_enabled = false
 agent_radius = 6.0
 movement_config = null
+
+[node name="PlayerMoveTargetBlockerComponent" type="Node" parent="."]
+script = ExtResource("5_blocker")
+blocker_registry_path = NodePath("")
 
 [node name="CreatureWanderComponent" type="Node" parent="."]
 script = ExtResource("4_wander")
