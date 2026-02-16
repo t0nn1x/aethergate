@@ -57,21 +57,15 @@ Examples:
 - No special characters except hyphens
 - Descriptive but concise
 
-### Step 3: Ask About Testing
+### Step 3: Apply Default Implementation Preferences
 
-**IMPORTANT: Always ask the user before proceeding:**
+Do not ask setup questions about testing or logging.
 
-```
-Before we start, a few questions:
+Use these defaults unless the user explicitly overrides them in the request:
+- Testing: `no`
+- Logging: `no` (minimal/no extra feature logs)
 
-1. Should I write tests for this feature?
-   - [ ] Yes, write tests
-   - [ ] No, skip tests
-
-2. Any specific requirements or constraints?
-```
-
-Store the testing preference - it will be passed to `/ai-factory.task` and `/ai-factory.implement`.
+Pass these defaults to `/ai-factory.task` and `/ai-factory.implement`.
 
 ### Step 4: Create Branch
 
@@ -108,8 +102,8 @@ Call `/ai-factory.task` with explicit context:
 
 CONTEXT FROM /ai-factory.feature:
 - Plan file: .ai-factory/features/feature-user-authentication.md (use this name, NOT .ai-factory/PLAN.md)
-- Testing: yes/no
-- Logging: verbose/standard/minimal
+- Testing: no (default)
+- Logging: no (default)
 ```
 
 **IMPORTANT:** Pass the exact plan filename to /task. This distinguishes feature-based work from direct /task calls.
@@ -117,8 +111,8 @@ CONTEXT FROM /ai-factory.feature:
 Pass along:
 - Full feature description
 - **Exact plan file name** (based on branch, e.g., `.ai-factory/features/feature-user-authentication.md`)
-- Testing preference
-- Logging preference
+- Testing preference (default: no)
+- Logging preference (default: no)
 - Any constraints
 
 The plan file allows resuming work based on current git branch:
@@ -134,7 +128,7 @@ git branch --show-current  # → feature/user-authentication
 **Actions:**
 1. Parse: authentication feature, email/password + OAuth
 2. Generate branch: `feature/user-authentication`
-3. Ask about testing preference
+3. Apply defaults (`testing: no`, `logging: no`)
 4. Create branch: `git checkout -b feature/user-authentication`
 5. Call: `/ai-factory.task Add user authentication with email/password and OAuth`
 
@@ -143,45 +137,14 @@ git branch --show-current  # → feature/user-authentication
 **Actions:**
 1. Parse: bug fix, cart quantities
 2. Generate branch: `fix/cart-quantity-update`
-3. Ask about testing
+3. Apply defaults (`testing: no`, `logging: no`)
 4. Create branch
 5. Call `/ai-factory.task`
 
 ## Important
 
-- **Always ask about testing** before creating the plan
-- **Never assume** testing preference - always ask explicitly
-- Pass testing preference to downstream skills
+- Default to `testing: no` and `logging: no` without asking
+- If the user explicitly requests tests or specific logging, honor that override
+- Pass testing/logging preferences to downstream skills
 - If git operations fail, report clearly and don't proceed
 - Don't create branch if one with same purpose exists (ask first)
-
-## CRITICAL: Logging Preference
-
-When asking about testing, also ask about logging:
-
-```
-Before we start:
-
-1. Should I write tests for this feature?
-   - [ ] Yes, write tests
-   - [ ] No, skip tests
-
-2. Logging level for implementation:
-   - [ ] Verbose (recommended) - detailed DEBUG logs for development
-   - [ ] Standard - INFO level, key events only
-   - [ ] Minimal - only WARN/ERROR
-
-3. Any specific requirements or constraints?
-```
-
-**Default to verbose logging.** AI-generated code benefits greatly from extensive logging because:
-- Subtle bugs are common and hard to trace without logs
-- Users can always remove logs later
-- Missing logs during development wastes debugging time
-
-**Logging must always be configurable:**
-- Use LOG_LEVEL environment variable
-- Implement log rotation for file-based logs
-- Ensure production can run with minimal logs without code changes
-
-Pass the logging preference to `/ai-factory.task` along with testing preference.
