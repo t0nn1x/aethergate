@@ -1,6 +1,8 @@
 class_name StartupSplashScreen
 extends Node
 
+const FIX_LOG_PREFIX: String = "[FIX][StartupSplash]"
+
 @export_range(0.1, 10.0, 0.1) var minimum_splash_duration: float = 3.0
 @export_range(0.1, 10.0, 0.1) var fade_in_duration: float = 1.0
 @export_range(0.0, 10.0, 0.1) var fade_out_duration: float = 0.8
@@ -24,6 +26,10 @@ func _ready() -> void:
 	_overlay_root.mouse_filter = Control.MOUSE_FILTER_STOP
 	_background.color = Color(0.0, 0.0, 0.0, 1.0)
 	_logo.modulate = Color(1.0, 1.0, 1.0, 0.0)
+	print(
+		"%s startup duration=%.2f fade_in=%.2f fade_out=%.2f bg_fade_out=%.2f"
+		% [FIX_LOG_PREFIX, minimum_splash_duration, fade_in_duration, fade_out_duration, background_fade_out_duration]
+	)
 	_apply_logo_layout()
 	await _play_splash_then_reveal_main_menu()
 
@@ -42,7 +48,7 @@ func _on_viewport_size_changed() -> void:
 func _apply_logo_layout() -> void:
 	var texture: Texture2D = _logo.texture
 	if texture == null:
-		push_warning("StartupSplashScreen: logo texture is missing.")
+		push_warning("%s logo texture is missing." % FIX_LOG_PREFIX)
 		return
 
 	var texture_size: Vector2 = texture.get_size()
@@ -99,3 +105,4 @@ func _play_splash_then_reveal_main_menu() -> void:
 
 	_overlay_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_splash_layer.queue_free()
+	print("%s completed and removed overlay layer." % FIX_LOG_PREFIX)

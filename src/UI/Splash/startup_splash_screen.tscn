@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/UI/Splash/startup_splash_screen.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Assets/studio_logo-transparent-bg.png" id="2_logo"]
+[ext_resource type="Texture2D" path="res://Assets/Logo/studio_logo.png" id="2_logo"]
 [ext_resource type="PackedScene" path="res://src/Map/main.tscn" id="3_main"]
 
 [node name="StartupSplashScreen" type="Node"]
