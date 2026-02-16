@@ -67,6 +67,7 @@ To fix this effectively, I need more context:
 - Desktop startup display traps: platform display bootstrapping forcing windowed mode/usable-rect centering when the intended UX is fullscreen (especially Windows) and no startup mode logs exist to verify behavior
 - Godot `@tool` placeholder traps: script-backed resources loaded in editor can be placeholders; avoid relying on method calls from tool scripts (`resource.call(...)`) and prefer exported-property reads where possible
 - Inspector performance traps: avoid eager loading large preview sets inside `_get_property_list`/`_get`; lazy-load only selected preview assets and cache lightweight metadata
+- Spawn/wander sampling traps: zone-randomized world positions can still land inside navigation blocker polygons; enforce blocker-policy rejection/resolution and avoid early `_ready` null wiring by resolving blocker registries deferred/lazily
 
 ### Step 3: Implement the Fix
 
@@ -106,6 +107,7 @@ try {
 - If touching autoload-driven code, verify `project.godot` `[autoload]` entries and keep a compatibility fallback path while migrating callers
 - If touching startup display settings, verify platform window mode matches intended UX (for example Windows fullscreen startup) and confirm via startup mode/resolution logs
 - If touching `@tool` inspector code, verify inspector properties appear as expected and editor stays responsive (no repeated placeholder-call errors or heavy lag)
+- If touching overworld creature spawning/wander, verify sampled targets are rejected when inside blocker polygons and blocker-registry wiring is valid after scene startup order settles
 
 ### Step 5: Suggest Test Coverage
 

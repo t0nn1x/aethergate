@@ -78,6 +78,7 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Platform-restricted lifecycle actions are handled correctly (e.g., iOS cannot programmatically quit; unsupported actions are hidden/disabled in UI and focus chain)
 - [ ] Platform display startup logic matches intended UX (no unintended forced windowed mode on desktop, especially Windows fullscreen startup) and startup mode/resolution logs exist for verification
 - [ ] `@tool` inspector code does not call methods on editor placeholder resources and does not eagerly load large preview texture sets in property list/get paths
+- [ ] Overworld creature spawn/wander target sampling applies blocker-polygon rejection (not only zone containment), and blocker-registry wiring handles scene startup ordering safely
 
 ## Output Format
 
