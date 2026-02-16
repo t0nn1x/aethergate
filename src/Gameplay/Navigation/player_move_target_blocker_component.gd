@@ -63,9 +63,12 @@ func set_blocker_registry(registry: NavigationBlockerRegistry) -> void:
 
 
 func _resolve_blocker_registry_from_path() -> void:
-	var resolved_registry: NavigationBlockerRegistry = null
-	if blocker_registry_path != NodePath():
-		resolved_registry = _creature.get_node_or_null(blocker_registry_path) as NavigationBlockerRegistry
+	if blocker_registry_path == NodePath():
+		return
+
+	var resolved_registry: NavigationBlockerRegistry = _creature.get_node_or_null(
+		blocker_registry_path
+	) as NavigationBlockerRegistry
 	if resolved_registry == null:
 		if OS.is_debug_build():
 			push_warning("PlayerMoveTargetBlockerComponent: NavigationBlockerRegistry not found.")

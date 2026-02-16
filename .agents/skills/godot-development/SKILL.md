@@ -94,6 +94,7 @@ Prefer solo-first progression with multiplayer seams: keep entity identity/owner
 For platform display bootstrapping (e.g., `PlatformDisplaySettings`), keep startup window mode aligned with intended UX per platform (for example Windows fullscreen when expected), avoid usable-rect centering in fullscreen paths, and keep startup mode/resolution logs.
 For `@tool` inspector scripts, treat script-backed resources loaded in editor as placeholder-prone: avoid method-call coupling and prefer exported-property reads.
 For inspector UX/performance, avoid eager loading many texture previews in `_get_property_list`/`_get`; lazy-load current selection and cache cheap metadata.
+For overworld creature spawning/wander systems, treat zone polygons and blocker polygons as separate constraints: sampled world targets must pass zone containment and blocker rejection through shared policies, with blocker-registry resolution deferred/lazy for startup safety.
 project/
 ├── project.godot           # Project configuration
 ├── scenes/                 # All scene files

@@ -9,6 +9,7 @@ const FACTORY_SCRIPT: Script = preload("res://src/Entities/Creatures/creature_fa
 
 var _failures: Array[String] = []
 var _spawned_creatures: Array[Creature] = []
+var _test_blocker_registry: NavigationBlockerRegistry
 
 
 func _ready() -> void:
@@ -50,6 +51,9 @@ func _run() -> void:
 
 	await get_tree().process_frame
 	await get_tree().physics_frame
+
+	_test_blocker_registry = _build_test_blocker_registry()
+	_wire_spawned_blocker_components(_test_blocker_registry)
 
 	_validate_spawned_components()
 	await _validate_move_state()
@@ -120,6 +124,24 @@ func _validate_spawned_components() -> void:
 			creature.get_node_or_null("CreatureWanderComponent") != null,
 			"CreatureWanderComponent is missing."
 		)
+		var blocker_component: PlayerMoveTargetBlockerComponent = creature.get_node_or_null(
+			"PlayerMoveTargetBlockerComponent"
+		) as PlayerMoveTargetBlockerComponent
+		_assert(
+			blocker_component != null,
+			"PlayerMoveTargetBlockerComponent is missing."
+		)
+		if blocker_component != null:
+			var blocked_probe: Vector2 = Vector2(32.0, 32.0)
+			_assert(
+				blocker_component.is_world_position_blocked(blocked_probe),
+				"Blocker probe should be blocked inside test polygon."
+			)
+			var resolved_target: Vector2 = blocker_component.resolve_world_target(blocked_probe)
+			_assert(
+				not blocker_component.is_world_position_blocked(resolved_target),
+				"Resolved blocker target should be outside blocked polygon."
+			)
 		_assert(
 			creature.get_node_or_null("CreatureBrainComponent") == null,
 			"CreatureBrainComponent should be absent in non-autonomous mode."
@@ -168,6 +190,46 @@ func _cleanup_spawned_creatures() -> void:
 		if creature and is_instance_valid(creature) and not creature.is_queued_for_deletion():
 			creature.queue_free()
 	_spawned_creatures.clear()
+	if _test_blocker_registry and is_instance_valid(_test_blocker_registry):
+		_test_blocker_registry.queue_free()
+		_test_blocker_registry = null
+
+
+func _build_test_blocker_registry() -> NavigationBlockerRegistry:
+	var registry := NavigationBlockerRegistry.new()
+	registry.name = "TestNavigationBlockerRegistry"
+	registry.auto_refresh_on_ready = false
+	add_child(registry)
+
+	var region := NavigationRegion2D.new()
+	region.name = "TestNavigationRegion2D"
+	registry.add_child(region)
+
+	var polygon := Polygon2D.new()
+	polygon.name = "TestBlockedPolygon"
+	polygon.polygon = PackedVector2Array([
+		Vector2(0.0, 0.0),
+		Vector2(64.0, 0.0),
+		Vector2(64.0, 64.0),
+		Vector2(0.0, 64.0),
+	])
+	region.add_child(polygon)
+
+	registry.refresh()
+	return registry
+
+
+func _wire_spawned_blocker_components(registry: NavigationBlockerRegistry) -> void:
+	if registry == null:
+		return
+	for creature in _spawned_creatures:
+		if creature == null or not is_instance_valid(creature):
+			continue
+		var blocker_component: PlayerMoveTargetBlockerComponent = creature.get_node_or_null(
+			"PlayerMoveTargetBlockerComponent"
+		) as PlayerMoveTargetBlockerComponent
+		if blocker_component:
+			blocker_component.set_blocker_registry(registry)
 
 
 func _assert(condition: bool, message: String) -> void:
