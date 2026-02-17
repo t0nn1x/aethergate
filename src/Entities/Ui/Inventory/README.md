@@ -12,16 +12,19 @@ This inventory system is editor-driven.
 
 ## Create a New Item
 
-1. In FileSystem, right-click `src/Entities/Items/Resources/Items`.
-2. Create `New Resource` and pick `ItemData`.
-3. Set fields:
+1. In FileSystem, create/select an item folder under `src/Entities/Items/Types/.../<ItemName>/`.
+2. Keep item-local structure:
+   - `Data/` for `.tres`
+   - `Sprites/` for icons/art used by the item
+3. Right-click `Data/` and create `New Resource` with type `ItemData`.
+4. Set fields:
    - `item_id` (stable id)
    - `display_name`
    - `description`
    - `icon`
    - `max_stack`
    - `props` (optional custom dictionary: damage, heal_amount, rarity, etc.)
-4. Save as `.tres`.
+5. Save as `.tres`.
 
 ## Add Items to Player Inventory in Editor
 
@@ -50,7 +53,7 @@ var inventory: Node = player.get_node_or_null("PlayerInventoryComponent")
 Add item:
 
 ```gdscript
-var item: Resource = load("res://src/Entities/Items/Resources/Items/health_potion.tres")
+var item: Resource = load("res://src/Entities/Items/Types/Consumables/Potions/Health_Potion/Data/consumable_health_potion.tres")
 var leftover: int = inventory.add_item(item, 7) # leftover > 0 means inventory is full
 ```
 

@@ -150,6 +150,7 @@ TaskUpdate(taskId, status: "in_progress")
 - For platform display startup changes, verify window mode/size policy matches intended UX per platform (for example Windows fullscreen) and avoid windowed+usable-rect centering in fullscreen startup paths
 - For Godot `@tool` inspector features, avoid method calls on placeholder script resources in editor context; read exported properties and keep inspector preview loading lazy/cached
 - For overworld creature spawn/wander behavior, treat zone containment and blocker polygons as separate constraints: route sampled targets through blocker policies and keep blocker-registry resolution resilient to scene init order (deferred/lazy resolve)
+- For large file-tree refactors/moves, run git index-mutating commands (`git mv`, bulk `git add`) sequentially; avoid parallel execution that can trigger `.git/index.lock` contention
 
 **3.5: Mark as completed**
 ```

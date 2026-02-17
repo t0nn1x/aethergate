@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://src/Entities/Systems/Inventory/player_inventory_data.gd" id="1"]
 [ext_resource type="Script" path="res://src/Entities/Systems/Inventory/inventory_slot_data.gd" id="2"]
-[ext_resource type="Resource" path="res://src/Entities/Items/Resources/Items/health_potion.tres" id="3"]
-[ext_resource type="Resource" path="res://src/Entities/Items/Resources/Items/mana_tonic.tres" id="4"]
-[ext_resource type="Resource" path="res://src/Entities/Items/Resources/Items/iron_ore.tres" id="5"]
+[ext_resource type="Resource" path="res://src/Entities/Items/Types/Consumables/Potions/Health_Potion/Data/consumable_health_potion.tres" id="3"]
+[ext_resource type="Resource" path="res://src/Entities/Items/Types/Consumables/Potions/Mana_Potion/Data/consumable_mana_tonic.tres" id="4"]
+[ext_resource type="Resource" path="res://src/Entities/Items/Types/Materials/Ore/Iron_Ore/Data/material_iron_ore.tres" id="5"]
 
 [sub_resource type="Resource" id="InventorySlotData_health"]
 script = ExtResource("2")

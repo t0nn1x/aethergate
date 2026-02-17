@@ -94,4 +94,5 @@ If argument provided (e.g., `/commit auth`):
 - Review large diffs carefully before committing
 - Suggest splitting if changes are unrelated
 - For mass move/refactor diffs, prefer grouping commits by intent (for example `refactor(ui): move directories` then `fix(ui): update stale paths`) when practical
+- In asset-heavy move commits with many identical placeholders (like `.gitkeep`), verify final tree paths with `git status`/filesystem checks; rename pairings can look odd even when end-state is correct
 - Add Co-Authored-By for pair programming if mentioned

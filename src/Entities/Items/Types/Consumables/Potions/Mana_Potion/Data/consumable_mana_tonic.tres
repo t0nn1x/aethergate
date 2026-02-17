@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://src/Entities/Items/item_data.gd" id="1"]
-[ext_resource type="Texture2D" path="res://src/Entities/Ui/Assets/Gui-Hud/Objects Icons Inventory/Single objects/Nuova cartella/F_U_ObjectIcon_02.png" id="2"]
+[ext_resource type="Texture2D" path="res://src/Entities/Items/Types/Consumables/Potions/Mana_Potion/Sprites/mana_tonic_icon.png" id="2"]
 
 [resource]
 script = ExtResource("1")
