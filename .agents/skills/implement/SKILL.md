@@ -151,6 +151,7 @@ TaskUpdate(taskId, status: "in_progress")
 - For Godot `@tool` inspector features, avoid method calls on placeholder script resources in editor context; read exported properties and keep inspector preview loading lazy/cached
 - For overworld creature spawn/wander behavior, treat zone containment and blocker polygons as separate constraints: route sampled targets through blocker policies and keep blocker-registry resolution resilient to scene init order (deferred/lazy resolve)
 - For large file-tree refactors/moves, run git index-mutating commands (`git mv`, bulk `git add`) sequentially; avoid parallel execution that can trigger `.git/index.lock` contention
+- For dynamically-instanced Godot UI widgets, avoid running configuration that depends on `@onready` children before tree entry; add child first and defer configure when needed
 
 **3.5: Mark as completed**
 ```

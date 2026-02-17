@@ -65,6 +65,8 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 ### Godot-Specific
 - [ ] NodePath resolution correctness (`self` vs `parent`)
 - [ ] No strict-typing inference traps (`Variant` inference from `max/min/clamp` and similar)
+- [ ] No GDScript accessor pitfalls (`field` keyword misuse, or setter self-assignment causing recursion/stack overflow)
+- [ ] Dynamically-instanced UI controls are configured after entering the scene tree when logic depends on `@onready` child refs
 - [ ] Scene/script reference integrity after moves (`.tscn` `ext_resource` paths and `.uid`)
 - [ ] No stale legacy path prefixes remain after refactors (for example `res://src/UI/...` vs `res://src/Entities/Ui/...`) across scenes, scripts, and `project.godot`
 - [ ] Input/navigation behavior still works (tap-to-move, hold retarget, blocked target resolution)
