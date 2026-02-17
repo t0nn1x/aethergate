@@ -262,30 +262,30 @@ func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
 	if _is_mobile_layout_active:
 		if is_portrait:
 			button_size = Vector2(
-				clampf(viewport_size.x * 0.82, 300.0, 620.0),
-				clampf(viewport_size.y * 0.082, 88.0, 156.0)
+				clampf(viewport_size.x * 0.78, 300.0, 620.0),
+				clampf(viewport_size.y * 0.072, 88.0, 130.0)
 			)
 			close_button_size = Vector2(
-				clampf(viewport_size.x * 0.74, 260.0, 560.0),
-				clampf(viewport_size.y * 0.076, 88.0, 148.0)
+				clampf(viewport_size.x * 0.7, 260.0, 560.0),
+				clampf(viewport_size.y * 0.068, 88.0, 122.0)
 			)
 		else:
 			button_size = Vector2(
-				clampf(viewport_size.x * 0.46, 300.0, 560.0),
-				clampf(viewport_size.y * 0.13, 88.0, 140.0)
+				clampf(viewport_size.x * 0.42, 300.0, 560.0),
+				clampf(viewport_size.y * 0.108, 88.0, 118.0)
 			)
 			close_button_size = Vector2(
-				clampf(viewport_size.x * 0.4, 260.0, 520.0),
-				clampf(viewport_size.y * 0.11, 88.0, 132.0)
+				clampf(viewport_size.x * 0.36, 260.0, 520.0),
+				clampf(viewport_size.y * 0.1, 88.0, 112.0)
 			)
 	else:
 		button_size = Vector2(
-			clampf(viewport_size.x * 0.33, 360.0, 520.0),
-			clampf(viewport_size.y * 0.095, 92.0, 132.0)
+			clampf(viewport_size.x * 0.24, 280.0, 440.0),
+			clampf(viewport_size.y * 0.062, 60.0, 82.0)
 		)
 		close_button_size = Vector2(
-			clampf(viewport_size.x * 0.28, 320.0, 460.0),
-			clampf(viewport_size.y * 0.09, 92.0, 132.0)
+			clampf(viewport_size.x * 0.2, 240.0, 380.0),
+			clampf(viewport_size.y * 0.058, 56.0, 76.0)
 		)
 
 	_apply_button_target_size(_play_button, button_size)
@@ -297,7 +297,7 @@ func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
 func _apply_button_target_size(button: Button, size: Vector2) -> void:
 	if button == null:
 		return
-	var min_touch_size: float = 88.0
+	var min_touch_size: float = 88.0 if _is_mobile_layout_active else 56.0
 	size.x = maxf(size.x, min_touch_size)
 	size.y = maxf(size.y, min_touch_size)
 	size = size.round()
