@@ -66,6 +66,7 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] NodePath resolution correctness (`self` vs `parent`)
 - [ ] No strict-typing inference traps (`Variant` inference from `max/min/clamp` and similar)
 - [ ] Scene/script reference integrity after moves (`.tscn` `ext_resource` paths and `.uid`)
+- [ ] No stale legacy path prefixes remain after refactors (for example `res://src/UI/...` vs `res://src/Entities/Ui/...`) across scenes, scripts, and `project.godot`
 - [ ] Input/navigation behavior still works (tap-to-move, hold retarget, blocked target resolution)
 - [ ] New autoload channels are registered in `project.godot` and not referenced through undeclared compile-time singleton names
 - [ ] Event-bus migrations preserve compatibility (legacy bridge/fallback exists while callers are being moved)

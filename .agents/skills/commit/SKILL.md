@@ -93,4 +93,5 @@ If argument provided (e.g., `/commit auth`):
 - Never commit secrets or credentials
 - Review large diffs carefully before committing
 - Suggest splitting if changes are unrelated
+- For mass move/refactor diffs, prefer grouping commits by intent (for example `refactor(ui): move directories` then `fix(ui): update stale paths`) when practical
 - Add Co-Authored-By for pair programming if mentioned

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PlayerInventoryData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Systems/Inventory/player_inventory_data.gd" id="1"]
+[ext_resource type="Script" path="res://src/Entities/Systems/Inventory/inventory_slot_data.gd" id="2"]
+[ext_resource type="Resource" path="res://src/Entities/Items/Resources/Items/health_potion.tres" id="3"]
+[ext_resource type="Resource" path="res://src/Entities/Items/Resources/Items/mana_tonic.tres" id="4"]
+[ext_resource type="Resource" path="res://src/Entities/Items/Resources/Items/iron_ore.tres" id="5"]
+
+[sub_resource type="Resource" id="InventorySlotData_health"]
+script = ExtResource("2")
+item = ExtResource("3")
+amount = 5
+
+[sub_resource type="Resource" id="InventorySlotData_mana"]
+script = ExtResource("2")
+item = ExtResource("4")
+amount = 3
+
+[sub_resource type="Resource" id="InventorySlotData_iron"]
+script = ExtResource("2")
+item = ExtResource("5")
+amount = 24
+
+[sub_resource type="Resource" id="InventorySlotData_empty_1"]
+script = ExtResource("2")
+
+[sub_resource type="Resource" id="InventorySlotData_empty_2"]
+script = ExtResource("2")
+
+[resource]
+script = ExtResource("1")
+slot_count = 20
+slots = [SubResource("InventorySlotData_health"), SubResource("InventorySlotData_mana"), SubResource("InventorySlotData_iron"), SubResource("InventorySlotData_empty_1"), SubResource("InventorySlotData_empty_2")]

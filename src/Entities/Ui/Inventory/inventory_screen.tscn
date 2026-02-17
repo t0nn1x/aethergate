@@ -1,0 +1,152 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Ui/Inventory/inventory_screen.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_details_panel"]
+bg_color = Color(0.93, 0.82, 0.67, 0.86)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.53, 0.37, 0.21, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot_area"]
+bg_color = Color(0.88, 0.76, 0.59, 0.28)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.31, 0.18, 0.45)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="InventoryScreen" type="CanvasLayer"]
+layer = 90
+script = ExtResource("1")
+
+[node name="Root" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Backdrop" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45)
+
+[node name="BookCenter" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BookRoot" type="Control" parent="Root/BookCenter"]
+custom_minimum_size = Vector2(576, 477)
+layout_mode = 2
+
+[node name="BookTexture" type="TextureRect" parent="Root/BookCenter/BookRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SlotPanel" type="PanelContainer" parent="Root/BookCenter/BookRoot"]
+layout_mode = 1
+offset_left = 42.0
+offset_top = 86.0
+offset_right = 280.0
+offset_bottom = 372.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_slot_area")
+
+[node name="SlotArea" type="Control" parent="Root/BookCenter/BookRoot"]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 92.0
+offset_right = 274.0
+offset_bottom = 366.0
+
+[node name="SlotGrid" type="GridContainer" parent="Root/BookCenter/BookRoot/SlotArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="DetailsPanel" type="PanelContainer" parent="Root/BookCenter/BookRoot"]
+layout_mode = 1
+offset_left = 300.0
+offset_top = 104.0
+offset_right = 532.0
+offset_bottom = 357.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_details_panel")
+
+[node name="DetailsVBox" type="VBoxContainer" parent="Root/BookCenter/BookRoot/DetailsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ItemNameLabel" type="Label" parent="Root/BookCenter/BookRoot/DetailsPanel/DetailsVBox"]
+layout_mode = 2
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="ItemDescriptionLabel" type="RichTextLabel" parent="Root/BookCenter/BookRoot/DetailsPanel/DetailsVBox"]
+custom_minimum_size = Vector2(220, 110)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+text = "Select an item slot to inspect item properties."
+
+[node name="ItemPropsLabel" type="RichTextLabel" parent="Root/BookCenter/BookRoot/DetailsPanel/DetailsVBox"]
+custom_minimum_size = Vector2(220, 110)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="PageSelector" type="HBoxContainer" parent="Root/BookCenter/BookRoot"]
+layout_mode = 1
+offset_left = 408.0
+offset_top = 378.0
+offset_right = 520.0
+offset_bottom = 410.0
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CloseHintLabel" type="Label" parent="Root/BookCenter/BookRoot"]
+layout_mode = 1
+offset_left = 182.0
+offset_top = 438.0
+offset_right = 391.0
+offset_bottom = 466.0
+text = "Press I to close"
+horizontal_alignment = 1

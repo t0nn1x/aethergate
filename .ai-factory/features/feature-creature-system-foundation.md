@@ -89,7 +89,7 @@ Created: 2026-02-15
   Logging (minimal): no extra runtime logs beyond Task 14.
 
 - [x] Task 16: Surface zone-spawn runtime counters for debugging (active zones, alive creatures, per-chunk zone counts) through existing debug overlay wiring.
-  Files: `src/World/Overworld/overworld_creature_spawner.gd`, `src/UI/Debug/debug_overlay.gd`, `src/UI/Debug/Providers/chunk_debug_metrics_provider.gd`
+  Files: `src/World/Overworld/overworld_creature_spawner.gd`, `src/Entities/Ui/Debug/debug_overlay.gd`, `src/Entities/Ui/Debug/Providers/chunk_debug_metrics_provider.gd`
   Logging (minimal): none; expose metrics as overlay lines.
 
 - [x] Task 17: Add headless validation for spawn-zone helper behavior (polygon sampling and filter normalization) with deterministic pass/fail output.

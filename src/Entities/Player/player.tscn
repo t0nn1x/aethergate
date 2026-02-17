@@ -15,6 +15,8 @@
 [ext_resource type="Script" path="res://src/Gameplay/Player/Components/Core/player_context.gd" id="13_ctx"]
 [ext_resource type="Script" path="res://src/Gameplay/Navigation/player_move_target_blocker_component.gd" id="14_blocker"]
 [ext_resource type="Script" path="res://src/Gameplay/Player/Services/player_move_request_service.gd" id="15_move_service"]
+[ext_resource type="Script" path="res://src/Entities/Systems/Inventory/player_inventory_component.gd" id="16_inventory_component"]
+[ext_resource type="Resource" path="res://src/Entities/Systems/Inventory/Resources/player_starter_inventory.tres" id="17_inventory_data"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
 shader = ExtResource("3_sil")
@@ -98,6 +100,10 @@ script = ExtResource("15_move_service")
 
 [node name="PlayerContext" type="Node" parent="." unique_id=534992111]
 script = ExtResource("13_ctx")
+
+[node name="PlayerInventoryComponent" type="Node" parent="." unique_id=1185123402]
+script = ExtResource("16_inventory_component")
+inventory_data = ExtResource("17_inventory_data")
 
 [node name="PlayerMoveTargetBlockerComponent" type="Node" parent="." unique_id=818319334]
 script = ExtResource("14_blocker")

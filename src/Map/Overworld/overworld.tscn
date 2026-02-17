@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://c2nh6l0g01wbr" path="res://src/World/Overworld/overworld.gd" id="1"]
 [ext_resource type="Script" uid="uid://cv3xjubqcqbpl" path="res://src/World/Streaming/chunk_manager.gd" id="3"]
-[ext_resource type="PackedScene" path="res://src/UI/Debug/debug_overlay.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://src/Entities/Ui/Debug/debug_overlay.tscn" id="4"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_player_spawner.gd" id="5_spawner"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_session_controller.gd" id="6_session"]
 [ext_resource type="Script" path="res://src/World/Overworld/navigation_blocker_registry.gd" id="7_registry"]
-[ext_resource type="PackedScene" path="res://src/UI/GUI/MainScreen/main_screen.tscn" id="8_main_screen"]
+[ext_resource type="PackedScene" path="res://src/Entities/Ui/Gui/MainScreen/main_screen.tscn" id="8_main_screen"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_catalog_service.gd" id="9_catalog_service"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_creature_spawner.gd" id="10_creature_spawner"]
+[ext_resource type="PackedScene" path="res://src/Entities/Ui/Inventory/inventory_screen.tscn" id="11_inventory_screen"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -57,3 +58,4 @@ preview_all_in_editor = true
 [node name="DebugOverlay" parent="." unique_id=847243072 instance=ExtResource("4")]
 
 [node name="MainScreen" parent="." unique_id=635295012 instance=ExtResource("8_main_screen")]
+[node name="InventoryScreen" parent="." unique_id=1538840215 instance=ExtResource("11_inventory_screen")]

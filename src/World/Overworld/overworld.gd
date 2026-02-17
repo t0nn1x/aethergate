@@ -6,6 +6,7 @@ extends Node2D
 
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
 @export var main_screen_path: NodePath = ^"MainScreen"
+@export var inventory_screen_path: NodePath = ^"InventoryScreen"
 @export var session_controller_path: NodePath = ^"OverworldSessionController"
 @export var default_local_player_id: int = 1
 
@@ -18,6 +19,7 @@ extends Node2D
 @onready var navigation_blocker_registry: NavigationBlockerRegistry = $NavigationBlockerRegistry
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 @onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
+@onready var inventory_screen: CanvasLayer = get_node_or_null(inventory_screen_path) as CanvasLayer
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
 ## Backward-compatible local-player reference.
@@ -139,6 +141,7 @@ func _wire_local_player_dependencies(player_instance: Player) -> void:
 		chunk_manager.set_tracked_player(player_instance)
 	if debug_overlay:
 		debug_overlay.set_player_node(player_instance)
+	_wire_inventory_dependencies(player_instance)
 
 
 func _wire_shared_player_dependencies(player_instance: Player) -> void:
@@ -148,3 +151,16 @@ func _wire_shared_player_dependencies(player_instance: Player) -> void:
 	var blocker_component: PlayerMoveTargetBlockerComponent = player_instance.get_node_or_null("PlayerMoveTargetBlockerComponent") as PlayerMoveTargetBlockerComponent
 	if blocker_component and navigation_blocker_registry:
 		blocker_component.set_blocker_registry(navigation_blocker_registry)
+
+
+func _wire_inventory_dependencies(player_instance: Player) -> void:
+	if inventory_screen == null or player_instance == null:
+		return
+
+	var inventory_component: Node = player_instance.get_node_or_null("PlayerInventoryComponent") as Node
+	if inventory_component == null:
+		push_warning("Overworld: PlayerInventoryComponent is missing on local player.")
+		return
+
+	if inventory_screen.has_method("set_inventory_component"):
+		inventory_screen.call("set_inventory_component", inventory_component)
