@@ -42,6 +42,20 @@ This inventory system is editor-driven.
 - Page selector at the bottom switches inventory pages.
 - Clicking a slot shows item details and custom `props` on the right page.
 
+## Inventory Layout Tuning (Editor)
+
+Open `res://src/Entities/Ui/Inventory/inventory_screen.tscn` and tweak these nodes:
+
+- `BookRoot`: controls overall inventory-book size (`custom_minimum_size`).
+- `SlotArea`: controls left-page slot-grid position and bounds (`offset_*`).
+- `SlotGrid`: controls columns and spacing (`columns`, `h_separation`, `v_separation`).
+- `DetailsPanel`: controls right-page description panel position/size.
+- `PageSelector`: chapter-button position.
+- `CloseHintLabel`: close-hint text position.
+
+Quick defaults from script:
+- `slots_per_page` and `slot_columns` are in `res://src/Entities/Ui/Inventory/inventory_screen.gd`.
+
 ## Add / Remove Items at Runtime (Code)
 
 Get the component from player:
@@ -80,3 +94,7 @@ inventory.notify_inventory_changed()
 - Empty slots are valid and safe.
 - If `PlayerInventoryComponent` has no `inventory_data`, inventory opens but displays empty slots.
 - The UI uses `res://src/Entities/Ui/Assets/Gui-Hud/Inventory Book` textures for open/close flip animation and chapter selectors.
+- Item slot icons auto-resolve from item-local `Sprites/` when `ItemData.icon` is empty.
+  Preferred naming:
+  - `<display_name_snake>_icon.png` (for example `health_potion_icon.png`)
+  - `<item_id_snake>_icon.png`

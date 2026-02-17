@@ -13,8 +13,8 @@ signal closed()
 @export var item_props_label_path: NodePath = ^"Root/BookCenter/BookRoot/DetailsPanel/DetailsVBox/ItemPropsLabel"
 
 @export var slot_widget_scene: PackedScene = preload("res://src/Entities/Ui/Inventory/inventory_slot_widget.tscn")
-@export_range(1, 60, 1) var slots_per_page: int = 15
-@export_range(1, 10, 1) var slot_columns: int = 5
+@export_range(1, 60, 1) var slots_per_page: int = 20
+@export_range(1, 10, 1) var slot_columns: int = 4
 @export var page_selector_button_size: Vector2 = Vector2(32, 32)
 
 @export_group("Book Art")
@@ -131,17 +131,18 @@ func _populate_slots() -> void:
 		if slot_widget == null:
 			continue
 
+		_slot_grid.add_child(slot_widget)
+
 		var slot_data: Variant = null
 		if slot_index >= 0 and slot_index < slots.size():
 			slot_data = slots[slot_index]
 
 		if slot_widget.has_method("configure"):
-			slot_widget.call("configure", slot_index, slot_data)
+			slot_widget.call_deferred("configure", slot_index, slot_data)
 		if slot_widget.has_signal("slot_pressed"):
 			var slot_pressed_callable: Callable = Callable(self, "_on_slot_pressed")
 			if not slot_widget.is_connected("slot_pressed", slot_pressed_callable):
 				slot_widget.connect("slot_pressed", slot_pressed_callable)
-		_slot_grid.add_child(slot_widget)
 
 	if _selected_slot_index < start_index or _selected_slot_index >= end_index:
 		_selected_slot_index = -1
