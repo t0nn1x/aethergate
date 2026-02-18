@@ -6,6 +6,7 @@ extends Node
 
 @export var input_component_path: NodePath = ^"PlayerInputComponent"
 @export var move_request_service_path: NodePath = ^"PlayerMoveRequestService"
+@export var inventory_component_path: NodePath = ^"PlayerInventoryComponent"
 @export var movement_component_path: NodePath = ^"PlayerMovementComponent"
 @export var navigation_component_path: NodePath = ^"CreatureNavigationComponent"
 @export var state_machine_path: NodePath = ^"StateMachine"
@@ -15,6 +16,7 @@ extends Node
 var player: Player
 var input_component: PlayerInputComponent
 var move_request_service: PlayerMoveRequestService
+var inventory_component: Node
 var movement_component: PlayerMovementComponent
 var navigation_component: CreatureNavigationComponent
 var state_machine: StateMachine
@@ -34,6 +36,7 @@ func refresh() -> void:
 
 	input_component = player.get_node_or_null(input_component_path) as PlayerInputComponent
 	move_request_service = player.get_node_or_null(move_request_service_path) as PlayerMoveRequestService
+	inventory_component = player.get_node_or_null(inventory_component_path) as Node
 	movement_component = player.get_node_or_null(movement_component_path) as PlayerMovementComponent
 	navigation_component = player.get_node_or_null(navigation_component_path) as CreatureNavigationComponent
 	state_machine = player.get_node_or_null(state_machine_path) as StateMachine

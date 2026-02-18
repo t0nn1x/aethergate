@@ -144,11 +144,14 @@ TaskUpdate(taskId, status: "in_progress")
 - For solo-first gameplay work, keep multiplayer seams intact (identity fields + authority checks) instead of hardcoding single-player assumptions
 - For Godot UI backgrounds/parallax, verify runtime render is single-composition (no unintended row/column tiling) and that randomized folders do not mix incompatible layer dimensions
 - For mobile/export targets, avoid relying solely on `DirAccess` listing for `res://` assets; ensure a manifest or `ResourceLoader.exists()` fallback is implemented
+- After folder/path refactors, verify no stale path prefixes remain (scan `src` + `project.godot`) and confirm moved scene/script references load without stale UID/path lookups
 - For reusable audio work, prefer a centralized autoload/service (pooled SFX + music control) over scene-local duplicated audio setup blocks
 - For platform-specific lifecycle actions (like app quit), implement capability guards: hide/disable unsupported UI actions (notably iOS quit) and keep focus navigation valid after removal
 - For platform display startup changes, verify window mode/size policy matches intended UX per platform (for example Windows fullscreen) and avoid windowed+usable-rect centering in fullscreen startup paths
 - For Godot `@tool` inspector features, avoid method calls on placeholder script resources in editor context; read exported properties and keep inspector preview loading lazy/cached
 - For overworld creature spawn/wander behavior, treat zone containment and blocker polygons as separate constraints: route sampled targets through blocker policies and keep blocker-registry resolution resilient to scene init order (deferred/lazy resolve)
+- For large file-tree refactors/moves, run git index-mutating commands (`git mv`, bulk `git add`) sequentially; avoid parallel execution that can trigger `.git/index.lock` contention
+- For dynamically-instanced Godot UI widgets, avoid running configuration that depends on `@onready` children before tree entry; add child first and defer configure when needed
 
 **3.5: Mark as completed**
 ```

@@ -82,7 +82,7 @@ This project uses bounded contexts. Prefer these locations:
 - `src/Gameplay/Navigation` - navigation components and movement target policies
 - `src/World/Overworld` - overworld stage orchestration and registries
 - `src/World/Streaming` - chunk loading/streaming and chunk helper modules
-- `src/UI/Debug` - debug UI and debug metrics providers
+- `src/Entities/Ui/Debug` - debug UI and debug metrics providers
 - `src/Core/Events` - bounded event channels (`PlayerEvents`, `WorldEvents`, `UIEvents`) while keeping `EventBus` as migration shim
 - `src/Multiplayer/Shared` - multiplayer seams that remain engine-agnostic (identity, authority, replication contracts)
 

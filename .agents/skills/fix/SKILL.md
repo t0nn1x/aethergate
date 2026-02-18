@@ -56,7 +56,12 @@ To fix this effectively, I need more context:
 - Related code that might be affected
 - Existing error handling
 - Godot strict typing traps (e.g. `:= max/min/clamp` inferring `Variant` when warnings are errors)
+- GDScript property accessor traps: no `field` identifier in setters/getters, and avoid self-assignment inside setters (`prop = value`) that causes infinite recursion
+- GDScript constant-expression traps: typed collection constants can fail parse in strict contexts; prefer simple `const NAME := [...]` or runtime initialization
+- Dynamic UI init-order traps: methods using `@onready` node refs called before node enters tree (for instanced UI controls); add child first and/or use `call_deferred`
 - Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
+- Stale path prefixes after folder refactors (for example `res://src/UI/...` still referenced after moving to `res://src/Entities/Ui/...`)
+- Godot cache/UID mismatch after moves (parse errors referencing deleted paths). Rebuild project cache (`.godot`) and reopen editor when source paths are already correct
 - Autoload identifier parse traps (new singleton names referenced directly in scripts before `project.godot` autoload resolution)
 - Runtime group-discovery in hot paths (`_process`/`_physics_process`) that should be replaced with injected dependencies
 - UI background composition traps: `TextureRect.STRETCH_TILE` combined with enlarged fit rects/material repeat causing unintended multi-row tiling
@@ -104,10 +109,12 @@ try {
 - Verify the logic is correct
 - Ensure no regressions introduced
 - For Godot refactors, verify that every referenced script/resource in `.tscn` still exists
+- For large path moves, run a repo-wide grep for old prefixes in `src` and `project.godot` and fix all leftovers before rerunning
 - If touching autoload-driven code, verify `project.godot` `[autoload]` entries and keep a compatibility fallback path while migrating callers
 - If touching startup display settings, verify platform window mode matches intended UX (for example Windows fullscreen startup) and confirm via startup mode/resolution logs
 - If touching `@tool` inspector code, verify inspector properties appear as expected and editor stays responsive (no repeated placeholder-call errors or heavy lag)
 - If touching overworld creature spawning/wander, verify sampled targets are rejected when inside blocker polygons and blocker-registry wiring is valid after scene startup order settles
+- If touching dynamically-instantiated UI widgets, verify configuration runs after node-tree entry when it depends on `@onready` children (for example `add_child` before configure or deferred configure)
 
 ### Step 5: Suggest Test Coverage
 
