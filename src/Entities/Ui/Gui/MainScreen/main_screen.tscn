@@ -4,8 +4,6 @@
 [ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/Entities/Ui/Gui/MainScreen/background_controller.gd" id="2_background"]
 [ext_resource type="Theme" path="res://src/Entities/Ui/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
 [ext_resource type="Script" uid="uid://c2cmxuquaeqlv" path="res://src/Entities/Ui/Gui/MainScreen/nine_slice_menu_button.gd" id="4_button"]
-[ext_resource type="Texture2D" path="res://src/Entities/Ui/Assets/Gui-Hud/Banners/F_UI_WhiteBannerC.png" id="5_card_banner"]
-[ext_resource type="Texture2D" path="res://src/Entities/Ui/Assets/Gui-Hud/Panels/Titles/F_UI_Title E.png" id="6_card_title"]
 
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
 layer = 30
@@ -78,9 +76,14 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="BackgroundDimmer" type="ColorRect" parent="Root" unique_id=1151735034]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -1.0
+offset_right = 18.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -104,42 +107,8 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="CardDecor" type="Control" parent="Root/MenuMargin/CenterContainer/MenuCard" unique_id=77799231]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
-
-[node name="TopBanner" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/CardDecor" unique_id=701658612]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.0
-anchor_right = 0.5
-anchor_bottom = 0.0
-offset_left = -128.0
-offset_top = -26.0
-offset_right = 128.0
-offset_bottom = 38.0
-mouse_filter = 2
-texture = ExtResource("5_card_banner")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="TopBannerTitle" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/CardDecor/TopBanner" unique_id=150328164]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -39.0
-offset_top = -9.0
-offset_right = 39.0
-offset_bottom = 9.0
-mouse_filter = 2
-texture = ExtResource("6_card_title")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="MenuPadding" type="MarginContainer" parent="Root/MenuMargin/CenterContainer/MenuCard" unique_id=897271988]
 layout_mode = 2
@@ -166,60 +135,12 @@ text = "Play"
 script = ExtResource("4_button")
 button_size = Vector2(420, 104)
 
-[node name="SettingsButton" type="Button" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=2060294567 groups=["touch_interactive"]]
-custom_minimum_size = Vector2(420, 104)
-layout_mode = 2
-text = "Settings"
-script = ExtResource("4_button")
-button_size = Vector2(420, 104)
-
 [node name="QuitButton" type="Button" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1239343404 groups=["touch_interactive"]]
 custom_minimum_size = Vector2(420, 104)
 layout_mode = 2
 text = "Quit"
 script = ExtResource("4_button")
 button_size = Vector2(420, 104)
-
-[node name="SettingsPanel" type="PanelContainer" parent="Root" unique_id=1558646865]
-visible = false
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -208.0
-offset_right = 300.0
-offset_bottom = 208.0
-
-[node name="PanelMargin" type="MarginContainer" parent="Root/SettingsPanel" unique_id=138184542]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 26
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 26
-
-[node name="SettingsVBox" type="VBoxContainer" parent="Root/SettingsPanel/PanelMargin" unique_id=1234426085]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="SettingsTitle" type="Label" parent="Root/SettingsPanel/PanelMargin/SettingsVBox" unique_id=277485906]
-layout_mode = 2
-text = "Settings"
-horizontal_alignment = 1
-
-[node name="SettingsHint" type="Label" parent="Root/SettingsPanel/PanelMargin/SettingsVBox" unique_id=1291049528]
-layout_mode = 2
-text = "Options panel coming soon"
-horizontal_alignment = 1
-
-[node name="CloseSettingsButton" type="Button" parent="Root/SettingsPanel/PanelMargin/SettingsVBox" unique_id=369500289 groups=["touch_interactive"]]
-custom_minimum_size = Vector2(360, 96)
-layout_mode = 2
-text = "Back"
-script = ExtResource("4_button")
-button_size = Vector2(360, 96)
 
 [node name="BackgroundController" type="Node" parent="." unique_id=174224736]
 script = ExtResource("2_background")

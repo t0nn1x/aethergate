@@ -105,8 +105,6 @@ func _wire_main_screen_signals() -> void:
 
 	if not main_screen.play_pressed.is_connected(_on_main_screen_play_pressed):
 		main_screen.play_pressed.connect(_on_main_screen_play_pressed)
-	if not main_screen.settings_requested.is_connected(_on_main_screen_settings_requested):
-		main_screen.settings_requested.connect(_on_main_screen_settings_requested)
 	if not main_screen.quit_requested.is_connected(_on_main_screen_quit_requested):
 		main_screen.quit_requested.connect(_on_main_screen_quit_requested)
 
@@ -123,10 +121,6 @@ func _on_main_screen_play_pressed() -> void:
 	print("[Overworld] play_started")
 	if session_controller:
 		session_controller.start_session()
-
-
-func _on_main_screen_settings_requested() -> void:
-	print("[Overworld] settings_opened")
 
 
 func _on_main_screen_quit_requested() -> void:

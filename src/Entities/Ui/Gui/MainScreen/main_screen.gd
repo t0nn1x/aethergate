@@ -2,14 +2,12 @@ class_name MainScreen
 extends CanvasLayer
 
 signal play_pressed()
-signal settings_requested()
 signal quit_requested()
 
+const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
+
 @export var play_button_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/PlayButton"
-@export var settings_button_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/SettingsButton"
 @export var quit_button_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/QuitButton"
-@export var settings_panel_path: NodePath = ^"Root/SettingsPanel"
-@export var close_settings_button_path: NodePath = ^"Root/SettingsPanel/PanelMargin/SettingsVBox/CloseSettingsButton"
 @export var menu_margin_path: NodePath = ^"Root/MenuMargin"
 @export var menu_vbox_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox"
 @export var title_label_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleLabel"
@@ -25,10 +23,7 @@ signal quit_requested()
 @export var music_bus_name: String = "Music"
 
 var _play_button: Button
-var _settings_button: Button
 var _quit_button: Button
-var _settings_panel: Control
-var _close_settings_button: Button
 var _menu_margin: MarginContainer
 var _menu_vbox: VBoxContainer
 var _title_label: Label
@@ -46,7 +41,6 @@ func _ready() -> void:
 	_connect_signals()
 	_setup_focus_chain()
 	_wire_viewport_resize()
-	_set_settings_panel_visible(false)
 	_apply_responsive_layout()
 	if auto_focus_play_button:
 		call_deferred("_focus_play_button")
@@ -70,31 +64,21 @@ func show_menu() -> void:
 
 func hide_menu() -> void:
 	visible = false
-	_set_settings_panel_visible(false)
 	_stop_menu_music()
 	print("[MainScreen] menu_closed")
 
 
 func _cache_nodes() -> void:
 	_play_button = get_node_or_null(play_button_path) as Button
-	_settings_button = get_node_or_null(settings_button_path) as Button
 	_quit_button = get_node_or_null(quit_button_path) as Button
-	_settings_panel = get_node_or_null(settings_panel_path) as Control
-	_close_settings_button = get_node_or_null(close_settings_button_path) as Button
 	_menu_margin = get_node_or_null(menu_margin_path) as MarginContainer
 	_menu_vbox = get_node_or_null(menu_vbox_path) as VBoxContainer
 	_title_label = get_node_or_null(title_label_path) as Label
 
 	if _play_button == null:
 		push_warning("MainScreen: Play button is missing.")
-	if _settings_button == null:
-		push_warning("MainScreen: Settings button is missing.")
 	if _quit_button == null:
 		push_warning("MainScreen: Quit button is missing.")
-	if _settings_panel == null:
-		push_warning("MainScreen: Settings panel is missing.")
-	if _close_settings_button == null:
-		push_warning("MainScreen: Close settings button is missing.")
 	if _menu_margin == null:
 		push_warning("MainScreen: Menu margin container is missing.")
 	if _menu_vbox == null:
@@ -139,17 +123,13 @@ func _stop_menu_music() -> void:
 func _connect_signals() -> void:
 	if _play_button and not _play_button.pressed.is_connected(_on_play_pressed):
 		_play_button.pressed.connect(_on_play_pressed)
-	if _settings_button and not _settings_button.pressed.is_connected(_on_settings_pressed):
-		_settings_button.pressed.connect(_on_settings_pressed)
 	if _quit_button and not _quit_button.pressed.is_connected(_on_quit_pressed):
 		_quit_button.pressed.connect(_on_quit_pressed)
-	if _close_settings_button and not _close_settings_button.pressed.is_connected(_on_close_settings_pressed):
-		_close_settings_button.pressed.connect(_on_close_settings_pressed)
 	_wire_button_audio_signals()
 
 
 func _wire_button_audio_signals() -> void:
-	var buttons: Array = [_play_button, _settings_button, _quit_button, _close_settings_button]
+	var buttons: Array = [_play_button, _quit_button]
 	for node: Variant in buttons:
 		var button: Button = node as Button
 		if button == null:
@@ -190,15 +170,6 @@ func _on_viewport_size_changed() -> void:
 	_apply_responsive_layout()
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not _settings_panel or not _settings_panel.visible:
-		return
-
-	if event.is_action_pressed("ui_cancel"):
-		_on_close_settings_pressed()
-		get_viewport().set_input_as_handled()
-
-
 func _apply_responsive_layout() -> void:
 	var viewport_size: Vector2 = _resolve_viewport_size()
 	var safe_rect: Rect2 = _resolve_safe_area(viewport_size)
@@ -209,15 +180,13 @@ func _apply_responsive_layout() -> void:
 
 	var aspect_ratio: float = viewport_size.x / maxf(viewport_size.y, 1.0)
 	var is_portrait: bool = aspect_ratio <= 1.0
-	var shortest_side: float = minf(viewport_size.x, viewport_size.y)
-	_is_mobile_layout_active = _is_mobile_platform() or shortest_side <= 1080.0
+	_is_mobile_layout_active = _is_mobile_platform()
 
 	var edge_margin: float = clampf(minf(viewport_size.x, viewport_size.y) * 0.04, 24.0, 96.0)
 	_apply_menu_margin(edge_margin, safe_left, safe_top, safe_right, safe_bottom)
 	_apply_title_style(viewport_size, is_portrait)
 	_apply_menu_spacing(viewport_size, is_portrait)
 	_apply_button_sizes(viewport_size, is_portrait)
-	_apply_settings_panel_layout(viewport_size, safe_top, safe_bottom)
 
 	print(
 		"[MainScreen] responsive_layout mobile=%s viewport=%.0fx%.0f safe=%.0f,%.0f,%.0f,%.0f"
@@ -257,41 +226,38 @@ func _apply_menu_spacing(viewport_size: Vector2, is_portrait: bool) -> void:
 
 func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
 	var button_size: Vector2
-	var close_button_size: Vector2
+	var button_aspect_ratio: float = _get_menu_button_aspect_ratio()
 
 	if _is_mobile_layout_active:
 		if is_portrait:
-			button_size = Vector2(
-				clampf(viewport_size.x * 0.78, 300.0, 620.0),
-				clampf(viewport_size.y * 0.072, 88.0, 130.0)
+			var portrait_height: float = clampf(viewport_size.y * 0.06, 88.0, 124.0)
+			button_size = _build_proportional_button_size(
+				portrait_height,
+				button_aspect_ratio,
+				280.0,
+				viewport_size.x * 0.72
 			)
-			close_button_size = Vector2(
-				clampf(viewport_size.x * 0.7, 260.0, 560.0),
-				clampf(viewport_size.y * 0.068, 88.0, 122.0)
-			)
+
 		else:
-			button_size = Vector2(
-				clampf(viewport_size.x * 0.42, 300.0, 560.0),
-				clampf(viewport_size.y * 0.108, 88.0, 118.0)
+			var landscape_height: float = clampf(viewport_size.y * 0.085, 88.0, 112.0)
+			button_size = _build_proportional_button_size(
+				landscape_height,
+				button_aspect_ratio,
+				300.0,
+				viewport_size.x * 0.42
 			)
-			close_button_size = Vector2(
-				clampf(viewport_size.x * 0.36, 260.0, 520.0),
-				clampf(viewport_size.y * 0.1, 88.0, 112.0)
-			)
+
 	else:
-		button_size = Vector2(
-			clampf(viewport_size.x * 0.24, 280.0, 440.0),
-			clampf(viewport_size.y * 0.062, 60.0, 82.0)
-		)
-		close_button_size = Vector2(
-			clampf(viewport_size.x * 0.2, 240.0, 380.0),
-			clampf(viewport_size.y * 0.058, 56.0, 76.0)
+		var desktop_height: float = clampf(viewport_size.y * 0.068, 68.0, 96.0)
+		button_size = _build_proportional_button_size(
+			desktop_height,
+			button_aspect_ratio,
+			260.0,
+			viewport_size.x * 0.26
 		)
 
 	_apply_button_target_size(_play_button, button_size)
-	_apply_button_target_size(_settings_button, button_size)
 	_apply_button_target_size(_quit_button, button_size)
-	_apply_button_target_size(_close_settings_button, close_button_size)
 
 
 func _apply_button_target_size(button: Button, size: Vector2) -> void:
@@ -307,30 +273,26 @@ func _apply_button_target_size(button: Button, size: Vector2) -> void:
 		nine_slice_button.button_size = size
 	else:
 		button.custom_minimum_size = size
+	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 
-func _apply_settings_panel_layout(viewport_size: Vector2, safe_top: float, safe_bottom: float) -> void:
-	if _settings_panel == null:
-		return
-	_settings_panel.anchor_left = 0.5
-	_settings_panel.anchor_top = 0.5
-	_settings_panel.anchor_right = 0.5
-	_settings_panel.anchor_bottom = 0.5
+func _get_menu_button_aspect_ratio() -> float:
+	if MENU_BUTTON_TEXTURE_SIZE.y <= 0.0:
+		return 3.0
+	return MENU_BUTTON_TEXTURE_SIZE.x / MENU_BUTTON_TEXTURE_SIZE.y
 
-	var panel_width: float
-	var panel_height: float
-	if _is_mobile_layout_active:
-		panel_width = clampf(viewport_size.x * 0.88, 320.0, 980.0)
-		panel_height = clampf(viewport_size.y * 0.46, 300.0, 760.0)
-	else:
-		panel_width = clampf(viewport_size.x * 0.52, 520.0, 980.0)
-		panel_height = clampf(viewport_size.y * 0.42, 320.0, 760.0)
 
-	var safe_shift: float = (safe_top - safe_bottom) * 0.5
-	_settings_panel.offset_left = -panel_width * 0.5
-	_settings_panel.offset_right = panel_width * 0.5
-	_settings_panel.offset_top = (-panel_height * 0.5) + safe_shift
-	_settings_panel.offset_bottom = (panel_height * 0.5) + safe_shift
+func _build_proportional_button_size(
+	height: float,
+	aspect_ratio: float,
+	min_width: float,
+	max_width: float
+) -> Vector2:
+	var target_height: float = maxf(height, 1.0)
+	var unclamped_width: float = target_height * maxf(aspect_ratio, 1.0)
+	var safe_max_width: float = maxf(min_width, max_width)
+	var target_width: float = clampf(unclamped_width, min_width, safe_max_width)
+	return Vector2(target_width, target_height)
 
 
 func _resolve_viewport_size() -> Vector2:
@@ -377,7 +339,7 @@ func _is_mobile_platform() -> bool:
 
 
 func _configure_touch_interactions() -> void:
-	var interactive_buttons: Array = [_play_button, _settings_button, _quit_button, _close_settings_button]
+	var interactive_buttons: Array = [_play_button, _quit_button]
 	for node: Variant in interactive_buttons:
 		var button: Button = node as Button
 		if button == null:
@@ -400,7 +362,7 @@ func _configure_platform_specific_ui() -> void:
 
 func _get_focusable_menu_buttons() -> Array[Button]:
 	var buttons: Array[Button] = []
-	var candidates: Array = [_play_button, _settings_button, _quit_button]
+	var candidates: Array = [_play_button, _quit_button]
 	for node: Variant in candidates:
 		var button: Button = node as Button
 		if button == null:
@@ -415,18 +377,13 @@ func _can_programmatically_quit() -> bool:
 	return OS.get_name() != "iOS"
 
 
-func _set_settings_panel_visible(is_visible: bool) -> void:
-	if _settings_panel:
-		_settings_panel.visible = is_visible
-
-
 func _focus_play_button() -> void:
 	if _play_button and _play_button.visible:
 		_play_button.grab_focus()
 
 
 func _clear_button_focus() -> void:
-	var buttons: Array = [_play_button, _settings_button, _quit_button, _close_settings_button]
+	var buttons: Array = [_play_button, _quit_button]
 	for node: Variant in buttons:
 		var button: Button = node as Button
 		if button and button.has_focus():
@@ -450,20 +407,6 @@ func _on_play_pressed() -> void:
 	play_pressed.emit()
 
 
-func _on_settings_pressed() -> void:
-	_play_click_sound()
-	print("[MainScreen] settings_opened")
-	_set_settings_panel_visible(true)
-	settings_requested.emit()
-
-
-func _on_close_settings_pressed() -> void:
-	_play_click_sound()
-	print("[MainScreen] settings_closed")
-	_set_settings_panel_visible(false)
-	_clear_button_focus()
-
-
 func _on_quit_pressed() -> void:
 	if not _can_programmatically_quit():
 		print("[FIX][Quit] ignoring quit request on iOS.")
@@ -482,7 +425,5 @@ func _quit_application() -> void:
 func _log_button_sizes() -> void:
 	if _play_button:
 		print("[MainScreen] Play button size: %s" % _play_button.custom_minimum_size)
-	if _settings_button:
-		print("[MainScreen] Settings button size: %s" % _settings_button.custom_minimum_size)
 	if _quit_button:
 		print("[MainScreen] Quit button size: %s" % _quit_button.custom_minimum_size)
