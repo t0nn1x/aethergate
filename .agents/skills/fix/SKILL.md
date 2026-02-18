@@ -59,6 +59,9 @@ To fix this effectively, I need more context:
 - GDScript property accessor traps: no `field` identifier in setters/getters, and avoid self-assignment inside setters (`prop = value`) that causes infinite recursion
 - GDScript constant-expression traps: typed collection constants can fail parse in strict contexts; prefer simple `const NAME := [...]` or runtime initialization
 - Dynamic UI init-order traps: methods using `@onready` node refs called before node enters tree (for instanced UI controls); add child first and/or use `call_deferred`
+- Resource deserialization-order traps: coupled setters (for example `item` + `amount`) that clamp/reset state before both fields are loaded can silently wipe inventory data
+- UI layout-pass side effects: layout/resize helpers that also clear visibility/text can erase runtime-populated icons/counts on every refresh
+- Panel dependency wiring order traps: panel opens before its inventory/component dependency is bound, producing empty UI despite valid data
 - Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
 - Stale path prefixes after folder refactors (for example `res://src/UI/...` still referenced after moving to `res://src/Entities/Ui/...`)
 - Godot cache/UID mismatch after moves (parse errors referencing deleted paths). Rebuild project cache (`.godot`) and reopen editor when source paths are already correct

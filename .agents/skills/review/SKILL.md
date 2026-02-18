@@ -67,6 +67,9 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] No strict-typing inference traps (`Variant` inference from `max/min/clamp` and similar)
 - [ ] No GDScript accessor pitfalls (`field` keyword misuse, or setter self-assignment causing recursion/stack overflow)
 - [ ] Dynamically-instanced UI controls are configured after entering the scene tree when logic depends on `@onready` child refs
+- [ ] Resource setter logic is safe against deserialization-order effects (no coupled-field wipes like item/amount during `.tres` load)
+- [ ] Layout/resize code does not reset runtime-bound UI data (icons/count labels stay intact after refresh/responsive updates)
+- [ ] Overlay/panel toggles rebind required gameplay components before render so data-driven UI does not open unbound
 - [ ] Scene/script reference integrity after moves (`.tscn` `ext_resource` paths and `.uid`)
 - [ ] No stale legacy path prefixes remain after refactors (for example `res://src/UI/...` vs `res://src/Entities/Ui/...`) across scenes, scripts, and `project.godot`
 - [ ] Input/navigation behavior still works (tap-to-move, hold retarget, blocked target resolution)
