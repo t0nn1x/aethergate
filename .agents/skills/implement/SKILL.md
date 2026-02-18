@@ -155,6 +155,8 @@ TaskUpdate(taskId, status: "in_progress")
 - For inventory/resource models with coupled fields (like item+amount), guard setters against deserialization order so temporary nulls do not erase valid amounts during load
 - For inventory/HUD panels, separate one-time visual node setup from runtime data refresh; never clear icon/count state inside generic layout/resize helpers
 - On panel open/toggle, rebind required gameplay dependencies from the composition root before rendering data to avoid "no component bound" empty states
+- For Godot inventory drag/drop, keep transfer rules in data/component APIs (move/swap/stack) and keep UI controls limited to drag payload + drop routing
+- For drag UX, hide source slot visuals during active drag and restore from authoritative data on drag end/cancel (`NOTIFICATION_DRAG_END`)
 - For new/reworked overlay UI panels, prefer extending the shared `AdaptiveOverlayPanel` under `src/Entities/Ui/Common/Overlay` and keep safe-area/resize code centralized
 - For panel look-and-feel reuse, use shared style Resources under `src/Entities/Ui/Common/Styles` instead of duplicating style constants per panel script
 

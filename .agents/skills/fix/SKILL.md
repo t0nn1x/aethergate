@@ -62,6 +62,8 @@ To fix this effectively, I need more context:
 - Resource deserialization-order traps: coupled setters (for example `item` + `amount`) that clamp/reset state before both fields are loaded can silently wipe inventory data
 - UI layout-pass side effects: layout/resize helpers that also clear visibility/text can erase runtime-populated icons/counts on every refresh
 - Panel dependency wiring order traps: panel opens before its inventory/component dependency is bound, producing empty UI despite valid data
+- Drag-preview composition traps: preview nodes including slot backgrounds can create misleading duplicate-slot visuals when only icon/count should be dragged
+- Drag lifecycle traps: source slot visuals not cleared during drag and not restored on cancel/drop cause double-visual artifacts; handle via drag start/end hooks
 - Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
 - Stale path prefixes after folder refactors (for example `res://src/UI/...` still referenced after moving to `res://src/Entities/Ui/...`)
 - Godot cache/UID mismatch after moves (parse errors referencing deleted paths). Rebuild project cache (`.godot`) and reopen editor when source paths are already correct
