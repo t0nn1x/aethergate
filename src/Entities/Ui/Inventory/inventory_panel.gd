@@ -6,6 +6,13 @@ signal inventory_toggled(is_open: bool)
 const INVENTORY_COLUMNS: int = 5
 const INVENTORY_ROWS: int = 4
 const INVENTORY_SLOT_COUNT: int = INVENTORY_COLUMNS * INVENTORY_ROWS
+const INVENTORY_SLOT_BUTTON_SCRIPT := preload("res://src/Entities/Ui/Inventory/inventory_slot_button.gd")
+const DRAG_DATA_TYPE_KEY: StringName = &"drag_type"
+const DRAG_DATA_SOURCE_SLOT_KEY: StringName = &"source_slot_index"
+const DRAG_DATA_SOURCE_PANEL_KEY: StringName = &"source_panel_id"
+const DRAG_DATA_ICON_KEY: StringName = &"icon"
+const DRAG_DATA_AMOUNT_KEY: StringName = &"amount"
+const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 
 @export var slot_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Panels/Slots/F_U_SlotA2.png")
 @export var circular_slot_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png")
@@ -52,6 +59,7 @@ const INVENTORY_SLOT_COUNT: int = INVENTORY_COLUMNS * INVENTORY_ROWS
 var _inventory_slots: Array[TextureButton] = []
 var _character_slots: Dictionary = {}
 var _inventory_component: Node
+var _active_drag_source_slot_index: int = -1
 
 
 func _ready() -> void:
@@ -89,6 +97,124 @@ func set_inventory_component(component: Node) -> void:
 	_disconnect_inventory_component_signals()
 	_inventory_component = next_component
 	_connect_inventory_component_signals()
+	_refresh_inventory_slots_from_data()
+
+
+func build_slot_drag_data(slot_index: int) -> Variant:
+	if _inventory_component == null:
+		return null
+
+	var slot_data: Resource = _get_inventory_slot_data(slot_index)
+	if not _slot_has_item(slot_data):
+		return null
+
+	var item: Resource = slot_data.get("item") as Resource
+	var amount: int = maxi(0, int(slot_data.get("amount")))
+	var icon: Texture2D = _resolve_item_icon(item)
+	return {
+		DRAG_DATA_TYPE_KEY: DRAG_DATA_TYPE_SLOT,
+		DRAG_DATA_SOURCE_SLOT_KEY: slot_index,
+		DRAG_DATA_SOURCE_PANEL_KEY: get_instance_id(),
+		DRAG_DATA_ICON_KEY: icon,
+		DRAG_DATA_AMOUNT_KEY: amount
+	}
+
+
+func create_slot_drag_preview(data: Variant) -> Control:
+	if not _is_valid_drag_payload(data):
+		return null
+
+	var payload: Dictionary = data
+	var preview_size: float = clampf(inventory_icon_size, 16.0, 64.0)
+
+	var preview_root: Control = Control.new()
+	preview_root.custom_minimum_size = Vector2(preview_size, preview_size)
+	preview_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	var icon: Texture2D = payload.get(DRAG_DATA_ICON_KEY, null) as Texture2D
+	if icon != null:
+		var icon_rect: TextureRect = TextureRect.new()
+		icon_rect.texture = icon
+		icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+		var icon_side: float = clampf(preview_size, 12.0, 64.0)
+		var icon_size: Vector2 = Vector2(icon_side, icon_side)
+		icon_rect.custom_minimum_size = icon_size
+		icon_rect.size = icon_size
+		icon_rect.position = Vector2.ZERO
+		preview_root.add_child(icon_rect)
+
+	var amount: int = int(payload.get(DRAG_DATA_AMOUNT_KEY, 0))
+	if amount > 1:
+		var count_label: Label = Label.new()
+		count_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		count_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		count_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+		count_label.text = "x%d" % amount
+		count_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+		count_label.offset_left = 2.0
+		count_label.offset_top = 2.0
+		count_label.offset_right = -2.0
+		count_label.offset_bottom = -2.0
+		count_label.add_theme_color_override("font_color", inventory_count_text_color)
+		count_label.add_theme_color_override("font_outline_color", inventory_count_outline_color)
+		count_label.add_theme_constant_override("outline_size", 1)
+		count_label.add_theme_font_size_override(
+			"font_size",
+			inventory_count_font_size_mobile if is_mobile_platform() else inventory_count_font_size_desktop
+		)
+		if title_style_profile and title_style_profile.font:
+			count_label.add_theme_font_override("font", title_style_profile.font)
+		preview_root.add_child(count_label)
+
+	return preview_root
+
+
+func can_drop_slot_drag_data(target_slot_index: int, data: Variant) -> bool:
+	if not _is_valid_drag_payload(data):
+		return false
+	if target_slot_index < 0 or target_slot_index >= INVENTORY_SLOT_COUNT:
+		return false
+	if _inventory_component == null:
+		return false
+
+	var payload: Dictionary = data
+	var source_slot_index: int = int(payload.get(DRAG_DATA_SOURCE_SLOT_KEY, -1))
+	if source_slot_index < 0 or source_slot_index >= INVENTORY_SLOT_COUNT:
+		return false
+	if source_slot_index == target_slot_index:
+		return false
+	if not _slot_has_item(_get_inventory_slot_data(source_slot_index)):
+		return false
+	return true
+
+
+func drop_slot_drag_data(target_slot_index: int, data: Variant) -> void:
+	if not can_drop_slot_drag_data(target_slot_index, data):
+		return
+
+	var payload: Dictionary = data
+	var source_slot_index: int = int(payload.get(DRAG_DATA_SOURCE_SLOT_KEY, -1))
+	if source_slot_index < 0:
+		return
+	_swap_inventory_slots(source_slot_index, target_slot_index)
+
+
+func begin_slot_drag_visual(slot_index: int) -> void:
+	if slot_index < 0 or slot_index >= _inventory_slots.size():
+		return
+	_active_drag_source_slot_index = slot_index
+	_set_inventory_slot_visual(_inventory_slots[slot_index], null, 0)
+
+
+func end_slot_drag_visual(slot_index: int) -> void:
+	if _active_drag_source_slot_index < 0:
+		return
+	if slot_index != _active_drag_source_slot_index:
+		return
+	_active_drag_source_slot_index = -1
 	_refresh_inventory_slots_from_data()
 
 
@@ -141,12 +267,14 @@ func _rebuild_inventory_slots() -> void:
 	_inventory_grid.columns = INVENTORY_COLUMNS
 	_inventory_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	for slot_index in range(INVENTORY_SLOT_COUNT):
-		var slot_button: TextureButton = TextureButton.new()
+		var slot_button: TextureButton = INVENTORY_SLOT_BUTTON_SCRIPT.new() as TextureButton
 		slot_button.name = "InventorySlot_%02d" % (slot_index + 1)
 		slot_button.mouse_filter = Control.MOUSE_FILTER_STOP
 		slot_button.size_flags_horizontal = Control.SIZE_FILL
 		slot_button.size_flags_vertical = Control.SIZE_FILL
 		slot_button.custom_minimum_size = Vector2(56.0, 56.0)
+		if slot_button.has_method("configure"):
+			slot_button.call("configure", self, slot_index)
 		_inventory_grid.add_child(slot_button)
 		_ensure_slot_visual_nodes(slot_button)
 		_inventory_slots.append(slot_button)
@@ -304,6 +432,7 @@ func _on_inventory_component_changed(_data: Variant = null) -> void:
 
 
 func _refresh_inventory_slots_from_data() -> void:
+	_active_drag_source_slot_index = -1
 	var resolved_item_count: int = 0
 	var resolved_icon_count: int = 0
 	for slot_button in _inventory_slots:
@@ -344,6 +473,60 @@ func _refresh_inventory_slots_from_data() -> void:
 			"[InventoryPanel] resolved slots: %d items, %d icons (from %d slots)"
 			% [resolved_item_count, resolved_icon_count, max_slots]
 		)
+
+
+func _swap_inventory_slots(source_slot_index: int, target_slot_index: int) -> void:
+	if _inventory_component == null:
+		return
+
+	var did_swap: bool = false
+	if _inventory_component.has_method("swap_slots"):
+		did_swap = bool(_inventory_component.call("swap_slots", source_slot_index, target_slot_index))
+	else:
+		var inventory_data: Resource = null
+		if _inventory_component.has_method("get_inventory_data"):
+			inventory_data = _inventory_component.call("get_inventory_data") as Resource
+		if inventory_data != null and inventory_data.has_method("swap_slots"):
+			did_swap = bool(inventory_data.call("swap_slots", source_slot_index, target_slot_index))
+			if did_swap and _inventory_component.has_method("notify_inventory_changed"):
+				_inventory_component.call("notify_inventory_changed")
+
+	if did_swap:
+		_refresh_inventory_slots_from_data()
+
+
+func _get_inventory_slot_data(slot_index: int) -> Resource:
+	if _inventory_component == null:
+		return null
+	if not _inventory_component.has_method("get_slots"):
+		return null
+	var slots: Array = _inventory_component.call("get_slots")
+	if slot_index < 0 or slot_index >= slots.size():
+		return null
+	return slots[slot_index] as Resource
+
+
+func _slot_has_item(slot_data: Resource) -> bool:
+	if slot_data == null:
+		return false
+	var slot_empty: bool = true
+	if slot_data.has_method("is_empty"):
+		slot_empty = bool(slot_data.call("is_empty"))
+	else:
+		var item: Resource = slot_data.get("item") as Resource
+		var amount: int = int(slot_data.get("amount"))
+		slot_empty = item == null or amount <= 0
+	return not slot_empty
+
+
+func _is_valid_drag_payload(data: Variant) -> bool:
+	if not (data is Dictionary):
+		return false
+	var payload: Dictionary = data
+	var payload_type: String = str(payload.get(DRAG_DATA_TYPE_KEY, ""))
+	if payload_type != String(DRAG_DATA_TYPE_SLOT):
+		return false
+	return int(payload.get(DRAG_DATA_SOURCE_PANEL_KEY, -1)) == get_instance_id()
 
 
 func _resolve_item_icon(item: Resource) -> Texture2D:

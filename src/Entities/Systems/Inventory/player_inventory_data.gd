@@ -65,6 +65,55 @@ func set_slot(slot_index: int, item: Resource, amount: int) -> bool:
 	return true
 
 
+func swap_slots(source_slot_index: int, target_slot_index: int) -> bool:
+	_ensure_slot_count()
+	if source_slot_index < 0 or source_slot_index >= _slots.size():
+		return false
+	if target_slot_index < 0 or target_slot_index >= _slots.size():
+		return false
+	if source_slot_index == target_slot_index:
+		return false
+
+	var source_slot: Resource = _slots[source_slot_index]
+	var target_slot: Resource = _slots[target_slot_index]
+	if source_slot == null or target_slot == null:
+		return false
+	if _is_slot_empty(source_slot):
+		return false
+
+	var source_item: Resource = _get_slot_item(source_slot)
+	var source_amount: int = _get_slot_amount(source_slot)
+	var target_item: Resource = _get_slot_item(target_slot)
+	var target_amount: int = _get_slot_amount(target_slot)
+
+	if target_item == null or target_amount <= 0:
+		target_slot.set("item", source_item)
+		target_slot.set("amount", source_amount)
+		source_slot.set("amount", 0)
+		source_slot.set("item", null)
+		return true
+
+	var source_item_id: String = _resolve_item_id(source_item)
+	var target_item_id: String = _resolve_item_id(target_item)
+	if source_item_id == target_item_id:
+		var target_max_stack: int = maxi(1, int(target_item.get("max_stack")))
+		var free_space: int = maxi(0, target_max_stack - target_amount)
+		if free_space > 0:
+			var to_transfer: int = mini(source_amount, free_space)
+			target_slot.set("amount", target_amount + to_transfer)
+			var remaining_source: int = source_amount - to_transfer
+			source_slot.set("amount", remaining_source)
+			if remaining_source <= 0:
+				source_slot.set("item", null)
+			return true
+
+	source_slot.set("item", target_item)
+	source_slot.set("amount", target_amount)
+	target_slot.set("item", source_item)
+	target_slot.set("amount", source_amount)
+	return true
+
+
 func add_item(item: Resource, amount: int = 1) -> int:
 	if item == null or amount <= 0:
 		return maxi(amount, 0)

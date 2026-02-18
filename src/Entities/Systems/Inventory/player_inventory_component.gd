@@ -64,5 +64,16 @@ func get_item_count(item_id: String) -> int:
 	return 0
 
 
+func swap_slots(source_slot_index: int, target_slot_index: int) -> bool:
+	if inventory_data == null:
+		return false
+	if inventory_data.has_method("swap_slots"):
+		var did_swap: bool = bool(inventory_data.call("swap_slots", source_slot_index, target_slot_index))
+		if did_swap:
+			inventory_changed.emit()
+		return did_swap
+	return false
+
+
 func notify_inventory_changed() -> void:
 	inventory_changed.emit()
