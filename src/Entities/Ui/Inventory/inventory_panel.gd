@@ -23,6 +23,12 @@ const INVENTORY_SLOT_COUNT: int = INVENTORY_COLUMNS * INVENTORY_ROWS
 @export_range(0.0, 32.0, 1.0) var slot_spacing: float = 8.0
 @export_range(16.0, 128.0, 1.0) var min_inventory_slot_size: float = 28.0
 @export_range(24.0, 160.0, 1.0) var max_inventory_slot_size: float = 88.0
+@export_range(8.0, 64.0, 1.0) var inventory_icon_size: float = 32.0
+@export_range(0.35, 1.0, 0.01) var inventory_icon_fill_ratio: float = 0.66
+@export_range(8, 36, 1) var inventory_count_font_size_desktop: int = 16
+@export_range(8, 36, 1) var inventory_count_font_size_mobile: int = 14
+@export var inventory_count_text_color: Color = Color(0.96, 0.97, 1.0, 1.0)
+@export var inventory_count_outline_color: Color = Color(0.0, 0.0, 0.0, 0.95)
 @export_range(0.0, 220.0, 1.0) var upward_offset_pixels: float = 78.0
 
 @onready var _content_margin: MarginContainer = %ContentMargin
@@ -45,6 +51,7 @@ const INVENTORY_SLOT_COUNT: int = INVENTORY_COLUMNS * INVENTORY_ROWS
 
 var _inventory_slots: Array[TextureButton] = []
 var _character_slots: Dictionary = {}
+var _inventory_component: Node
 
 
 func _ready() -> void:
@@ -55,6 +62,7 @@ func _ready() -> void:
 	_cache_character_slots()
 	_apply_textures()
 	_apply_responsive_layout()
+	_refresh_inventory_slots_from_data()
 	set_inventory_open(false)
 
 
@@ -69,6 +77,19 @@ func set_inventory_open(is_open: bool) -> void:
 	inventory_toggled.emit(visible)
 	if visible:
 		_apply_responsive_layout()
+		_refresh_inventory_slots_from_data()
+
+
+func set_inventory_component(component: Node) -> void:
+	var next_component: Node = component
+	if _inventory_component == next_component:
+		_refresh_inventory_slots_from_data()
+		return
+
+	_disconnect_inventory_component_signals()
+	_inventory_component = next_component
+	_connect_inventory_component_signals()
+	_refresh_inventory_slots_from_data()
 
 
 func _on_overlay_viewport_resized() -> void:
@@ -127,6 +148,7 @@ func _rebuild_inventory_slots() -> void:
 		slot_button.size_flags_vertical = Control.SIZE_FILL
 		slot_button.custom_minimum_size = Vector2(56.0, 56.0)
 		_inventory_grid.add_child(slot_button)
+		_ensure_slot_visual_nodes(slot_button)
 		_inventory_slots.append(slot_button)
 
 
@@ -220,6 +242,7 @@ func _apply_responsive_layout() -> void:
 	inventory_slot_size = floor(inventory_slot_size)
 	for slot_button in _inventory_slots:
 		slot_button.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
+		_apply_inventory_slot_visual_layout(slot_button, inventory_slot_size)
 
 	_apply_character_slot_sizes(inventory_slot_size)
 
@@ -248,3 +271,183 @@ func _apply_character_slot_sizes(base_slot_size: float) -> void:
 		if not sizes.has(slot_name):
 			continue
 		slot_button.custom_minimum_size = (sizes[slot_name] as Vector2).round()
+
+
+func _connect_inventory_component_signals() -> void:
+	if _inventory_component == null:
+		return
+
+	var changed_callback: Callable = Callable(self, "_on_inventory_component_changed")
+	if _inventory_component.has_signal("inventory_changed") and not _inventory_component.is_connected("inventory_changed", changed_callback):
+		_inventory_component.connect("inventory_changed", changed_callback)
+
+	var assigned_callback: Callable = Callable(self, "_on_inventory_component_changed")
+	if _inventory_component.has_signal("inventory_data_assigned") and not _inventory_component.is_connected("inventory_data_assigned", assigned_callback):
+		_inventory_component.connect("inventory_data_assigned", assigned_callback)
+
+
+func _disconnect_inventory_component_signals() -> void:
+	if _inventory_component == null:
+		return
+
+	var changed_callback: Callable = Callable(self, "_on_inventory_component_changed")
+	if _inventory_component.has_signal("inventory_changed") and _inventory_component.is_connected("inventory_changed", changed_callback):
+		_inventory_component.disconnect("inventory_changed", changed_callback)
+
+	var assigned_callback: Callable = Callable(self, "_on_inventory_component_changed")
+	if _inventory_component.has_signal("inventory_data_assigned") and _inventory_component.is_connected("inventory_data_assigned", assigned_callback):
+		_inventory_component.disconnect("inventory_data_assigned", assigned_callback)
+
+
+func _on_inventory_component_changed(_data: Variant = null) -> void:
+	_refresh_inventory_slots_from_data()
+
+
+func _refresh_inventory_slots_from_data() -> void:
+	var resolved_item_count: int = 0
+	var resolved_icon_count: int = 0
+	for slot_button in _inventory_slots:
+		_set_inventory_slot_visual(slot_button, null, 0)
+
+	if _inventory_component == null or not _inventory_component.has_method("get_slots"):
+		if OS.is_debug_build():
+			print("[InventoryPanel] no inventory component bound.")
+		return
+
+	var slots: Array = _inventory_component.call("get_slots")
+	var max_slots: int = mini(slots.size(), _inventory_slots.size())
+	for slot_index in range(max_slots):
+		var slot_data: Resource = slots[slot_index] as Resource
+		if slot_data == null:
+			continue
+
+		var slot_empty: bool = true
+		if slot_data.has_method("is_empty"):
+			slot_empty = bool(slot_data.call("is_empty"))
+		else:
+			var fallback_item: Resource = slot_data.get("item") as Resource
+			slot_empty = fallback_item == null or int(slot_data.get("amount")) <= 0
+		if slot_empty:
+			continue
+
+		var item: Resource = slot_data.get("item") as Resource
+		var amount: int = maxi(0, int(slot_data.get("amount")))
+		var icon: Texture2D = _resolve_item_icon(item)
+		if item != null:
+			resolved_item_count += 1
+		if icon != null:
+			resolved_icon_count += 1
+		_set_inventory_slot_visual(_inventory_slots[slot_index], icon, amount)
+
+	if OS.is_debug_build():
+		print(
+			"[InventoryPanel] resolved slots: %d items, %d icons (from %d slots)"
+			% [resolved_item_count, resolved_icon_count, max_slots]
+		)
+
+
+func _resolve_item_icon(item: Resource) -> Texture2D:
+	if item == null:
+		return null
+
+	var icon: Texture2D = null
+	if item.has_method("get_icon_texture"):
+		icon = item.call("get_icon_texture") as Texture2D
+	if icon == null:
+		icon = item.get("icon") as Texture2D
+	if icon == null and not item.resource_path.is_empty():
+		var loaded_item: Resource = load(item.resource_path)
+		if loaded_item:
+			if loaded_item.has_method("get_icon_texture"):
+				icon = loaded_item.call("get_icon_texture") as Texture2D
+			if icon == null:
+				icon = loaded_item.get("icon") as Texture2D
+	return icon
+
+
+func _ensure_slot_visual_nodes(slot_button: TextureButton) -> void:
+	if slot_button == null:
+		return
+
+	var icon_node: TextureRect = slot_button.get_node_or_null("ItemIcon") as TextureRect
+	var icon_node_created: bool = false
+	if icon_node == null:
+		icon_node = TextureRect.new()
+		icon_node.name = "ItemIcon"
+		icon_node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		icon_node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon_node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon_node.z_index = 1
+		slot_button.add_child(icon_node)
+		icon_node_created = true
+
+	var count_label: Label = slot_button.get_node_or_null("CountLabel") as Label
+	var count_label_created: bool = false
+	if count_label == null:
+		count_label = Label.new()
+		count_label.name = "CountLabel"
+		count_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		count_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		count_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+		count_label.z_index = 2
+		slot_button.add_child(count_label)
+		count_label_created = true
+
+	count_label.add_theme_color_override("font_color", inventory_count_text_color)
+	count_label.add_theme_color_override("font_outline_color", inventory_count_outline_color)
+	count_label.add_theme_constant_override("outline_size", 1)
+	if title_style_profile and title_style_profile.font:
+		count_label.add_theme_font_override("font", title_style_profile.font)
+
+	if icon_node_created:
+		icon_node.visible = false
+	if count_label_created:
+		count_label.text = ""
+
+
+func _apply_inventory_slot_visual_layout(slot_button: TextureButton, slot_size: float) -> void:
+	if slot_button == null:
+		return
+	_ensure_slot_visual_nodes(slot_button)
+
+	var icon_node: TextureRect = slot_button.get_node_or_null("ItemIcon") as TextureRect
+	var count_label: Label = slot_button.get_node_or_null("CountLabel") as Label
+	if icon_node == null or count_label == null:
+		return
+
+	var max_icon_by_slot: float = floor(slot_size * inventory_icon_fill_ratio)
+	var icon_side: float = minf(inventory_icon_size, max_icon_by_slot)
+	icon_side = clampf(icon_side, 10.0, maxf(10.0, slot_size - 6.0))
+	var icon_size_vec: Vector2 = Vector2(icon_side, icon_side)
+
+	icon_node.custom_minimum_size = icon_size_vec
+	icon_node.size = icon_size_vec
+	icon_node.position = (Vector2(slot_size, slot_size) - icon_size_vec) * 0.5
+
+	count_label.anchor_left = 0.0
+	count_label.anchor_top = 0.0
+	count_label.anchor_right = 1.0
+	count_label.anchor_bottom = 1.0
+	count_label.offset_left = 2.0
+	count_label.offset_top = 2.0
+	count_label.offset_right = -2.0
+	count_label.offset_bottom = -2.0
+	count_label.add_theme_font_size_override(
+		"font_size",
+		inventory_count_font_size_mobile if is_mobile_platform() else inventory_count_font_size_desktop
+	)
+
+
+func _set_inventory_slot_visual(slot_button: TextureButton, icon: Texture2D, amount: int) -> void:
+	if slot_button == null:
+		return
+	_ensure_slot_visual_nodes(slot_button)
+
+	var icon_node: TextureRect = slot_button.get_node_or_null("ItemIcon") as TextureRect
+	var count_label: Label = slot_button.get_node_or_null("CountLabel") as Label
+	if icon_node == null or count_label == null:
+		return
+
+	icon_node.texture = icon
+	icon_node.visible = icon != null
+	count_label.text = "" if icon == null or amount <= 0 else "x%d" % amount

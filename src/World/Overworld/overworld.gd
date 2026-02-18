@@ -47,6 +47,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if main_screen and main_screen.visible:
 		return
+	if _is_desktop_platform() and event.is_action_pressed("ui_cancel"):
+		if _close_open_panels():
+			get_viewport().set_input_as_handled()
+			return
 	if not event.is_action_pressed("inventory"):
 		return
 	_toggle_inventory_panel()
@@ -158,6 +162,9 @@ func _on_hud_slot_pressed(action_id: StringName, slot_index: int) -> void:
 func _toggle_inventory_panel() -> void:
 	if inventory_panel == null:
 		return
+	var local_player: Player = get_local_player()
+	if local_player:
+		_wire_inventory_panel_dependency(local_player)
 	inventory_panel.toggle_inventory()
 
 
@@ -169,6 +176,7 @@ func _wire_local_player_dependencies(player_instance: Player) -> void:
 		chunk_manager.set_tracked_player(player_instance)
 	if debug_overlay:
 		debug_overlay.set_player_node(player_instance)
+	_wire_inventory_panel_dependency(player_instance)
 
 
 func _wire_shared_player_dependencies(player_instance: Player) -> void:
@@ -178,3 +186,22 @@ func _wire_shared_player_dependencies(player_instance: Player) -> void:
 	var blocker_component: PlayerMoveTargetBlockerComponent = player_instance.get_node_or_null("PlayerMoveTargetBlockerComponent") as PlayerMoveTargetBlockerComponent
 	if blocker_component and navigation_blocker_registry:
 		blocker_component.set_blocker_registry(navigation_blocker_registry)
+
+
+func _wire_inventory_panel_dependency(player_instance: Player) -> void:
+	if inventory_panel == null or player_instance == null:
+		return
+	var inventory_component: Node = player_instance.get_node_or_null("PlayerInventoryComponent")
+	if inventory_panel.has_method("set_inventory_component"):
+		inventory_panel.call("set_inventory_component", inventory_component)
+
+
+func _close_open_panels() -> bool:
+	if inventory_panel and inventory_panel.visible:
+		inventory_panel.set_inventory_open(false)
+		return true
+	return false
+
+
+func _is_desktop_platform() -> bool:
+	return not (OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios"))

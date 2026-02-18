@@ -31,8 +31,9 @@ func clear() -> void:
 
 func _clamp_amount_to_item() -> void:
 	if _item == null:
-		if _amount != 0:
-			_amount = 0
+		# Keep amount when item is not yet assigned; resource deserialization
+		# can set exported properties in non-deterministic order.
+		_amount = maxi(0, _amount)
 		return
 	var max_stack: int = int(_item.get("max_stack"))
 	_amount = mini(_amount, maxi(1, max_stack))
