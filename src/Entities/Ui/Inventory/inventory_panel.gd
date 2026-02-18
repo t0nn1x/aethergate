@@ -32,6 +32,7 @@ const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 @export_range(24.0, 160.0, 1.0) var max_inventory_slot_size: float = 88.0
 @export_range(8.0, 64.0, 1.0) var inventory_icon_size: float = 32.0
 @export_range(0.35, 1.0, 0.01) var inventory_icon_fill_ratio: float = 0.66
+@export_range(0.50, 1.00, 0.01) var drag_preview_icon_scale: float = 0.88
 @export_range(8, 36, 1) var inventory_count_font_size_desktop: int = 16
 @export_range(8, 36, 1) var inventory_count_font_size_mobile: int = 14
 @export var inventory_count_text_color: Color = Color(0.96, 0.97, 1.0, 1.0)
@@ -39,6 +40,7 @@ const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 @export_range(0.0, 220.0, 1.0) var upward_offset_pixels: float = 78.0
 
 @onready var _content_margin: MarginContainer = %ContentMargin
+@onready var _root_control: Control = $Root
 @onready var _overlay_vbox: VBoxContainer = %OverlayVBox
 @onready var _boards_row: HBoxContainer = %BoardsRow
 @onready var _inventory_board: Control = %InventoryBoard
@@ -60,6 +62,9 @@ var _inventory_slots: Array[TextureButton] = []
 var _character_slots: Dictionary = {}
 var _inventory_component: Node
 var _active_drag_source_slot_index: int = -1
+var _touch_drag_source_slot_index: int = -1
+var _touch_drag_payload: Dictionary = {}
+var _touch_drag_preview: Control
 
 
 func _ready() -> void:
@@ -81,6 +86,8 @@ func toggle_inventory() -> void:
 func set_inventory_open(is_open: bool) -> void:
 	if visible == is_open:
 		return
+	if not is_open:
+		_finish_touch_slot_drag(Vector2.ZERO, false)
 	visible = is_open
 	inventory_toggled.emit(visible)
 	if visible:
@@ -125,7 +132,7 @@ func create_slot_drag_preview(data: Variant) -> Control:
 		return null
 
 	var payload: Dictionary = data
-	var preview_size: float = clampf(inventory_icon_size, 16.0, 64.0)
+	var preview_size: float = clampf(inventory_icon_size * drag_preview_icon_scale, 12.0, 64.0)
 
 	var preview_root: Control = Control.new()
 	preview_root.custom_minimum_size = Vector2(preview_size, preview_size)
@@ -202,6 +209,31 @@ func drop_slot_drag_data(target_slot_index: int, data: Variant) -> void:
 	_swap_inventory_slots(source_slot_index, target_slot_index)
 
 
+func begin_touch_slot_drag(slot_index: int, screen_position: Vector2) -> bool:
+	var drag_data: Variant = build_slot_drag_data(slot_index)
+	if drag_data == null:
+		return false
+
+	_finish_touch_slot_drag(Vector2.ZERO, false)
+	begin_slot_drag_visual(slot_index)
+	_touch_drag_source_slot_index = slot_index
+	_touch_drag_payload = drag_data
+	_touch_drag_preview = create_slot_drag_preview(drag_data)
+	if _touch_drag_preview:
+		_touch_drag_preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_root_control.add_child(_touch_drag_preview)
+		_update_touch_drag_preview_position(screen_position)
+	return true
+
+
+func update_touch_slot_drag(screen_position: Vector2) -> void:
+	_update_touch_drag_preview_position(screen_position)
+
+
+func finish_touch_slot_drag(screen_position: Vector2) -> void:
+	_finish_touch_slot_drag(screen_position, true)
+
+
 func begin_slot_drag_visual(slot_index: int) -> void:
 	if slot_index < 0 or slot_index >= _inventory_slots.size():
 		return
@@ -216,6 +248,18 @@ func end_slot_drag_visual(slot_index: int) -> void:
 		return
 	_active_drag_source_slot_index = -1
 	_refresh_inventory_slots_from_data()
+
+
+func get_inventory_slot_index_at_position(screen_position: Vector2) -> int:
+	for slot_index in range(_inventory_slots.size()):
+		var slot_button: TextureButton = _inventory_slots[slot_index]
+		if slot_button == null:
+			continue
+		if not slot_button.is_visible_in_tree():
+			continue
+		if slot_button.get_global_rect().has_point(screen_position):
+			return slot_index
+	return -1
 
 
 func _on_overlay_viewport_resized() -> void:
@@ -432,6 +476,9 @@ func _on_inventory_component_changed(_data: Variant = null) -> void:
 
 
 func _refresh_inventory_slots_from_data() -> void:
+	_clear_touch_drag_preview()
+	_touch_drag_source_slot_index = -1
+	_touch_drag_payload.clear()
 	_active_drag_source_slot_index = -1
 	var resolved_item_count: int = 0
 	var resolved_icon_count: int = 0
@@ -473,6 +520,45 @@ func _refresh_inventory_slots_from_data() -> void:
 			"[InventoryPanel] resolved slots: %d items, %d icons (from %d slots)"
 			% [resolved_item_count, resolved_icon_count, max_slots]
 		)
+
+
+func _finish_touch_slot_drag(screen_position: Vector2, perform_drop: bool) -> void:
+	if _touch_drag_source_slot_index < 0:
+		return
+
+	var source_slot_index: int = _touch_drag_source_slot_index
+	var payload: Dictionary = _touch_drag_payload.duplicate()
+
+	_touch_drag_source_slot_index = -1
+	_touch_drag_payload.clear()
+	_clear_touch_drag_preview()
+
+	var did_drop: bool = false
+	if perform_drop:
+		var target_slot_index: int = get_inventory_slot_index_at_position(screen_position)
+		if target_slot_index >= 0 and can_drop_slot_drag_data(target_slot_index, payload):
+			drop_slot_drag_data(target_slot_index, payload)
+			did_drop = true
+
+	if not did_drop:
+		end_slot_drag_visual(source_slot_index)
+
+
+func _clear_touch_drag_preview() -> void:
+	if _touch_drag_preview == null:
+		return
+	if is_instance_valid(_touch_drag_preview):
+		_touch_drag_preview.queue_free()
+	_touch_drag_preview = null
+
+
+func _update_touch_drag_preview_position(screen_position: Vector2) -> void:
+	if _touch_drag_preview == null:
+		return
+	var preview_size: Vector2 = _touch_drag_preview.custom_minimum_size
+	if preview_size.x <= 0.0 or preview_size.y <= 0.0:
+		preview_size = _touch_drag_preview.size
+	_touch_drag_preview.position = (screen_position - preview_size * 0.5).round()
 
 
 func _swap_inventory_slots(source_slot_index: int, target_slot_index: int) -> void:
