@@ -83,6 +83,7 @@ This project uses bounded contexts. Prefer these locations:
 - `src/World/Overworld` - overworld stage orchestration and registries
 - `src/World/Streaming` - chunk loading/streaming and chunk helper modules
 - `src/Entities/Ui/Debug` - debug UI and debug metrics providers
+- `src/Entities/Ui/Common` - shared UI primitives (overlay base classes, style resources, reusable UI utilities)
 - `src/Core/Events` - bounded event channels (`PlayerEvents`, `WorldEvents`, `UIEvents`) while keeping `EventBus` as migration shim
 - `src/Multiplayer/Shared` - multiplayer seams that remain engine-agnostic (identity, authority, replication contracts)
 
@@ -95,6 +96,8 @@ For platform display bootstrapping (e.g., `PlatformDisplaySettings`), keep start
 For `@tool` inspector scripts, treat script-backed resources loaded in editor as placeholder-prone: avoid method-call coupling and prefer exported-property reads.
 For inspector UX/performance, avoid eager loading many texture previews in `_get_property_list`/`_get`; lazy-load current selection and cache cheap metadata.
 For overworld creature spawning/wander systems, treat zone polygons and blocker polygons as separate constraints: sampled world targets must pass zone containment and blocker rejection through shared policies, with blocker-registry resolution deferred/lazy for startup safety.
+For overlay-heavy UI work (inventory/character/hud), reuse `src/Entities/Ui/Common/Overlay/adaptive_overlay_panel.gd` for viewport-safe-area + resize lifecycle instead of duplicating per-scene margin/safe-area code.
+For reusable panel visuals/typography, prefer Resource profiles in `src/Entities/Ui/Common/Styles` and apply them from script rather than hardcoding style constants in each panel scene.
 project/
 ├── project.godot           # Project configuration
 ├── scenes/                 # All scene files

@@ -152,6 +152,8 @@ TaskUpdate(taskId, status: "in_progress")
 - For overworld creature spawn/wander behavior, treat zone containment and blocker polygons as separate constraints: route sampled targets through blocker policies and keep blocker-registry resolution resilient to scene init order (deferred/lazy resolve)
 - For large file-tree refactors/moves, run git index-mutating commands (`git mv`, bulk `git add`) sequentially; avoid parallel execution that can trigger `.git/index.lock` contention
 - For dynamically-instanced Godot UI widgets, avoid running configuration that depends on `@onready` children before tree entry; add child first and defer configure when needed
+- For new/reworked overlay UI panels, prefer extending the shared `AdaptiveOverlayPanel` under `src/Entities/Ui/Common/Overlay` and keep safe-area/resize code centralized
+- For panel look-and-feel reuse, use shared style Resources under `src/Entities/Ui/Common/Styles` instead of duplicating style constants per panel script
 
 **3.5: Mark as completed**
 ```

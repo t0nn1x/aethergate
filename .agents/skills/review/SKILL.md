@@ -82,6 +82,8 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Platform display startup logic matches intended UX (no unintended forced windowed mode on desktop, especially Windows fullscreen startup) and startup mode/resolution logs exist for verification
 - [ ] `@tool` inspector code does not call methods on editor placeholder resources and does not eagerly load large preview texture sets in property list/get paths
 - [ ] Overworld creature spawn/wander target sampling applies blocker-polygon rejection (not only zone containment), and blocker-registry wiring handles scene startup ordering safely
+- [ ] Overlay UI panels reuse shared base architecture (`src/Entities/Ui/Common/Overlay/adaptive_overlay_panel.gd`) instead of duplicating safe-area + viewport-resize plumbing
+- [ ] Panel/title styling is resource-driven via `src/Entities/Ui/Common/Styles` profiles and not copy-pasted style constants across scripts
 
 ## Output Format
 
