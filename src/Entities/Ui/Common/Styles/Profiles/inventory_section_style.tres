@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UiPanelStyleProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Ui/Common/Styles/ui_panel_style_profile.gd" id="1_ap1be"]
+
+[resource]
+script = ExtResource("1_ap1be")
+fill_color = Color(0.02, 0.05, 0.08, 0.34)
+border_color = Color(0.75, 0.84, 0.98, 0.28)
+border_width = 1
+corner_radius = 6
+
