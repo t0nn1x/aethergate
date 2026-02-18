@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" path="res://src/Entities/Ui/Gui/MainScreen/main_screen.tscn" id="8_main_screen"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_catalog_service.gd" id="9_catalog_service"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_creature_spawner.gd" id="10_creature_spawner"]
-[ext_resource type="PackedScene" path="res://src/Entities/Ui/Inventory/inventory_screen.tscn" id="11_inventory_screen"]
+[ext_resource type="PackedScene" path="res://src/Entities/Ui/Hud/SystemHud/system_hud.tscn" id="11_system_hud"]
+[ext_resource type="PackedScene" path="res://src/Entities/Ui/Inventory/inventory_panel.tscn" id="12_inventory_panel"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -58,4 +59,5 @@ preview_all_in_editor = true
 [node name="DebugOverlay" parent="." unique_id=847243072 instance=ExtResource("4")]
 
 [node name="MainScreen" parent="." unique_id=635295012 instance=ExtResource("8_main_screen")]
-[node name="InventoryScreen" parent="." unique_id=1538840215 instance=ExtResource("11_inventory_screen")]
+[node name="SystemHud" parent="." unique_id=1538840215 instance=ExtResource("11_system_hud")]
+[node name="InventoryPanel" parent="." unique_id=1999082388 instance=ExtResource("12_inventory_panel")]

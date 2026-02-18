@@ -3,15 +3,16 @@ class_name PlayerInventoryData
 extends Resource
 
 const INVENTORY_SLOT_DATA_SCRIPT := preload("res://src/Entities/Systems/Inventory/inventory_slot_data.gd")
+const FIXED_SLOT_COUNT: int = 20
 
-var _slot_count: int = 20
+var _slot_count: int = FIXED_SLOT_COUNT
 var _slots: Array[Resource] = []
 
-@export_range(1, 120, 1) var slot_count: int:
+@export_range(FIXED_SLOT_COUNT, FIXED_SLOT_COUNT, 1) var slot_count: int:
 	get:
-		return _slot_count
-	set(value):
-		_slot_count = maxi(1, value)
+		return FIXED_SLOT_COUNT
+	set(_value):
+		_slot_count = FIXED_SLOT_COUNT
 		_ensure_slot_count()
 
 @export var slots: Array[Resource]:
@@ -23,6 +24,7 @@ var _slots: Array[Resource] = []
 
 
 func _init() -> void:
+	_slot_count = FIXED_SLOT_COUNT
 	_ensure_slot_count()
 
 

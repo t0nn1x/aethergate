@@ -6,7 +6,8 @@ extends Node2D
 
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
 @export var main_screen_path: NodePath = ^"MainScreen"
-@export var inventory_screen_path: NodePath = ^"InventoryScreen"
+@export var system_hud_path: NodePath = ^"SystemHud"
+@export var inventory_panel_path: NodePath = ^"InventoryPanel"
 @export var session_controller_path: NodePath = ^"OverworldSessionController"
 @export var default_local_player_id: int = 1
 
@@ -19,7 +20,8 @@ extends Node2D
 @onready var navigation_blocker_registry: NavigationBlockerRegistry = $NavigationBlockerRegistry
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 @onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
-@onready var inventory_screen: CanvasLayer = get_node_or_null(inventory_screen_path) as CanvasLayer
+@onready var system_hud: SystemHud = get_node_or_null(system_hud_path) as SystemHud
+@onready var inventory_panel: InventoryPanel = get_node_or_null(inventory_panel_path) as InventoryPanel
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
 ## Backward-compatible local-player reference.
@@ -31,12 +33,24 @@ func _ready() -> void:
 	print("Overworld loaded")
 	_wire_stage_dependencies()
 	_wire_main_screen_signals()
+	_wire_hud_signals()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
 		if not chunk_manager.chunks_changed.is_connected(_on_chunks_changed):
 			chunk_manager.chunks_changed.connect(_on_chunks_changed)
 	_start_session_if_menu_is_missing()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event == null:
+		return
+	if main_screen and main_screen.visible:
+		return
+	if not event.is_action_pressed("inventory"):
+		return
+	_toggle_inventory_panel()
+	get_viewport().set_input_as_handled()
 
 
 ## Backward-compatible helper for existing callers.
@@ -97,6 +111,13 @@ func _wire_stage_dependencies() -> void:
 		_wire_local_player_dependencies(player)
 
 
+func _wire_hud_signals() -> void:
+	if system_hud == null:
+		return
+	if not system_hud.hud_slot_pressed.is_connected(_on_hud_slot_pressed):
+		system_hud.hud_slot_pressed.connect(_on_hud_slot_pressed)
+
+
 func _wire_main_screen_signals() -> void:
 	if main_screen == null:
 		if OS.is_debug_build():
@@ -127,6 +148,19 @@ func _on_main_screen_quit_requested() -> void:
 	print("[FIX][Quit] quit_requested signal received by Overworld")
 
 
+func _on_hud_slot_pressed(action_id: StringName, slot_index: int) -> void:
+	if main_screen and main_screen.visible:
+		return
+	if action_id == StringName("inventory") or slot_index == 3:
+		_toggle_inventory_panel()
+
+
+func _toggle_inventory_panel() -> void:
+	if inventory_panel == null:
+		return
+	inventory_panel.toggle_inventory()
+
+
 func _wire_local_player_dependencies(player_instance: Player) -> void:
 	if player_instance == null:
 		return
@@ -135,7 +169,6 @@ func _wire_local_player_dependencies(player_instance: Player) -> void:
 		chunk_manager.set_tracked_player(player_instance)
 	if debug_overlay:
 		debug_overlay.set_player_node(player_instance)
-	_wire_inventory_dependencies(player_instance)
 
 
 func _wire_shared_player_dependencies(player_instance: Player) -> void:
@@ -145,16 +178,3 @@ func _wire_shared_player_dependencies(player_instance: Player) -> void:
 	var blocker_component: PlayerMoveTargetBlockerComponent = player_instance.get_node_or_null("PlayerMoveTargetBlockerComponent") as PlayerMoveTargetBlockerComponent
 	if blocker_component and navigation_blocker_registry:
 		blocker_component.set_blocker_registry(navigation_blocker_registry)
-
-
-func _wire_inventory_dependencies(player_instance: Player) -> void:
-	if inventory_screen == null or player_instance == null:
-		return
-
-	var inventory_component: Node = player_instance.get_node_or_null("PlayerInventoryComponent") as Node
-	if inventory_component == null:
-		push_warning("Overworld: PlayerInventoryComponent is missing on local player.")
-		return
-
-	if inventory_screen.has_method("set_inventory_component"):
-		inventory_screen.call("set_inventory_component", inventory_component)

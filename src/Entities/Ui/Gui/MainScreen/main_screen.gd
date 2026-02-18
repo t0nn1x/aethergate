@@ -33,6 +33,8 @@ var _music_player_service: Node
 
 
 func _ready() -> void:
+	if not is_in_group("ui_panels_block_movement"):
+		add_to_group("ui_panels_block_movement")
 	_viewport = get_viewport()
 	_cache_nodes()
 	_setup_audio()

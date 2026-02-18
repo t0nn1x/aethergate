@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Icons Preview — Assets/Icons</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:16px;color:#111}
+    header{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+    select,input{padding:6px 8px;font-size:14px}
+    #grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+    .tile{border:1px solid #eee;padding:6px;background:#fafafa;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+    .tile img{max-width:72px;max-height:72px;object-fit:contain}
+    .name{font-size:11px;margin-top:6px;word-break:break-all;text-align:center}
+    #modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
+    #modal img{max-width:95%;max-height:95%}
+    .meta{font-size:12px;color:#ddd;margin-top:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <label>Folder: <select id="folder"></select></label>
+    <label>Filter: <input id="filter" placeholder="search filename..." /></label>
+    <button id="reload">Reload manifest</button>
+    <div style="margin-left:auto;font-size:12px;color:#666">Previewing: Assets/Icons</div>
+  </header>
+
+  <main>
+    <div id="grid"></div>
+  </main>
+
+  <div id="modal" onclick="this.style.display='none'">
+    <div>
+      <img id="modalImg" src="" alt="" />
+      <div class="meta" id="modalMeta"></div>
+    </div>
+  </div>
+
+  <script>
+    const manifestPath = 'tools/icon_preview/images.json';
+    let IMAGES = [];
+
+    async function loadManifest(){
+      try{
+        const res = await fetch(manifestPath + '?_=' + Date.now());
+        IMAGES = await res.json();
+      }catch(e){
+        alert('Failed to load manifest. Run the generator: node tools/icon_preview/generate_manifest.js');
+        console.error(e);
+        IMAGES = [];
+      }
+      buildUI();
+    }
+
+    function buildUI(){
+      const folders = new Map();
+      IMAGES.forEach(p=>{
+        const parts = p.split('/');
+        let folder = parts.length>2 ? parts[2] : '(root)';
+        if (!folders.has(folder)) folders.set(folder, []);
+        folders.get(folder).push(p);
+      });
+
+      const folderSel = document.getElementById('folder');
+      folderSel.innerHTML = '';
+      const allOpt = document.createElement('option'); allOpt.value='__all'; allOpt.textContent='All'; folderSel.appendChild(allOpt);
+      for(const k of Array.from(folders.keys()).sort()){
+        const o = document.createElement('option'); o.value = k; o.textContent = k; folderSel.appendChild(o);
+      }
+
+      folderSel.onchange = renderGrid;
+      document.getElementById('filter').oninput = renderGrid;
+      document.getElementById('reload').onclick = loadManifest;
+
+      renderGrid();
+    }
+
+    function renderGrid(){
+      const folder = document.getElementById('folder').value;
+      const filter = document.getElementById('filter').value.toLowerCase();
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+
+      let list = IMAGES.slice();
+      if(folder && folder!=='__all'){
+        list = list.filter(p => p.split('/')[2] === folder);
+      }
+      if(filter) list = list.filter(p => p.toLowerCase().includes(filter));
+
+      for(const p of list){
+        const d = document.createElement('div'); d.className='tile';
+        const img = document.createElement('img'); img.loading='lazy'; img.src = p;
+        const name = document.createElement('div'); name.className='name'; name.textContent = p.replace('Assets/Icons/','');
+        d.appendChild(img); d.appendChild(name);
+        d.onclick = ()=>{ showModal(p); };
+        grid.appendChild(d);
+      }
+    }
+
+    function showModal(p){
+      const modal = document.getElementById('modal');
+      document.getElementById('modalImg').src = p;
+      document.getElementById('modalMeta').textContent = p;
+      modal.style.display = 'flex';
+    }
+
+    loadManifest();
+  </script>
+</body>
+</html>

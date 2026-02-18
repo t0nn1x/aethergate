@@ -54,6 +54,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not _has_input_authority():
 		return
+	if _is_movement_blocked_by_ui():
+		if _is_pointer_held:
+			_set_pointer_held(false)
+		return
 	if not _should_process_hold_retarget():
 		return
 	_sync_pointer_position_for_hold_retarget()
@@ -68,6 +72,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not creature or not creature.is_alive:
 		return
 	if not _has_input_authority():
+		return
+	if _is_movement_blocked_by_ui():
+		if _is_pointer_held:
+			_set_pointer_held(false)
 		return
 
 	if event is InputEventMouseButton:
@@ -182,11 +190,41 @@ func _is_pointer_over_ui(_screen_position: Vector2) -> bool:
 		return false
 
 	var hovered: Control = viewport.gui_get_hovered_control()
-	if hovered and hovered.is_visible_in_tree():
+	if _is_interactive_ui_control_at_position(hovered, _screen_position):
 		return true
 
 	var focused: Control = viewport.gui_get_focus_owner()
-	return focused != null and focused.is_visible_in_tree()
+	return _is_interactive_ui_control_at_position(focused, _screen_position)
+
+
+func _is_movement_blocked_by_ui() -> bool:
+	var scene_tree: SceneTree = get_tree()
+	if scene_tree == null:
+		return false
+
+	var blockers: Array[Node] = scene_tree.get_nodes_in_group("ui_panels_block_movement")
+	for blocker in blockers:
+		if blocker == null or not is_instance_valid(blocker):
+			continue
+		if blocker is CanvasLayer:
+			if (blocker as CanvasLayer).visible:
+				return true
+			continue
+		if blocker is Control and (blocker as Control).is_visible_in_tree():
+			return true
+	return false
+
+
+func _is_interactive_ui_control_at_position(control: Control, screen_position: Vector2) -> bool:
+	if control == null:
+		return false
+	if not control.is_visible_in_tree():
+		return false
+	if control.mouse_filter == Control.MOUSE_FILTER_IGNORE:
+		return false
+
+	var global_rect: Rect2 = control.get_global_rect()
+	return global_rect.has_point(screen_position)
 
 
 func _set_pointer_held(value: bool, touch_index: int = -1) -> void:
