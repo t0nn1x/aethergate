@@ -112,6 +112,11 @@ Create tasks using `TaskCreate` with clear, actionable items:
   - autoload migration safety (`project.godot` update + temporary compatibility bridge)
   - composition-root injection tasks replacing runtime `get_nodes_in_group` scans in hot loops
   - solo-first multiplayer seams (`player_id`/ownership fields and authority-gated input/simulation)
+- For Godot UI/platform interaction work, add explicit manual validation tasks for desktop + mobile parity:
+  - tap/click selection and movement behavior parity (mouse + touch)
+  - export/runtime resource behavior (do not rely on editor-only discovery paths)
+  - platform lifecycle capability UX (for example unsupported quit actions hidden/disabled)
+  - startup display/background correctness on desktop (fullscreen policy, seam/gap checks)
 
 ### Step 6: Set Up Dependencies
 
