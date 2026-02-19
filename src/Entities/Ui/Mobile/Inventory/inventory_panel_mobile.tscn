@@ -1,10 +1,18 @@
-[gd_scene format=3 uid="uid://dh41sum2itpam"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://dtlym05dsas3r" path="res://src/Entities/Ui/Inventory/inventory_panel.gd" id="1"]
+[ext_resource type="Script" path="res://src/Entities/Ui/Mobile/Inventory/inventory_panel_mobile.gd" id="1"]
 
 [node name="InventoryPanel" type="CanvasLayer" unique_id=1365879153]
 layer = 24
 script = ExtResource("1")
+inventory_icon_size = 52.0
+inventory_count_font_size_mobile = 20
+slot_spacing = 10.0
+inventory_board_width_ratio = 0.96
+inventory_board_height_ratio = 0.78
+inventory_upward_offset_pixels = 170.0
+mobile_min_slot_size = 72.0
+mobile_max_slot_size = 156.0
 
 [node name="Root" type="Control" parent="." unique_id=742641488]
 layout_mode = 3

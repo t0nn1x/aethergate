@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://drifa22ukciwh"]
+[gd_scene format=3]
 
 [sub_resource type="GDScript" id="GDScript_ijoh7"]
 script/source = "class_name InventoryScreen
@@ -15,7 +15,7 @@ signal closed()
 @export var item_description_label_path: NodePath = ^\"Root/BookCenter/BookRoot/DetailsPanel/DetailsVBox/ItemDescriptionLabel\"
 @export var item_props_label_path: NodePath = ^\"Root/BookCenter/BookRoot/DetailsPanel/DetailsVBox/ItemPropsLabel\"
 
-@export var slot_widget_scene: PackedScene = preload(\"res://src/Entities/Ui/Inventory/inventory_slot_widget.tscn\")
+@export var slot_widget_scene: PackedScene = preload(\"res://src/Entities/Ui/Windows/Inventory/inventory_slot_widget.tscn\")
 @export_range(1, 60, 1) var slots_per_page: int = 20
 @export_range(1, 10, 1) var slot_columns: int = 4
 @export var page_selector_button_size: Vector2 = Vector2(32, 32)

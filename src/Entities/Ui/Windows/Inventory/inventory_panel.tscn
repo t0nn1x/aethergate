@@ -1,0 +1,288 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Ui/Windows/Inventory/inventory_panel.gd" id="1"]
+
+[node name="InventoryPanel" type="CanvasLayer" unique_id=1365879153]
+layer = 24
+script = ExtResource("1")
+
+[node name="Root" type="Control" parent="." unique_id=742641488]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Dimmer" type="ColorRect" parent="Root" unique_id=1309929586]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.08)
+
+[node name="ContentMargin" type="MarginContainer" parent="Root" unique_id=1071823063]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Center" type="CenterContainer" parent="Root/ContentMargin" unique_id=2029905370]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="OverlayVBox" type="VBoxContainer" parent="Root/ContentMargin/Center" unique_id=1047411997]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BoardsRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox" unique_id=410814307]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="InventoryBoard" type="Control" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow" unique_id=1113526016]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 560)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="InventoryBackground" type="Panel" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard" unique_id=101747077]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InventoryMargin" type="MarginContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard" unique_id=2083305434]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="InventoryVBox" type="VBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin" unique_id=2133510848]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="SkillsSection" type="Panel" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox" unique_id=138912459]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="SkillsMargin" type="MarginContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection" unique_id=182665043]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="SkillsVBox" type="VBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection/SkillsMargin" unique_id=127554893]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="SkillsTitle" type="Label" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection/SkillsMargin/SkillsVBox" unique_id=447282433]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skills"
+horizontal_alignment = 1
+
+[node name="SkillsContent" type="Control" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection/SkillsMargin/SkillsVBox" unique_id=1777800527]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="InventorySection" type="Panel" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox" unique_id=753996361]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+size_flags_vertical = 2
+mouse_filter = 2
+
+[node name="InventorySectionMargin" type="MarginContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/InventorySection" unique_id=1275312524]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="InventorySectionVBox" type="VBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/InventorySection/InventorySectionMargin" unique_id=5007412]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="InventoryTitle" type="Label" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/InventorySection/InventorySectionMargin/InventorySectionVBox" unique_id=859958470]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="InventoryGridCenter" type="CenterContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/InventorySection/InventorySectionMargin/InventorySectionVBox" unique_id=1740201691]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/InventorySection/InventorySectionMargin/InventorySectionVBox/InventoryGridCenter" unique_id=579952803]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="CharacterBoard" type="Control" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow" unique_id=1661018732]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 560)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CharacterBackground" type="Panel" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard" unique_id=278102734]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CharacterMargin" type="MarginContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard" unique_id=516971329]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="CharacterVBox" type="VBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin" unique_id=1781268976]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="CharacterTitle" type="Label" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox" unique_id=544017689]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Character"
+horizontal_alignment = 1
+
+[node name="CharacterSlots" type="VBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox" unique_id=1469929644]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="TopRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=1203331734]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="LeftShoulderSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/TopRow" unique_id=2108894079]
+custom_minimum_size = Vector2(50, 76)
+layout_mode = 2
+
+[node name="HeadSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/TopRow" unique_id=1615749002]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+
+[node name="RightShoulderSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/TopRow" unique_id=1861826260]
+custom_minimum_size = Vector2(50, 76)
+layout_mode = 2
+
+[node name="MidRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=2068880572]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="LeftHandSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/MidRow" unique_id=1872130597]
+custom_minimum_size = Vector2(70, 38)
+layout_mode = 2
+
+[node name="TorsoSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/MidRow" unique_id=1260840486]
+custom_minimum_size = Vector2(62, 118)
+layout_mode = 2
+
+[node name="RightHandSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/MidRow" unique_id=12929555]
+custom_minimum_size = Vector2(70, 38)
+layout_mode = 2
+
+[node name="LowerRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=280988686]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="LeftBootSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/LowerRow" unique_id=489591275]
+custom_minimum_size = Vector2(42, 78)
+layout_mode = 2
+
+[node name="LegsSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/LowerRow" unique_id=894678324]
+custom_minimum_size = Vector2(54, 118)
+layout_mode = 2
+
+[node name="RightBootSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/LowerRow" unique_id=353330900]
+custom_minimum_size = Vector2(42, 78)
+layout_mode = 2
+
+[node name="BottomRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=1089145870]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="RingLeftSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/BottomRow" unique_id=1873786711]
+custom_minimum_size = Vector2(34, 70)
+layout_mode = 2
+
+[node name="RingRightSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/BottomRow" unique_id=1915800533]
+custom_minimum_size = Vector2(34, 70)
+layout_mode = 2
+
+[node name="RelicSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/BottomRow" unique_id=1823115339]
+custom_minimum_size = Vector2(56, 74)
+layout_mode = 2

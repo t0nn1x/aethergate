@@ -71,6 +71,7 @@ To fix this effectively, I need more context:
 - Runtime group-discovery in hot paths (`_process`/`_physics_process`) that should be replaced with injected dependencies
 - UI background composition traps: `TextureRect.STRETCH_TILE` combined with enlarged fit rects/material repeat causing unintended multi-row tiling
 - Mixed-size parallax layer sets (different source dimensions in one folder) that produce random zoom/crop framing across starts
+- Parallax seam traps on desktop (especially Windows): shader `fract` wrapping + disabled texture repeat and unsnapped fit bounds can expose 1px edges; align wrap/repeat strategy and use pixel-snapped bounds with slight overscan
 - Export/mobile resource discovery traps: runtime `DirAccess` listing under `res://` returning empty in packaged builds (prefer manifest or `ResourceLoader.exists()` probe fallback)
 - UI/audio architecture traps: duplicating player setup/loading logic in multiple scenes instead of using a centralized autoload service with pooled players
 - Platform capability traps (iOS quit): if the platform disallows lifecycle actions like programmatic app exit, do not keep a clickable UI action that can never succeed; hide/disable it and adjust focus/navigation

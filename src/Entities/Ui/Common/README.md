@@ -24,3 +24,15 @@ Reusable primitives for overlay/panel UI:
 2. Call `UiStyleApplier.apply_panel_style(...)` for reusable panel visuals.
 3. Call `UiStyleApplier.apply_label_style(...)` for consistent typography.
 
+## `ui_manager.gd`
+- Scene-local UI coordinator for platform variants.
+- Handles:
+  - selecting `Windows` / `MacOS` / `Mobile` HUD and inventory scenes,
+  - wiring HUD slot input (inventory slot),
+  - inventory panel open/close/toggle,
+  - binding player inventory component to the active inventory panel.
+
+### Usage
+1. Add `UiManager` as a node in the world scene.
+2. Call `initialize_ui()` from world `_ready()`.
+3. Delegate inventory input/panel interactions through `UiManager`.

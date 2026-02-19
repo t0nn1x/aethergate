@@ -6,8 +6,7 @@ extends Node2D
 
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
 @export var main_screen_path: NodePath = ^"MainScreen"
-@export var system_hud_path: NodePath = ^"SystemHud"
-@export var inventory_panel_path: NodePath = ^"InventoryPanel"
+@export var ui_manager_path: NodePath = ^"UiManager"
 @export var session_controller_path: NodePath = ^"OverworldSessionController"
 @export var default_local_player_id: int = 1
 
@@ -20,8 +19,7 @@ extends Node2D
 @onready var navigation_blocker_registry: NavigationBlockerRegistry = $NavigationBlockerRegistry
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 @onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
-@onready var system_hud: SystemHud = get_node_or_null(system_hud_path) as SystemHud
-@onready var inventory_panel: InventoryPanel = get_node_or_null(inventory_panel_path) as InventoryPanel
+@onready var ui_manager: Node = get_node_or_null(ui_manager_path)
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
 ## Backward-compatible local-player reference.
@@ -31,9 +29,10 @@ var _players_by_id: Dictionary = {}
 
 func _ready() -> void:
 	print("Overworld loaded")
+	if ui_manager:
+		ui_manager.initialize_ui()
 	_wire_stage_dependencies()
 	_wire_main_screen_signals()
-	_wire_hud_signals()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
@@ -45,10 +44,10 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event == null:
 		return
-	if main_screen and main_screen.visible:
+	if ui_manager and ui_manager.is_menu_visible():
 		return
 	if _is_desktop_platform() and event.is_action_pressed("ui_cancel"):
-		if _close_open_panels():
+		if ui_manager and ui_manager.close_open_panels():
 			get_viewport().set_input_as_handled()
 			return
 	if not event.is_action_pressed("inventory"):
@@ -115,13 +114,6 @@ func _wire_stage_dependencies() -> void:
 		_wire_local_player_dependencies(player)
 
 
-func _wire_hud_signals() -> void:
-	if system_hud == null:
-		return
-	if not system_hud.hud_slot_pressed.is_connected(_on_hud_slot_pressed):
-		system_hud.hud_slot_pressed.connect(_on_hud_slot_pressed)
-
-
 func _wire_main_screen_signals() -> void:
 	if main_screen == null:
 		if OS.is_debug_build():
@@ -152,20 +144,13 @@ func _on_main_screen_quit_requested() -> void:
 	print("[FIX][Quit] quit_requested signal received by Overworld")
 
 
-func _on_hud_slot_pressed(action_id: StringName, slot_index: int) -> void:
-	if main_screen and main_screen.visible:
-		return
-	if action_id == StringName("inventory") or slot_index == 3:
-		_toggle_inventory_panel()
-
-
 func _toggle_inventory_panel() -> void:
-	if inventory_panel == null:
+	if ui_manager == null:
 		return
 	var local_player: Player = get_local_player()
 	if local_player:
 		_wire_inventory_panel_dependency(local_player)
-	inventory_panel.toggle_inventory()
+	ui_manager.toggle_inventory()
 
 
 func _wire_local_player_dependencies(player_instance: Player) -> void:
@@ -189,19 +174,21 @@ func _wire_shared_player_dependencies(player_instance: Player) -> void:
 
 
 func _wire_inventory_panel_dependency(player_instance: Player) -> void:
-	if inventory_panel == null or player_instance == null:
+	if ui_manager == null or player_instance == null:
 		return
 	var inventory_component: Node = player_instance.get_node_or_null("PlayerInventoryComponent")
-	if inventory_panel.has_method("set_inventory_component"):
-		inventory_panel.call("set_inventory_component", inventory_component)
-
-
-func _close_open_panels() -> bool:
-	if inventory_panel and inventory_panel.visible:
-		inventory_panel.set_inventory_open(false)
-		return true
-	return false
+	ui_manager.bind_inventory_component(inventory_component)
 
 
 func _is_desktop_platform() -> bool:
-	return not (OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios"))
+	return not _is_mobile_platform()
+
+
+func _is_mobile_platform() -> bool:
+	return (
+		OS.has_feature("mobile")
+		or OS.has_feature("android")
+		or OS.has_feature("ios")
+		or OS.has_feature("web_android")
+		or OS.has_feature("web_ios")
+	)

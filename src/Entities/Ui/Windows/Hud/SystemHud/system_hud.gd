@@ -164,8 +164,19 @@ func _apply_icon(slot_index: int) -> void:
 
 	var icon_size: float = floor(minf(button.custom_minimum_size.x, button.custom_minimum_size.y) * icon_fill_ratio)
 	icon_size = maxf(14.0, icon_size)
-	icon_node.custom_minimum_size = Vector2(icon_size, icon_size)
-	icon_node.position = (button.custom_minimum_size - icon_node.custom_minimum_size) * 0.5
+	var icon_rect_size: Vector2 = Vector2(icon_size, icon_size)
+	icon_node.custom_minimum_size = icon_rect_size
+	# Normalize icon rect geometry each frame so scene-authored offsets cannot drift per slot/platform.
+	icon_node.anchor_left = 0.0
+	icon_node.anchor_top = 0.0
+	icon_node.anchor_right = 0.0
+	icon_node.anchor_bottom = 0.0
+	icon_node.offset_left = 0.0
+	icon_node.offset_top = 0.0
+	icon_node.offset_right = 0.0
+	icon_node.offset_bottom = 0.0
+	icon_node.position = ((button.custom_minimum_size - icon_rect_size) * 0.5).round()
+	icon_node.size = icon_rect_size
 
 
 func _build_slot_scales() -> Array[float]:

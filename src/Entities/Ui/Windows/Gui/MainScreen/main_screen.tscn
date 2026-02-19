@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://dyeygu07r7r67"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://crn6vdbrv4sr6" path="res://src/Entities/Ui/Gui/MainScreen/main_screen.gd" id="1_main"]
-[ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/Entities/Ui/Gui/MainScreen/background_controller.gd" id="2_background"]
-[ext_resource type="Theme" path="res://src/Entities/Ui/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
-[ext_resource type="Script" uid="uid://c2cmxuquaeqlv" path="res://src/Entities/Ui/Gui/MainScreen/nine_slice_menu_button.gd" id="4_button"]
+[ext_resource type="Script" path="res://src/Entities/Ui/Windows/Gui/MainScreen/main_screen.gd" id="1_main"]
+[ext_resource type="Script" path="res://src/Entities/Ui/Windows/Gui/MainScreen/background_controller.gd" id="2_background"]
+[ext_resource type="Theme" path="res://src/Entities/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
+[ext_resource type="Script" path="res://src/Entities/Ui/Windows/Gui/MainScreen/nine_slice_menu_button.gd" id="4_button"]
 
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
 layer = 30

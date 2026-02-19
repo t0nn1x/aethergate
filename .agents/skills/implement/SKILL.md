@@ -143,6 +143,7 @@ TaskUpdate(taskId, status: "in_progress")
 - If replacing group discovery with DI, verify composition-root wiring assigns dependencies before gameplay loops start
 - For solo-first gameplay work, keep multiplayer seams intact (identity fields + authority checks) instead of hardcoding single-player assumptions
 - For Godot UI backgrounds/parallax, verify runtime render is single-composition (no unintended row/column tiling) and that randomized folders do not mix incompatible layer dimensions
+- For scrolling parallax layers, ensure shader UV flow and texture repeat flags are intentionally paired, and full-screen fit bounds are pixel-snapped with slight overscan to prevent 1px seam artifacts (especially on Windows)
 - For mobile/export targets, avoid relying solely on `DirAccess` listing for `res://` assets; ensure a manifest or `ResourceLoader.exists()` fallback is implemented
 - After folder/path refactors, verify no stale path prefixes remain (scan `src` + `project.godot`) and confirm moved scene/script references load without stale UID/path lookups
 - For reusable audio work, prefer a centralized autoload/service (pooled SFX + music control) over scene-local duplicated audio setup blocks

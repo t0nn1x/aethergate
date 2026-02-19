@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://lwjohwk58rlm"]
+[gd_scene format=3]
 
-[ext_resource type="Texture2D" uid="uid://ep1pfcrg73i8" path="res://src/Entities/Ui/Assets/Gui-Hud/Panels/Panels/F_UI_Panel_E.png" id="2"]
+[ext_resource type="Texture2D" path="res://src/Entities/Ui/Assets/Gui-Hud/Panels/Panels/F_UI_Panel_E.png" id="2"]
 
 [sub_resource type="GDScript" id="GDScript_prmfi"]
 script/source = "class_name InventorySlotWidget

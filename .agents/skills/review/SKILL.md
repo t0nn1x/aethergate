@@ -81,6 +81,7 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] No `get_nodes_in_group` polling in hot runtime paths where composition-root injection is expected
 - [ ] Solo-first code keeps multiplayer seams (identity fields + authority checks) and does not bake in single-player-only assumptions
 - [ ] `TextureRect` stretch/repeat settings match intent (avoid accidental tiling from `STRETCH_TILE` + expanded rects unless explicitly desired)
+- [ ] Scrolling parallax layers avoid seam-prone wrap/repeat mismatches (`fract` UV wrapping with repeat disabled) and use pixel-snapped fit bounds with slight overscan where full-screen coverage is required
 - [ ] Parallax/background folders either enforce same-sized layer images or use explicit canonical-size filtering before assignment
 - [ ] Mobile/export resource loading does not rely only on `DirAccess` listing under `res://` (manifest or `ResourceLoader.exists()` fallback is present)
 - [ ] Audio responsibilities are centralized (autoload/service) instead of duplicated per UI scene; SFX playback uses pooling/reuse patterns

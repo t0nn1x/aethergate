@@ -1,0 +1,174 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Ui/Windows/Hud/SystemHud/system_hud.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Assets/Icons/Dwarf loot pack/PNG/Transperent/Icon3.png" id="3_5hucw"]
+[ext_resource type="Texture2D" path="res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png" id="3_pc3km"]
+
+[node name="SystemHud" type="CanvasLayer" unique_id=2010540959]
+layer = 20
+script = ExtResource("1")
+
+[node name="Root" type="Control" parent="." unique_id=1409884506]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SafeAreaMargin" type="MarginContainer" parent="Root" unique_id=1749735793]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 26
+
+[node name="BottomAlign" type="VBoxContainer" parent="Root/SafeAreaMargin" unique_id=2098914696]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Spacer" type="Control" parent="Root/SafeAreaMargin/BottomAlign" unique_id=1955543959]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="SlotRow" type="HBoxContainer" parent="Root/SafeAreaMargin/BottomAlign" unique_id=1873244620]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Slot1" type="TextureButton" parent="Root/SafeAreaMargin/BottomAlign/SlotRow" unique_id=1996567614]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_pc3km")
+texture_pressed = ExtResource("3_pc3km")
+texture_hover = ExtResource("3_pc3km")
+texture_disabled = ExtResource("3_pc3km")
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="Root/SafeAreaMargin/BottomAlign/SlotRow/Slot1" unique_id=1755774961]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot2" type="TextureButton" parent="Root/SafeAreaMargin/BottomAlign/SlotRow" unique_id=1378478399]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_pc3km")
+texture_pressed = ExtResource("3_pc3km")
+texture_hover = ExtResource("3_pc3km")
+texture_disabled = ExtResource("3_pc3km")
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="Root/SafeAreaMargin/BottomAlign/SlotRow/Slot2" unique_id=1141098442]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot3" type="TextureButton" parent="Root/SafeAreaMargin/BottomAlign/SlotRow" unique_id=540416467]
+custom_minimum_size = Vector2(100.8, 100.8)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_pc3km")
+texture_pressed = ExtResource("3_pc3km")
+texture_hover = ExtResource("3_pc3km")
+texture_disabled = ExtResource("3_pc3km")
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="Root/SafeAreaMargin/BottomAlign/SlotRow/Slot3" unique_id=1283564596]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot4" type="TextureButton" parent="Root/SafeAreaMargin/BottomAlign/SlotRow" unique_id=707373298]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_pc3km")
+texture_pressed = ExtResource("3_pc3km")
+texture_hover = ExtResource("3_pc3km")
+texture_disabled = ExtResource("3_pc3km")
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="Root/SafeAreaMargin/BottomAlign/SlotRow/Slot4" unique_id=1227639048]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_5hucw")
+stretch_mode = 4
+
+[node name="Slot5" type="TextureButton" parent="Root/SafeAreaMargin/BottomAlign/SlotRow" unique_id=1560282097]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_pc3km")
+texture_pressed = ExtResource("3_pc3km")
+texture_hover = ExtResource("3_pc3km")
+texture_disabled = ExtResource("3_pc3km")
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="Root/SafeAreaMargin/BottomAlign/SlotRow/Slot5" unique_id=2087858876]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
