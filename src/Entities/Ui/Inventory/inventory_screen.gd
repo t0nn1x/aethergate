@@ -101,6 +101,10 @@ func close_inventory() -> void:
 	closed.emit()
 
 
+func is_open() -> bool:
+	return _root != null and _root.visible
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
 		toggle_inventory()

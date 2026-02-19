@@ -7,6 +7,7 @@ extends Node2D
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
 @export var main_screen_path: NodePath = ^"MainScreen"
 @export var inventory_screen_path: NodePath = ^"InventoryScreen"
+@export var creature_action_hud_path: NodePath = ^"CreatureActionHud"
 @export var session_controller_path: NodePath = ^"OverworldSessionController"
 @export var default_local_player_id: int = 1
 
@@ -20,17 +21,20 @@ extends Node2D
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 @onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
 @onready var inventory_screen: CanvasLayer = get_node_or_null(inventory_screen_path) as CanvasLayer
+@onready var creature_action_hud: CreatureActionHud = get_node_or_null(creature_action_hud_path) as CreatureActionHud
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
 ## Backward-compatible local-player reference.
 var player: Player = null
 var _players_by_id: Dictionary = {}
+var _selected_creature: Creature = null
 
 
 func _ready() -> void:
 	print("Overworld loaded")
 	_wire_stage_dependencies()
 	_wire_main_screen_signals()
+	_wire_creature_interaction_signals()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
@@ -120,12 +124,14 @@ func _start_session_if_menu_is_missing() -> void:
 
 
 func _on_main_screen_play_pressed() -> void:
+	_clear_selected_creature()
 	print("[Overworld] play_started")
 	if session_controller:
 		session_controller.start_session()
 
 
 func _on_main_screen_settings_requested() -> void:
+	_clear_selected_creature()
 	print("[Overworld] settings_opened")
 
 
@@ -164,3 +170,160 @@ func _wire_inventory_dependencies(player_instance: Player) -> void:
 
 	if inventory_screen.has_method("set_inventory_component"):
 		inventory_screen.call("set_inventory_component", inventory_component)
+
+
+func _wire_creature_interaction_signals() -> void:
+	var event_source: Node = _get_creature_event_source()
+	if event_source:
+		var selected_callable: Callable = Callable(self, "_on_creature_selected")
+		var deselected_callable: Callable = Callable(self, "_on_creature_deselected")
+		if event_source.has_signal("creature_selected") and not event_source.is_connected("creature_selected", selected_callable):
+			event_source.connect("creature_selected", selected_callable)
+		if event_source.has_signal("creature_deselected") and not event_source.is_connected("creature_deselected", deselected_callable):
+			event_source.connect("creature_deselected", deselected_callable)
+
+	if creature_action_hud and not creature_action_hud.fight_pressed.is_connected(_on_creature_action_hud_fight_pressed):
+		creature_action_hud.fight_pressed.connect(_on_creature_action_hud_fight_pressed)
+
+	if creature_spawner and not creature_spawner.creature_despawned.is_connected(_on_creature_despawned):
+		creature_spawner.creature_despawned.connect(_on_creature_despawned)
+
+	if inventory_screen and inventory_screen.has_signal("opened"):
+		var opened_callable: Callable = Callable(self, "_on_inventory_opened")
+		if not inventory_screen.is_connected("opened", opened_callable):
+			inventory_screen.connect("opened", opened_callable)
+
+	if inventory_screen and inventory_screen.has_signal("closed"):
+		var closed_callable: Callable = Callable(self, "_on_inventory_closed")
+		if not inventory_screen.is_connected("closed", closed_callable):
+			inventory_screen.connect("closed", closed_callable)
+
+
+func _get_creature_event_source() -> Node:
+	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
+	if creature_events != null:
+		return creature_events
+	return get_node_or_null("/root/EventBus")
+
+
+func _on_creature_selected(creature_node: Node) -> void:
+	var target_creature: Creature = creature_node as Creature
+	if target_creature == null:
+		_clear_selected_creature()
+		return
+	if target_creature.is_in_group("player"):
+		_clear_selected_creature()
+		return
+	if not is_instance_valid(target_creature):
+		_clear_selected_creature()
+		return
+	if target_creature.is_queued_for_deletion():
+		_clear_selected_creature()
+		return
+	if not target_creature.is_alive:
+		_clear_selected_creature()
+		return
+	_set_selected_creature(target_creature)
+
+
+func _on_creature_deselected() -> void:
+	_clear_selected_creature()
+
+
+func _set_selected_creature(creature_node: Creature) -> void:
+	if creature_node == null:
+		_clear_selected_creature()
+		return
+
+	if _selected_creature != creature_node:
+		_disconnect_selected_creature_signals()
+		_selected_creature = creature_node
+		_connect_selected_creature_signals()
+
+	if _can_show_creature_action_hud() and creature_action_hud:
+		creature_action_hud.show_for_creature(_selected_creature)
+
+
+func _clear_selected_creature() -> void:
+	_disconnect_selected_creature_signals()
+	_selected_creature = null
+	if creature_action_hud:
+		creature_action_hud.hide_action()
+
+
+func _can_show_creature_action_hud() -> bool:
+	if creature_action_hud == null:
+		return false
+	if main_screen and main_screen.visible:
+		return false
+	if inventory_screen and inventory_screen.has_method("is_open"):
+		if bool(inventory_screen.call("is_open")):
+			return false
+	return true
+
+
+func _connect_selected_creature_signals() -> void:
+	if _selected_creature == null:
+		return
+	if not _selected_creature.died.is_connected(_on_selected_creature_died):
+		_selected_creature.died.connect(_on_selected_creature_died)
+	var tree_exited_callable: Callable = Callable(self, "_on_selected_creature_tree_exited")
+	if not _selected_creature.is_connected("tree_exited", tree_exited_callable):
+		_selected_creature.connect("tree_exited", tree_exited_callable)
+
+
+func _disconnect_selected_creature_signals() -> void:
+	if _selected_creature == null:
+		return
+	if is_instance_valid(_selected_creature):
+		if _selected_creature.died.is_connected(_on_selected_creature_died):
+			_selected_creature.died.disconnect(_on_selected_creature_died)
+		var tree_exited_callable: Callable = Callable(self, "_on_selected_creature_tree_exited")
+		if _selected_creature.is_connected("tree_exited", tree_exited_callable):
+			_selected_creature.disconnect("tree_exited", tree_exited_callable)
+
+
+func _on_selected_creature_died() -> void:
+	_clear_selected_creature()
+
+
+func _on_selected_creature_tree_exited() -> void:
+	_clear_selected_creature()
+
+
+func _on_creature_despawned(creature_node: Creature, _chunk_coord: Vector2i) -> void:
+	if creature_node == null:
+		return
+	if creature_node != _selected_creature:
+		return
+	_clear_selected_creature()
+
+
+func _on_creature_action_hud_fight_pressed(creature_node: Creature) -> void:
+	if creature_node == null or not is_instance_valid(creature_node):
+		_clear_selected_creature()
+		return
+	_emit_creature_fight_requested_event(creature_node)
+
+
+func _emit_creature_fight_requested_event(creature_node: Creature) -> void:
+	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
+	if creature_events and creature_events.has_signal("creature_fight_requested"):
+		creature_events.emit_signal("creature_fight_requested", creature_node)
+		return
+	var event_bus: Node = get_node_or_null("/root/EventBus")
+	if event_bus and event_bus.has_signal("creature_fight_requested"):
+		event_bus.emit_signal("creature_fight_requested", creature_node)
+
+
+func _on_inventory_opened() -> void:
+	_clear_selected_creature()
+
+
+func _on_inventory_closed() -> void:
+	if _selected_creature == null:
+		return
+	if not _can_show_creature_action_hud():
+		return
+	if creature_action_hud:
+		creature_action_hud.show_for_creature(_selected_creature)
