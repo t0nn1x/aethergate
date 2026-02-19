@@ -10,6 +10,9 @@ signal skill_used(skill_id: String, caster: Node)
 # Legacy creature events
 signal creature_spawned(creature: Node)
 signal creature_died(creature: Node, creature_data: Resource)
+signal creature_selected(creature: Node)
+signal creature_deselected()
+signal creature_fight_requested(creature: Node)
 
 # Legacy world events
 signal location_entered(location_name: String)
@@ -81,10 +84,19 @@ func _bridge_creature_events() -> void:
 
 	var spawned_callable: Callable = Callable(self, "_on_creature_spawned")
 	var died_callable: Callable = Callable(self, "_on_creature_died")
+	var selected_callable: Callable = Callable(self, "_on_creature_selected")
+	var deselected_callable: Callable = Callable(self, "_on_creature_deselected")
+	var fight_requested_callable: Callable = Callable(self, "_on_creature_fight_requested")
 	if creature_events.has_signal("creature_spawned") and not creature_events.is_connected("creature_spawned", spawned_callable):
 		creature_events.connect("creature_spawned", spawned_callable)
 	if creature_events.has_signal("creature_died") and not creature_events.is_connected("creature_died", died_callable):
 		creature_events.connect("creature_died", died_callable)
+	if creature_events.has_signal("creature_selected") and not creature_events.is_connected("creature_selected", selected_callable):
+		creature_events.connect("creature_selected", selected_callable)
+	if creature_events.has_signal("creature_deselected") and not creature_events.is_connected("creature_deselected", deselected_callable):
+		creature_events.connect("creature_deselected", deselected_callable)
+	if creature_events.has_signal("creature_fight_requested") and not creature_events.is_connected("creature_fight_requested", fight_requested_callable):
+		creature_events.connect("creature_fight_requested", fight_requested_callable)
 
 
 func _on_player_spawned(player: Node) -> void:
@@ -121,3 +133,15 @@ func _on_creature_spawned(creature: Node) -> void:
 
 func _on_creature_died(creature: Node, creature_data: Resource) -> void:
 	creature_died.emit(creature, creature_data)
+
+
+func _on_creature_selected(creature: Node) -> void:
+	creature_selected.emit(creature)
+
+
+func _on_creature_deselected() -> void:
+	creature_deselected.emit()
+
+
+func _on_creature_fight_requested(creature: Node) -> void:
+	creature_fight_requested.emit(creature)

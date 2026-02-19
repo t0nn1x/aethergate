@@ -12,6 +12,9 @@ func handle_button(owner: PlayerInputComponent, mouse_event: InputEventMouseButt
 		if owner._is_pointer_over_ui(owner._last_pointer_screen_position):
 			owner._set_pointer_held(false)
 			return
+		if owner._try_select_creature_at_screen_position(owner._last_pointer_screen_position):
+			owner._set_pointer_held(false)
+			return
 		owner._set_pointer_held(true, -1)
 		owner._queue_move_target_world(owner._get_mouse_world_position(), owner._last_pointer_screen_position, false)
 		return
