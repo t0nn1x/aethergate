@@ -71,6 +71,8 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] No stale legacy path prefixes remain after refactors (for example `res://src/UI/...` vs `res://src/Entities/Ui/...`) across scenes, scripts, and `project.godot`
 - [ ] Input/navigation behavior still works (tap-to-move, hold retarget, blocked target resolution)
 - [ ] If custom desktop cursors are used, hotspot alignment matches world-hit intent and cursor state does not regress after hover/click transitions
+- [ ] Mouse input conversion uses consistent coordinate space (no window-space `InputEventMouse*.position` mixed with viewport/global-mouse paths in same interaction flow)
+- [ ] Newly used Godot engine methods in input/camera code exist in target engine version (no non-existent API calls in runtime paths)
 - [ ] New autoload channels are registered in `project.godot` and not referenced through undeclared compile-time singleton names
 - [ ] Event-bus migrations preserve compatibility (legacy bridge/fallback exists while callers are being moved)
 - [ ] No `get_nodes_in_group` polling in hot runtime paths where composition-root injection is expected

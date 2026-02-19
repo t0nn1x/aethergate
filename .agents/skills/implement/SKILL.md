@@ -152,6 +152,8 @@ TaskUpdate(taskId, status: "in_progress")
 - For overworld creature spawn/wander behavior, treat zone containment and blocker polygons as separate constraints: route sampled targets through blocker policies and keep blocker-registry resolution resilient to scene init order (deferred/lazy resolve)
 - For large file-tree refactors/moves, run git index-mutating commands (`git mv`, bulk `git add`) sequentially; avoid parallel execution that can trigger `.git/index.lock` contention
 - For dynamically-instanced Godot UI widgets, avoid running configuration that depends on `@onready` children before tree entry; add child first and defer configure when needed
+- For Godot mouse-driven interactions, keep coordinate conversions consistent end-to-end (avoid mixing raw `InputEventMouse*.position` with viewport/global mouse positions in one click pipeline)
+- For input/camera refactors, verify every newly used Godot method exists in the project engine version before wiring it into runtime paths
 
 **3.5: Mark as completed**
 ```
