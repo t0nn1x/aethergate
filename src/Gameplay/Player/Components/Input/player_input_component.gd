@@ -146,9 +146,6 @@ func _sync_pointer_position_for_hold_retarget() -> void:
 
 
 func _queue_hold_retarget_target() -> void:
-	if _active_touch_index == -1:
-		_queue_move_target_world(_get_mouse_world_position(), _last_pointer_screen_position, true)
-		return
 	_queue_move_target(_last_pointer_screen_position, true)
 
 
@@ -196,19 +193,6 @@ func _screen_to_world(screen_position: Vector2) -> Vector2:
 	if viewport == null:
 		return creature.global_position
 	return viewport.get_canvas_transform().affine_inverse() * screen_position
-
-
-func _get_mouse_viewport_position(fallback_position: Vector2) -> Vector2:
-	var viewport: Viewport = creature.get_viewport()
-	if viewport == null:
-		return fallback_position
-	return viewport.get_mouse_position()
-
-
-func _get_mouse_world_position() -> Vector2:
-	if creature == null:
-		return Vector2.ZERO
-	return creature.get_global_mouse_position()
 
 
 func _find_creature_at_screen_position(screen_position: Vector2) -> Creature:
