@@ -79,6 +79,8 @@ To fix this effectively, I need more context:
 - Godot `@tool` placeholder traps: script-backed resources loaded in editor can be placeholders; avoid relying on method calls from tool scripts (`resource.call(...)`) and prefer exported-property reads where possible
 - Inspector performance traps: avoid eager loading large preview sets inside `_get_property_list`/`_get`; lazy-load only selected preview assets and cache lightweight metadata
 - Spawn/wander sampling traps: zone-randomized world positions can still land inside navigation blocker polygons; enforce blocker-policy rejection/resolution and avoid early `_ready` null wiring by resolving blocker registries deferred/lazily
+- Mouse coordinate-space traps: mixing `InputEventMouse*.position` (window/screen space) with `Viewport.get_mouse_position()` / `get_global_mouse_position()` paths can introduce stable click offsets; keep one coordinate space per interaction path
+- Godot API-surface traps: avoid introducing unverified engine methods in hot input/camera paths (for example non-existent `Camera2D` conversion helpers); confirm method availability for Godot 4.x before wiring
 
 ### Step 3: Implement the Fix
 

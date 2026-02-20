@@ -43,6 +43,9 @@ func handle_touch(
 	if owner._is_pointer_held and touch_event.index == owner._active_touch_index:
 		owner._set_pointer_held(false)
 	if should_queue_tap:
+		if owner._try_select_creature_at_screen_position(touch_event.position):
+			_clear_touch_tap_candidate(touch_event.index)
+			return
 		owner._queue_move_target(touch_event.position, false)
 	_clear_touch_tap_candidate(touch_event.index)
 

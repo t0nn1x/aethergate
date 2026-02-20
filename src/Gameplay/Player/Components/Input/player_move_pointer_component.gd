@@ -4,6 +4,7 @@ extends Node2D
 ## Click/tap indicator rendered from a sprite strip animation.
 
 const POINTER_ANIMATION_NAME := &"pointer"
+const DESKTOP_FEATURES: PackedStringArray = ["windows", "macos", "linuxbsd"]
 
 @export_file("*.png") var pointer_strip_path: String = "res://Assets/VFX/move_pointer_strip.png"
 @export var frame_size: Vector2i = Vector2i(32, 32)
@@ -11,6 +12,8 @@ const POINTER_ANIMATION_NAME := &"pointer"
 @export var animation_fps: float = 7.0
 @export var sprite_scale: Vector2 = Vector2(0.7, 0.7)
 @export var sprite_offset: Vector2 = Vector2.ZERO
+@export var apply_desktop_click_anchor_offset: bool = true
+@export var desktop_click_anchor_offset_world: Vector2 = Vector2(-3.0, -21.5)
 
 var creature: Creature
 var input_component: PlayerInputComponent
@@ -54,7 +57,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_move_target_queued(world_position: Vector2, _from_hold: bool) -> void:
-	global_position = world_position
+	global_position = world_position + _get_click_anchor_offset_world()
 	_has_valid_pointer_position = true
 
 	if _is_pointer_held:
@@ -150,3 +153,12 @@ func _load_pointer_texture() -> Texture2D:
 			return null
 
 	return ImageTexture.create_from_image(image)
+
+
+func _get_click_anchor_offset_world() -> Vector2:
+	if not apply_desktop_click_anchor_offset:
+		return Vector2.ZERO
+	for feature in DESKTOP_FEATURES:
+		if OS.has_feature(feature):
+			return desktop_click_anchor_offset_world
+	return Vector2.ZERO

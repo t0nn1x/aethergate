@@ -69,6 +69,22 @@ Legacy marker fallback is still supported:
 - Combat AI remains disabled (no chase/attack state logic).
 - Creature events are emitted via `CreatureEvents` autoload with legacy bridge through `EventBus`.
 
+## 4.1 Creature Tap Interaction (Overworld)
+
+- Runtime spawned creatures are tappable/clickable from player input.
+- Input selection is emitted through `CreatureEvents.creature_selected`.
+- Tapping/clicking empty world emits `CreatureEvents.creature_deselected`.
+- A contextual `Fight` button is shown through `res://src/Entities/Ui/Hud/creature_action_hud.tscn` when a creature is selected.
+- Pressing `Fight` emits `CreatureEvents.creature_fight_requested` (placeholder action path only; combat is still not implemented here).
+- Creature taps take priority over move requests, so selecting a creature does not queue click-to-move on that same input.
+- Selection is auto-cleared when the selected creature dies, exits tree, despawns with chunk unload, or when inventory is opened.
+
+Input config knobs:
+- `res://src/Gameplay/Player/Config/player_input_config.tres`
+  - `enable_creature_tap_selection`
+  - `creature_tap_collision_mask`
+  - `creature_tap_max_results`
+
 ## 5. Validation Commands
 
 Catalog validation:
@@ -88,6 +104,15 @@ Spawn-zone helper validation:
 ```bash
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . --script res://src/Entities/Creatures/Tests/run_creature_spawn_zone_test.gd
 ```
+
+Manual interaction validation (desktop + mobile):
+1. Start overworld session and ensure creatures are visible.
+2. Click/tap a creature -> `Fight` button appears.
+3. Click/tap empty ground -> `Fight` button hides and player move still works.
+4. Click/tap a creature -> player should not move on that same selection input.
+5. Open inventory (`inventory` action), confirm action button hides.
+6. Select creature, then unload/despawn chunk (or let creature die), confirm action button auto-hides.
+7. On mobile/touch, verify tap-select still works without breaking hold-drag movement and pinch zoom.
 
 ## Troubleshooting
 

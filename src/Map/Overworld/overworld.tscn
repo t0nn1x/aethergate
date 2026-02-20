@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://src/Entities/Ui/Windows/Hud/SystemHud/system_hud.tscn" id="11_system_hud"]
 [ext_resource type="PackedScene" path="res://src/Entities/Ui/Windows/Inventory/inventory_panel.tscn" id="12_inventory_panel"]
 [ext_resource type="Script" path="res://src/Entities/Ui/Common/ui_manager.gd" id="13_ui_manager"]
+[ext_resource type="PackedScene" path="res://src/Entities/Ui/Hud/creature_action_hud.tscn" id="14_creature_action_hud"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -65,3 +66,4 @@ preview_all_in_editor = true
 [node name="MainScreen" parent="." unique_id=635295012 instance=ExtResource("8_main_screen")]
 [node name="SystemHud" parent="." unique_id=1538840215 instance=ExtResource("11_system_hud")]
 [node name="InventoryPanel" parent="." unique_id=1999082388 instance=ExtResource("12_inventory_panel")]
+[node name="CreatureActionHud" parent="." instance=ExtResource("14_creature_action_hud")]

@@ -160,6 +160,8 @@ TaskUpdate(taskId, status: "in_progress")
 - For drag UX, hide source slot visuals during active drag and restore from authoritative data on drag end/cancel (`NOTIFICATION_DRAG_END`)
 - For new/reworked overlay UI panels, prefer extending the shared `AdaptiveOverlayPanel` under `src/Entities/Ui/Common/Overlay` and keep safe-area/resize code centralized
 - For panel look-and-feel reuse, use shared style Resources under `src/Entities/Ui/Common/Styles` instead of duplicating style constants per panel script
+- For Godot mouse-driven interactions, keep coordinate conversions consistent end-to-end (avoid mixing raw `InputEventMouse*.position` with viewport/global mouse positions in one click pipeline)
+- For input/camera refactors, verify every newly used Godot method exists in the project engine version before wiring it into runtime paths
 
 **3.5: Mark as completed**
 ```

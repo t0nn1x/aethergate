@@ -3,6 +3,11 @@ extends Node
 
 ## Coordinates player move input and delegates move application to PlayerMoveRequestService.
 
+const FULL_PHYSICS_MASK: int = 2147483647
+const CREATURE_PRESS_FEEDBACK_SCRIPT: Script = preload(
+	"res://src/Entities/Creatures/Effects/creature_press_feedback.gd"
+)
+
 signal move_target_queued(world_position: Vector2, from_hold: bool)
 signal pointer_hold_changed(is_held: bool)
 
@@ -20,6 +25,11 @@ var creature: Creature
 @export var hold_retarget_min_distance: float = 8.0
 @export var reject_targets_inside_navigation_polygons: bool = true
 @export var disable_move_while_multitouch: bool = true
+@export var enable_creature_tap_selection: bool = true
+@export_flags_2d_physics var creature_tap_collision_mask: int = 3
+@export_range(1, 32, 1) var creature_tap_max_results: int = 8
+@export_range(1.0, 64.0, 1.0) var creature_tap_pick_radius: float = 12.0
+@export var consume_ground_tap_while_creature_selected: bool = true
 
 var _is_pointer_held: bool = false
 var _active_touch_index: int = -1
@@ -27,6 +37,7 @@ var _last_pointer_screen_position: Vector2 = Vector2.ZERO
 var _hold_retarget_timer: float = 0.0
 var _has_last_hold_target: bool = false
 var _last_hold_target_world: Vector2 = Vector2.ZERO
+var _selected_creature: Creature = null
 
 var _move_request_service: PlayerMoveRequestService
 var _platform_profile: GamePlatformProfile
@@ -34,6 +45,7 @@ var _allow_mouse_pointer_input: bool = true
 var _allow_touch_input: bool = true
 var _mouse_adapter: PlayerMouseInputAdapter = PlayerMouseInputAdapter.new()
 var _touch_adapter: PlayerTouchInputAdapter = PlayerTouchInputAdapter.new()
+var _creature_pick_shape: CircleShape2D = CircleShape2D.new()
 
 
 func _ready() -> void:
@@ -54,6 +66,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not _has_input_authority():
 		return
+
+	_refresh_local_creature_selection_state()
 	if _is_movement_blocked_by_ui():
 		if _is_pointer_held:
 			_set_pointer_held(false)
@@ -81,13 +95,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if not _allow_mouse_pointer_input:
 			return
-		_mouse_adapter.handle_button(self, event as InputEventMouseButton, click_move_action)
+		var mouse_button_event: InputEventMouseButton = event as InputEventMouseButton
+		_mouse_adapter.handle_button(self, mouse_button_event, click_move_action)
 		return
 
 	if event is InputEventMouseMotion:
 		if not _allow_mouse_pointer_input:
 			return
-		_mouse_adapter.handle_motion(self, event as InputEventMouseMotion)
+		var mouse_motion_event: InputEventMouseMotion = event as InputEventMouseMotion
+		_mouse_adapter.handle_motion(self, mouse_motion_event)
 		return
 
 	if event is InputEventScreenTouch:
@@ -113,6 +129,8 @@ func consume_move_target_request() -> Variant:
 
 
 func _should_process_hold_retarget() -> bool:
+	if consume_ground_tap_while_creature_selected and _selected_creature != null:
+		return false
 	if not _is_pointer_held:
 		return false
 	if not creature or not creature.is_alive:
@@ -136,15 +154,29 @@ func _sync_pointer_position_for_hold_retarget() -> void:
 
 
 func _queue_hold_retarget_target() -> void:
-	if _active_touch_index == -1:
-		_queue_move_target_world(_get_mouse_world_position(), _last_pointer_screen_position, true)
-		return
 	_queue_move_target(_last_pointer_screen_position, true)
 
 
 func _queue_move_target(screen_position: Vector2, from_hold: bool) -> void:
 	var world_position: Vector2 = _screen_to_world(screen_position)
 	_queue_move_target_world(world_position, screen_position, from_hold)
+
+
+func _try_select_creature_at_screen_position(screen_position: Vector2) -> bool:
+	if not enable_creature_tap_selection:
+		return false
+	if _is_pointer_over_ui(screen_position):
+		return false
+
+	var selected_creature: Creature = _find_creature_at_screen_position(screen_position)
+	if selected_creature == null:
+		if consume_ground_tap_while_creature_selected and _selected_creature != null:
+			_emit_creature_deselected_event()
+			return true
+		return false
+
+	_emit_creature_selected_event(selected_creature)
+	return true
 
 
 func _queue_move_target_world(world_position: Vector2, screen_position: Vector2, from_hold: bool) -> void:
@@ -171,17 +203,111 @@ func _screen_to_world(screen_position: Vector2) -> Vector2:
 	return viewport.get_canvas_transform().affine_inverse() * screen_position
 
 
-func _get_mouse_viewport_position(fallback_position: Vector2) -> Vector2:
-	var viewport: Viewport = creature.get_viewport()
-	if viewport == null:
-		return fallback_position
-	return viewport.get_mouse_position()
-
-
-func _get_mouse_world_position() -> Vector2:
+func _find_creature_at_screen_position(screen_position: Vector2) -> Creature:
 	if creature == null:
-		return Vector2.ZERO
-	return creature.get_global_mouse_position()
+		return null
+
+	var world_position: Vector2 = _screen_to_world(screen_position)
+	var world_2d: World2D = creature.get_world_2d()
+	if world_2d == null:
+		return null
+
+	var space_state: PhysicsDirectSpaceState2D = world_2d.direct_space_state
+	if space_state == null:
+		return null
+
+	_creature_pick_shape.radius = maxf(creature_tap_pick_radius, 1.0)
+
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = _creature_pick_shape
+	query.transform = Transform2D(0.0, world_position)
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	query.exclude = [creature.get_rid()]
+	var requested_mask: int = creature_tap_collision_mask
+	if requested_mask <= 0:
+		requested_mask = FULL_PHYSICS_MASK
+
+	query.collision_mask = requested_mask
+	var hits: Array[Dictionary] = _intersect_shape_with_limit(space_state, query)
+	if hits.is_empty() and requested_mask != FULL_PHYSICS_MASK:
+		query.collision_mask = FULL_PHYSICS_MASK
+		hits = _intersect_shape_with_limit(space_state, query)
+	var nearest: Creature = null
+	var nearest_distance_sq: float = INF
+	for hit in hits:
+		var collider: Node = hit.get("collider", null) as Node
+		var candidate: Creature = collider as Creature
+		if candidate == null:
+			continue
+		if candidate.is_in_group("player"):
+			continue
+		if not candidate.is_alive:
+			continue
+		if candidate.is_queued_for_deletion():
+			continue
+
+		var distance_sq: float = candidate.global_position.distance_squared_to(world_position)
+		if nearest == null or distance_sq < nearest_distance_sq:
+			nearest = candidate
+			nearest_distance_sq = distance_sq
+
+	return nearest
+
+
+func _intersect_shape_with_limit(
+	space_state: PhysicsDirectSpaceState2D,
+	query: PhysicsShapeQueryParameters2D
+) -> Array[Dictionary]:
+	return space_state.intersect_shape(
+		query,
+		maxi(creature_tap_max_results, 1)
+	)
+
+
+func _emit_creature_selected_event(selected_creature: Creature) -> void:
+	_selected_creature = selected_creature
+	_spawn_creature_press_feedback(selected_creature)
+
+	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
+	if creature_events and creature_events.has_signal("creature_selected"):
+		creature_events.emit_signal("creature_selected", selected_creature)
+		return
+
+	var event_bus: Node = get_node_or_null("/root/EventBus")
+	if event_bus and event_bus.has_signal("creature_selected"):
+		event_bus.emit_signal("creature_selected", selected_creature)
+
+
+func _emit_creature_deselected_event() -> void:
+	_selected_creature = null
+
+	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
+	if creature_events and creature_events.has_signal("creature_deselected"):
+		creature_events.emit_signal("creature_deselected")
+		return
+
+	var event_bus: Node = get_node_or_null("/root/EventBus")
+	if event_bus and event_bus.has_signal("creature_deselected"):
+		event_bus.emit_signal("creature_deselected")
+
+
+func _spawn_creature_press_feedback(target_creature: Creature) -> void:
+	if target_creature == null or not is_instance_valid(target_creature):
+		return
+	if CREATURE_PRESS_FEEDBACK_SCRIPT == null:
+		return
+
+	var feedback_node: Node2D = CREATURE_PRESS_FEEDBACK_SCRIPT.new() as Node2D
+	if feedback_node == null:
+		return
+
+	var parent_node: Node = target_creature.get_parent()
+	if parent_node == null:
+		return
+
+	parent_node.add_child(feedback_node)
+	feedback_node.global_position = target_creature.global_position
 
 
 func _is_pointer_over_ui(_screen_position: Vector2) -> bool:
@@ -253,6 +379,19 @@ func _sync_move_request_service_config() -> void:
 		_move_request_service.reject_targets_inside_navigation_polygons = reject_targets_inside_navigation_polygons
 
 
+func _refresh_local_creature_selection_state() -> void:
+	if _selected_creature == null:
+		return
+	if not is_instance_valid(_selected_creature):
+		_selected_creature = null
+		return
+	if _selected_creature.is_queued_for_deletion():
+		_selected_creature = null
+		return
+	if not _selected_creature.is_alive:
+		_selected_creature = null
+
+
 func _apply_input_config() -> void:
 	if input_config == null:
 		return
@@ -264,6 +403,11 @@ func _apply_input_config() -> void:
 	hold_retarget_min_distance = input_config.hold_retarget_min_distance
 	reject_targets_inside_navigation_polygons = input_config.reject_targets_inside_navigation_polygons
 	disable_move_while_multitouch = input_config.disable_move_while_multitouch
+	enable_creature_tap_selection = input_config.enable_creature_tap_selection
+	creature_tap_collision_mask = input_config.creature_tap_collision_mask
+	creature_tap_max_results = input_config.creature_tap_max_results
+	creature_tap_pick_radius = input_config.creature_tap_pick_radius
+	consume_ground_tap_while_creature_selected = input_config.consume_ground_tap_while_creature_selected
 
 
 func _apply_project_config() -> void:
