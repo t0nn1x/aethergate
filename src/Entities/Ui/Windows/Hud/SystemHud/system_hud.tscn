@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://de8fug3xtq2cf" path="res://src/Entities/Ui/Windows/Hud/SystemHud/system_hud.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://fem1fwl8q3qu" path="res://Assets/Icons/Dwarf loot pack/PNG/Transperent/Icon3.png" id="3_5hucw"]
-[ext_resource type="Texture2D" uid="uid://cfyfrr7vlf3r0" path="res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png" id="3_7qc2k"]
 [ext_resource type="Texture2D" uid="uid://duafcy84sgphq" path="res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png" id="3_pc3km"]
 [ext_resource type="Texture2D" uid="uid://bgho2uf8uy2ol" path="res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/skill_tree.png" id="4_set5a"]
 [ext_resource type="Texture2D" uid="uid://cfyfrr7vlf3r0" path="res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png" id="5_nuyrh"]
@@ -55,8 +54,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("3_pc3km")
-texture_pressed = ExtResource("3_7qc2k")
-texture_hover = ExtResource("3_7qc2k")
+texture_pressed = ExtResource("5_nuyrh")
+texture_hover = ExtResource("5_nuyrh")
 texture_disabled = ExtResource("3_pc3km")
 stretch_mode = 5
 
@@ -67,10 +66,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -20.0
-offset_right = 23.0
-offset_bottom = 16.0
+offset_left = -14.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -85,7 +84,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("3_pc3km")
 texture_pressed = ExtResource("5_nuyrh")
-texture_hover = ExtResource("3_7qc2k")
+texture_hover = ExtResource("5_nuyrh")
 texture_disabled = ExtResource("3_pc3km")
 stretch_mode = 5
 
@@ -110,7 +109,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("3_pc3km")
 texture_pressed = ExtResource("5_nuyrh")
-texture_hover = ExtResource("3_7qc2k")
+texture_hover = ExtResource("5_nuyrh")
 texture_disabled = ExtResource("3_pc3km")
 stretch_mode = 5
 
@@ -134,8 +133,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("3_pc3km")
-texture_pressed = ExtResource("3_7qc2k")
-texture_hover = ExtResource("3_7qc2k")
+texture_pressed = ExtResource("5_nuyrh")
+texture_hover = ExtResource("5_nuyrh")
 texture_disabled = ExtResource("3_pc3km")
 stretch_mode = 5
 
@@ -162,7 +161,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("3_pc3km")
 texture_pressed = ExtResource("5_nuyrh")
-texture_hover = ExtResource("3_7qc2k")
+texture_hover = ExtResource("5_nuyrh")
 texture_disabled = ExtResource("3_pc3km")
 stretch_mode = 5
 
