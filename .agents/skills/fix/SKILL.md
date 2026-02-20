@@ -64,6 +64,7 @@ To fix this effectively, I need more context:
 - Panel dependency wiring order traps: panel opens before its inventory/component dependency is bound, producing empty UI despite valid data
 - Drag-preview composition traps: preview nodes including slot backgrounds can create misleading duplicate-slot visuals when only icon/count should be dragged
 - Drag lifecycle traps: source slot visuals not cleared during drag and not restored on cancel/drop cause double-visual artifacts; handle via drag start/end hooks
+- Scene-vs-script override traps: scene-authored control state resources (e.g. `texture_hover`) can be overwritten by runtime `_apply_*` methods in scripts; audit runtime assignments before editing `.tscn` only
 - Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
 - Stale path prefixes after folder refactors (for example `res://src/UI/...` still referenced after moving to `res://src/Entities/Ui/...`)
 - Godot cache/UID mismatch after moves (parse errors referencing deleted paths). Rebuild project cache (`.godot`) and reopen editor when source paths are already correct

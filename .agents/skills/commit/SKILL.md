@@ -97,5 +97,7 @@ If argument provided (e.g., `/commit auth`):
 - In asset-heavy move commits with many identical placeholders (like `.gitkeep`), verify final tree paths with `git status`/filesystem checks; rename pairings can look odd even when end-state is correct
 - For Godot directory refactors, ensure `.gd.uid` companions and `.tscn` `ext_resource path=...` updates are staged with the move; run a stale-prefix grep when paths are renamed
 - In Godot repos, watch for editor serialization churn (`.tscn`/`.tres` UID or property-order updates) and split/unstage unrelated noise from behavior changes
+- In dirty worktrees with legacy/orphan scenes (for example root-level old `.tscn` files), stage by explicit path list and verify active references (`rg` + `git diff --cached --name-only`) before commit
+- For UI state-icon changes, stage both script-side runtime assignments and scene/export resource updates together; scene-only changes can be no-op if runtime code overwrites properties
 - Before final commit, run `git diff --name-only` and confirm staged asset/style/resource files match the feature scope (especially after opening scenes in editor)
 - Add Co-Authored-By for pair programming if mentioned
