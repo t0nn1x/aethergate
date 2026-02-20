@@ -13,7 +13,8 @@ const DEFAULT_ACTION_IDS := [
 ]
 
 @export var slot_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png")
-@export var slot_hover_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover.png")
+@export var slot_hover_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png")
+@export var slot_active_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png")
 @export var slot_actions: PackedStringArray = PackedStringArray(DEFAULT_ACTION_IDS)
 @export var slot_icons: Array[Texture2D] = []
 @export_range(0.7, 2.0, 0.05) var side_slot_scale: float = 1.0
@@ -32,6 +33,7 @@ const DEFAULT_ACTION_IDS := [
 
 var _slot_buttons: Array[TextureButton] = []
 var _default_slot_icons: Array[Texture2D] = []
+var _active_slots: Array[bool] = []
 
 
 func _ready() -> void:
@@ -39,6 +41,7 @@ func _ready() -> void:
 	block_world_movement = false
 	super._ready()
 	_cache_slot_buttons()
+	_ensure_active_slot_state_size()
 	_sync_slot_icons_with_scene_defaults()
 	_cache_default_slot_icons()
 	_connect_slot_signals()
@@ -71,6 +74,14 @@ func get_default_slot_icon(slot_index: int) -> Texture2D:
 	if slot_index >= _default_slot_icons.size():
 		return get_slot_icon(slot_index)
 	return _default_slot_icons[slot_index]
+
+
+func set_slot_active(slot_index: int, is_active: bool) -> void:
+	if slot_index < 0 or slot_index >= SLOT_COUNT:
+		return
+	_ensure_active_slot_state_size()
+	_active_slots[slot_index] = is_active
+	_apply_slot_texture(slot_index)
 
 
 func _cache_default_slot_icons() -> void:
@@ -118,12 +129,34 @@ func _on_overlay_viewport_resized() -> void:
 
 
 func _apply_slot_textures() -> void:
+	_ensure_active_slot_state_size()
+	for slot_index in range(_slot_buttons.size()):
+		_apply_slot_texture(slot_index)
+
+
+func _apply_slot_texture(slot_index: int) -> void:
+	if slot_index < 0 or slot_index >= _slot_buttons.size():
+		return
+
 	var hover_texture: Texture2D = slot_hover_texture if slot_hover_texture != null else slot_texture
-	for button in _slot_buttons:
-		button.texture_normal = slot_texture
-		button.texture_pressed = slot_texture
-		button.texture_hover = hover_texture
-		button.texture_disabled = slot_texture
+	var active_texture: Texture2D = slot_active_texture if slot_active_texture != null else hover_texture
+	var is_active: bool = slot_index < _active_slots.size() and _active_slots[slot_index]
+	var normal_texture: Texture2D = active_texture if is_active else slot_texture
+	var hover_state_texture: Texture2D = active_texture if is_active else hover_texture
+	var button: TextureButton = _slot_buttons[slot_index]
+	button.texture_normal = normal_texture
+	button.texture_pressed = normal_texture
+	button.texture_hover = hover_state_texture
+	button.texture_disabled = slot_texture
+
+
+func _ensure_active_slot_state_size() -> void:
+	if _active_slots.size() >= SLOT_COUNT:
+		return
+	var previous_size: int = _active_slots.size()
+	_active_slots.resize(SLOT_COUNT)
+	for slot_index in range(previous_size, SLOT_COUNT):
+		_active_slots[slot_index] = false
 
 
 func _apply_responsive_layout() -> void:

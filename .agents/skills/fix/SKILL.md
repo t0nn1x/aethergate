@@ -82,6 +82,7 @@ To fix this effectively, I need more context:
 - Spawn/wander sampling traps: zone-randomized world positions can still land inside navigation blocker polygons; enforce blocker-policy rejection/resolution and avoid early `_ready` null wiring by resolving blocker registries deferred/lazily
 - Mouse coordinate-space traps: mixing `InputEventMouse*.position` (window/screen space) with `Viewport.get_mouse_position()` / `get_global_mouse_position()` paths can introduce stable click offsets; keep one coordinate space per interaction path
 - Godot API-surface traps: avoid introducing unverified engine methods in hot input/camera paths (for example non-existent `Camera2D` conversion helpers); confirm method availability for Godot 4.x before wiring
+- UI layout-coupling traps: using title/content spacing margins as inputs for panel background geometry/height calculations can unintentionally shrink or shift panels; keep decorative spacing decoupled from container-size math
 
 ### Step 3: Implement the Fix
 
@@ -124,6 +125,7 @@ try {
 - If touching `@tool` inspector code, verify inspector properties appear as expected and editor stays responsive (no repeated placeholder-call errors or heavy lag)
 - If touching overworld creature spawning/wander, verify sampled targets are rejected when inside blocker polygons and blocker-registry wiring is valid after scene startup order settles
 - If touching dynamically-instantiated UI widgets, verify configuration runs after node-tree entry when it depends on `@onready` children (for example `add_child` before configure or deferred configure)
+- If touching UI title/padding spacing, verify any dependent panel/background height calculations still use base paddings (not spacing offsets added only for visual alignment)
 
 ### Step 5: Suggest Test Coverage
 

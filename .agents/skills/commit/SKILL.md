@@ -99,5 +99,6 @@ If argument provided (e.g., `/commit auth`):
 - In Godot repos, watch for editor serialization churn (`.tscn`/`.tres` UID or property-order updates) and split/unstage unrelated noise from behavior changes
 - In dirty worktrees with legacy/orphan scenes (for example root-level old `.tscn` files), stage by explicit path list and verify active references (`rg` + `git diff --cached --name-only`) before commit
 - For UI state-icon changes, stage both script-side runtime assignments and scene/export resource updates together; scene-only changes can be no-op if runtime code overwrites properties
+- For Godot UI texture swaps, verify file-level adds/deletes are intentional (especially `button_*` assets) and confirm baseline hover/normal assets still exist when no replacement was intended
 - Before final commit, run `git diff --name-only` and confirm staged asset/style/resource files match the feature scope (especially after opening scenes in editor)
 - Add Co-Authored-By for pair programming if mentioned

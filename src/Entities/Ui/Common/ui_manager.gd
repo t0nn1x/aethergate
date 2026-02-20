@@ -171,6 +171,7 @@ func _sync_inventory_hud_slot_icon() -> void:
 	var panel_open: bool = _inventory_panel != null and _inventory_panel.visible
 	var next_icon: Texture2D = INVENTORY_CLOSE_ICON if panel_open else _inventory_default_hud_icon
 	_system_hud.set_slot_icon(inventory_hud_slot_index, next_icon)
+	_system_hud.set_slot_active(inventory_hud_slot_index, panel_open)
 
 
 func _on_inventory_panel_toggled(_is_open: bool) -> void:

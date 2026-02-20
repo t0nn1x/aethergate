@@ -17,6 +17,11 @@ static func apply_panel_style(panel: Panel, profile: UiPanelStyleProfile) -> voi
 	style.corner_radius_top_right = profile.corner_radius
 	style.corner_radius_bottom_right = profile.corner_radius
 	style.corner_radius_bottom_left = profile.corner_radius
+	style.anti_aliasing = profile.anti_aliasing
+	style.anti_aliasing_size = profile.anti_aliasing_size
+	style.shadow_color = profile.shadow_color
+	style.shadow_size = profile.shadow_size
+	style.shadow_offset = profile.shadow_offset
 	panel.add_theme_stylebox_override("panel", style)
 
 
@@ -48,4 +53,3 @@ static func resolve_font_size(
 	if is_portrait:
 		size += profile.portrait_font_size_delta
 	return maxi(8, size)
-

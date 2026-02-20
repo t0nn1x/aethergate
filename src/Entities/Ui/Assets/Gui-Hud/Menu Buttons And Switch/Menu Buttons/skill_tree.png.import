@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q34ygsrr223"
-path="res://.godot/imported/button_slot_hover.png-52e4a4f126c02eade2ed78794a069ff1.ctex"
+uid="uid://bgho2uf8uy2ol"
+path="res://.godot/imported/skill_tree.png-d1d76f2c7d6bb0f168f0e708aca36449.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover.png"
-dest_files=["res://.godot/imported/button_slot_hover.png-52e4a4f126c02eade2ed78794a069ff1.ctex"]
+source_file="res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/skill_tree.png"
+dest_files=["res://.godot/imported/skill_tree.png-d1d76f2c7d6bb0f168f0e708aca36449.ctex"]
 
 [params]
 

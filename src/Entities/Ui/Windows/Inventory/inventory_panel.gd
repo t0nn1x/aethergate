@@ -16,6 +16,7 @@ const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 
 @export var slot_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Panels/Slots/F_U_SlotA2.png")
 @export var circular_slot_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png")
+@export var title_plate_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Panels/Titles/F_UI_Title B.png")
 @export var board_style_profile: UiPanelStyleProfile = preload("res://src/Entities/Ui/Common/Styles/Profiles/inventory_board_style.tres")
 @export var section_style_profile: UiPanelStyleProfile = preload("res://src/Entities/Ui/Common/Styles/Profiles/inventory_section_style.tres")
 @export var title_style_profile: UiTextStyleProfile = preload("res://src/Entities/Ui/Common/Styles/Profiles/inventory_title_style.tres")
@@ -35,6 +36,7 @@ const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 @export_range(0.50, 1.00, 0.01) var drag_preview_icon_scale: float = 0.88
 @export_range(8, 36, 1) var inventory_count_font_size_desktop: int = 16
 @export_range(8, 36, 1) var inventory_count_font_size_mobile: int = 14
+@export_range(0.0, 40.0, 1.0) var inventory_character_title_top_spacing: float = 10.0
 @export var inventory_count_text_color: Color = Color(0.96, 0.97, 1.0, 1.0)
 @export var inventory_count_outline_color: Color = Color(0.0, 0.0, 0.0, 0.95)
 @export_range(0.0, 220.0, 1.0) var upward_offset_pixels: float = 78.0
@@ -303,6 +305,31 @@ func _apply_title_styles_for_layout(viewport_size: Vector2) -> void:
 	UiStyleApplier.apply_label_style(_skills_title, title_style_profile, is_mobile, is_portrait)
 	UiStyleApplier.apply_label_style(_inventory_title, title_style_profile, is_mobile, is_portrait)
 	UiStyleApplier.apply_label_style(_character_title, title_style_profile, is_mobile, is_portrait)
+	_apply_title_plate_style(_skills_title)
+	_apply_title_plate_style(_inventory_title)
+	_apply_title_plate_style(_character_title)
+
+
+func _apply_title_plate_style(title_label: Label) -> void:
+	if title_label == null:
+		return
+	if title_plate_texture == null:
+		return
+
+	var title_plate_style: StyleBoxTexture = StyleBoxTexture.new()
+	title_plate_style.texture = title_plate_texture
+	title_plate_style.texture_margin_left = 24.0
+	title_plate_style.texture_margin_top = 6.0
+	title_plate_style.texture_margin_right = 24.0
+	title_plate_style.texture_margin_bottom = 6.0
+	title_plate_style.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	title_plate_style.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	title_plate_style.content_margin_left = 18.0
+	title_plate_style.content_margin_top = 2.0
+	title_plate_style.content_margin_right = 18.0
+	title_plate_style.content_margin_bottom = 2.0
+	title_label.add_theme_stylebox_override("normal", title_plate_style)
+	title_label.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 
 func _apply_slot_texture(button: TextureButton, texture: Texture2D) -> void:
@@ -390,13 +417,22 @@ func _apply_responsive_layout() -> void:
 
 	_apply_title_styles_for_layout(viewport_size)
 	var title_size: int = UiStyleApplier.resolve_font_size(title_style_profile, is_mobile, is_portrait)
+	var title_top_spacing: int = int(round(inventory_character_title_top_spacing))
+	var inventory_section_top_margin: int = 12 + title_top_spacing
+	if _use_windows_desktop_merged_board_background():
+		inventory_section_top_margin = title_top_spacing
+	_inventory_section_margin.add_theme_constant_override("margin_top", inventory_section_top_margin)
 
 	var inner_margin: float = clampf(board_width * board_inner_margin_ratio, board_inner_margin_min, board_inner_margin_max)
-	for margin_container in [_inventory_margin, _character_margin]:
-		margin_container.add_theme_constant_override("margin_left", int(round(inner_margin)))
-		margin_container.add_theme_constant_override("margin_top", int(round(inner_margin)))
-		margin_container.add_theme_constant_override("margin_right", int(round(inner_margin)))
-		margin_container.add_theme_constant_override("margin_bottom", int(round(inner_margin)))
+	var rounded_inner_margin: int = int(round(inner_margin))
+	_inventory_margin.add_theme_constant_override("margin_left", rounded_inner_margin)
+	_inventory_margin.add_theme_constant_override("margin_top", rounded_inner_margin)
+	_inventory_margin.add_theme_constant_override("margin_right", rounded_inner_margin)
+	_inventory_margin.add_theme_constant_override("margin_bottom", rounded_inner_margin)
+	_character_margin.add_theme_constant_override("margin_left", rounded_inner_margin)
+	_character_margin.add_theme_constant_override("margin_top", rounded_inner_margin + title_top_spacing)
+	_character_margin.add_theme_constant_override("margin_right", rounded_inner_margin)
+	_character_margin.add_theme_constant_override("margin_bottom", rounded_inner_margin)
 
 	var left_content_height: float = board_height - inner_margin * 2.0
 	var sections_gap: float = clampf(board_width * 0.02, 8.0, 18.0)
@@ -537,9 +573,13 @@ func _apply_windows_character_background_layout() -> void:
 	var board_padding_right: float = clampf(float(_character_margin.get_theme_constant("margin_right")), 8.0, 40.0)
 	var board_padding_bottom: float = clampf(float(_character_margin.get_theme_constant("margin_bottom")), 8.0, 40.0)
 	var section_padding_left: float = clampf(float(_inventory_section_margin.get_theme_constant("margin_left")), 8.0, 24.0)
+	var title_top_spacing: float = maxf(0.0, float(int(round(inventory_character_title_top_spacing))))
+	var panel_padding_top: float = board_padding_top
+	if _use_windows_desktop_merged_board_background():
+		panel_padding_top = clampf(board_padding_top - title_top_spacing, 8.0, 40.0)
 
 	var panel_left: float = maxf(0.0, minf(board_padding_left, section_padding_left) * 0.05)
-	var panel_top: float = board_padding_top
+	var panel_top: float = panel_padding_top
 	var panel_right: float = board_rect.size.x - board_padding_right
 	var left_sections_rect: Rect2 = _resolve_left_sections_global_rect()
 	var target_height: float = left_sections_rect.size.y
@@ -548,7 +588,7 @@ func _apply_windows_character_background_layout() -> void:
 		var panel_bottom_target: float = content_bottom_local + padding_bottom
 		target_height = maxf(160.0, panel_bottom_target - panel_top)
 
-	var max_panel_height: float = maxf(160.0, board_rect.size.y - board_padding_top - board_padding_bottom)
+	var max_panel_height: float = maxf(160.0, board_rect.size.y - panel_padding_top - board_padding_bottom)
 	var panel_height: float = clampf(target_height, 160.0, max_panel_height)
 
 	var desired_size: Vector2 = Vector2(
