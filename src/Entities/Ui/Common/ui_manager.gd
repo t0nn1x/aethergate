@@ -9,14 +9,19 @@ const SYSTEM_HUD_MOBILE_SCENE: PackedScene = preload("res://src/Entities/Ui/Mobi
 const INVENTORY_PANEL_WINDOWS_SCENE: PackedScene = preload("res://src/Entities/Ui/Windows/Inventory/inventory_panel.tscn")
 const INVENTORY_PANEL_MACOS_SCENE: PackedScene = preload("res://src/Entities/Ui/MacOS/Inventory/inventory_panel_macos.tscn")
 const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/Entities/Ui/Mobile/Inventory/inventory_panel_mobile.tscn")
+const INVENTORY_CLOSE_ICON: Texture2D = preload(
+	"res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/close_button.png"
+)
 
 @export var main_screen_path: NodePath = ^"../MainScreen"
 @export var system_hud_path: NodePath = ^"../SystemHud"
 @export var inventory_panel_path: NodePath = ^"../InventoryPanel"
+@export_range(0, 4, 1) var inventory_hud_slot_index: int = 3
 
 var _main_screen: MainScreen
 var _system_hud: SystemHud
 var _inventory_panel: InventoryPanel
+var _inventory_default_hud_icon: Texture2D
 
 
 func initialize_ui() -> void:
@@ -132,13 +137,44 @@ func _wire_hud_signals() -> void:
 		return
 	if not _system_hud.hud_slot_pressed.is_connected(_on_hud_slot_pressed):
 		_system_hud.hud_slot_pressed.connect(_on_hud_slot_pressed)
+	_wire_inventory_panel_signals()
 
 
 func _on_hud_slot_pressed(action_id: StringName, slot_index: int) -> void:
 	if is_menu_visible():
 		return
-	if action_id == StringName("inventory") or slot_index == 3:
+	if action_id == StringName("inventory") or slot_index == inventory_hud_slot_index:
 		toggle_inventory()
+
+
+func _wire_inventory_panel_signals() -> void:
+	if _inventory_panel == null:
+		return
+	if not _inventory_panel.inventory_toggled.is_connected(_on_inventory_panel_toggled):
+		_inventory_panel.inventory_toggled.connect(_on_inventory_panel_toggled)
+	_cache_inventory_default_hud_icon()
+	_sync_inventory_hud_slot_icon()
+
+
+func _cache_inventory_default_hud_icon() -> void:
+	if _system_hud == null:
+		return
+	_inventory_default_hud_icon = _system_hud.get_default_slot_icon(inventory_hud_slot_index)
+
+
+func _sync_inventory_hud_slot_icon() -> void:
+	if _system_hud == null:
+		return
+	if inventory_hud_slot_index < 0:
+		return
+
+	var panel_open: bool = _inventory_panel != null and _inventory_panel.visible
+	var next_icon: Texture2D = INVENTORY_CLOSE_ICON if panel_open else _inventory_default_hud_icon
+	_system_hud.set_slot_icon(inventory_hud_slot_index, next_icon)
+
+
+func _on_inventory_panel_toggled(_is_open: bool) -> void:
+	_sync_inventory_hud_slot_icon()
 
 
 func _is_mobile_platform() -> bool:
@@ -149,4 +185,3 @@ func _is_mobile_platform() -> bool:
 		or OS.has_feature("web_android")
 		or OS.has_feature("web_ios")
 	)
-

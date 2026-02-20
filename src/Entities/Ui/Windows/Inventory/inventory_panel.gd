@@ -65,6 +65,7 @@ var _active_drag_source_slot_index: int = -1
 var _touch_drag_source_slot_index: int = -1
 var _touch_drag_payload: Dictionary = {}
 var _touch_drag_preview: Control
+var _merged_boards_background: Panel
 
 
 func _ready() -> void:
@@ -73,6 +74,8 @@ func _ready() -> void:
 	super._ready()
 	_rebuild_inventory_slots()
 	_cache_character_slots()
+	_apply_windows_section_order()
+	_ensure_windows_merged_board_background()
 	_apply_textures()
 	_apply_responsive_layout()
 	_refresh_inventory_slots_from_data()
@@ -89,6 +92,7 @@ func set_inventory_open(is_open: bool) -> void:
 	if not is_open:
 		_finish_touch_slot_drag(Vector2.ZERO, false)
 	visible = is_open
+	_sync_windows_merged_board_background()
 	inventory_toggled.emit(visible)
 	if visible:
 		_apply_responsive_layout()
@@ -267,8 +271,17 @@ func _on_overlay_viewport_resized() -> void:
 
 
 func _apply_textures() -> void:
-	UiStyleApplier.apply_panel_style(_inventory_background, board_style_profile)
-	UiStyleApplier.apply_panel_style(_character_background, board_style_profile)
+	var use_windows_merged_background: bool = _use_windows_desktop_merged_board_background()
+	if use_windows_merged_background:
+		_ensure_windows_merged_board_background()
+		if _merged_boards_background:
+			UiStyleApplier.apply_panel_style(_merged_boards_background, board_style_profile)
+		UiStyleApplier.apply_panel_style(_character_background, section_style_profile)
+	else:
+		UiStyleApplier.apply_panel_style(_inventory_background, board_style_profile)
+		UiStyleApplier.apply_panel_style(_character_background, board_style_profile)
+	_sync_windows_merged_board_background_visibility()
+
 	UiStyleApplier.apply_panel_style(_skills_section, section_style_profile)
 	UiStyleApplier.apply_panel_style(_inventory_section, section_style_profile)
 	_apply_title_styles_for_layout(get_overlay_viewport_size())
@@ -355,6 +368,8 @@ func _apply_responsive_layout() -> void:
 	apply_overlay_margins(edge_margin, 0.0, 0.0, 0.0, upward_offset_pixels)
 
 	var boards_gap: float = clampf(viewport_size.x * board_gap_ratio, 12.0, 36.0)
+	if _use_windows_desktop_merged_board_background():
+		boards_gap = maxf(0.0, boards_gap * 0.05)
 	_boards_row.add_theme_constant_override("separation", int(round(boards_gap)))
 	_overlay_vbox.add_theme_constant_override("separation", int(round(clampf(boards_gap * 0.9, 10.0, 28.0))))
 
@@ -417,6 +432,196 @@ func _apply_responsive_layout() -> void:
 		_apply_inventory_slot_visual_layout(slot_button, inventory_slot_size)
 
 	_apply_character_slot_sizes(inventory_slot_size)
+	_sync_windows_merged_board_background()
+	call_deferred("_sync_windows_desktop_merged_layout")
+
+
+func _use_windows_desktop_merged_board_background() -> bool:
+	return OS.has_feature("windows") and not is_mobile_platform()
+
+
+func _ensure_windows_merged_board_background() -> void:
+	if not _use_windows_desktop_merged_board_background():
+		return
+	if _merged_boards_background != null and is_instance_valid(_merged_boards_background):
+		return
+	if _root_control == null or _content_margin == null:
+		return
+
+	var merged_background: Panel = Panel.new()
+	merged_background.name = "MergedBoardsBackground"
+	merged_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	merged_background.visible = false
+
+	_root_control.add_child(merged_background)
+	_root_control.move_child(merged_background, _content_margin.get_index())
+	_merged_boards_background = merged_background
+
+
+func _sync_windows_merged_board_background() -> void:
+	_sync_windows_merged_board_background_visibility()
+	_sync_windows_merged_board_background_rect()
+
+
+func _sync_windows_desktop_merged_layout() -> void:
+	_apply_windows_character_background_layout()
+	_sync_windows_merged_board_background_rect()
+
+
+func _apply_windows_section_order() -> void:
+	if not OS.has_feature("windows"):
+		return
+	if _skills_section == null or _inventory_section == null:
+		return
+	var sections_parent: Node = _skills_section.get_parent()
+	if sections_parent == null:
+		return
+	if _inventory_section.get_index() < _skills_section.get_index():
+		return
+	sections_parent.move_child(_inventory_section, 0)
+	sections_parent.move_child(_skills_section, 1)
+
+
+func _sync_windows_merged_board_background_visibility() -> void:
+	var use_windows_merged_background: bool = _use_windows_desktop_merged_board_background()
+	_inventory_background.visible = not use_windows_merged_background
+	_character_background.visible = true
+	if _merged_boards_background == null or not is_instance_valid(_merged_boards_background):
+		return
+	_merged_boards_background.visible = use_windows_merged_background and visible
+
+
+func _sync_windows_merged_board_background_rect() -> void:
+	if not _use_windows_desktop_merged_board_background():
+		return
+	if _merged_boards_background == null or not is_instance_valid(_merged_boards_background):
+		return
+	if _root_control == null or _inventory_board == null or _character_board == null:
+		return
+
+	var left_rect: Rect2 = _inventory_board.get_global_rect()
+	var right_rect: Rect2 = _character_board.get_global_rect()
+	var merged_rect: Rect2 = left_rect.merge(right_rect)
+	if merged_rect.size.x <= 0.0 or merged_rect.size.y <= 0.0:
+		return
+	var root_rect: Rect2 = _root_control.get_global_rect()
+	_merged_boards_background.position = (merged_rect.position - root_rect.position).round()
+	_merged_boards_background.size = merged_rect.size.round()
+
+
+func _apply_windows_character_background_layout() -> void:
+	if _character_background == null or _character_board == null:
+		return
+	if not _use_windows_desktop_merged_board_background():
+		_reset_character_background_full_rect()
+		return
+	if not visible:
+		return
+
+	var board_rect: Rect2 = _character_board.get_global_rect()
+	if board_rect.size.x <= 0.0 or board_rect.size.y <= 0.0:
+		return
+	var title_rect: Rect2 = _character_title.get_global_rect()
+	var slots_rect: Rect2 = _resolve_character_slots_global_rect()
+	var has_character_content_rect: bool = (
+		title_rect.size.x > 0.0
+		and title_rect.size.y > 0.0
+		and slots_rect.size.x > 0.0
+		and slots_rect.size.y > 0.0
+	)
+	var content_rect: Rect2 = title_rect.merge(slots_rect) if has_character_content_rect else Rect2(Vector2.ZERO, Vector2.ZERO)
+
+	var padding_bottom: float = clampf(float(_inventory_section_margin.get_theme_constant("margin_bottom")), 8.0, 24.0)
+	var board_padding_left: float = clampf(float(_character_margin.get_theme_constant("margin_left")), 8.0, 40.0)
+	var board_padding_top: float = clampf(float(_character_margin.get_theme_constant("margin_top")), 8.0, 40.0)
+	var board_padding_right: float = clampf(float(_character_margin.get_theme_constant("margin_right")), 8.0, 40.0)
+	var board_padding_bottom: float = clampf(float(_character_margin.get_theme_constant("margin_bottom")), 8.0, 40.0)
+	var section_padding_left: float = clampf(float(_inventory_section_margin.get_theme_constant("margin_left")), 8.0, 24.0)
+
+	var panel_left: float = maxf(0.0, minf(board_padding_left, section_padding_left) * 0.05)
+	var panel_top: float = board_padding_top
+	var panel_right: float = board_rect.size.x - board_padding_right
+	var left_sections_rect: Rect2 = _resolve_left_sections_global_rect()
+	var target_height: float = left_sections_rect.size.y
+	if target_height <= 0.0 and has_character_content_rect:
+		var content_bottom_local: float = (content_rect.position.y - board_rect.position.y) + content_rect.size.y
+		var panel_bottom_target: float = content_bottom_local + padding_bottom
+		target_height = maxf(160.0, panel_bottom_target - panel_top)
+
+	var max_panel_height: float = maxf(160.0, board_rect.size.y - board_padding_top - board_padding_bottom)
+	var panel_height: float = clampf(target_height, 160.0, max_panel_height)
+
+	var desired_size: Vector2 = Vector2(
+		maxf(160.0, panel_right - panel_left),
+		panel_height
+	).round()
+	var local_position: Vector2 = Vector2(panel_left, panel_top).round()
+
+	_character_background.anchor_left = 0.0
+	_character_background.anchor_top = 0.0
+	_character_background.anchor_right = 0.0
+	_character_background.anchor_bottom = 0.0
+	_character_background.offset_left = 0.0
+	_character_background.offset_top = 0.0
+	_character_background.offset_right = 0.0
+	_character_background.offset_bottom = 0.0
+	_character_background.position = local_position
+	_character_background.size = desired_size
+
+
+func _resolve_left_sections_global_rect() -> Rect2:
+	if _skills_section == null and _inventory_section == null:
+		return Rect2(Vector2.ZERO, Vector2.ZERO)
+
+	var skills_rect: Rect2 = _skills_section.get_global_rect() if _skills_section != null else Rect2(Vector2.ZERO, Vector2.ZERO)
+	var inventory_rect: Rect2 = _inventory_section.get_global_rect() if _inventory_section != null else Rect2(Vector2.ZERO, Vector2.ZERO)
+	var has_skills: bool = skills_rect.size.x > 0.0 and skills_rect.size.y > 0.0
+	var has_inventory: bool = inventory_rect.size.x > 0.0 and inventory_rect.size.y > 0.0
+
+	if has_skills and has_inventory:
+		return skills_rect.merge(inventory_rect)
+	if has_skills:
+		return skills_rect
+	if has_inventory:
+		return inventory_rect
+	return Rect2(Vector2.ZERO, Vector2.ZERO)
+
+
+func _resolve_character_slots_global_rect() -> Rect2:
+	var has_rect: bool = false
+	var merged_rect: Rect2 = Rect2(Vector2.ZERO, Vector2.ZERO)
+
+	for slot_name in _character_slots.keys():
+		var slot_button: TextureButton = _character_slots[slot_name] as TextureButton
+		if slot_button == null:
+			continue
+		if not slot_button.is_visible_in_tree():
+			continue
+		var slot_rect: Rect2 = slot_button.get_global_rect()
+		if slot_rect.size.x <= 0.0 or slot_rect.size.y <= 0.0:
+			continue
+		if not has_rect:
+			merged_rect = slot_rect
+			has_rect = true
+		else:
+			merged_rect = merged_rect.merge(slot_rect)
+
+	if has_rect:
+		return merged_rect
+	return Rect2(Vector2.ZERO, Vector2.ZERO)
+
+
+func _reset_character_background_full_rect() -> void:
+	if _character_background == null:
+		return
+	_character_background.anchor_left = 0.0
+	_character_background.anchor_top = 0.0
+	_character_background.anchor_right = 1.0
+	_character_background.anchor_bottom = 1.0
+	_character_background.offset_left = 0.0
+	_character_background.offset_top = 0.0
+	_character_background.offset_right = 0.0
+	_character_background.offset_bottom = 0.0
 
 
 func _apply_character_slot_sizes(base_slot_size: float) -> void:

@@ -13,6 +13,7 @@ const DEFAULT_ACTION_IDS := [
 ]
 
 @export var slot_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png")
+@export var slot_hover_texture: Texture2D = preload("res://src/Entities/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover.png")
 @export var slot_actions: PackedStringArray = PackedStringArray(DEFAULT_ACTION_IDS)
 @export var slot_icons: Array[Texture2D] = []
 @export_range(0.7, 2.0, 0.05) var side_slot_scale: float = 1.0
@@ -30,6 +31,7 @@ const DEFAULT_ACTION_IDS := [
 @onready var _slot_row: HBoxContainer = %SlotRow
 
 var _slot_buttons: Array[TextureButton] = []
+var _default_slot_icons: Array[Texture2D] = []
 
 
 func _ready() -> void:
@@ -38,6 +40,7 @@ func _ready() -> void:
 	super._ready()
 	_cache_slot_buttons()
 	_sync_slot_icons_with_scene_defaults()
+	_cache_default_slot_icons()
 	_connect_slot_signals()
 	_apply_slot_textures()
 	_apply_responsive_layout()
@@ -52,6 +55,29 @@ func set_slot_icon(slot_index: int, icon: Texture2D) -> void:
 
 	slot_icons[slot_index] = icon
 	_apply_icon(slot_index)
+
+
+func get_slot_icon(slot_index: int) -> Texture2D:
+	if slot_index < 0 or slot_index >= SLOT_COUNT:
+		return null
+	if slot_index >= slot_icons.size():
+		return null
+	return slot_icons[slot_index]
+
+
+func get_default_slot_icon(slot_index: int) -> Texture2D:
+	if slot_index < 0 or slot_index >= SLOT_COUNT:
+		return null
+	if slot_index >= _default_slot_icons.size():
+		return get_slot_icon(slot_index)
+	return _default_slot_icons[slot_index]
+
+
+func _cache_default_slot_icons() -> void:
+	_default_slot_icons.clear()
+	_default_slot_icons.resize(SLOT_COUNT)
+	for slot_index in range(SLOT_COUNT):
+		_default_slot_icons[slot_index] = get_slot_icon(slot_index)
 
 
 func _sync_slot_icons_with_scene_defaults() -> void:
@@ -92,10 +118,11 @@ func _on_overlay_viewport_resized() -> void:
 
 
 func _apply_slot_textures() -> void:
+	var hover_texture: Texture2D = slot_hover_texture if slot_hover_texture != null else slot_texture
 	for button in _slot_buttons:
 		button.texture_normal = slot_texture
 		button.texture_pressed = slot_texture
-		button.texture_hover = slot_texture
+		button.texture_hover = hover_texture
 		button.texture_disabled = slot_texture
 
 
