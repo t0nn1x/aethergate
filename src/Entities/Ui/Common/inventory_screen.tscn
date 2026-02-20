@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://qayag2jhjr0o"]
+[gd_scene format=3 uid="uid://c0ic80o0pvev8"]
 
 [sub_resource type="GDScript" id="GDScript_ijoh7"]
 script/source = "class_name InventoryScreen
