@@ -1,11 +1,6 @@
-[gd_resource type="Resource" script_class="UiPanelStyleProfile" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="UiPanelStyleProfile" format=3 uid="uid://cu8doxpk7iy0"]
 
-[ext_resource type="Script" path="res://src/Entities/Ui/Common/Styles/ui_panel_style_profile.gd" id="1_xwup4"]
+[ext_resource type="Script" uid="uid://5en8f0bofimg" path="res://src/Entities/Ui/Common/Styles/ui_panel_style_profile.gd" id="1_xwup4"]
 
 [resource]
 script = ExtResource("1_xwup4")
-fill_color = Color(0.07, 0.1, 0.14, 0.58)
-border_color = Color(0.68, 0.78, 0.92, 0.72)
-border_width = 1
-corner_radius = 8
-
