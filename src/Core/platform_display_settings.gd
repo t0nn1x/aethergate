@@ -6,6 +6,13 @@ extends Node
 const DESKTOP_FEATURES: PackedStringArray = ["windows", "macos", "linuxbsd"]
 const DEFAULT_DESKTOP_CURSOR_PATH: String = "res://Assets/Cursors/28x28px/Cursor Default.png"
 const DEFAULT_DESKTOP_CURSOR_HOTSPOT: Vector2 = Vector2(0.0, 0.0)
+const DESKTOP_CURSOR_SHAPES := [
+	Input.CURSOR_ARROW,
+	Input.CURSOR_POINTING_HAND,
+	Input.CURSOR_DRAG,
+	Input.CURSOR_CAN_DROP,
+	Input.CURSOR_FORBIDDEN
+]
 
 var _desktop_cursor_texture: Texture2D
 var _desktop_cursor_enabled: bool = false
@@ -97,5 +104,7 @@ func _refresh_desktop_cursor(force: bool = false) -> void:
 	if not force and _desktop_cursor_current_hotspot == hotspot:
 		return
 
-	Input.set_custom_mouse_cursor(_desktop_cursor_texture, Input.CURSOR_ARROW, hotspot)
+	for cursor_shape_variant in DESKTOP_CURSOR_SHAPES:
+		var cursor_shape: int = int(cursor_shape_variant)
+		Input.set_custom_mouse_cursor(_desktop_cursor_texture, cursor_shape, hotspot)
 	_desktop_cursor_current_hotspot = hotspot
