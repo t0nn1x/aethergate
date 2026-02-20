@@ -1,4 +1,3 @@
-class_name StartupSplashScreen
 extends Node
 
 const FIX_LOG_PREFIX: String = "[FIX][StartupSplash]"
