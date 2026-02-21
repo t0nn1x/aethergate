@@ -6,6 +6,10 @@ extends Node
 const SYSTEM_HUD_WINDOWS_SCENE: PackedScene = preload("res://src/Entities/Ui/Windows/Hud/SystemHud/system_hud.tscn")
 const SYSTEM_HUD_MACOS_SCENE: PackedScene = preload("res://src/Entities/Ui/MacOS/Hud/SystemHud/system_hud_macos.tscn")
 const SYSTEM_HUD_MOBILE_SCENE: PackedScene = preload("res://src/Entities/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn")
+const DEBUG_OVERLAY_WINDOWS_SCENE: PackedScene = preload("res://src/Entities/Ui/Windows/Debug/debug_overlay.tscn")
+const DEBUG_OVERLAY_MACOS_SCENE: PackedScene = preload("res://src/Entities/Ui/MacOS/Debug/debug_overlay_macos.tscn")
+const MAIN_SCREEN_WINDOWS_SCENE: PackedScene = preload("res://src/Entities/Ui/Windows/Gui/MainScreen/main_screen.tscn")
+const MAIN_SCREEN_MACOS_SCENE: PackedScene = preload("res://src/Entities/Ui/MacOS/Gui/MainScreen/main_screen_macos.tscn")
 const INVENTORY_PANEL_WINDOWS_SCENE: PackedScene = preload("res://src/Entities/Ui/Windows/Inventory/inventory_panel.tscn")
 const INVENTORY_PANEL_MACOS_SCENE: PackedScene = preload("res://src/Entities/Ui/MacOS/Inventory/inventory_panel_macos.tscn")
 const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/Entities/Ui/Mobile/Inventory/inventory_panel_mobile.tscn")
@@ -14,6 +18,7 @@ const INVENTORY_CLOSE_ICON: Texture2D = preload(
 )
 
 @export var main_screen_path: NodePath = ^"../MainScreen"
+@export var debug_overlay_path: NodePath = ^"../DebugOverlay"
 @export var system_hud_path: NodePath = ^"../SystemHud"
 @export var inventory_panel_path: NodePath = ^"../InventoryPanel"
 @export_range(0, 4, 1) var inventory_hud_slot_index: int = 3
@@ -66,9 +71,13 @@ func _apply_platform_ui_variants() -> void:
 	if OS.is_debug_build():
 		print("[UiManager] UI profile: %s" % String(ui_profile))
 
+	_replace_overlay_node(debug_overlay_path, _resolve_debug_overlay_scene(ui_profile))
+	var resolved_main_screen: Node = _replace_overlay_node(main_screen_path, _resolve_main_screen_scene(ui_profile))
 	var resolved_system_hud: Node = _replace_overlay_node(system_hud_path, _resolve_system_hud_scene(ui_profile))
 	var resolved_inventory_panel: Node = _replace_overlay_node(inventory_panel_path, _resolve_inventory_panel_scene(ui_profile))
 
+	if resolved_main_screen:
+		_main_screen = resolved_main_screen as MainScreen
 	if resolved_system_hud:
 		_system_hud = resolved_system_hud as SystemHud
 	if resolved_inventory_panel:
@@ -120,6 +129,22 @@ func _resolve_system_hud_scene(ui_profile: StringName) -> PackedScene:
 			return SYSTEM_HUD_MOBILE_SCENE
 		_:
 			return SYSTEM_HUD_WINDOWS_SCENE
+
+
+func _resolve_debug_overlay_scene(ui_profile: StringName) -> PackedScene:
+	match ui_profile:
+		&"macos":
+			return DEBUG_OVERLAY_MACOS_SCENE
+		_:
+			return DEBUG_OVERLAY_WINDOWS_SCENE
+
+
+func _resolve_main_screen_scene(ui_profile: StringName) -> PackedScene:
+	match ui_profile:
+		&"macos":
+			return MAIN_SCREEN_MACOS_SCENE
+		_:
+			return MAIN_SCREEN_WINDOWS_SCENE
 
 
 func _resolve_inventory_panel_scene(ui_profile: StringName) -> PackedScene:
