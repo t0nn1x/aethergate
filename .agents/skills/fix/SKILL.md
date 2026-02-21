@@ -83,6 +83,8 @@ To fix this effectively, I need more context:
 - Mouse coordinate-space traps: mixing `InputEventMouse*.position` (window/screen space) with `Viewport.get_mouse_position()` / `get_global_mouse_position()` paths can introduce stable click offsets; keep one coordinate space per interaction path
 - Godot API-surface traps: avoid introducing unverified engine methods in hot input/camera paths (for example non-existent `Camera2D` conversion helpers); confirm method availability for Godot 4.x before wiring
 - UI layout-coupling traps: using title/content spacing margins as inputs for panel background geometry/height calculations can unintentionally shrink or shift panels; keep decorative spacing decoupled from container-size math
+- CanvasLayer ordering traps: fullscreen blur/dimmer overlays can unintentionally blur HUD controls if layer indices differ across platform variants; verify HUD/menu layers render above blur layers where intended
+- Patch-edit syntax traps: accidental stray tokens/characters near function headers or first statements (e.g. leading digits) can cause parser errors that look unrelated; inspect exact offending lines and fix minimally
 
 ### Step 3: Implement the Fix
 
