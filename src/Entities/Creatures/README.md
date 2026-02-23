@@ -37,7 +37,7 @@ Creature spawns are chunk-driven.
 For each chunk scene that should spawn creatures:
 
 1. Add a `Node2D` named `CreatureSpawnZones`.
-2. Add `Polygon2D` children and attach `res://src/Gameplay/Creatures/Spawning/creature_spawn_zone.gd`.
+2. Add `Polygon2D` children and attach `res://src/Entities/Creatures/Spawning/creature_spawn_zone.gd`.
 3. Configure zone rules:
    - `spawn_rate_per_minute`
    - `max_alive`
@@ -74,13 +74,13 @@ Legacy marker fallback is still supported:
 - Runtime spawned creatures are tappable/clickable from player input.
 - Input selection is emitted through `CreatureEvents.creature_selected`.
 - Tapping/clicking empty world emits `CreatureEvents.creature_deselected`.
-- A contextual `Fight` button is shown through `res://src/Entities/Ui/Hud/creature_action_hud.tscn` when a creature is selected.
+- A contextual `Fight` button is shown through `res://src/Ui/Hud/creature_action_hud.tscn` when a creature is selected.
 - Pressing `Fight` emits `CreatureEvents.creature_fight_requested` (placeholder action path only; combat is still not implemented here).
 - Creature taps take priority over move requests, so selecting a creature does not queue click-to-move on that same input.
 - Selection is auto-cleared when the selected creature dies, exits tree, despawns with chunk unload, or when inventory is opened.
 
 Input config knobs:
-- `res://src/Gameplay/Player/Config/player_input_config.tres`
+- `res://src/Entities/Player/Config/player_input_config.tres`
   - `enable_creature_tap_selection`
   - `creature_tap_collision_mask`
   - `creature_tap_max_results`

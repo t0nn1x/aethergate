@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UiTextStyleProfile" format=3 uid="uid://dbufkn1uy03gh"]
+
+[ext_resource type="Script" uid="uid://c0tj332rn7r8p" path="res://src/Ui/Common/Styles/ui_text_style_profile.gd" id="1_epxwg"]
+[ext_resource type="FontFile" uid="uid://dhjfroywktvgh" path="res://Assets/Fonts/compass/Compass 9.ttf" id="2_14kt4"]
+
+[resource]
+script = ExtResource("1_epxwg")
+font = ExtResource("2_14kt4")
+font_color = Color(0.98, 0.92, 0.77, 1)
+desktop_font_size = 32

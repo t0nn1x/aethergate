@@ -5,8 +5,8 @@ extends Resource
 
 @export var desktop_platform_profile: GamePlatformProfile = preload("res://src/Config/Platform/desktop_platform_profile.tres")
 @export var mobile_platform_profile: GamePlatformProfile = preload("res://src/Config/Platform/mobile_platform_profile.tres")
-@export var player_input_config: PlayerInputConfig = preload("res://src/Gameplay/Player/Config/player_input_config.tres")
-@export var player_movement_config: PlayerMovementConfig = preload("res://src/Gameplay/Player/Config/player_movement_config.tres")
+@export var player_input_config = preload("res://src/Entities/Player/Config/player_input_config.tres")
+@export var player_movement_config = preload("res://src/Entities/Player/Config/player_movement_config.tres")
 
 
 func get_platform_profile(is_mobile_runtime: bool) -> GamePlatformProfile:

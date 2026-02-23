@@ -38,13 +38,13 @@ func get_platform_profile() -> GamePlatformProfile:
 	return _active_platform_profile
 
 
-func get_player_input_config() -> PlayerInputConfig:
+func get_player_input_config():
 	if project_config == null:
 		return null
 	return project_config.player_input_config
 
 
-func get_player_movement_config() -> PlayerMovementConfig:
+func get_player_movement_config():
 	if project_config == null:
 		return null
 	return project_config.player_movement_config
