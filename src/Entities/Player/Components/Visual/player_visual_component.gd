@@ -10,6 +10,11 @@ const PLAYER_APPEARANCE_DATA_SCRIPT := preload(
 const SLOT_HEAD: StringName = &"head"
 const SLOT_BODY: StringName = &"body"
 const SLOT_LEGS: StringName = &"legs"
+const Z_WEAPON_BACK: int = -1
+const Z_LEGS: int = 0
+const Z_BODY: int = 1
+const Z_HEAD: int = 2
+const Z_WEAPON_FRONT: int = 3
 
 var creature: Creature
 
@@ -49,6 +54,7 @@ func _ready() -> void:
 
 	_base_collision_offset = collision_shape.position
 	_base_visual_offset = visual_root.position
+	_apply_layer_draw_order()
 
 	# Start idle animation if available.
 	var animator: AnimationPlayer = creature.get_node_or_null("AnimationPlayer") as AnimationPlayer
@@ -153,6 +159,19 @@ func set_facing(direction_x: float) -> void:
 ## Toggle moving state (affects bob speed).
 func set_moving(moving: bool) -> void:
 	_is_moving = moving
+
+
+func _apply_layer_draw_order() -> void:
+	if weapon_back_sprite:
+		weapon_back_sprite.z_index = Z_WEAPON_BACK
+	if legs_sprite:
+		legs_sprite.z_index = Z_LEGS
+	if body_sprite:
+		body_sprite.z_index = Z_BODY
+	if head_sprite:
+		head_sprite.z_index = Z_HEAD
+	if weapon_front_sprite:
+		weapon_front_sprite.z_index = Z_WEAPON_FRONT
 
 
 func _apply_default_appearance_if_needed() -> void:
