@@ -22,9 +22,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
 shader = ExtResource("3_sil")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/shade_color = Color(0, 0, 0, 0.3)
-shader_parameter/outline_thickness = 1.0
 shader_parameter/occlusion_threshold = 0.1
 
 [sub_resource type="CircleShape2D" id="1"]
