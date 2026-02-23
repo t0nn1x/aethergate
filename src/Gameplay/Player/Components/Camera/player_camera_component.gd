@@ -21,6 +21,7 @@ var _pinch_zoom_tracker: PlayerPinchZoomTracker = PlayerPinchZoomTracker.new()
 @export var camera_zoom_snap_threshold: float = 0.001
 @export var camera_zoom_in_action: StringName = "camera_zoom_in"
 @export var camera_zoom_out_action: StringName = "camera_zoom_out"
+@export var zoom_blocker_group_name: StringName = &"ui_panels_block_movement"
 @export var default_zoom_mobile: float = 4.0
 @export var default_zoom_desktop: float = 4.0
 @export var pinch_zoom_enabled: bool = true
@@ -110,6 +111,8 @@ func _get_default_zoom_for_platform() -> float:
 func _handle_mouse_wheel_zoom(event: InputEvent) -> bool:
 	if not _mouse_wheel_zoom_enabled:
 		return false
+	if _is_wheel_zoom_blocked_by_ui():
+		return false
 	if event is not InputEventMouseButton:
 		return false
 	var mouse_event: InputEventMouseButton = event as InputEventMouseButton
@@ -121,6 +124,27 @@ func _handle_mouse_wheel_zoom(event: InputEvent) -> bool:
 	if mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		_set_zoom_target(_zoom_target - camera_zoom_step)
 		return true
+	return false
+
+
+func _is_wheel_zoom_blocked_by_ui() -> bool:
+	if zoom_blocker_group_name == StringName():
+		return false
+
+	var scene_tree: SceneTree = get_tree()
+	if scene_tree == null:
+		return false
+
+	var blockers: Array[Node] = scene_tree.get_nodes_in_group(zoom_blocker_group_name)
+	for blocker in blockers:
+		if blocker == null or not is_instance_valid(blocker):
+			continue
+		if blocker is CanvasLayer:
+			if (blocker as CanvasLayer).visible:
+				return true
+			continue
+		if blocker is Control and (blocker as Control).is_visible_in_tree():
+			return true
 	return false
 
 

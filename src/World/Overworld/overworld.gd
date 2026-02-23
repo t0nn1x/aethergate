@@ -34,6 +34,7 @@ func _ready() -> void:
 	print("Overworld loaded")
 	if ui_manager:
 		ui_manager.initialize_ui()
+	_refresh_ui_overlay_references()
 	_wire_stage_dependencies()
 	_wire_main_screen_signals()
 	_wire_creature_interaction_signals()
@@ -43,6 +44,11 @@ func _ready() -> void:
 		if not chunk_manager.chunks_changed.is_connected(_on_chunks_changed):
 			chunk_manager.chunks_changed.connect(_on_chunks_changed)
 	_start_session_if_menu_is_missing()
+
+
+func _refresh_ui_overlay_references() -> void:
+	debug_overlay = get_node_or_null(debug_overlay_path) as DebugOverlay
+	main_screen = get_node_or_null(main_screen_path) as MainScreen
 
 
 func _unhandled_input(event: InputEvent) -> void:

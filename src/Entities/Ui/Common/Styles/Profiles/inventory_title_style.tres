@@ -6,3 +6,5 @@
 [resource]
 script = ExtResource("1_epxwg")
 font = ExtResource("2_14kt4")
+font_color = Color(0.98, 0.92, 0.77, 1)
+desktop_font_size = 32

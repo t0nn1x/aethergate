@@ -1,6 +1,10 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://src/Entities/Ui/Windows/Inventory/inventory_panel.gd" id="1"]
+[ext_resource type="Shader" path="res://src/Entities/Ui/Windows/Inventory/background_blur.gdshader" id="2_blur_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
+shader = ExtResource("2_blur_shader")
 
 [node name="InventoryPanel" type="CanvasLayer" unique_id=1365879153]
 layer = 24
@@ -16,13 +20,14 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Dimmer" type="ColorRect" parent="Root" unique_id=1309929586]
+material = SubResource("ShaderMaterial_blur")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.08)
+color = Color(0, 0, 0, 0.12)
 
 [node name="ContentMargin" type="MarginContainer" parent="Root" unique_id=1071823063]
 unique_name_in_owner = true
@@ -115,7 +120,7 @@ theme_override_constants/separation = 8
 [node name="SkillsTitle" type="Label" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection/SkillsMargin/SkillsVBox" unique_id=447282433]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Skills"
+text = "Stats"
 horizontal_alignment = 1
 
 [node name="SkillsContent" type="Control" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection/SkillsMargin/SkillsVBox" unique_id=1777800527]

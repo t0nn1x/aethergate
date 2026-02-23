@@ -4,6 +4,10 @@
 
 [resource]
 script = ExtResource("1_ap1be")
-fill_color = Color(0.02, 0.05, 0.08, 0.34)
-border_color = Color(0.75, 0.84, 0.98, 0.28)
-corner_radius = 6
+fill_color = Color(0.09, 0.061, 0.038, 0.5)
+border_color = Color(0.72, 0.58, 0.37, 0.44)
+anti_aliasing = false
+anti_aliasing_size = 0.0
+shadow_color = Color(0.075, 0.043, 0.023, 0.26)
+shadow_size = 8
+shadow_offset = Vector2(0, 3)
