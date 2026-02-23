@@ -3,6 +3,10 @@ extends Node
 
 ## Spawns and registers the player instance for the overworld stage.
 
+const DEFAULT_PLAYER_COSMETIC_CATALOG: Resource = preload(
+	"res://src/Entities/Player/Resources/player_cosmetic_catalog.tres"
+)
+
 signal player_spawned(player: Player)
 
 @export var player_scene: PackedScene = preload("res://src/Entities/Player/player.tscn")
@@ -41,7 +45,34 @@ func spawn_player(player_id: int = 1, is_local_player: bool = true, owner_peer_i
 
 	player_instance.configure_identity(player_id, owner_peer_id, is_local_player)
 	world_y_sort.add_child(player_instance)
+	_apply_player_appearance(player_instance)
 	player_instance.global_position = spawn_point.global_position
 	_overworld.register_player(player_instance, player_id, is_local_player)
 	player_spawned.emit(player_instance)
 	return player_instance
+
+
+func _apply_player_appearance(player_instance: Player) -> void:
+	if player_instance == null:
+		return
+
+	var profile_service: Node = get_node_or_null("/root/PlayerProfileService")
+	var cosmetic_catalog: Resource = DEFAULT_PLAYER_COSMETIC_CATALOG
+	var appearance: Resource = null
+
+	if profile_service:
+		if profile_service.has_method("get_catalog"):
+			var profile_catalog: Resource = profile_service.call("get_catalog") as Resource
+			if profile_catalog:
+				cosmetic_catalog = profile_catalog
+		if profile_service.has_method("get_appearance"):
+			appearance = profile_service.call("get_appearance") as Resource
+
+	if appearance == null and cosmetic_catalog and cosmetic_catalog.has_method("get_default_appearance"):
+		appearance = cosmetic_catalog.call("get_default_appearance") as Resource
+
+	if appearance == null or cosmetic_catalog == null:
+		push_warning("OverworldPlayerSpawner: unable to resolve player appearance, keeping scene defaults.")
+		return
+
+	player_instance.apply_appearance(appearance, cosmetic_catalog)

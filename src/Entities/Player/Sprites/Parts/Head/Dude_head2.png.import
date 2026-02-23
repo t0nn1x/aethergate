@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpmv7kklxobr4"
-path="res://.godot/imported/Zorfath32.png-6da3925f46b4dc7fa33046054a3f8730.ctex"
+uid="uid://cbxfr2jncqgmh"
+path="res://.godot/imported/Dude_head2.png-fc74dd46c2ad6ff1764e991c0ddedd67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Entities/Player/Sprites/Zorfath32.png"
-dest_files=["res://.godot/imported/Zorfath32.png-6da3925f46b4dc7fa33046054a3f8730.ctex"]
+source_file="res://src/Entities/Player/Sprites/Parts/Head/Dude_head2.png"
+dest_files=["res://.godot/imported/Dude_head2.png-fc74dd46c2ad6ff1764e991c0ddedd67.ctex"]
 
 [params]
 

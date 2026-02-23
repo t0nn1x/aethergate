@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PlayerCosmeticCatalog" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://src/Entities/Player/Resources/player_cosmetic_catalog.gd" id="1_catalog_script"]
+[ext_resource type="Script" path="res://src/Entities/Player/Resources/player_appearance_data.gd" id="2_appearance_script"]
+[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head1.png" id="3_head_1"]
+[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head2.png" id="4_head_2"]
+[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Body/Dude_body1.png" id="5_body_1"]
+[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Body/Dude_body2.png" id="6_body_2"]
+[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Legs/Dude_legs1.png" id="7_legs_1"]
+[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Legs/Dude_legs2.png" id="8_legs_2"]
+
+[sub_resource type="Resource" id="Resource_default_appearance"]
+script = ExtResource("2_appearance_script")
+head_id = &"head_1"
+body_id = &"body_1"
+legs_id = &"legs_1"
+weapon_visual_id = &""
+
+[resource]
+script = ExtResource("1_catalog_script")
+default_appearance = SubResource("Resource_default_appearance")
+head_variants = {
+"head_1": ExtResource("3_head_1"),
+"head_2": ExtResource("4_head_2")
+}
+body_variants = {
+"body_1": ExtResource("5_body_1"),
+"body_2": ExtResource("6_body_2")
+}
+legs_variants = {
+"legs_1": ExtResource("7_legs_1"),
+"legs_2": ExtResource("8_legs_2")
+}

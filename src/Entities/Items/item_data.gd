@@ -3,6 +3,7 @@ extends Resource
 
 ## Shared item definition used by inventory resources.
 const ICON_EXTENSIONS := [".png", ".webp", ".jpg", ".jpeg"]
+const PROP_WEAPON_VISUAL_ID: StringName = &"weapon_visual_id"
 
 @export var item_id: String = ""
 @export var display_name: String = "Item"
@@ -22,6 +23,10 @@ func get_prop(key: StringName, default_value: Variant = null) -> Variant:
 
 func is_stackable() -> bool:
 	return max_stack > 1
+
+
+func get_weapon_visual_id() -> StringName:
+	return StringName(str(get_prop(PROP_WEAPON_VISUAL_ID, "")))
 
 
 func get_icon_texture() -> Texture2D:
