@@ -3,7 +3,7 @@ extends RefCounted
 
 ## Validates spawn-zone helper behavior (normalization + polygon sampling).
 
-const ZONE_SCRIPT: Script = preload("res://src/Gameplay/Creatures/Spawning/creature_spawn_zone.gd")
+const ZONE_SCRIPT: Script = preload("res://src/Entities/Creatures/Spawning/creature_spawn_zone.gd")
 
 var _failures: Array[String] = []
 
