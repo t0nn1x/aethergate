@@ -13,6 +13,11 @@ const DESKTOP_MAX_BUTTON_WIDTH_FACTOR: float = 0.38
 # social buttons x and y values
 @export var social_icons_bottom_inset: float = -100.0
 @export var social_icons_horizontal_offset: float = -25.0
+@export var patreon_url: String = ""
+@export var discord_url: String = ""
+@export var youtube_url: String = ""
+@export var telegram_url: String = ""
+@export var twitter_url: String = ""
 
 var _title_banner_texture: TextureRect
 var _social_icons_row: HBoxContainer
@@ -26,6 +31,7 @@ func _ready() -> void:
 	_social_icons_container = get_node_or_null(social_icons_container_path) as Control
 	_apply_title_banner_transform()
 	_apply_social_icons_transform()
+	_connect_social_icon_links()
 
 
 func _apply_title_style(_viewport_size: Vector2, is_portrait: bool) -> void:
@@ -91,3 +97,49 @@ func _apply_social_icons_transform() -> void:
 	var row_x: float = (_social_icons_container.size.x - row_size.x) * 0.5 + social_icons_horizontal_offset
 	var row_y: float = _social_icons_container.size.y - row_size.y - social_icons_bottom_inset
 	_social_icons_row.position = Vector2(round(row_x), round(row_y))
+
+
+func _connect_social_icon_links() -> void:
+	if _social_icons_row == null:
+		return
+
+	_wire_social_icon("PatreonIcon", patreon_url)
+	_wire_social_icon("DiscordIcon", discord_url)
+	_wire_social_icon("YoutubeIcon", youtube_url)
+	_wire_social_icon("TelegramIcon", telegram_url)
+	_wire_social_icon("TwitterIcon", twitter_url)
+
+
+func _wire_social_icon(icon_node_name: String, url: String) -> void:
+	var icon: Control = _social_icons_row.get_node_or_null(NodePath(icon_node_name)) as Control
+	if icon == null:
+		return
+
+	icon.mouse_filter = Control.MOUSE_FILTER_STOP
+	icon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	var handler: Callable = Callable(self, "_on_social_icon_input").bind(url)
+	if not icon.gui_input.is_connected(handler):
+		icon.gui_input.connect(handler)
+
+
+func _on_social_icon_input(event: InputEvent, url: String) -> void:
+	if url.strip_edges().is_empty():
+		return
+
+	var mouse_event: InputEventMouseButton = event as InputEventMouseButton
+	if mouse_event != null and mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
+		_open_social_link(url)
+		return
+
+	var touch_event: InputEventScreenTouch = event as InputEventScreenTouch
+	if touch_event != null and touch_event.pressed:
+		_open_social_link(url)
+
+
+func _open_social_link(url: String) -> void:
+	var normalized_url: String = url.strip_edges()
+	if normalized_url.is_empty():
+		return
+	var result: Error = OS.shell_open(normalized_url)
+	if result != OK:
+		push_warning("MainScreenMacOS: Failed to open social link '%s' (error %d)." % [normalized_url, int(result)])
