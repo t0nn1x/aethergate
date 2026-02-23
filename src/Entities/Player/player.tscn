@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bume2vfytjwef" path="res://src/Entities/Player/player.gd" id="1"]
 [ext_resource type="Script" uid="uid://0x5d1qflun1b" path="res://src/Entities/Player/Components/Movement/player_movement_component.gd" id="2"]
-[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head1.png" id="2_head_1"]
-[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Body/Dude_body1.png" id="2_body_1"]
-[ext_resource type="Texture2D" path="res://src/Entities/Player/Sprites/Parts/Legs/Dude_legs1.png" id="2_legs_1"]
+[ext_resource type="Texture2D" uid="uid://bvkdy4xga5ugc" path="res://src/Entities/Player/Sprites/Parts/Body/Dude_body1.png" id="2_body_1"]
+[ext_resource type="Texture2D" uid="uid://braliypg24qli" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head1.png" id="2_head_1"]
+[ext_resource type="Texture2D" uid="uid://bn78jc87i6dcd" path="res://src/Entities/Player/Sprites/Parts/Legs/Dude_legs1.png" id="2_legs_1"]
 [ext_resource type="Shader" uid="uid://dws727wjsskme" path="res://src/Common/Shaders/silhouette.gdshader" id="3_sil"]
 [ext_resource type="Script" uid="uid://brpmyo0esxf07" path="res://src/Entities/Player/Components/Visual/player_visual_component.gd" id="4_vis"]
 [ext_resource type="Script" uid="uid://c2n2pnl8vdast" path="res://src/Entities/Player/Components/Camera/player_camera_component.gd" id="5_cam"]
@@ -68,7 +68,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=73119585]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 261
 script = ExtResource("1")
