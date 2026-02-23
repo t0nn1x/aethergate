@@ -70,6 +70,8 @@ To fix this effectively, I need more context:
 - Godot cache/UID mismatch after moves (parse errors referencing deleted paths). Rebuild project cache (`.godot`) and reopen editor when source paths are already correct
 - Autoload identifier parse traps (new singleton names referenced directly in scripts before `project.godot` autoload resolution)
 - Runtime group-discovery in hot paths (`_process`/`_physics_process`) that should be replaced with injected dependencies
+- Layered character render-order traps: fixed per-part `z_index` on Y-sorted player sprites can desync body/head/weapon from world occluder sorting
+- Layered effect-sync traps: keeping a single silhouette/outline node after splitting visuals into multiple sprite parts leaves incomplete coverage
 - UI background composition traps: `TextureRect.STRETCH_TILE` combined with enlarged fit rects/material repeat causing unintended multi-row tiling
 - Mixed-size parallax layer sets (different source dimensions in one folder) that produce random zoom/crop framing across starts
 - Parallax seam traps on desktop (especially Windows): shader `fract` wrapping + disabled texture repeat and unsnapped fit bounds can expose 1px edges; align wrap/repeat strategy and use pixel-snapped bounds with slight overscan
@@ -126,6 +128,7 @@ try {
 - If touching startup display settings, verify platform window mode matches intended UX (for example Windows fullscreen startup) and confirm via startup mode/resolution logs
 - If touching `@tool` inspector code, verify inspector properties appear as expected and editor stays responsive (no repeated placeholder-call errors or heavy lag)
 - If touching overworld creature spawning/wander, verify sampled targets are rejected when inside blocker polygons and blocker-registry wiring is valid after scene startup order settles
+- If touching layered character visuals, validate all layers (legs/body/head/weapon) sort together against world occluders and verify silhouette/outline mirrors each part
 - If touching dynamically-instantiated UI widgets, verify configuration runs after node-tree entry when it depends on `@onready` children (for example `add_child` before configure or deferred configure)
 - If touching UI title/padding spacing, verify any dependent panel/background height calculations still use base paddings (not spacing offsets added only for visual alignment)
 

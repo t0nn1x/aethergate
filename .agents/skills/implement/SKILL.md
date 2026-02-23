@@ -162,6 +162,8 @@ TaskUpdate(taskId, status: "in_progress")
 - For panel look-and-feel reuse, use shared style Resources under `src/Entities/Ui/Common/Styles` instead of duplicating style constants per panel script
 - For Godot mouse-driven interactions, keep coordinate conversions consistent end-to-end (avoid mixing raw `InputEventMouse*.position` with viewport/global mouse positions in one click pipeline)
 - For input/camera refactors, verify every newly used Godot method exists in the project engine version before wiring it into runtime paths
+- For layered player sprites in Y-sorted worlds, avoid fixed per-part `z_index` overrides (`Legs/Body/Head/Weapon*`) unless intentionally opting out of world Y-sort; use node order for intra-character layering
+- When splitting character visuals into multiple parts, mirror support effects (silhouette/outline/shadow) per part and verify texture/frame/flip sync for all layers
 
 **3.5: Mark as completed**
 ```
