@@ -158,6 +158,8 @@ func _on_main_screen_play_pressed() -> void:
 	if _should_open_character_creator():
 		_open_character_creator_panel()
 		return
+	if main_screen:
+		main_screen.hide_menu()
 	if session_controller:
 		session_controller.start_session()
 
@@ -412,6 +414,8 @@ func _on_character_creator_appearance_confirmed(appearance: Resource) -> void:
 	if profile_service and profile_service.has_method("set_appearance"):
 		profile_service.call("set_appearance", appearance, true)
 
+	if main_screen:
+		main_screen.hide_menu()
 	if session_controller:
 		session_controller.start_session()
 

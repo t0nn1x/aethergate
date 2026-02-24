@@ -22,6 +22,11 @@ const SLOT_LEGS: StringName = &"legs"
 @export var content_margin_default_path: NodePath = ^"Root/ContentMargin"
 @export var preview_area_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea"
 @export var preview_root_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea/PreviewRoot"
+@export var preview_fit_reference_size: Vector2 = Vector2(200.0, 100.0)
+@export_range(1.0, 8.0, 0.1) var preview_scale_multiplier: float = 3.5
+@export_range(1.0, 14.0, 0.1) var preview_min_scale: float = 1.0
+@export_range(1.0, 14.0, 0.1) var preview_max_scale: float = 12.0
+@export var preview_position_offset: Vector2 = Vector2(24.0, 0.0)
 @export var head_prev_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/HeadPrevButton"
 @export var head_next_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/HeadNextButton"
 @export var body_prev_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/BodyPrevButton"
@@ -31,9 +36,9 @@ const SLOT_LEGS: StringName = &"legs"
 @export var head_value_label_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/HeadValueLabel"
 @export var body_value_label_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/BodyValueLabel"
 @export var legs_value_label_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/LegsValueLabel"
-@export var randomize_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/RandomizeButton"
-@export var cancel_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/CancelButton"
-@export var confirm_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/ConfirmButton"
+@export var randomize_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/BottomButtons/TopRow/RandomizeButton"
+@export var cancel_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/BottomButtons/TopRow/CancelButton"
+@export var confirm_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/BottomButtons/BottomRow/ConfirmButton"
 
 @onready var _root: Control = get_node_or_null(root_path) as Control
 @onready var _preview_area: Control = get_node_or_null(preview_area_path) as Control
@@ -130,11 +135,18 @@ func _apply_layout() -> void:
 	apply_overlay_margins(edge_margin)
 
 	var preview_rect: Rect2 = _preview_area.get_global_rect()
-	_preview_root.global_position = preview_rect.position + preview_rect.size * 0.5
+	_preview_root.global_position = preview_rect.position + preview_rect.size * 0.5 + preview_position_offset
 
-	var scale_x: float = preview_rect.size.x / 200.0
-	var scale_y: float = preview_rect.size.y / 100.0
-	var target_scale: float = clampf(minf(scale_x, scale_y), 1.0, 4.0)
+	var reference_width: float = maxf(preview_fit_reference_size.x, 1.0)
+	var reference_height: float = maxf(preview_fit_reference_size.y, 1.0)
+	var scale_x: float = preview_rect.size.x / reference_width
+	var scale_y: float = preview_rect.size.y / reference_height
+	var fitted_scale: float = minf(scale_x, scale_y)
+	var target_scale: float = clampf(
+		fitted_scale * preview_scale_multiplier,
+		preview_min_scale,
+		preview_max_scale
+	)
 	_preview_root.scale = Vector2(target_scale, target_scale)
 
 

@@ -176,7 +176,7 @@ vertical_alignment = 1
 [node name="PlayButton" type="Button" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1687213066 groups=["touch_interactive"]]
 custom_minimum_size = Vector2(460, 116)
 layout_mode = 2
-text = "Play"
+text = "Create a character"
 script = ExtResource("4_button")
 button_size = Vector2(460, 116)
 
