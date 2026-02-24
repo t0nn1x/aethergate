@@ -4,7 +4,8 @@ extends AdaptiveOverlayPanel
 signal appearance_confirmed(appearance: Resource)
 signal creation_cancelled()
 
-const PREVIEW_FRAME: int = 1
+const PREVIEW_IDLE_FRAMES := [1, 2, 3, 3]
+const PREVIEW_IDLE_FRAME_STEP_SECONDS: float = 0.4
 
 const PLAYER_APPEARANCE_DATA_SCRIPT := preload(
 	"res://src/Entities/Player/Resources/player_appearance_data.gd"
@@ -26,7 +27,7 @@ const SLOT_LEGS: StringName = &"legs"
 @export_range(1.0, 8.0, 0.1) var preview_scale_multiplier: float = 3.5
 @export_range(1.0, 14.0, 0.1) var preview_min_scale: float = 1.0
 @export_range(1.0, 14.0, 0.1) var preview_max_scale: float = 12.0
-@export var preview_position_offset: Vector2 = Vector2(24.0, 0.0)
+@export var preview_position_offset: Vector2 = Vector2(25.0, 0.0)
 @export var head_prev_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/HeadPrevButton"
 @export var head_next_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/HeadNextButton"
 @export var body_prev_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/BodyPrevButton"
@@ -36,9 +37,15 @@ const SLOT_LEGS: StringName = &"legs"
 @export var head_value_label_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/HeadValueLabel"
 @export var body_value_label_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/BodyValueLabel"
 @export var legs_value_label_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid/LegsValueLabel"
-@export var randomize_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/BottomButtons/TopRow/RandomizeButton"
-@export var cancel_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/BottomButtons/TopRow/CancelButton"
-@export var confirm_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/BottomButtons/BottomRow/ConfirmButton"
+@export var randomize_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow/RandomizeButton"
+@export var cancel_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow/CancelButton"
+@export var confirm_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/BottomRow/ConfirmButton"
+@export var audio_service_path: NodePath = ^"/root/MusicPlayer"
+@export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_2.mp3"
+@export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_8.mp3"
+@export_range(-40.0, 12.0, 0.1) var hover_volume_db: float = -10.0
+@export_range(-40.0, 12.0, 0.1) var click_volume_db: float = -3.0
+@export var sfx_bus_name: String = "SFX"
 
 @onready var _root: Control = get_node_or_null(root_path) as Control
 @onready var _preview_area: Control = get_node_or_null(preview_area_path) as Control
@@ -78,6 +85,9 @@ var _head_ids: Array[StringName] = []
 var _body_ids: Array[StringName] = []
 var _legs_ids: Array[StringName] = []
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var _preview_idle_frame_index: int = 0
+var _preview_idle_elapsed_seconds: float = 0.0
+var _music_player_service: Node
 
 
 func _ready() -> void:
@@ -87,10 +97,12 @@ func _ready() -> void:
 
 	_rng.randomize()
 	_rebuild_ids()
+	_setup_audio()
 	_wire_ui_signals()
 
 	_current_appearance = _resolve_default_appearance()
 	_refresh_preview()
+	set_process(true)
 	hide_panel()
 
 
@@ -104,8 +116,9 @@ func show_panel(initial_appearance: Resource = null) -> void:
 	else:
 		_current_appearance = _resolve_default_appearance()
 	_validate_appearance()
-	_apply_layout()
+	_reset_preview_idle_animation()
 	_refresh_preview()
+	call_deferred("_apply_layout")
 
 
 func hide_panel() -> void:
@@ -122,6 +135,18 @@ func get_current_appearance() -> Resource:
 
 func _on_overlay_viewport_resized() -> void:
 	_apply_layout()
+
+
+func _process(delta: float) -> void:
+	if not visible:
+		return
+	_preview_idle_elapsed_seconds += maxf(delta, 0.0)
+	if _preview_idle_elapsed_seconds < PREVIEW_IDLE_FRAME_STEP_SECONDS:
+		return
+	while _preview_idle_elapsed_seconds >= PREVIEW_IDLE_FRAME_STEP_SECONDS:
+		_preview_idle_elapsed_seconds -= PREVIEW_IDLE_FRAME_STEP_SECONDS
+		_preview_idle_frame_index = (_preview_idle_frame_index + 1) % PREVIEW_IDLE_FRAMES.size()
+	_apply_preview_frame()
 
 
 func _apply_layout() -> void:
@@ -167,6 +192,47 @@ func _connect_button_signal(button: Button, callback: Callable) -> void:
 		return
 	if not button.pressed.is_connected(callback):
 		button.pressed.connect(callback)
+	if not button.pressed.is_connected(_on_button_pressed_audio):
+		button.pressed.connect(_on_button_pressed_audio)
+	if not button.mouse_entered.is_connected(_on_button_hovered):
+		button.mouse_entered.connect(_on_button_hovered)
+	if not button.focus_entered.is_connected(_on_button_hovered):
+		button.focus_entered.connect(_on_button_hovered)
+
+
+func _setup_audio() -> void:
+	_music_player_service = get_node_or_null(audio_service_path)
+	if _music_player_service == null:
+		push_warning("CharacterCreatorPanel: MusicPlayer service not found at '%s'." % audio_service_path)
+		return
+
+	if _music_player_service.has_method("configure_ui_sounds"):
+		_music_player_service.call(
+			"configure_ui_sounds",
+			hover_sound_path,
+			hover_volume_db,
+			click_sound_path,
+			click_volume_db,
+			sfx_bus_name
+		)
+
+
+func _on_button_hovered() -> void:
+	_play_hover_sound()
+
+
+func _on_button_pressed_audio() -> void:
+	_play_click_sound()
+
+
+func _play_hover_sound() -> void:
+	if _music_player_service and _music_player_service.has_method("play_ui_hover"):
+		_music_player_service.call("play_ui_hover")
+
+
+func _play_click_sound() -> void:
+	if _music_player_service and _music_player_service.has_method("play_ui_click"):
+		_music_player_service.call("play_ui_click")
 
 
 func _rebuild_ids() -> void:
@@ -297,10 +363,9 @@ func _refresh_preview() -> void:
 		if sprite == null:
 			continue
 		sprite.hframes = 4
-		sprite.frame = PREVIEW_FRAME
+	_apply_preview_frame()
 
 	_update_value_labels()
-	_apply_layout()
 
 
 func _catalog_get_texture(method_name: String, entry_id: StringName) -> Texture2D:
@@ -362,3 +427,18 @@ func _to_string_name_array(value: Variant) -> Array[StringName]:
 	for entry in source:
 		converted.append(StringName(str(entry)))
 	return converted
+
+
+func _reset_preview_idle_animation() -> void:
+	_preview_idle_frame_index = 0
+	_preview_idle_elapsed_seconds = 0.0
+
+
+func _apply_preview_frame() -> void:
+	var frame: int = 0
+	if not PREVIEW_IDLE_FRAMES.is_empty():
+		frame = PREVIEW_IDLE_FRAMES[_preview_idle_frame_index]
+	for sprite in [_preview_head, _preview_body, _preview_legs, _preview_weapon_front, _preview_weapon_back]:
+		if sprite == null:
+			continue
+		sprite.frame = frame

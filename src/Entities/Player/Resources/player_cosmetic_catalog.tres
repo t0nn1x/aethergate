@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://braliypg24qli" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head1.png" id="3_head_1"]
 [ext_resource type="Texture2D" uid="uid://cbxfr2jncqgmh" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head2.png" id="4_head_2"]
 [ext_resource type="Texture2D" uid="uid://bvkdy4xga5ugc" path="res://src/Entities/Player/Sprites/Parts/Body/Dude_body1.png" id="5_body_1"]
-[ext_resource type="Texture2D" uid="uid://bsdhmoy6lfr1o" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head3.png" id="6_6rgm5"]
+[ext_resource type="Texture2D" uid="uid://c15m3nnq18d1w" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head3.png" id="6_6rgm5"]
 [ext_resource type="Texture2D" uid="uid://b2rdsu1wxkulu" path="res://src/Entities/Player/Sprites/Parts/Body/Dude_body2.png" id="6_body_2"]
 [ext_resource type="Texture2D" uid="uid://bn78jc87i6dcd" path="res://src/Entities/Player/Sprites/Parts/Legs/Dude_legs1.png" id="7_legs_1"]
 [ext_resource type="Texture2D" uid="uid://bd068tfi1d0r" path="res://src/Entities/Player/Sprites/Parts/Legs/Dude_legs2.png" id="8_legs_2"]

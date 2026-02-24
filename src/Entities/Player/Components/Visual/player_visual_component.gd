@@ -10,11 +10,11 @@ const PLAYER_APPEARANCE_DATA_SCRIPT := preload(
 const SLOT_HEAD: StringName = &"head"
 const SLOT_BODY: StringName = &"body"
 const SLOT_LEGS: StringName = &"legs"
-const Z_WEAPON_BACK: int = -1
+const Z_WEAPON_BACK: int = 0
 const Z_LEGS: int = 0
-const Z_BODY: int = 1
-const Z_HEAD: int = 2
-const Z_WEAPON_FRONT: int = 3
+const Z_BODY: int = 0
+const Z_HEAD: int = 0
+const Z_WEAPON_FRONT: int = 0
 
 var creature: Creature
 
