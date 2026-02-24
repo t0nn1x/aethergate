@@ -102,6 +102,8 @@ If argument provided (e.g., `/commit auth`):
 - For platform-variant Godot UI (Windows/MacOS/Mobile), stage scene+script pairs together and verify parity-critical resources (icons, blur materials, style profiles) are present on each variant
 - For overlay blur changes, verify `CanvasLayer.layer` ordering across HUD/panel scenes before commit so gameplay HUD is not accidentally blurred behind inventory dimmers
 - For Godot UI texture swaps, verify file-level adds/deletes are intentional (especially `button_*` assets) and confirm baseline hover/normal assets still exist when no replacement was intended
+- For layered player-sprite changes, stage `.tscn` hierarchy edits with matching visual-sync script updates together so silhouette/outline logic stays aligned with legs/body/head/weapon layers
+- For Y-sorted character updates, scan staged scene diffs for unintended fixed per-part `z_index` values that can break world occlusion sorting
 - Before final commit, run `git diff --name-only` and confirm staged asset/style/resource files match the feature scope (especially after opening scenes in editor)
 - After manual conflict/quick edits, scan staged script hunks for obvious parse-breaking artifacts (stray leading characters/partial tokens near function declarations)
 - Add Co-Authored-By for pair programming if mentioned

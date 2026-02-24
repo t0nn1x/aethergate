@@ -11,6 +11,7 @@
 [node name="SystemHud" type="CanvasLayer" unique_id=2010540959]
 layer = 26
 script = ExtResource("1")
+bottom_margin_extra = -20.0
 
 [node name="Root" type="Control" parent="." unique_id=1409884506]
 layout_mode = 3

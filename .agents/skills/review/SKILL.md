@@ -83,6 +83,8 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Event-bus migrations preserve compatibility (legacy bridge/fallback exists while callers are being moved)
 - [ ] No `get_nodes_in_group` polling in hot runtime paths where composition-root injection is expected
 - [ ] Solo-first code keeps multiplayer seams (identity fields + authority checks) and does not bake in single-player-only assumptions
+- [ ] Layered player sprites inside Y-sorted gameplay roots do not carry accidental fixed `z_index` overrides that break world occlusion sorting
+- [ ] Supporting effects (silhouette/outline/shadow) are updated for every active visual part after sprite hierarchy changes (legs/body/head/weapon layers)
 - [ ] `TextureRect` stretch/repeat settings match intent (avoid accidental tiling from `STRETCH_TILE` + expanded rects unless explicitly desired)
 - [ ] Scrolling parallax layers avoid seam-prone wrap/repeat mismatches (`fract` UV wrapping with repeat disabled) and use pixel-snapped fit bounds with slight overscan where full-screen coverage is required
 - [ ] Parallax/background folders either enforce same-sized layer images or use explicit canonical-size filtering before assignment

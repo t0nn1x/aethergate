@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 ProjectConfig="*res://src/Config/project_config_service.gd"
+PlayerProfileService="*res://src/Core/player_profile_service.gd"
 PlatformDisplaySettings="*res://src/Core/platform_display_settings.gd"
 PlayerEvents="*res://src/Core/Events/player_events.gd"
 WorldEvents="*res://src/Core/Events/world_events.gd"

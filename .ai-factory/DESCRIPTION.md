@@ -12,6 +12,7 @@ Aethergate is a Godot game project with core runtime services, entity systems, a
 ## Identified Patterns
 - **Feature-oriented structure:** `src/Core`, `src/Entities`, `src/Map`, `src/Common`
 - **Autoload orchestration:** `PlatformDisplaySettings`, `EventBus`, `GameManager`
+- **Profile persistence autoload:** `PlayerProfileService` stores player cosmetic setup (`user://player_profile.cfg`)
 - **Bounded event buses:** `PlayerEvents`, `WorldEvents`, `UIEvents` with `EventBus` kept as compatibility shim
 - **Centralized project config:** `ProjectConfig` autoload resolves global config + active platform profile
 - **Componentized player architecture:** `src/Entities/Player/Components`

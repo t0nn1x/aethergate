@@ -405,7 +405,6 @@ func _play_click_sound() -> void:
 func _on_play_pressed() -> void:
 	_play_click_sound()
 	print("[MainScreen] play_pressed")
-	hide_menu()
 	play_pressed.emit()
 
 
