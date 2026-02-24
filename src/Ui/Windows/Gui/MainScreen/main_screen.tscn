@@ -1,13 +1,32 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://crpggtwu5kpag"]
 
-[ext_resource type="Script" path="res://src/Ui/Windows/Gui/MainScreen/main_screen.gd" id="1_main"]
-[ext_resource type="Script" path="res://src/Ui/Windows/Gui/MainScreen/background_controller.gd" id="2_background"]
-[ext_resource type="Theme" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
-[ext_resource type="Script" path="res://src/Ui/Windows/Gui/MainScreen/nine_slice_menu_button.gd" id="4_button"]
+[ext_resource type="Script" uid="uid://dc68q7ilmyt5c" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_windows.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/Ui/Windows/Gui/MainScreen/background_controller.gd" id="2_background"]
+[ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
+[ext_resource type="Script" uid="uid://c2cmxuquaeqlv" path="res://src/Ui/Windows/Gui/MainScreen/nine_slice_menu_button.gd" id="4_button"]
+[ext_resource type="Texture2D" uid="uid://db6ld1pwycnd" path="res://src/Ui/Assets/Gui-Hud/Panels/Panels/F_UI_Panel_A.png" id="5_panel_a"]
+[ext_resource type="Texture2D" uid="uid://cfbfohsictobt" path="res://src/Ui/Assets/Gui-Hud/Banners/Banners A/Banners-A_04.png" id="6_banner_a04"]
+[ext_resource type="Texture2D" uid="uid://wmfgypj6errv" path="res://Assets/Icons/App_Icons/Big (120x120) PNG/Patreon.png" id="7_icon_patreon"]
+[ext_resource type="Texture2D" uid="uid://doeuo602mogtb" path="res://Assets/Icons/App_Icons/Big (120x120) PNG/Discord.png" id="8_icon_discord"]
+[ext_resource type="Texture2D" uid="uid://2uadefjahgpe" path="res://Assets/Icons/App_Icons/Big (120x120) PNG/Youtube.png" id="9_icon_youtube"]
+[ext_resource type="Texture2D" uid="uid://lslv2m86pkgj" path="res://Assets/Icons/App_Icons/Big (120x120) PNG/Telegram.png" id="10_icon_telegram"]
+[ext_resource type="Texture2D" uid="uid://wp118k7ddqr7" path="res://Assets/Icons/App_Icons/Big (120x120) PNG/Twitter.png" id="11_icon_twitter"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel_a"]
+content_margin_left = 26.0
+content_margin_top = 24.0
+content_margin_right = 26.0
+content_margin_bottom = 24.0
+texture = ExtResource("5_panel_a")
+expand_margin_left = 82.0
+expand_margin_top = 143.0
+expand_margin_right = 82.0
+expand_margin_bottom = 225.0
 
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
 layer = 30
 script = ExtResource("1_main")
+title_label_path = NodePath("Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleBanner/BannerTexture/TitleLabel")
 menu_music_folder_path = "res://src/Ui/Assets/Music"
 
 [node name="Root" type="Control" parent="." unique_id=1118522623]
@@ -104,7 +123,9 @@ theme_override_constants/margin_bottom = 72
 layout_mode = 2
 
 [node name="MenuCard" type="PanelContainer" parent="Root/MenuMargin/CenterContainer" unique_id=195855556]
+custom_minimum_size = Vector2(720, 560)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel_a")
 
 [node name="CardDecor" type="Control" parent="Root/MenuMargin/CenterContainer/MenuCard" unique_id=77799231]
 layout_mode = 2
@@ -112,35 +133,105 @@ mouse_filter = 2
 
 [node name="MenuPadding" type="MarginContainer" parent="Root/MenuMargin/CenterContainer/MenuCard" unique_id=897271988]
 layout_mode = 2
-theme_override_constants/margin_left = 36
-theme_override_constants/margin_top = 34
-theme_override_constants/margin_right = 36
-theme_override_constants/margin_bottom = 26
+theme_override_constants/margin_left = 44
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 44
+theme_override_constants/margin_bottom = 32
 
 [node name="MenuVBox" type="VBoxContainer" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding" unique_id=1639466591]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="TitleLabel" type="Label" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1810091145]
+[node name="TitleBanner" type="Control" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1531050406]
+custom_minimum_size = Vector2(520, 160)
 layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="BannerTexture" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleBanner" unique_id=1075577315]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 180.0
+mouse_filter = 2
+texture = ExtResource("6_banner_a04")
+
+[node name="TitleLabel" type="Label" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleBanner/BannerTexture" unique_id=1810091145]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 48
-text = "Aethergate"
+theme_override_font_sizes/font_size = 56
+text = "AETHERGATE"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayButton" type="Button" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1687213066 groups=["touch_interactive"]]
-custom_minimum_size = Vector2(420, 104)
+custom_minimum_size = Vector2(460, 116)
 layout_mode = 2
 text = "Create a character"
 script = ExtResource("4_button")
-button_size = Vector2(420, 104)
+button_size = Vector2(460, 116)
 
 [node name="QuitButton" type="Button" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1239343404 groups=["touch_interactive"]]
-custom_minimum_size = Vector2(420, 104)
+custom_minimum_size = Vector2(460, 116)
 layout_mode = 2
 text = "Quit"
 script = ExtResource("4_button")
-button_size = Vector2(420, 104)
+button_size = Vector2(460, 116)
+
+[node name="SocialIconsLayer" type="Control" parent="Root/MenuMargin/CenterContainer/MenuCard" unique_id=1111938971]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SocialIconsRow" type="HBoxContainer" parent="Root/MenuMargin/CenterContainer/MenuCard/SocialIconsLayer" unique_id=1549913650]
+custom_minimum_size = Vector2(460, 84)
+layout_mode = 0
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PatreonIcon" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/SocialIconsLayer/SocialIconsRow" unique_id=1205368754]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("7_icon_patreon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscordIcon" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/SocialIconsLayer/SocialIconsRow" unique_id=324535830]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("8_icon_discord")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="YoutubeIcon" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/SocialIconsLayer/SocialIconsRow" unique_id=799630955]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("9_icon_youtube")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TelegramIcon" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/SocialIconsLayer/SocialIconsRow" unique_id=1502603852]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_icon_telegram")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TwitterIcon" type="TextureRect" parent="Root/MenuMargin/CenterContainer/MenuCard/SocialIconsLayer/SocialIconsRow" unique_id=1856177951]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("11_icon_twitter")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="BackgroundController" type="Node" parent="." unique_id=174224736]
 script = ExtResource("2_background")
