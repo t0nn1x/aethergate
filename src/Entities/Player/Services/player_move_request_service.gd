@@ -44,11 +44,31 @@ func request_move_target(world_position: Vector2, from_hold: bool = false) -> Va
 
 	var resolved_world_position: Vector2 = _resolve_blocked_world_target(world_position)
 	if _is_world_position_in_blocked_polygon(resolved_world_position):
+		if OS.is_debug_build():
+			print(
+				"[FIX][MoveTarget] rejected_blocked requested=%s resolved=%s from_hold=%s"
+				% [world_position, resolved_world_position, from_hold]
+			)
 		return null
 	if not _navigation_component.set_target_position(resolved_world_position):
+		if OS.is_debug_build():
+			print(
+				"[FIX][MoveTarget] rejected_navigation requested=%s resolved=%s from_hold=%s reason=%s"
+				% [
+					world_position,
+					resolved_world_position,
+					from_hold,
+					_navigation_component.get_last_target_reject_reason()
+				]
+			)
 		return null
 
-	move_target_queued.emit(world_position, from_hold)
+	if OS.is_debug_build():
+		print(
+			"[FIX][MoveTarget] queued requested=%s resolved=%s from_hold=%s"
+			% [world_position, resolved_world_position, from_hold]
+		)
+	move_target_queued.emit(resolved_world_position, from_hold)
 	return resolved_world_position
 
 

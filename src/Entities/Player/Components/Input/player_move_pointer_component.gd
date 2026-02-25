@@ -12,8 +12,8 @@ const DESKTOP_FEATURES: PackedStringArray = ["windows", "macos", "linuxbsd"]
 @export var animation_fps: float = 7.0
 @export var sprite_scale: Vector2 = Vector2(0.7, 0.7)
 @export var sprite_offset: Vector2 = Vector2.ZERO
-@export var apply_desktop_click_anchor_offset: bool = true
-@export var desktop_click_anchor_offset_world: Vector2 = Vector2(-3.0, -21.5)
+@export var apply_desktop_click_anchor_offset: bool = false
+@export var desktop_click_anchor_offset_world: Vector2 = Vector2.ZERO
 
 var creature: Creature
 var input_component: PlayerInputComponent
@@ -57,7 +57,13 @@ func _process(_delta: float) -> void:
 
 
 func _on_move_target_queued(world_position: Vector2, _from_hold: bool) -> void:
-	global_position = world_position + _get_click_anchor_offset_world()
+	var click_anchor_offset: Vector2 = _get_click_anchor_offset_world()
+	global_position = world_position + click_anchor_offset
+	if OS.is_debug_build():
+		print(
+			"[FIX][MovePointer] target=%s visual=%s offset=%s held=%s"
+			% [world_position, global_position, click_anchor_offset, _is_pointer_held]
+		)
 	_has_valid_pointer_position = true
 
 	if _is_pointer_held:

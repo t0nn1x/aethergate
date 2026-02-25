@@ -192,7 +192,7 @@ func _queue_move_target_world(world_position: Vector2, screen_position: Vector2,
 	_sync_move_request_service_config()
 	var accepted_target: Variant = _move_request_service.request_move_target(world_position, from_hold)
 	if accepted_target is Vector2:
-		_last_hold_target_world = world_position
+		_last_hold_target_world = accepted_target as Vector2
 		_has_last_hold_target = true
 
 
