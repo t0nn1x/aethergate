@@ -250,6 +250,13 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
+[node name="ConfirmButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow" unique_id=1662645401]
+custom_minimum_size = Vector2(320, 90)
+layout_mode = 2
+text = "Start Adventure"
+script = ExtResource("5_button")
+button_size = Vector2(320, 90)
+
 [node name="RandomizeButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow" unique_id=2139859340]
 custom_minimum_size = Vector2(320, 90)
 layout_mode = 2
@@ -257,20 +264,13 @@ text = "Randomize"
 script = ExtResource("5_button")
 button_size = Vector2(320, 90)
 
-[node name="CancelButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow" unique_id=1636226315]
-custom_minimum_size = Vector2(320, 90)
-layout_mode = 2
-text = "Cancel"
-script = ExtResource("5_button")
-button_size = Vector2(320, 90)
-
 [node name="BottomRow" type="HBoxContainer" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons" unique_id=27014405]
 layout_mode = 2
 alignment = 1
 
-[node name="ConfirmButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/BottomRow" unique_id=1662645401]
+[node name="CancelButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/BottomRow" unique_id=1636226315]
 custom_minimum_size = Vector2(360, 96)
 layout_mode = 2
-text = "Start Adventure"
+text = "Cancel"
 script = ExtResource("5_button")
 button_size = Vector2(360, 96)
