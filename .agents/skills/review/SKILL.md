@@ -78,6 +78,9 @@ Perform thorough code reviews focusing on correctness, security, performance, an
 - [ ] Input/navigation behavior still works (tap-to-move, hold retarget, blocked target resolution)
 - [ ] If custom desktop cursors are used, hotspot alignment matches world-hit intent and cursor state does not regress after hover/click transitions
 - [ ] Mouse input conversion uses consistent coordinate space (no window-space `InputEventMouse*.position` mixed with viewport/global-mouse paths in same interaction flow)
+- [ ] Click-to-move uses one authoritative world target through request resolution, signal emission, pointer render, and final arrival (no requested-vs-resolved mismatch)
+- [ ] Hold-retarget caches accepted/resolved target coordinates (not pre-resolution input) so retarget thresholds and marker updates match applied navigation targets
+- [ ] Pointer anchor offsets are zero/disabled by default unless explicitly calibrated and validated against actual arrival
 - [ ] Newly used Godot engine methods in input/camera code exist in target engine version (no non-existent API calls in runtime paths)
 - [ ] New autoload channels are registered in `project.godot` and not referenced through undeclared compile-time singleton names
 - [ ] Event-bus migrations preserve compatibility (legacy bridge/fallback exists while callers are being moved)

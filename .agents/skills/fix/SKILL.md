@@ -83,6 +83,9 @@ To fix this effectively, I need more context:
 - Inspector performance traps: avoid eager loading large preview sets inside `_get_property_list`/`_get`; lazy-load only selected preview assets and cache lightweight metadata
 - Spawn/wander sampling traps: zone-randomized world positions can still land inside navigation blocker polygons; enforce blocker-policy rejection/resolution and avoid early `_ready` null wiring by resolving blocker registries deferred/lazily
 - Mouse coordinate-space traps: mixing `InputEventMouse*.position` (window/screen space) with `Viewport.get_mouse_position()` / `get_global_mouse_position()` paths can introduce stable click offsets; keep one coordinate space per interaction path
+- Move-target authority traps: emitting/consuming raw requested click positions instead of resolved navigation targets can desync marker position from actual arrival; keep request→resolve→emit→render on the same authoritative world point
+- Hold-retarget cache traps: caching pre-resolution pointer world positions during hold can cause distance checks and marker updates to drift from applied nav targets; cache accepted target coordinates instead
+- Pointer-anchor compensation traps: hardcoded desktop marker offsets can hide root coordinate issues and create persistent visual drift; default to zero offset unless explicitly calibrated
 - Godot API-surface traps: avoid introducing unverified engine methods in hot input/camera paths (for example non-existent `Camera2D` conversion helpers); confirm method availability for Godot 4.x before wiring
 - UI layout-coupling traps: using title/content spacing margins as inputs for panel background geometry/height calculations can unintentionally shrink or shift panels; keep decorative spacing decoupled from container-size math
 - CanvasLayer ordering traps: fullscreen blur/dimmer overlays can unintentionally blur HUD controls if layer indices differ across platform variants; verify HUD/menu layers render above blur layers where intended
@@ -131,6 +134,7 @@ try {
 - If touching layered character visuals, validate all layers (legs/body/head/weapon) sort together against world occluders and verify silhouette/outline mirrors each part
 - If touching dynamically-instantiated UI widgets, verify configuration runs after node-tree entry when it depends on `@onready` children (for example `add_child` before configure or deferred configure)
 - If touching UI title/padding spacing, verify any dependent panel/background height calculations still use base paddings (not spacing offsets added only for visual alignment)
+- If touching click-to-move flow, verify pointer marker and player arrival align to the resolved/accepted target (not raw click input) and confirm any visual anchor offset is zero/intentional
 
 ### Step 5: Suggest Test Coverage
 

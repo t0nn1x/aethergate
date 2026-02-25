@@ -104,6 +104,9 @@ If argument provided (e.g., `/commit auth`):
 - For Godot UI texture swaps, verify file-level adds/deletes are intentional (especially `button_*` assets) and confirm baseline hover/normal assets still exist when no replacement was intended
 - For layered player-sprite changes, stage `.tscn` hierarchy edits with matching visual-sync script updates together so silhouette/outline logic stays aligned with legs/body/head/weapon layers
 - For Y-sorted character updates, scan staged scene diffs for unintended fixed per-part `z_index` values that can break world occlusion sorting
+- For click-to-move fixes, stage request service + input component + pointer marker script together so resolved-target alignment changes are committed atomically
+- For movement-target alignment fixes, check staged signal payloads are authoritative (resolved/accepted target), not raw requested click coordinates
+- When pointer drift was fixed with logging/patch artifacts, include the corresponding `.ai-factory/patches/*.md` (and evolution log if updated) in the same intent commit
 - Before final commit, run `git diff --name-only` and confirm staged asset/style/resource files match the feature scope (especially after opening scenes in editor)
 - After manual conflict/quick edits, scan staged script hunks for obvious parse-breaking artifacts (stray leading characters/partial tokens near function declarations)
 - Add Co-Authored-By for pair programming if mentioned
