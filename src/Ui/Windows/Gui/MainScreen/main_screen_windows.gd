@@ -31,6 +31,7 @@ func _ready() -> void:
 	_social_icons_container = get_node_or_null(social_icons_container_path) as Control
 	_apply_title_banner_transform()
 	_apply_social_icons_transform()
+	call_deferred("_apply_social_icons_transform")
 	_connect_social_icon_links()
 
 
@@ -52,6 +53,7 @@ func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
 		return
 
 	_scale_desktop_button(_play_button, viewport_size)
+	_scale_desktop_button(_language_button, viewport_size)
 	_scale_desktop_button(_quit_button, viewport_size)
 
 
@@ -59,12 +61,29 @@ func _scale_desktop_button(button: Button, viewport_size: Vector2) -> void:
 	if button == null:
 		return
 
-	var target_size: Vector2 = button.custom_minimum_size * DESKTOP_BUTTON_SCALE
+	var target_size: Vector2 = button.custom_minimum_size * _resolve_desktop_button_scale()
 	target_size.x = maxf(target_size.x, DESKTOP_MIN_BUTTON_SIZE.x)
 	target_size.y = maxf(target_size.y, DESKTOP_MIN_BUTTON_SIZE.y)
 	target_size.x = minf(target_size.x, viewport_size.x * DESKTOP_MAX_BUTTON_WIDTH_FACTOR)
 	target_size.y = minf(target_size.y, DESKTOP_MAX_BUTTON_HEIGHT)
 	_apply_button_target_size(button, target_size)
+
+
+func _resolve_desktop_button_scale() -> float:
+	var visible_button_count: int = 0
+	var candidates: Array = [_play_button, _language_button, _quit_button]
+	for node: Variant in candidates:
+		var button: Button = node as Button
+		if button == null:
+			continue
+		if not button.visible:
+			continue
+		visible_button_count += 1
+
+	if visible_button_count >= 3:
+		# Keep panel height close to previous 2-button layout while preserving equal button sizes.
+		return DESKTOP_BUTTON_SCALE * (2.0 / 3.0)
+	return DESKTOP_BUTTON_SCALE
 
 
 func _apply_responsive_layout() -> void:
@@ -93,6 +112,12 @@ func _apply_social_icons_transform() -> void:
 		return
 
 	var row_size: Vector2 = _social_icons_row.get_combined_minimum_size().round()
+	var fallback_size: Vector2 = _social_icons_row.custom_minimum_size.round()
+	if row_size.x <= 0.0 or row_size.y <= 0.0:
+		row_size = fallback_size
+	else:
+		row_size.x = maxf(row_size.x, fallback_size.x)
+		row_size.y = maxf(row_size.y, fallback_size.y)
 	_social_icons_row.size = row_size
 	var row_x: float = (_social_icons_container.size.x - row_size.x) * 0.5 + social_icons_horizontal_offset
 	var row_y: float = _social_icons_container.size.y - row_size.y - social_icons_bottom_inset

@@ -5,16 +5,21 @@ extends Node
 const PLAYER_APPEARANCE_DATA_SCRIPT := preload(
 	"res://src/Entities/Player/Resources/player_appearance_data.gd"
 )
+const PROFILE_SAVE_PATH: String = "user://player_profile.cfg"
+const SETTINGS_SECTION: String = "settings"
+const SETTINGS_KEY_PREFERRED_LOCALE: String = "preferred_locale"
 
 @export var cosmetic_catalog: Resource = preload(
 	"res://src/Entities/Player/Resources/player_cosmetic_catalog.tres"
 )
 
 var _appearance: Resource
+var _preferred_locale: StringName = StringName()
 
 
 func _ready() -> void:
 	_appearance = _resolve_default_appearance()
+	_load_locale_preference()
 
 
 func get_catalog() -> Resource:
@@ -50,6 +55,20 @@ func mark_setup_completed(_completed: bool = true) -> void:
 
 func reset_profile() -> void:
 	_appearance = _resolve_default_appearance()
+	_preferred_locale = StringName()
+	_save_locale_preference()
+
+
+func get_preferred_locale() -> StringName:
+	return _preferred_locale
+
+
+func set_preferred_locale(locale_code: StringName) -> void:
+	var normalized_locale: StringName = StringName(String(locale_code).strip_edges().to_lower())
+	if normalized_locale == _preferred_locale:
+		return
+	_preferred_locale = normalized_locale
+	_save_locale_preference()
 
 
 func _resolve_default_appearance() -> Resource:
@@ -107,3 +126,37 @@ func _catalog_get_weapon_texture(method_name: String, weapon_id: StringName) -> 
 	if cosmetic_catalog == null or not cosmetic_catalog.has_method(method_name):
 		return null
 	return cosmetic_catalog.call(method_name, weapon_id) as Texture2D
+
+
+func _load_locale_preference() -> void:
+	var profile_data: ConfigFile = ConfigFile.new()
+	var load_error: Error = profile_data.load(PROFILE_SAVE_PATH)
+	if load_error != OK:
+		return
+
+	var stored_locale: String = String(
+		profile_data.get_value(SETTINGS_SECTION, SETTINGS_KEY_PREFERRED_LOCALE, "")
+	).strip_edges().to_lower()
+	if stored_locale.is_empty():
+		return
+
+	_preferred_locale = StringName(stored_locale)
+
+
+func _save_locale_preference() -> void:
+	var profile_data: ConfigFile = ConfigFile.new()
+	var load_error: Error = profile_data.load(PROFILE_SAVE_PATH)
+	if load_error != OK and load_error != ERR_FILE_NOT_FOUND:
+		if OS.is_debug_build():
+			push_warning("PlayerProfileService: failed to load profile config (%d)." % int(load_error))
+		return
+
+	var locale_text: String = String(_preferred_locale).strip_edges().to_lower()
+	if locale_text.is_empty():
+		profile_data.erase_section_key(SETTINGS_SECTION, SETTINGS_KEY_PREFERRED_LOCALE)
+	else:
+		profile_data.set_value(SETTINGS_SECTION, SETTINGS_KEY_PREFERRED_LOCALE, locale_text)
+
+	var save_error: Error = profile_data.save(PROFILE_SAVE_PATH)
+	if save_error != OK and OS.is_debug_build():
+		push_warning("PlayerProfileService: failed to save profile config (%d)." % int(save_error))

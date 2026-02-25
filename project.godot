@@ -25,6 +25,7 @@ config/icon="res://icon.svg"
 
 ProjectConfig="*res://src/Config/project_config_service.gd"
 PlayerProfileService="*res://src/Core/player_profile_service.gd"
+LocalizationService="*res://src/Localization/localization_service.gd"
 PlatformDisplaySettings="*res://src/Core/platform_display_settings.gd"
 PlayerEvents="*res://src/Core/Events/player_events.gd"
 WorldEvents="*res://src/Core/Events/world_events.gd"
@@ -107,6 +108,10 @@ debug_speed_down={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":91,"physical_keycode":0,"key_label":0,"unicode":91,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://src/Localization/Translations/ui_en.tres", "res://src/Localization/Translations/ui_uk.tres")
 
 [layer_names]
 

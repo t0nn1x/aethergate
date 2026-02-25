@@ -401,6 +401,13 @@ func _open_character_creator_panel() -> void:
 			session_controller.start_session()
 		return
 
+	if main_screen:
+		if not main_screen.visible:
+			main_screen.show_menu()
+		if main_screen.has_method("set_creator_overlay_mode"):
+			main_screen.call("set_creator_overlay_mode", true)
+		print("[FIX][CreatorFlow] Opened creator with main-screen background/music preserved.")
+
 	# Start from fresh defaults each time while persistence is disabled.
 	character_creator_panel.call("show_panel", null)
 
@@ -415,6 +422,8 @@ func _on_character_creator_appearance_confirmed(appearance: Resource) -> void:
 		profile_service.call("set_appearance", appearance, true)
 
 	if main_screen:
+		if main_screen.has_method("set_creator_overlay_mode"):
+			main_screen.call("set_creator_overlay_mode", false)
 		main_screen.hide_menu()
 	if session_controller:
 		session_controller.start_session()
@@ -424,6 +433,8 @@ func _on_character_creator_cancelled() -> void:
 	if character_creator_panel and character_creator_panel.has_method("hide_panel"):
 		character_creator_panel.call("hide_panel")
 	if main_screen:
+		if main_screen.has_method("set_creator_overlay_mode"):
+			main_screen.call("set_creator_overlay_mode", false)
 		main_screen.show_menu()
 
 

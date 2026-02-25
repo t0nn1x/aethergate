@@ -40,6 +40,15 @@ const SLOT_LEGS: StringName = &"legs"
 @export var randomize_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow/RandomizeButton"
 @export var cancel_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/BottomRow/CancelButton"
 @export var confirm_button_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow/ConfirmButton"
+@export var title_label_path: NodePath = ^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/TitleBanner/BannerTexture/TitleLabel"
+@export var localization_service_path: NodePath = ^"/root/LocalizationService"
+@export var title_text_key: StringName = &"ui.creator.title"
+@export var randomize_text_key: StringName = &"ui.creator.randomize"
+@export var cancel_text_key: StringName = &"ui.creator.cancel"
+@export var confirm_text_key: StringName = &"ui.creator.confirm"
+@export var head_label_text_key: StringName = &"ui.creator.head"
+@export var body_label_text_key: StringName = &"ui.creator.body"
+@export var legs_label_text_key: StringName = &"ui.creator.legs"
 @export var audio_service_path: NodePath = ^"/root/MusicPlayer"
 @export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_2.mp3"
 @export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_8.mp3"
@@ -60,6 +69,7 @@ const SLOT_LEGS: StringName = &"legs"
 @onready var _head_value_label: Label = get_node_or_null(head_value_label_path) as Label
 @onready var _body_value_label: Label = get_node_or_null(body_value_label_path) as Label
 @onready var _legs_value_label: Label = get_node_or_null(legs_value_label_path) as Label
+@onready var _title_label: Label = get_node_or_null(title_label_path) as Label
 @onready var _randomize_button: Button = get_node_or_null(randomize_button_path) as Button
 @onready var _cancel_button: Button = get_node_or_null(cancel_button_path) as Button
 @onready var _confirm_button: Button = get_node_or_null(confirm_button_path) as Button
@@ -88,6 +98,7 @@ var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _preview_idle_frame_index: int = 0
 var _preview_idle_elapsed_seconds: float = 0.0
 var _music_player_service: Node
+var _localization_service: Node
 
 
 func _ready() -> void:
@@ -99,6 +110,7 @@ func _ready() -> void:
 	_rebuild_ids()
 	_setup_audio()
 	_wire_ui_signals()
+	_setup_localization()
 
 	_current_appearance = _resolve_default_appearance()
 	_refresh_preview()
@@ -185,6 +197,39 @@ func _wire_ui_signals() -> void:
 	_connect_button_signal(_randomize_button, _on_randomize_pressed)
 	_connect_button_signal(_cancel_button, _on_cancel_pressed)
 	_connect_button_signal(_confirm_button, _on_confirm_pressed)
+
+
+func _setup_localization() -> void:
+	_localization_service = get_node_or_null(localization_service_path)
+	if (
+		_localization_service
+		and _localization_service.has_signal("locale_changed")
+		and not _localization_service.is_connected("locale_changed", Callable(self, "_on_locale_changed"))
+	):
+		_localization_service.connect("locale_changed", Callable(self, "_on_locale_changed"))
+	_apply_localized_texts()
+
+
+func _on_locale_changed(_locale: StringName) -> void:
+	_apply_localized_texts()
+
+
+func _translate_key(key: StringName) -> String:
+	if _localization_service and _localization_service.has_method("translate_key"):
+		return String(_localization_service.call("translate_key", key))
+	return tr(String(key))
+
+
+func _apply_localized_texts() -> void:
+	if _title_label:
+		_title_label.text = _translate_key(title_text_key)
+	if _randomize_button:
+		_randomize_button.text = _translate_key(randomize_text_key)
+	if _cancel_button:
+		_cancel_button.text = _translate_key(cancel_text_key)
+	if _confirm_button:
+		_confirm_button.text = _translate_key(confirm_text_key)
+	_update_value_labels()
 
 
 func _connect_button_signal(button: Button, callback: Callable) -> void:
@@ -375,12 +420,42 @@ func _catalog_get_texture(method_name: String, entry_id: StringName) -> Texture2
 
 
 func _update_value_labels() -> void:
+	if _current_appearance == null:
+		return
 	if _head_value_label:
-		_head_value_label.text = _pretty_slot_value(StringName(str(_current_appearance.get("head_id"))))
+		_head_value_label.text = _build_localized_slot_value(
+			StringName(str(_current_appearance.get("head_id"))),
+			head_label_text_key
+		)
 	if _body_value_label:
-		_body_value_label.text = _pretty_slot_value(StringName(str(_current_appearance.get("body_id"))))
+		_body_value_label.text = _build_localized_slot_value(
+			StringName(str(_current_appearance.get("body_id"))),
+			body_label_text_key
+		)
 	if _legs_value_label:
-		_legs_value_label.text = _pretty_slot_value(StringName(str(_current_appearance.get("legs_id"))))
+		_legs_value_label.text = _build_localized_slot_value(
+			StringName(str(_current_appearance.get("legs_id"))),
+			legs_label_text_key
+		)
+
+
+func _build_localized_slot_value(value: StringName, label_key: StringName) -> String:
+	var fallback_label: String = _pretty_slot_value(StringName(str(label_key).trim_prefix("ui.creator.")))
+	var localized_label: String = _translate_key(label_key)
+	if localized_label == String(label_key):
+		localized_label = fallback_label
+
+	var raw_value: String = String(value).strip_edges()
+	if raw_value.is_empty():
+		return localized_label
+	var parts: PackedStringArray = raw_value.split("_", false)
+	if parts.size() < 2:
+		return "%s %s" % [localized_label, _pretty_slot_value(value)]
+
+	var suffix: String = parts[parts.size() - 1]
+	if suffix.is_valid_int():
+		return "%s %d" % [localized_label, int(suffix)]
+	return "%s %s" % [localized_label, _pretty_slot_value(StringName(suffix))]
 
 
 func _pretty_slot_value(value: StringName) -> String:

@@ -67,6 +67,7 @@ To fix this effectively, I need more context:
 - Scene-vs-script override traps: scene-authored control state resources (e.g. `texture_hover`) can be overwritten by runtime `_apply_*` methods in scripts; audit runtime assignments before editing `.tscn` only
 - Broken scene references after file moves (`.tscn` `ext_resource path=...`, missing `.uid` continuity)
 - Stale path prefixes after folder refactors (for example `res://src/UI/...` still referenced after moving to `res://src/Entities/Ui/...`)
+- Godot localization resource traps: moved locale files still referenced from old paths (`project.godot`/autoload/runtime loaders) and UTF-8 BOM in `.tres` translation files causing parser errors like `Expected '['`
 - Godot cache/UID mismatch after moves (parse errors referencing deleted paths). Rebuild project cache (`.godot`) and reopen editor when source paths are already correct
 - Autoload identifier parse traps (new singleton names referenced directly in scripts before `project.godot` autoload resolution)
 - Runtime group-discovery in hot paths (`_process`/`_physics_process`) that should be replaced with injected dependencies
@@ -127,6 +128,7 @@ try {
 - Ensure no regressions introduced
 - For Godot refactors, verify that every referenced script/resource in `.tscn` still exists
 - For large path moves, run a repo-wide grep for old prefixes in `src` and `project.godot` and fix all leftovers before rerunning
+- If touching localization files/services, verify translation resources load from current paths, confirm `project.godot` internationalization entries, and ensure translation `.tres` files are UTF-8 without BOM
 - If touching autoload-driven code, verify `project.godot` `[autoload]` entries and keep a compatibility fallback path while migrating callers
 - If touching startup display settings, verify platform window mode matches intended UX (for example Windows fullscreen startup) and confirm via startup mode/resolution logs
 - If touching `@tool` inspector code, verify inspector properties appear as expected and editor stays responsive (no repeated placeholder-call errors or heavy lag)

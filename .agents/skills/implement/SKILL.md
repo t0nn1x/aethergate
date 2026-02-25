@@ -146,6 +146,7 @@ TaskUpdate(taskId, status: "in_progress")
 - For scrolling parallax layers, ensure shader UV flow and texture repeat flags are intentionally paired, and full-screen fit bounds are pixel-snapped with slight overscan to prevent 1px seam artifacts (especially on Windows)
 - For mobile/export targets, avoid relying solely on `DirAccess` listing for `res://` assets; ensure a manifest or `ResourceLoader.exists()` fallback is implemented
 - After folder/path refactors, verify no stale path prefixes remain (scan `src` + `project.godot`) and confirm moved scene/script references load without stale UID/path lookups
+- For localization refactors, verify `project.godot` translation entries and autoload paths match new locations, and ensure `.tres` translation resources are saved as UTF-8 without BOM to avoid parser failures
 - For reusable audio work, prefer a centralized autoload/service (pooled SFX + music control) over scene-local duplicated audio setup blocks
 - For platform-specific lifecycle actions (like app quit), implement capability guards: hide/disable unsupported UI actions (notably iOS quit) and keep focus navigation valid after removal
 - For platform display startup changes, verify window mode/size policy matches intended UX per platform (for example Windows fullscreen) and avoid windowed+usable-rect centering in fullscreen startup paths

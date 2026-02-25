@@ -1,0 +1,26 @@
+[gd_resource type="Translation" format=3]
+
+[resource]
+locale = "uk"
+messages = {
+"ui.common.language_name_en": "Англійська",
+"ui.common.language_name_uk": "Українська",
+"ui.creator.body": "Тіло",
+"ui.creator.cancel": "Скасувати",
+"ui.creator.confirm": "Розпочати пригоду",
+"ui.creator.head": "Голова",
+"ui.creator.legs": "Ноги",
+"ui.creator.randomize": "Навмання",
+"ui.creator.slot_body": "Тіло",
+"ui.creator.slot_head": "Голова",
+"ui.creator.slot_legs": "Ноги",
+"ui.creator.title": "СТВОРИ СВОГО МАНДРІВНИКА",
+"ui.hud.fight": "Бій",
+"ui.inventory.character": "Персонаж",
+"ui.inventory.inventory": "Інвентар",
+"ui.inventory.skills": "Навички",
+"ui.main.language": "Мова: %s",
+"ui.main.play": "Створити персонажа",
+"ui.main.quit": "Вийти",
+"ui.main.title": "AETHERGATE"
+}

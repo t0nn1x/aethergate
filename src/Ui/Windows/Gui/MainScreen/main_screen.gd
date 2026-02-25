@@ -7,10 +7,17 @@ signal quit_requested()
 const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 
 @export var play_button_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/PlayButton"
+@export var language_button_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/LanguageButton"
 @export var quit_button_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/QuitButton"
 @export var menu_margin_path: NodePath = ^"Root/MenuMargin"
+@export var menu_card_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard"
 @export var menu_vbox_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox"
 @export var title_label_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleLabel"
+@export var localization_service_path: NodePath = ^"/root/LocalizationService"
+@export var title_text_key: StringName = &"ui.main.title"
+@export var play_button_text_key: StringName = &"ui.main.play"
+@export var language_button_text_key: StringName = &"ui.main.language"
+@export var quit_button_text_key: StringName = &"ui.main.quit"
 @export var auto_focus_play_button: bool = false
 @export var audio_service_path: NodePath = ^"/root/MusicPlayer"
 @export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_2.mp3"
@@ -23,13 +30,17 @@ const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 @export var music_bus_name: String = "Music"
 
 var _play_button: Button
+var _language_button: Button
 var _quit_button: Button
 var _menu_margin: MarginContainer
+var _menu_card: Control
 var _menu_vbox: VBoxContainer
 var _title_label: Label
 var _viewport: Viewport
 var _is_mobile_layout_active: bool = false
 var _music_player_service: Node
+var _localization_service: Node
+var _creator_overlay_mode: bool = false
 
 
 func _ready() -> void:
@@ -40,10 +51,12 @@ func _ready() -> void:
 	_setup_audio()
 	_configure_touch_interactions()
 	_configure_platform_specific_ui()
+	_setup_localization()
 	_connect_signals()
 	_setup_focus_chain()
 	_wire_viewport_resize()
 	_apply_responsive_layout()
+	_apply_menu_content_visibility()
 	if auto_focus_play_button:
 		call_deferred("_focus_play_button")
 	else:
@@ -55,6 +68,7 @@ func _ready() -> void:
 
 func show_menu() -> void:
 	visible = true
+	set_creator_overlay_mode(false)
 	_apply_responsive_layout()
 	_start_menu_music_if_needed()
 	if auto_focus_play_button:
@@ -65,28 +79,49 @@ func show_menu() -> void:
 
 
 func hide_menu() -> void:
+	set_creator_overlay_mode(false)
 	visible = false
 	_stop_menu_music()
 	print("[MainScreen] menu_closed")
 
 
+func set_creator_overlay_mode(enabled: bool) -> void:
+	if _creator_overlay_mode == enabled:
+		return
+	_creator_overlay_mode = enabled
+	_apply_menu_content_visibility()
+	print("[FIX][MainScreen] creator_overlay_mode=%s" % str(_creator_overlay_mode))
+
+
 func _cache_nodes() -> void:
 	_play_button = get_node_or_null(play_button_path) as Button
+	_language_button = get_node_or_null(language_button_path) as Button
 	_quit_button = get_node_or_null(quit_button_path) as Button
 	_menu_margin = get_node_or_null(menu_margin_path) as MarginContainer
+	_menu_card = get_node_or_null(menu_card_path) as Control
 	_menu_vbox = get_node_or_null(menu_vbox_path) as VBoxContainer
 	_title_label = get_node_or_null(title_label_path) as Label
 
 	if _play_button == null:
 		push_warning("MainScreen: Play button is missing.")
+	if _language_button == null:
+		push_warning("MainScreen: Language button is missing.")
 	if _quit_button == null:
 		push_warning("MainScreen: Quit button is missing.")
 	if _menu_margin == null:
 		push_warning("MainScreen: Menu margin container is missing.")
+	if _menu_card == null:
+		push_warning("MainScreen: Menu card is missing.")
 	if _menu_vbox == null:
 		push_warning("MainScreen: Menu VBox is missing.")
 	if _title_label == null:
 		push_warning("MainScreen: Title label is missing.")
+
+
+func _apply_menu_content_visibility() -> void:
+	if _menu_card == null:
+		return
+	_menu_card.visible = not _creator_overlay_mode
 
 
 func _setup_audio() -> void:
@@ -125,13 +160,15 @@ func _stop_menu_music() -> void:
 func _connect_signals() -> void:
 	if _play_button and not _play_button.pressed.is_connected(_on_play_pressed):
 		_play_button.pressed.connect(_on_play_pressed)
+	if _language_button and not _language_button.pressed.is_connected(_on_language_pressed):
+		_language_button.pressed.connect(_on_language_pressed)
 	if _quit_button and not _quit_button.pressed.is_connected(_on_quit_pressed):
 		_quit_button.pressed.connect(_on_quit_pressed)
 	_wire_button_audio_signals()
 
 
 func _wire_button_audio_signals() -> void:
-	var buttons: Array = [_play_button, _quit_button]
+	var buttons: Array = [_play_button, _language_button, _quit_button]
 	for node: Variant in buttons:
 		var button: Button = node as Button
 		if button == null:
@@ -259,6 +296,7 @@ func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
 		)
 
 	_apply_button_target_size(_play_button, button_size)
+	_apply_button_target_size(_language_button, button_size)
 	_apply_button_target_size(_quit_button, button_size)
 
 
@@ -341,7 +379,7 @@ func _is_mobile_platform() -> bool:
 
 
 func _configure_touch_interactions() -> void:
-	var interactive_buttons: Array = [_play_button, _quit_button]
+	var interactive_buttons: Array = [_play_button, _language_button, _quit_button]
 	for node: Variant in interactive_buttons:
 		var button: Button = node as Button
 		if button == null:
@@ -364,7 +402,7 @@ func _configure_platform_specific_ui() -> void:
 
 func _get_focusable_menu_buttons() -> Array[Button]:
 	var buttons: Array[Button] = []
-	var candidates: Array = [_play_button, _quit_button]
+	var candidates: Array = [_play_button, _language_button, _quit_button]
 	for node: Variant in candidates:
 		var button: Button = node as Button
 		if button == null:
@@ -385,11 +423,96 @@ func _focus_play_button() -> void:
 
 
 func _clear_button_focus() -> void:
-	var buttons: Array = [_play_button, _quit_button]
+	var buttons: Array = [_play_button, _language_button, _quit_button]
 	for node: Variant in buttons:
 		var button: Button = node as Button
 		if button and button.has_focus():
 			button.release_focus()
+
+
+func _setup_localization() -> void:
+	_localization_service = get_node_or_null(localization_service_path)
+	if (
+		_localization_service
+		and _localization_service.has_signal("locale_changed")
+		and not _localization_service.is_connected("locale_changed", Callable(self, "_on_locale_changed"))
+	):
+		_localization_service.connect("locale_changed", Callable(self, "_on_locale_changed"))
+	_apply_localized_texts()
+
+
+func _on_locale_changed(_locale: StringName) -> void:
+	_apply_localized_texts()
+
+
+func _translate_key(key: StringName) -> String:
+	if _localization_service and _localization_service.has_method("translate_key"):
+		return String(_localization_service.call("translate_key", key))
+	return tr(String(key))
+
+
+func _apply_localized_texts() -> void:
+	if _title_label:
+		_title_label.text = _translate_key(title_text_key)
+	if _play_button:
+		_play_button.text = _translate_key(play_button_text_key)
+	if _quit_button:
+		_quit_button.text = _translate_key(quit_button_text_key)
+	_update_language_button_label()
+
+
+func _update_language_button_label() -> void:
+	if _language_button == null:
+		return
+	var locale_code: String = _resolve_current_locale_code()
+	var localized_language_name: String = _resolve_localized_language_name(locale_code)
+	_language_button.text = _translate_key(language_button_text_key) % [localized_language_name]
+
+
+func _resolve_localized_language_name(locale_code: String) -> String:
+	var normalized_code: String = locale_code.strip_edges().to_lower()
+	if normalized_code.is_empty():
+		normalized_code = "en"
+	var key: String = "ui.common.language_name_%s" % normalized_code
+	var translated: String = _translate_key(StringName(key))
+	if translated == key:
+		return normalized_code.to_upper()
+	return translated
+
+
+func _resolve_current_locale_code() -> String:
+	if _localization_service and _localization_service.has_method("get_current_locale"):
+		return String(_localization_service.call("get_current_locale")).strip_edges().to_lower()
+	return String(TranslationServer.get_locale()).get_slice("_", 0).get_slice("-", 0).to_lower()
+
+
+func _resolve_supported_locales() -> PackedStringArray:
+	if _localization_service and _localization_service.has_method("get_supported_locales"):
+		var locales_variant: Variant = _localization_service.call("get_supported_locales")
+		if locales_variant is PackedStringArray:
+			return locales_variant as PackedStringArray
+	return PackedStringArray(["en", "uk"])
+
+
+func _on_language_pressed() -> void:
+	_play_click_sound()
+	var supported_locales: PackedStringArray = _resolve_supported_locales()
+	if supported_locales.is_empty():
+		return
+	var current_locale: String = _resolve_current_locale_code()
+	var current_index: int = supported_locales.find(current_locale)
+	if current_index < 0:
+		current_index = 0
+	var next_locale: String = supported_locales[(current_index + 1) % supported_locales.size()]
+	print(
+		"[FIX][Localization] language_button_pressed current=%s next=%s supported=%s"
+		% [current_locale, next_locale, str(supported_locales)]
+	)
+	if _localization_service and _localization_service.has_method("set_locale"):
+		_localization_service.call("set_locale", StringName(next_locale), true)
+		return
+	TranslationServer.set_locale(next_locale)
+	_apply_localized_texts()
 
 
 func _play_hover_sound() -> void:

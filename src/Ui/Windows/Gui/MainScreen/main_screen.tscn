@@ -175,6 +175,13 @@ text = "Create a character"
 script = ExtResource("4_button")
 button_size = Vector2(460, 116)
 
+[node name="LanguageButton" type="Button" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1134625087 groups=["touch_interactive"]]
+custom_minimum_size = Vector2(460, 116)
+layout_mode = 2
+text = "Language: English"
+script = ExtResource("4_button")
+button_size = Vector2(460, 116)
+
 [node name="QuitButton" type="Button" parent="Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox" unique_id=1239343404 groups=["touch_interactive"]]
 custom_minimum_size = Vector2(460, 116)
 layout_mode = 2

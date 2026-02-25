@@ -20,6 +20,10 @@ const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 @export var board_style_profile: UiPanelStyleProfile = preload("res://src/Ui/Common/Styles/Profiles/inventory_board_style.tres")
 @export var section_style_profile: UiPanelStyleProfile = preload("res://src/Ui/Common/Styles/Profiles/inventory_section_style.tres")
 @export var title_style_profile: UiTextStyleProfile = preload("res://src/Ui/Common/Styles/Profiles/inventory_title_style.tres")
+@export var localization_service_path: NodePath = ^"/root/LocalizationService"
+@export var skills_title_text_key: StringName = &"ui.inventory.skills"
+@export var inventory_title_text_key: StringName = &"ui.inventory.inventory"
+@export var character_title_text_key: StringName = &"ui.inventory.character"
 
 @export_range(0.50, 0.95, 0.01) var desktop_boards_height_ratio: float = 0.80
 @export_range(0.48, 0.95, 0.01) var mobile_boards_height_ratio: float = 0.76
@@ -68,6 +72,7 @@ var _touch_drag_source_slot_index: int = -1
 var _touch_drag_payload: Dictionary = {}
 var _touch_drag_preview: Control
 var _merged_boards_background: Panel
+var _localization_service: Node
 
 
 func _ready() -> void:
@@ -79,6 +84,7 @@ func _ready() -> void:
 	_apply_windows_section_order()
 	_ensure_windows_merged_board_background()
 	_apply_textures()
+	_setup_localization()
 	_apply_responsive_layout()
 	_refresh_inventory_slots_from_data()
 	set_inventory_open(false)
@@ -297,6 +303,36 @@ func _apply_textures() -> void:
 			continue
 		var texture_to_apply: Texture2D = circular_slot_texture if slot_name == "HeadSlot" else slot_texture
 		_apply_slot_texture(slot_button, texture_to_apply)
+
+
+func _setup_localization() -> void:
+	_localization_service = get_node_or_null(localization_service_path)
+	if (
+		_localization_service
+		and _localization_service.has_signal("locale_changed")
+		and not _localization_service.is_connected("locale_changed", Callable(self, "_on_locale_changed"))
+	):
+		_localization_service.connect("locale_changed", Callable(self, "_on_locale_changed"))
+	_apply_localized_texts()
+
+
+func _on_locale_changed(_locale: StringName) -> void:
+	_apply_localized_texts()
+
+
+func _translate_key(key: StringName) -> String:
+	if _localization_service and _localization_service.has_method("translate_key"):
+		return String(_localization_service.call("translate_key", key))
+	return tr(String(key))
+
+
+func _apply_localized_texts() -> void:
+	if _skills_title:
+		_skills_title.text = _translate_key(skills_title_text_key)
+	if _inventory_title:
+		_inventory_title.text = _translate_key(inventory_title_text_key)
+	if _character_title:
+		_character_title.text = _translate_key(character_title_text_key)
 
 
 func _apply_title_styles_for_layout(viewport_size: Vector2) -> void:
