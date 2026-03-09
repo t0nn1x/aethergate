@@ -8,6 +8,53 @@
 
 **Tech Stack:** Godot 4.6, GDScript, existing event singleton pattern, existing `AdaptiveOverlayPanel` base, existing `GameManager` COMBAT state.
 
+---
+
+## Session Checkpoint — 2026-03-09
+
+**Branch:** `feature/combat-system`
+**Last commit:** `10778ae1` — `test(combat): add headless resolver tests (11/11 passing)`
+
+### Completed ✅
+
+| Task | File | Status |
+| --- | --- | --- |
+| 1 — CombatStats | `src/Entities/Systems/Combat/Data/combat_stats.gd` | ✅ committed |
+| 2 — SkillData | `src/Entities/Skills/Combat/skill_data.gd` | ✅ committed |
+| 3 — CombatAction + CombatantSnapshot | `src/Entities/Systems/Combat/Data/combat_action.gd`, `combatant_snapshot.gd` | ✅ committed |
+| 4 — CombatRoundResult | `src/Entities/Systems/Combat/Data/combat_round_result.gd` | ✅ committed |
+| 5 — CombatEvents autoload | `src/Core/Events/combat_events.gd` + `project.godot` | ✅ committed |
+| 6 — CombatRoundResolver | `src/Entities/Systems/Combat/combat_round_resolver.gd` | ✅ committed |
+| 7 — Headless tests | `src/Entities/Systems/Combat/Tests/` | ✅ committed, 11/11 passing |
+
+### Up Next
+
+Start here: **Task 8 — CombatContext**
+
+- Task 8 — `src/Entities/Systems/Combat/combat_context.gd` (live HP/energy state, applies round results)
+- Task 9 — `src/Entities/Systems/Combat/combat_flow_controller.gd` (round loop + 20s timer, calls resolver)
+- Task 10 — `src/Entities/Systems/Combat/Ai/combat_ai_strategy.gd` + `weighted_random_strategy.gd`
+- Task 11 — Extend `src/Entities/Creatures/creature_data.gd` (add `skill_loadout` + `ai_strategy` export group)
+- Task 12 — `src/Ui/Common/CombatPreviewPanel/` (pre-fight info card, extends AdaptiveOverlayPanel)
+- Task 13 — `src/World/Combat/combat_scene.tscn` + `combat_scene.gd` (entry point)
+- Task 14 — `src/Ui/Mobile/Combat/mobile_combat_ui.tscn` + `.gd` (full mobile UI layout)
+- Task 15 — Overworld wiring (intercept `creature_fight_requested`, show preview, confirm → COMBAT state)
+- Task 16 — `PlayerProfileService` XP + level persistence
+
+### Godot Executable (this machine)
+
+```text
+C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_win64.exe
+```
+
+### Run tests
+
+```bash
+"C:/Users/Anton.Khrobust/projects/Godot_v4.6-stable_win64.exe/Godot_v4.6-stable_win64.exe" --headless --path . --script res://src/Entities/Systems/Combat/Tests/run_combat_tests.gd
+```
+
+---
+
 **Design doc:** `doc/plans/2026-03-09-combat-system-design.md`
 
 ---
