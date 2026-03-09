@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Aethergate** is a Godot 4.6 mobile-first RPG (GDScript only). The viewport defaults to portrait `1080x1920` on mobile and landscape `1920x1080` on desktop. The rendering backend is `mobile`.
 
 Entry scene: `res://src/Ui/Common/startup_splash_screen.tscn`
-Gameplay scene: `res://src/Map/main.tscn` → loads `Overworld` which is the composition root.
+Gameplay scene: `res://src/World/main.tscn` → loads `Overworld` which is the composition root.
 
 ## Running the Game / Headless Commands
 
@@ -55,14 +55,13 @@ Registered in `project.godot [autoload]`:
 | `WorldEvents` | `src/Core/Events/world_events.gd` | Bounded-context events for world |
 | `UIEvents` | `src/Core/Events/ui_events.gd` | Bounded-context events for UI |
 | `CreatureEvents` | `src/Core/Events/creature_events.gd` | Bounded-context events for creatures |
-| `EventBus` | `src/Core/event_bus.gd` | Legacy compatibility shim — prefer the typed event singletons |
 | `GameManager` | `src/Core/game_manager.gd` | Game state machine (MAIN_MENU → OVERWORLD → COMBAT etc.) |
-| `MusicPlayer` | `src/Utilities/music_player.gd` | Background music |
+| `MusicPlayer` | `src/Core/music_player.gd` | Background music |
 
 ### Scene / Layer Architecture
 
 ```
-src/Map/main.tscn          ← root; loads overworld
+src/World/main.tscn          ← root; loads overworld
   └─ src/World/Overworld/overworld.gd  ← composition root
        ├─ Terrain / Navigation
        ├─ ChunkManager (src/World/Streaming/)   ← streams tilemap chunks by player position
@@ -70,12 +69,14 @@ src/Map/main.tscn          ← root; loads overworld
        ├─ OverworldCreatureSpawner              ← zone/marker-driven creature spawning
        ├─ NavigationBlockerRegistry             ← tracks Polygon2D blockers for nav
        ├─ OverworldSessionController            ← orchestrates session start/end
-       └─ UI nodes (UiManager, MainScreen, CharacterCreatorPanel, CreatureActionHud)
+       ├─ OverworldCreatureSelectionController  ← creature tap/selection handling
+       ├─ OverworldCharacterCreatorController   ← character creator flow orchestration
+       └─ UI nodes (UiManager, MainScreen, CreatureActionHud)
 ```
 
 ### Player Architecture (componentized)
 
-`src/Entities/Player/player.gd` is the root; child components:
+`src/Entities/Player/player.gd` is the root; child components are accessed via `@onready` typed vars (e.g., `@onready var movement: PlayerMovementComponent = $Components/Movement/PlayerMovementComponent`):
 
 - `Components/Input/` — `PlayerInputComponent` + `PlayerMovePointerComponent`
 - `Components/Movement/` — `PlayerMovementComponent` (NavigationAgent2D-based click-to-move)
@@ -83,7 +84,7 @@ src/Map/main.tscn          ← root; loads overworld
 - `Components/Visual/` — `PlayerVisualComponent` (cosmetic sprite sheet)
 - `Components/Core/` — `PlayerContext` (shared state bag)
 - `Components/` (implicit) — `PlayerMoveTargetBlockerComponent` wired via `Overworld`
-- `States/` — `PlayerIdleState`, `PlayerPathMoveState` (use `src/Common/State_Machine/`)
+- `States/` — `PlayerIdleState`, `PlayerPathMoveState` (use `src/Common/StateMachine/`)
 - `Services/` — `PlayerMoveRequestService`
 - `Input/` — `PlayerMouseInputAdapter`, `PlayerTouchInputAdapter`
 
@@ -99,7 +100,8 @@ src/Map/main.tscn          ← root; loads overworld
 
 - Data resource: `ItemData` (`.tres`) under `src/Entities/Items/Types/<Category>/.../<ItemName>/Data/`
 - Starter inventory: `src/Entities/Systems/Inventory/Resources/player_starter_inventory.tres`
-- Systems under `src/Entities/Systems/`: Inventory, Equipment, Crafting, Loot, Navigation
+- Systems under `src/Entities/Systems/`: Inventory, Equipment, Crafting, Loot
+- Navigation utilities: `src/Common/Navigation/`
 
 ### UI Architecture (platform-split)
 
@@ -129,7 +131,7 @@ Runtime config is split into two layers:
 
 ### Chunk / World Streaming
 
-- Chunks live in `src/Map/Overworld/Chunks/` (`.tscn` scenes)
+- Chunks live in `src/World/Overworld/Chunks/` (`.tscn` scenes)
 - `ChunkManager` (`src/World/Streaming/chunk_manager.gd`) loads/unloads chunks as the player moves
 - `NavigationBlockerRegistry` is refreshed whenever chunks change (`Overworld._on_chunks_changed`)
 - `ChunkBorderStitcher` (`src/World/Streaming/`) merges nav meshes across chunk seams
@@ -232,8 +234,9 @@ Each major subsystem has its own `README.md` (e.g., `src/Entities/Creatures/READ
 
 ## Key Conventions
 
-- **Event routing:** emit on the typed event singleton (`PlayerEvents`, `WorldEvents`, etc.); fall back to `EventBus` only for legacy compatibility
-- **State machine:** extend `src/Common/State_Machine/state.gd` for entity states
+- **Event routing:** emit on the typed event singleton (`PlayerEvents`, `WorldEvents`, `UIEvents`, `CreatureEvents`) only — there is no legacy EventBus
+- **State machine:** extend `src/Common/StateMachine/state.gd` for entity states
+- **Component access:** use `@onready` typed vars for player/entity component references (no runtime `get_node_or_null`)
 - **Catalog IDs:** snake_case, deterministic (`<category>_<folder-slug>`); rebuild via headless tool after adding art
 - **Creature tap priority:** creature selection input is consumed before move-click on the same event
 - **`PlayerMoveTargetBlockerComponent`:** must be present on both player and creature scenes for blocked-polygon nav avoidance to work
