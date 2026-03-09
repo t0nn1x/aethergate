@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcgnne0dddwju"
-path="res://.godot/imported/Ores_Castle.png-4828ef2a2ce76281270c959baec10139.ctex"
+path="res://.godot/imported/Ores_Castle.png-9aec061bcdab5c76612b0aec56ed8966.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Cities/Ores_Castle.png"
-dest_files=["res://.godot/imported/Ores_Castle.png-4828ef2a2ce76281270c959baec10139.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Cities/Ores_Castle.png"
+dest_files=["res://.godot/imported/Ores_Castle.png-9aec061bcdab5c76612b0aec56ed8966.ctex"]
 
 [params]
 

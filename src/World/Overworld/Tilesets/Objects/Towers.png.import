@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bl14b1u8j08ck"
-path="res://.godot/imported/Towers.png-8e369afc331e503bf0c953ec2f3b6cde.ctex"
+path="res://.godot/imported/Towers.png-e69fba2910360f6ffa5ef32097843ec2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Objects/Towers.png"
-dest_files=["res://.godot/imported/Towers.png-8e369afc331e503bf0c953ec2f3b6cde.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Objects/Towers.png"
+dest_files=["res://.godot/imported/Towers.png-e69fba2910360f6ffa5ef32097843ec2.ctex"]
 
 [params]
 

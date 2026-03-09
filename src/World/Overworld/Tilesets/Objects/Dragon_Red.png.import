@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b3ls7ithjygaf"
-path="res://.godot/imported/Dragon_Red.png-2cd2156d00a9dd62d23127a7f0493779.ctex"
+path="res://.godot/imported/Dragon_Red.png-b784a2b5acd2909642fa4f105aad2927.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Objects/Dragon_Red.png"
-dest_files=["res://.godot/imported/Dragon_Red.png-2cd2156d00a9dd62d23127a7f0493779.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Objects/Dragon_Red.png"
+dest_files=["res://.godot/imported/Dragon_Red.png-b784a2b5acd2909642fa4f105aad2927.ctex"]
 
 [params]
 

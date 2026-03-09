@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqjwu1h3x47ny"
-path="res://.godot/imported/Buildings.png-d2be6d1b6831a23e0a5fc48c4c532455.ctex"
+path="res://.godot/imported/Buildings.png-6ceab0cd7670b84058baeca1954d4282.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Objects/Buildings.png"
-dest_files=["res://.godot/imported/Buildings.png-d2be6d1b6831a23e0a5fc48c4c532455.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Objects/Buildings.png"
+dest_files=["res://.godot/imported/Buildings.png-6ceab0cd7670b84058baeca1954d4282.ctex"]
 
 [params]
 

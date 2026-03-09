@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cndtwkes4nj7q"
-path="res://.godot/imported/!$Cloud1.png-bad672eaf84b7a3db35373a36abebcf6.ctex"
+path="res://.godot/imported/!$Cloud1.png-5058035168441ea5d43e3dbf1327e892.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Clouds/!$Cloud1.png"
-dest_files=["res://.godot/imported/!$Cloud1.png-bad672eaf84b7a3db35373a36abebcf6.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Clouds/!$Cloud1.png"
+dest_files=["res://.godot/imported/!$Cloud1.png-5058035168441ea5d43e3dbf1327e892.ctex"]
 
 [params]
 

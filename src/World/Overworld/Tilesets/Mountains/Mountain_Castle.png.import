@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drru5vskg2jy2"
-path="res://.godot/imported/Mountain_Castle.png-26a67ef7b4538f675dbcfe68d383715b.ctex"
+path="res://.godot/imported/Mountain_Castle.png-12d8908d7ef7a36c7dfe6c9f1095cbd3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Mountains/Mountain_Castle.png"
-dest_files=["res://.godot/imported/Mountain_Castle.png-26a67ef7b4538f675dbcfe68d383715b.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Mountains/Mountain_Castle.png"
+dest_files=["res://.godot/imported/Mountain_Castle.png-12d8908d7ef7a36c7dfe6c9f1095cbd3.ctex"]
 
 [params]
 

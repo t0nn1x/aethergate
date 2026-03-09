@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drsvu77nyspjl"
-path="res://.godot/imported/A1 - Liquids And Misc.png-1a632f1766bf75e149773be50e0f1ef2.ctex"
+path="res://.godot/imported/A1 - Liquids And Misc.png-096d170e19d03d1693717a736fc87e3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Terrains/A1 - Liquids And Misc.png"
-dest_files=["res://.godot/imported/A1 - Liquids And Misc.png-1a632f1766bf75e149773be50e0f1ef2.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Terrains/A1 - Liquids And Misc.png"
+dest_files=["res://.godot/imported/A1 - Liquids And Misc.png-096d170e19d03d1693717a736fc87e3b.ctex"]
 
 [params]
 

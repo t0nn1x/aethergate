@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bt3bigdnl865a"
-path="res://.godot/imported/Mid_Mount_Top.png-95ec0c60e2c1701e7015176327acd8cb.ctex"
+path="res://.godot/imported/Mid_Mount_Top.png-6760af45add696b9eee7276723f622fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Mountains/Mid_Mount_Top.png"
-dest_files=["res://.godot/imported/Mid_Mount_Top.png-95ec0c60e2c1701e7015176327acd8cb.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Mountains/Mid_Mount_Top.png"
+dest_files=["res://.godot/imported/Mid_Mount_Top.png-6760af45add696b9eee7276723f622fd.ctex"]
 
 [params]
 

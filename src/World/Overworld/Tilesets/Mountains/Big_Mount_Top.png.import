@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dgixrhvd7x54d"
-path="res://.godot/imported/Big_Mount_Top.png-97304229585e375fd4e3e5ab13e117da.ctex"
+path="res://.godot/imported/Big_Mount_Top.png-bfc0d9a77f3a8018c14282aa6dcd1026.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Mountains/Big_Mount_Top.png"
-dest_files=["res://.godot/imported/Big_Mount_Top.png-97304229585e375fd4e3e5ab13e117da.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Mountains/Big_Mount_Top.png"
+dest_files=["res://.godot/imported/Big_Mount_Top.png-bfc0d9a77f3a8018c14282aa6dcd1026.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bblhd64h8pwd7"
-path="res://.godot/imported/Vegetation.png-0dd6632e061451142d54373b60a6fe24.ctex"
+path="res://.godot/imported/Vegetation.png-03cde7fb8d11b450a4b0e37cd016bc48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Objects/Vegetation.png"
-dest_files=["res://.godot/imported/Vegetation.png-0dd6632e061451142d54373b60a6fe24.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Objects/Vegetation.png"
+dest_files=["res://.godot/imported/Vegetation.png-03cde7fb8d11b450a4b0e37cd016bc48.ctex"]
 
 [params]
 

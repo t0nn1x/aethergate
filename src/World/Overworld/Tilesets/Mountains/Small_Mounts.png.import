@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqs8yjtj343c3"
-path="res://.godot/imported/Small_Mounts.png-dc81f665fdb9c2702086c4c26ded8a54.ctex"
+path="res://.godot/imported/Small_Mounts.png-eb9037bec7dcc6070e865648fdba8710.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Mountains/Small_Mounts.png"
-dest_files=["res://.godot/imported/Small_Mounts.png-dc81f665fdb9c2702086c4c26ded8a54.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Mountains/Small_Mounts.png"
+dest_files=["res://.godot/imported/Small_Mounts.png-eb9037bec7dcc6070e865648fdba8710.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qmhuqeavvuyb"
-path="res://.godot/imported/Sea_Village.png-7ee164f92114abc85bbbe181ff306a89.ctex"
+path="res://.godot/imported/Sea_Village.png-532ec9ac0c80491aa3340fbc6a284ef7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Cities/Sea_Village.png"
-dest_files=["res://.godot/imported/Sea_Village.png-7ee164f92114abc85bbbe181ff306a89.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Cities/Sea_Village.png"
+dest_files=["res://.godot/imported/Sea_Village.png-532ec9ac0c80491aa3340fbc6a284ef7.ctex"]
 
 [params]
 

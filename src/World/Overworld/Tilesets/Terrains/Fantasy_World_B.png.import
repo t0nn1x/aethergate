@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cd2856o5051k0"
-path="res://.godot/imported/Fantasy_World_B.png-5d6c93ed1e29f6f601a36cdd12909a52.ctex"
+path="res://.godot/imported/Fantasy_World_B.png-02a5478d6bf09c314183590ebf48dd13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Terrains/Fantasy_World_B.png"
-dest_files=["res://.godot/imported/Fantasy_World_B.png-5d6c93ed1e29f6f601a36cdd12909a52.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Terrains/Fantasy_World_B.png"
+dest_files=["res://.godot/imported/Fantasy_World_B.png-02a5478d6bf09c314183590ebf48dd13.ctex"]
 
 [params]
 

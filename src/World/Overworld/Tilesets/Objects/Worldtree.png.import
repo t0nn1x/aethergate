@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4sc4omjsr5jq"
-path="res://.godot/imported/Worldtree.png-63fee7b47a1115b8afa32a64d269f635.ctex"
+path="res://.godot/imported/Worldtree.png-1aab0780d43bdd7d1fd46f6472f18916.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Objects/Worldtree.png"
-dest_files=["res://.godot/imported/Worldtree.png-63fee7b47a1115b8afa32a64d269f635.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Objects/Worldtree.png"
+dest_files=["res://.godot/imported/Worldtree.png-1aab0780d43bdd7d1fd46f6472f18916.ctex"]
 
 [params]
 

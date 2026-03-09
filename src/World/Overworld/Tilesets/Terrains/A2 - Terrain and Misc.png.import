@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dm8a34xxand7h"
-path="res://.godot/imported/A2 - Terrain and Misc.png-4428ed700611518b07781ec442a2d9ab.ctex"
+path="res://.godot/imported/A2 - Terrain and Misc.png-954c5c019b4687c67173b3e4351a800b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Map/Overworld/Tilesets/Terrains/A2 - Terrain and Misc.png"
-dest_files=["res://.godot/imported/A2 - Terrain and Misc.png-4428ed700611518b07781ec442a2d9ab.ctex"]
+source_file="res://src/World/Overworld/Tilesets/Terrains/A2 - Terrain and Misc.png"
+dest_files=["res://.godot/imported/A2 - Terrain and Misc.png-954c5c019b4687c67173b3e4351a800b.ctex"]
 
 [params]
 
