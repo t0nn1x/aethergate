@@ -14,6 +14,8 @@ extends Creature
 @export var owner_peer_id: int = 1
 @export var is_local_player: bool = true
 
+@onready var visual_component: PlayerVisualComponent = $PlayerVisualComponent
+
 func _ready() -> void:
 	# Set player stats directly (no creature_data resource for the player).
 	creature_name = "Player"
@@ -38,22 +40,17 @@ func _emit_player_spawned_event() -> void:
 	PlayerEvents.player_spawned.emit(self)
 
 
-func apply_appearance(
-	appearance_data: Resource,
-	catalog: Resource
-) -> void:
-	var visual_component: Node = get_node_or_null("PlayerVisualComponent")
+func apply_appearance(appearance_data: Resource, catalog: Resource) -> void:
 	if visual_component == null or not visual_component.has_method("apply_appearance"):
 		push_warning("Player: PlayerVisualComponent missing, cannot apply appearance.")
 		return
-	visual_component.call("apply_appearance", appearance_data, catalog)
+	visual_component.apply_appearance(appearance_data, catalog)
 
 
 func set_weapon_visual(weapon_visual_id: StringName) -> void:
-	var visual_component: Node = get_node_or_null("PlayerVisualComponent")
 	if visual_component == null or not visual_component.has_method("set_weapon_visual"):
 		return
-	visual_component.call("set_weapon_visual", weapon_visual_id)
+	visual_component.set_weapon_visual(weapon_visual_id)
 
 
 func configure_identity(new_player_id: int, new_owner_peer_id: int, local_player: bool) -> void:
