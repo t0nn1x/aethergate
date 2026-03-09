@@ -6,7 +6,6 @@ extends Node2D
 
 @export var debug_overlay_path: NodePath = ^"DebugOverlay"
 @export var main_screen_path: NodePath = ^"MainScreen"
-@export var character_creator_panel_path: NodePath = ^"CharacterCreatorPanel"
 @export var ui_manager_path: NodePath = ^"UiManager"
 @export var creature_action_hud_path: NodePath = ^"CreatureActionHud"
 @export var session_controller_path: NodePath = ^"OverworldSessionController"
@@ -21,9 +20,6 @@ extends Node2D
 @onready var navigation_blocker_registry: NavigationBlockerRegistry = $NavigationBlockerRegistry
 @onready var debug_overlay: DebugOverlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 @onready var main_screen: MainScreen = get_node_or_null(main_screen_path) as MainScreen
-@onready var character_creator_panel: Node = get_node_or_null(
-	character_creator_panel_path
-) as Node
 @onready var ui_manager: Node = get_node_or_null(ui_manager_path)
 @onready var creature_action_hud: CreatureActionHud = get_node_or_null(creature_action_hud_path) as CreatureActionHud
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
@@ -32,6 +28,7 @@ extends Node2D
 var player: Player = null
 var _players_by_id: Dictionary = {}
 @onready var creature_selection_controller: OverworldCreatureSelectionController = $OverworldCreatureSelectionController
+@onready var character_creator_controller: OverworldCharacterCreatorController = $OverworldCharacterCreatorController
 
 
 func _ready() -> void:
@@ -41,7 +38,7 @@ func _ready() -> void:
 	_refresh_ui_overlay_references()
 	_wire_stage_dependencies()
 	_wire_main_screen_signals()
-	_wire_character_creator_signals()
+	_initialize_character_creator_controller()
 	_initialize_creature_selection_controller()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
@@ -54,13 +51,12 @@ func _ready() -> void:
 func _refresh_ui_overlay_references() -> void:
 	debug_overlay = get_node_or_null(debug_overlay_path) as DebugOverlay
 	main_screen = get_node_or_null(main_screen_path) as MainScreen
-	character_creator_panel = get_node_or_null(character_creator_panel_path) as Node
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event == null:
 		return
-	if _is_character_creator_visible():
+	if character_creator_controller and character_creator_controller.is_visible():
 		return
 	if ui_manager and ui_manager.is_menu_visible():
 		return
@@ -155,8 +151,8 @@ func _start_session_if_menu_is_missing() -> void:
 func _on_main_screen_play_pressed() -> void:
 	creature_selection_controller.clear_selection()
 	print("[Overworld] play_started")
-	if _should_open_character_creator():
-		_open_character_creator_panel()
+	if character_creator_controller and character_creator_controller.should_open():
+		character_creator_controller.open_panel()
 		return
 	if main_screen:
 		main_screen.hide_menu()
@@ -206,11 +202,14 @@ func _wire_inventory_panel_dependency(player_instance: Player) -> void:
 
 func _initialize_creature_selection_controller() -> void:
 	if creature_selection_controller:
+		var overlay_callback: Callable = Callable()
+		if character_creator_controller:
+			overlay_callback = Callable(character_creator_controller, "is_visible")
 		creature_selection_controller.initialize(
 			creature_action_hud,
 			creature_spawner,
 			main_screen,
-			Callable(self, "_is_character_creator_visible")
+			overlay_callback
 		)
 
 
@@ -228,72 +227,6 @@ func _is_mobile_platform() -> bool:
 	)
 
 
-func _wire_character_creator_signals() -> void:
-	if character_creator_panel == null:
-		return
-
-	var confirmed_callable: Callable = Callable(self, "_on_character_creator_appearance_confirmed")
-	var cancelled_callable: Callable = Callable(self, "_on_character_creator_cancelled")
-	if character_creator_panel.has_signal("appearance_confirmed") and not character_creator_panel.is_connected("appearance_confirmed", confirmed_callable):
-		character_creator_panel.connect("appearance_confirmed", confirmed_callable)
-	if character_creator_panel.has_signal("creation_cancelled") and not character_creator_panel.is_connected("creation_cancelled", cancelled_callable):
-		character_creator_panel.connect("creation_cancelled", cancelled_callable)
-
-
-func _should_open_character_creator() -> bool:
-	return character_creator_panel != null
-
-
-func _open_character_creator_panel() -> void:
-	if character_creator_panel == null:
-		if session_controller:
-			session_controller.start_session()
-		return
-
-	if main_screen:
-		if not main_screen.visible:
-			main_screen.show_menu()
-		if main_screen.has_method("set_creator_overlay_mode"):
-			main_screen.call("set_creator_overlay_mode", true)
-		print("[FIX][CreatorFlow] Opened creator with main-screen background/music preserved.")
-
-	# Start from fresh defaults each time while persistence is disabled.
-	character_creator_panel.call("show_panel", null)
-
-
-func _on_character_creator_appearance_confirmed(appearance: Resource) -> void:
-	if appearance == null:
-		push_warning("Overworld: creator confirmed without appearance payload.")
-		return
-
-	var profile_service: Node = _get_player_profile_service()
-	if profile_service and profile_service.has_method("set_appearance"):
-		profile_service.call("set_appearance", appearance, true)
-
-	if main_screen:
-		if main_screen.has_method("set_creator_overlay_mode"):
-			main_screen.call("set_creator_overlay_mode", false)
-		main_screen.hide_menu()
-	if session_controller:
-		session_controller.start_session()
-
-
-func _on_character_creator_cancelled() -> void:
-	if character_creator_panel and character_creator_panel.has_method("hide_panel"):
-		character_creator_panel.call("hide_panel")
-	if main_screen:
-		if main_screen.has_method("set_creator_overlay_mode"):
-			main_screen.call("set_creator_overlay_mode", false)
-		main_screen.show_menu()
-
-
-func _get_player_profile_service() -> Node:
-	return get_node_or_null("/root/PlayerProfileService")
-
-
-func _is_character_creator_visible() -> bool:
-	if character_creator_panel == null:
-		return false
-	if character_creator_panel is CanvasItem:
-		return (character_creator_panel as CanvasItem).visible
-	return false
+func _initialize_character_creator_controller() -> void:
+	if character_creator_controller:
+		character_creator_controller.initialize(main_screen, session_controller)
