@@ -31,7 +31,7 @@ extends Node2D
 ## Backward-compatible local-player reference.
 var player: Player = null
 var _players_by_id: Dictionary = {}
-var _selected_creature: Creature = null
+@onready var creature_selection_controller: OverworldCreatureSelectionController = $OverworldCreatureSelectionController
 
 
 func _ready() -> void:
@@ -42,7 +42,7 @@ func _ready() -> void:
 	_wire_stage_dependencies()
 	_wire_main_screen_signals()
 	_wire_character_creator_signals()
-	_wire_creature_interaction_signals()
+	_initialize_creature_selection_controller()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
@@ -153,7 +153,7 @@ func _start_session_if_menu_is_missing() -> void:
 
 
 func _on_main_screen_play_pressed() -> void:
-	_clear_selected_creature()
+	creature_selection_controller.clear_selection()
 	print("[Overworld] play_started")
 	if _should_open_character_creator():
 		_open_character_creator_panel()
@@ -204,156 +204,14 @@ func _wire_inventory_panel_dependency(player_instance: Player) -> void:
 	ui_manager.bind_inventory_component(inventory_component)
 
 
-func _wire_creature_interaction_signals() -> void:
-	var event_source: Node = _get_creature_event_source()
-	if event_source:
-		var selected_callable: Callable = Callable(self, "_on_creature_selected")
-		var deselected_callable: Callable = Callable(self, "_on_creature_deselected")
-		if event_source.has_signal("creature_selected") and not event_source.is_connected("creature_selected", selected_callable):
-			event_source.connect("creature_selected", selected_callable)
-		if event_source.has_signal("creature_deselected") and not event_source.is_connected("creature_deselected", deselected_callable):
-			event_source.connect("creature_deselected", deselected_callable)
-
-	if creature_action_hud and not creature_action_hud.fight_pressed.is_connected(_on_creature_action_hud_fight_pressed):
-		creature_action_hud.fight_pressed.connect(_on_creature_action_hud_fight_pressed)
-
-	if creature_spawner and not creature_spawner.creature_despawned.is_connected(_on_creature_despawned):
-		creature_spawner.creature_despawned.connect(_on_creature_despawned)
-
-	var inventory_panel: Node = _get_inventory_panel_node()
-	if inventory_panel and inventory_panel.has_signal("inventory_toggled"):
-		var toggled_callable: Callable = Callable(self, "_on_inventory_toggled")
-		if not inventory_panel.is_connected("inventory_toggled", toggled_callable):
-			inventory_panel.connect("inventory_toggled", toggled_callable)
-
-
-func _get_creature_event_source() -> Node:
-	return CreatureEvents
-
-
-func _on_creature_selected(creature_node: Node) -> void:
-	var target_creature: Creature = creature_node as Creature
-	if target_creature == null:
-		_clear_selected_creature()
-		return
-	if target_creature.is_in_group("player"):
-		_clear_selected_creature()
-		return
-	if not is_instance_valid(target_creature):
-		_clear_selected_creature()
-		return
-	if target_creature.is_queued_for_deletion():
-		_clear_selected_creature()
-		return
-	if not target_creature.is_alive:
-		_clear_selected_creature()
-		return
-	_set_selected_creature(target_creature)
-
-
-func _on_creature_deselected() -> void:
-	_clear_selected_creature()
-
-
-func _set_selected_creature(creature_node: Creature) -> void:
-	if creature_node == null:
-		_clear_selected_creature()
-		return
-
-	if _selected_creature != creature_node:
-		_disconnect_selected_creature_signals()
-		_selected_creature = creature_node
-		_connect_selected_creature_signals()
-
-	if _can_show_creature_action_hud() and creature_action_hud:
-		creature_action_hud.show_for_creature(_selected_creature)
-
-
-func _clear_selected_creature() -> void:
-	_disconnect_selected_creature_signals()
-	_selected_creature = null
-	if creature_action_hud:
-		creature_action_hud.hide_action()
-
-
-func _can_show_creature_action_hud() -> bool:
-	if creature_action_hud == null:
-		return false
-	if main_screen and main_screen.visible:
-		return false
-	if _is_character_creator_visible():
-		return false
-	var inventory_panel: Node = _get_inventory_panel_node()
-	if inventory_panel:
-		if inventory_panel.has_method("is_open") and bool(inventory_panel.call("is_open")):
-			return false
-		if inventory_panel is CanvasItem and (inventory_panel as CanvasItem).is_visible_in_tree():
-			return false
-	return true
-
-
-func _connect_selected_creature_signals() -> void:
-	if _selected_creature == null:
-		return
-	if not _selected_creature.died.is_connected(_on_selected_creature_died):
-		_selected_creature.died.connect(_on_selected_creature_died)
-	var tree_exited_callable: Callable = Callable(self, "_on_selected_creature_tree_exited")
-	if not _selected_creature.is_connected("tree_exited", tree_exited_callable):
-		_selected_creature.connect("tree_exited", tree_exited_callable)
-
-
-func _disconnect_selected_creature_signals() -> void:
-	if _selected_creature == null:
-		return
-	if is_instance_valid(_selected_creature):
-		if _selected_creature.died.is_connected(_on_selected_creature_died):
-			_selected_creature.died.disconnect(_on_selected_creature_died)
-		var tree_exited_callable: Callable = Callable(self, "_on_selected_creature_tree_exited")
-		if _selected_creature.is_connected("tree_exited", tree_exited_callable):
-			_selected_creature.disconnect("tree_exited", tree_exited_callable)
-
-
-func _on_selected_creature_died() -> void:
-	_clear_selected_creature()
-
-
-func _on_selected_creature_tree_exited() -> void:
-	_clear_selected_creature()
-
-
-func _on_creature_despawned(creature_node: Creature, _chunk_coord: Vector2i) -> void:
-	if creature_node == null:
-		return
-	if creature_node != _selected_creature:
-		return
-	_clear_selected_creature()
-
-
-func _on_creature_action_hud_fight_pressed(creature_node: Creature) -> void:
-	if creature_node == null or not is_instance_valid(creature_node):
-		_clear_selected_creature()
-		return
-	_emit_creature_fight_requested_event(creature_node)
-
-
-func _emit_creature_fight_requested_event(creature_node: Creature) -> void:
-	CreatureEvents.creature_fight_requested.emit(creature_node)
-
-
-func _on_inventory_toggled(is_open: bool) -> void:
-	if is_open:
-		_clear_selected_creature()
-		return
-	if _selected_creature == null:
-		return
-	if not _can_show_creature_action_hud():
-		return
-	if creature_action_hud:
-		creature_action_hud.show_for_creature(_selected_creature)
-
-
-func _get_inventory_panel_node() -> Node:
-	return get_node_or_null("InventoryPanel")
+func _initialize_creature_selection_controller() -> void:
+	if creature_selection_controller:
+		creature_selection_controller.initialize(
+			creature_action_hud,
+			creature_spawner,
+			main_screen,
+			Callable(self, "_is_character_creator_visible")
+		)
 
 
 func _is_desktop_platform() -> bool:
