@@ -35,11 +35,7 @@ func _on_death() -> void:
 
 
 func _emit_player_spawned_event() -> void:
-	var player_events: Node = get_node_or_null("/root/PlayerEvents")
-	if player_events and player_events.has_signal("player_spawned"):
-		player_events.emit_signal("player_spawned", self)
-		return
-	EventBus.player_spawned.emit(self)
+	PlayerEvents.player_spawned.emit(self)
 
 
 func apply_appearance(

@@ -284,14 +284,7 @@ func _play_book_animation(is_opening: bool) -> void:
 
 
 func _emit_inventory_opened_event() -> void:
-	var ui_events: Node = get_node_or_null(\"/root/UIEvents\")
-	if ui_events and ui_events.has_signal(\"inventory_opened\"):
-		ui_events.emit_signal(\"inventory_opened\")
-		return
-
-	var event_bus: Node = get_node_or_null(\"/root/EventBus\")
-	if event_bus and event_bus.has_signal(\"inventory_opened\"):
-		event_bus.emit_signal(\"inventory_opened\")
+	UIEvents.inventory_opened.emit()
 
 
 func _on_inventory_changed() -> void:

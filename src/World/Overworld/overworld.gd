@@ -228,10 +228,7 @@ func _wire_creature_interaction_signals() -> void:
 
 
 func _get_creature_event_source() -> Node:
-	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
-	if creature_events != null:
-		return creature_events
-	return get_node_or_null("/root/EventBus")
+	return CreatureEvents
 
 
 func _on_creature_selected(creature_node: Node) -> void:
@@ -340,13 +337,7 @@ func _on_creature_action_hud_fight_pressed(creature_node: Creature) -> void:
 
 
 func _emit_creature_fight_requested_event(creature_node: Creature) -> void:
-	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
-	if creature_events and creature_events.has_signal("creature_fight_requested"):
-		creature_events.emit_signal("creature_fight_requested", creature_node)
-		return
-	var event_bus: Node = get_node_or_null("/root/EventBus")
-	if event_bus and event_bus.has_signal("creature_fight_requested"):
-		event_bus.emit_signal("creature_fight_requested", creature_node)
+	CreatureEvents.creature_fight_requested.emit(creature_node)
 
 
 func _on_inventory_toggled(is_open: bool) -> void:

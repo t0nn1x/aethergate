@@ -269,27 +269,12 @@ func _emit_creature_selected_event(selected_creature: Creature) -> void:
 	_selected_creature = selected_creature
 	_spawn_creature_press_feedback(selected_creature)
 
-	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
-	if creature_events and creature_events.has_signal("creature_selected"):
-		creature_events.emit_signal("creature_selected", selected_creature)
-		return
-
-	var event_bus: Node = get_node_or_null("/root/EventBus")
-	if event_bus and event_bus.has_signal("creature_selected"):
-		event_bus.emit_signal("creature_selected", selected_creature)
+	CreatureEvents.creature_selected.emit(selected_creature)
 
 
 func _emit_creature_deselected_event() -> void:
 	_selected_creature = null
-
-	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
-	if creature_events and creature_events.has_signal("creature_deselected"):
-		creature_events.emit_signal("creature_deselected")
-		return
-
-	var event_bus: Node = get_node_or_null("/root/EventBus")
-	if event_bus and event_bus.has_signal("creature_deselected"):
-		event_bus.emit_signal("creature_deselected")
+	CreatureEvents.creature_deselected.emit()
 
 
 func _spawn_creature_press_feedback(target_creature: Creature) -> void:
