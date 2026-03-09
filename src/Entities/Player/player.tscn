@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://c2n2pnl8vdast" path="res://src/Entities/Player/Components/Camera/player_camera_component.gd" id="5_cam"]
 [ext_resource type="Script" uid="uid://sv652uydmdsg" path="res://src/Entities/Player/Components/Input/player_input_component.gd" id="6_inp"]
 [ext_resource type="Script" uid="uid://wavdrnjf57qy" path="res://src/Entities/Systems/Navigation/creature_navigation_component.gd" id="7_navcomp"]
-[ext_resource type="Script" uid="uid://04brhsvoybps" path="res://src/Common/State_Machine/state_machine.gd" id="8_sm"]
+[ext_resource type="Script" uid="uid://04brhsvoybps" path="res://src/Common/StateMachine/state_machine.gd" id="8_sm"]
 [ext_resource type="Script" uid="uid://w6c770iqxjfm" path="res://src/Entities/Player/States/player_idle_state.gd" id="9_idle"]
 [ext_resource type="Script" uid="uid://dj2egesej8jpb" path="res://src/Entities/Player/States/player_path_move_state.gd" id="11_path"]
 [ext_resource type="Script" uid="uid://brfnb42yvma5" path="res://src/Entities/Player/Components/Input/player_move_pointer_component.gd" id="12_ptr"]
