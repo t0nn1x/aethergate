@@ -8,7 +8,7 @@ static var _water_material: ShaderMaterial = null
 
 static func apply_to_chunk(chunk: OverworldChunk, base_layer_name: String = "Base") -> void:
 	if _water_material == null:
-		var shader := load("res://src/Map/Overworld/Shaders/water.gdshader") as Shader
+		var shader := load("res://src/World/Overworld/Shaders/water.gdshader") as Shader
 		if shader:
 			_water_material = ShaderMaterial.new()
 			_water_material.shader = shader

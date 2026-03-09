@@ -178,20 +178,8 @@ func _apply_silhouette_color(color: Color) -> void:
 
 
 func _emit_creature_spawned_event() -> void:
-	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
-	if creature_events and creature_events.has_signal("creature_spawned"):
-		creature_events.emit_signal("creature_spawned", self)
-		return
-	var event_bus: Node = get_node_or_null("/root/EventBus")
-	if event_bus and event_bus.has_signal("creature_spawned"):
-		event_bus.emit_signal("creature_spawned", self)
+	CreatureEvents.creature_spawned.emit(self)
 
 
 func _emit_creature_died_event() -> void:
-	var creature_events: Node = get_node_or_null("/root/CreatureEvents")
-	if creature_events and creature_events.has_signal("creature_died"):
-		creature_events.emit_signal("creature_died", self, creature_data)
-		return
-	var event_bus: Node = get_node_or_null("/root/EventBus")
-	if event_bus and event_bus.has_signal("creature_died"):
-		event_bus.emit_signal("creature_died", self, creature_data)
+	CreatureEvents.creature_died.emit(self, creature_data)

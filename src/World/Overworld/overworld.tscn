@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b3enup6sc8jpm"]
+
+[ext_resource type="Script" uid="uid://c2nh6l0g01wbr" path="res://src/World/Overworld/overworld.gd" id="1"]
+[ext_resource type="Script" uid="uid://cv3xjubqcqbpl" path="res://src/World/Streaming/chunk_manager.gd" id="3"]
+[ext_resource type="PackedScene" path="res://src/Ui/Windows/Debug/debug_overlay.tscn" id="4"]
+[ext_resource type="Script" path="res://src/World/Overworld/overworld_player_spawner.gd" id="5_spawner"]
+[ext_resource type="Script" path="res://src/World/Overworld/overworld_session_controller.gd" id="6_session"]
+[ext_resource type="Script" path="res://src/World/Overworld/navigation_blocker_registry.gd" id="7_registry"]
+[ext_resource type="PackedScene" path="res://src/Ui/Windows/Gui/MainScreen/main_screen.tscn" id="8_main_screen"]
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_catalog_service.gd" id="9_catalog_service"]
+[ext_resource type="Script" path="res://src/World/Overworld/overworld_creature_spawner.gd" id="10_creature_spawner"]
+[ext_resource type="PackedScene" path="res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn" id="11_system_hud"]
+[ext_resource type="PackedScene" path="res://src/Ui/Windows/Inventory/inventory_panel.tscn" id="12_inventory_panel"]
+[ext_resource type="Script" path="res://src/Ui/Common/ui_manager.gd" id="13_ui_manager"]
+[ext_resource type="PackedScene" path="res://src/Ui/Hud/creature_action_hud.tscn" id="14_creature_action_hud"]
+[ext_resource type="PackedScene" path="res://src/Ui/Windows/CharacterCreator/character_creator_panel.tscn" id="15_character_creator"]
+[ext_resource type="Script" path="res://src/World/Overworld/overworld_creature_selection_controller.gd" id="16_creature_selection_ctrl"]
+[ext_resource type="Script" path="res://src/World/Overworld/overworld_character_creator_controller.gd" id="17_character_creator_ctrl"]
+
+[node name="Overworld" type="Node2D" unique_id=595158492]
+script = ExtResource("1")
+
+[node name="Terrain" type="Node2D" parent="." unique_id=853383915]
+
+[node name="Navigation" type="Node2D" parent="." unique_id=807638951]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Navigation" unique_id=936990034]
+enabled = false
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=193451309]
+
+[node name="PlayerSpawnPoint" type="Marker2D" parent="SpawnPoints" unique_id=1162151603]
+position = Vector2(-4342.0005, 4748.0005)
+rotation = -0.7853982
+
+[node name="Entities" type="Node2D" parent="." unique_id=1882641600]
+
+[node name="Chunks" type="Node2D" parent="." unique_id=1987845926]
+
+[node name="WorldYSort" type="Node2D" parent="." unique_id=-2037575239]
+y_sort_enabled = true
+
+[node name="NavigationBlockerRegistry" type="Node" parent="." unique_id=965339271]
+script = ExtResource("7_registry")
+search_root_path = NodePath("../Navigation")
+
+[node name="OverworldPlayerSpawner" type="Node" parent="." unique_id=1776301222]
+script = ExtResource("5_spawner")
+
+[node name="CreatureCatalogService" type="Node" parent="."]
+script = ExtResource("9_catalog_service")
+
+[node name="OverworldCreatureSpawner" type="Node" parent="."]
+script = ExtResource("10_creature_spawner")
+
+[node name="OverworldSessionController" type="Node" parent="." unique_id=1712515616]
+script = ExtResource("6_session")
+auto_start_session_on_ready = false
+
+[node name="UiManager" type="Node" parent="."]
+script = ExtResource("13_ui_manager")
+
+[node name="ChunkManager" type="Node2D" parent="." unique_id=1419170274]
+script = ExtResource("3")
+preview_all_in_editor = true
+
+[node name="DebugOverlay" parent="." unique_id=847243072 instance=ExtResource("4")]
+
+[node name="MainScreen" parent="." unique_id=635295012 instance=ExtResource("8_main_screen")]
+[node name="SystemHud" parent="." unique_id=1538840215 instance=ExtResource("11_system_hud")]
+[node name="InventoryPanel" parent="." unique_id=1999082388 instance=ExtResource("12_inventory_panel")]
+[node name="CreatureActionHud" parent="." instance=ExtResource("14_creature_action_hud")]
+[node name="CharacterCreatorPanel" parent="." instance=ExtResource("15_character_creator")]
+
+[node name="OverworldCharacterCreatorController" type="Node" parent="."]
+script = ExtResource("17_character_creator_ctrl")
+
+[node name="OverworldCreatureSelectionController" type="Node" parent="."]
+script = ExtResource("16_creature_selection_ctrl")

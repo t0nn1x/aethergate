@@ -1,35 +1,42 @@
 # Project: Aethergate
 
 ## Overview
+
 Aethergate is a Godot game project with core runtime services, entity systems, and an overworld map pipeline organized by gameplay domain.
 
 ## Detected Stack
+
 - **Engine:** Godot 4.6 (`project.godot`)
 - **Language:** GDScript (`src/**/*.gd`)
 - **Assets/Resources:** `.tscn`, `.tres`, `.gdshader`, imported sprites and tilesets
 - **Repository:** Git initialized (`.git`)
 
 ## Identified Patterns
-- **Feature-oriented structure:** `src/Core`, `src/Entities`, `src/Map`, `src/Common`
-- **Autoload orchestration:** `PlatformDisplaySettings`, `EventBus`, `GameManager`
+
+- **Feature-oriented structure:** `src/Core`, `src/Entities`, `src/World`, `src/Common`
+- **Autoload orchestration:** `PlatformDisplaySettings`, `GameManager`
 - **Profile persistence autoload:** `PlayerProfileService` stores player cosmetic setup (`user://player_profile.cfg`)
-- **Bounded event buses:** `PlayerEvents`, `WorldEvents`, `UIEvents` with `EventBus` kept as compatibility shim
+- **Typed event singletons:** `PlayerEvents`, `WorldEvents`, `UIEvents`, `CreatureEvents` — no legacy EventBus
 - **Centralized project config:** `ProjectConfig` autoload resolves global config + active platform profile
-- **Componentized player architecture:** `src/Entities/Player/Components`
+- **Componentized player architecture:** `src/Entities/Player/Components` with `@onready` typed refs
 - **Solo-first multiplayer seams:** player identity + authority checks exist even before transport/RPC layer
-- **Reusable state machine layer:** `src/Common/State_Machine`
-- **Chunked overworld content:** `src/Map/Overworld/Chunks`
+- **Reusable state machine layer:** `src/Common/StateMachine`
+- **Chunked overworld content:** `src/World/Overworld/Chunks`
 
 ## Architecture Notes
-- Main entry scene: `res://src/Map/main.tscn`
+
+- Main entry scene: `res://src/World/main.tscn`
 - Rendering mode is mobile-focused with platform-specific viewport settings.
-- Event-driven coordination is centralized through autoload singletons.
+- Event-driven coordination is centralized through typed event singleton autoloads.
 - Runtime tuning now supports one global config resource (`res://src/Config/project_config.tres`) with mobile/desktop profile split.
-- Overworld now acts as composition root for stage wiring (player, chunk manager, blocker registry, debug overlay).
+- Overworld acts as composition root for stage wiring (player, chunk manager, blocker registry, debug overlay).
+- Overworld is decomposed: creature selection delegated to `OverworldCreatureSelectionController`, character creator flow to `OverworldCharacterCreatorController`.
 - Overworld now keeps player registration extensible via `player_id` mapping while preserving local-player compatibility.
+- Navigation utilities live under `src/Common/Navigation/`.
 - Multiplayer structure appears scaffolded and ready for expansion.
 
 ## AI Context Status
+
 - Installed skills already include:
   - `godot-best-practices`
   - `godot-development`
@@ -40,6 +47,7 @@ Aethergate is a Godot game project with core runtime services, entity systems, a
   - `filesystem`
 
 ## skills.sh Search Notes
+
 - Search executed for `godot` and returned matches, including:
   - `jwynia/agent-skills@godot-best-practices`
   - `zate/cc-godot@godot-development`

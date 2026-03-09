@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c3wcouhyod8qw"]
 
-[ext_resource type="Script" uid="uid://d0eecemjvxylc" path="res://src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.gd" id="1"]
+[ext_resource type="Script" uid="uid://de8fug3xtq2cf" path="res://src/Ui/Windows/Hud/SystemHud/system_hud.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://fem1fwl8q3qu" path="res://Assets/Icons/Dwarf loot pack/PNG/Transperent/Icon3.png" id="3_5hucw"]
 [ext_resource type="Texture2D" uid="uid://cfyfrr7vlf3r0" path="res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png" id="3_by3ai"]
 [ext_resource type="Texture2D" uid="uid://duafcy84sgphq" path="res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png" id="3_pc3km"]

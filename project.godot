@@ -31,9 +31,8 @@ PlayerEvents="*res://src/Core/Events/player_events.gd"
 WorldEvents="*res://src/Core/Events/world_events.gd"
 UIEvents="*res://src/Core/Events/ui_events.gd"
 CreatureEvents="*res://src/Core/Events/creature_events.gd"
-EventBus="*res://src/Core/event_bus.gd"
 GameManager="*res://src/Core/game_manager.gd"
-MusicPlayer="*res://src/Utilities/music_player.gd"
+MusicPlayer="*res://src/Core/music_player.gd"
 
 [debug]
 

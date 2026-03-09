@@ -63,8 +63,4 @@ func _apply_movement(moving: bool) -> void:
 
 
 func _emit_player_moved_event(world_position: Vector2) -> void:
-	var player_events: Node = get_node_or_null("/root/PlayerEvents")
-	if player_events and player_events.has_signal("player_moved"):
-		player_events.emit_signal("player_moved", world_position)
-		return
-	EventBus.player_moved.emit(world_position)
+	PlayerEvents.player_moved.emit(world_position)
