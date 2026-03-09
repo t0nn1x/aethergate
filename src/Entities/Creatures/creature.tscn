@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://src/Entities/Creatures/Components/Visual/creature_visual_component.gd" id="2_vis"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/Components/Movement/creature_movement_component.gd" id="3_move"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/Components/Wander/creature_wander_component.gd" id="4_wander"]
-[ext_resource type="Script" path="res://src/Entities/Systems/Navigation/player_move_target_blocker_component.gd" id="5_blocker"]
-[ext_resource type="Script" path="res://src/Entities/Systems/Navigation/creature_navigation_component.gd" id="11_nav"]
+[ext_resource type="Script" path="res://src/Common/Navigation/player_move_target_blocker_component.gd" id="5_blocker"]
+[ext_resource type="Script" path="res://src/Common/Navigation/creature_navigation_component.gd" id="11_nav"]
 [ext_resource type="Shader" path="res://src/Common/Shaders/silhouette.gdshader" id="7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
