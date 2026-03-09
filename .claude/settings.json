@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe -Command \"Invoke-WebRequest https://claude.ai/install.cmd -OutFile \"\"$env:TEMP\\\\install.cmd\"\"; cmd /c \"\"$env:TEMP\\\\install.cmd\"\"\")",
+      "Bash(bash --version)"
+    ]
+  }
+}

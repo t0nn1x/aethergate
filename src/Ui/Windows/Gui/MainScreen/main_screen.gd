@@ -12,6 +12,7 @@ const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 @export var menu_margin_path: NodePath = ^"Root/MenuMargin"
 @export var menu_card_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard"
 @export var menu_vbox_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox"
+@export var background_dimmer_path: NodePath = ^"Root/BackgroundDimmer"
 @export var title_label_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleLabel"
 @export var localization_service_path: NodePath = ^"/root/LocalizationService"
 @export var title_text_key: StringName = &"ui.main.title"
@@ -35,6 +36,7 @@ var _quit_button: Button
 var _menu_margin: MarginContainer
 var _menu_card: Control
 var _menu_vbox: VBoxContainer
+var _background_dimmer: ColorRect
 var _title_label: Label
 var _viewport: Viewport
 var _is_mobile_layout_active: bool = false
@@ -57,6 +59,7 @@ func _ready() -> void:
 	_wire_viewport_resize()
 	_apply_responsive_layout()
 	_apply_menu_content_visibility()
+	_log_background_dimmer_bounds()
 	if auto_focus_play_button:
 		call_deferred("_focus_play_button")
 	else:
@@ -100,6 +103,7 @@ func _cache_nodes() -> void:
 	_menu_margin = get_node_or_null(menu_margin_path) as MarginContainer
 	_menu_card = get_node_or_null(menu_card_path) as Control
 	_menu_vbox = get_node_or_null(menu_vbox_path) as VBoxContainer
+	_background_dimmer = get_node_or_null(background_dimmer_path) as ColorRect
 	_title_label = get_node_or_null(title_label_path) as Label
 
 	if _play_button == null:
@@ -114,6 +118,8 @@ func _cache_nodes() -> void:
 		push_warning("MainScreen: Menu card is missing.")
 	if _menu_vbox == null:
 		push_warning("MainScreen: Menu VBox is missing.")
+	if _background_dimmer == null:
+		push_warning("MainScreen: Background dimmer is missing.")
 	if _title_label == null:
 		push_warning("MainScreen: Title label is missing.")
 
@@ -207,6 +213,7 @@ func _wire_viewport_resize() -> void:
 
 func _on_viewport_size_changed() -> void:
 	_apply_responsive_layout()
+	_log_background_dimmer_bounds()
 
 
 func _apply_responsive_layout() -> void:
@@ -230,6 +237,28 @@ func _apply_responsive_layout() -> void:
 	print(
 		"[MainScreen] responsive_layout mobile=%s viewport=%.0fx%.0f safe=%.0f,%.0f,%.0f,%.0f"
 		% [_is_mobile_layout_active, viewport_size.x, viewport_size.y, safe_left, safe_top, safe_right, safe_bottom]
+	)
+
+
+func _log_background_dimmer_bounds() -> void:
+	if _background_dimmer == null:
+		return
+	var viewport_size: Vector2 = _resolve_viewport_size()
+	var dimmer_rect: Rect2 = _background_dimmer.get_rect()
+	print(
+		"[FIX][MainScreenDimmer] viewport=%.0fx%.0f rect=%.1f,%.1f %.1fx%.1f offsets=%.1f,%.1f,%.1f,%.1f"
+		% [
+			viewport_size.x,
+			viewport_size.y,
+			dimmer_rect.position.x,
+			dimmer_rect.position.y,
+			dimmer_rect.size.x,
+			dimmer_rect.size.y,
+			_background_dimmer.offset_left,
+			_background_dimmer.offset_top,
+			_background_dimmer.offset_right,
+			_background_dimmer.offset_bottom
+		]
 	)
 
 
