@@ -10,12 +10,12 @@
 
 ---
 
-## Session Checkpoint — 2026-03-09
+## Session Checkpoint — 2026-03-10
 
 **Branch:** `feature/combat-system`
 **Last commit:** `10778ae1` — `test(combat): add headless resolver tests (11/11 passing)`
 
-### Completed ✅
+### All scripts complete ✅
 
 | Task | File | Status |
 | --- | --- | --- |
@@ -23,31 +23,48 @@
 | 2 — SkillData | `src/Entities/Skills/Combat/skill_data.gd` | ✅ committed |
 | 3 — CombatAction + CombatantSnapshot | `src/Entities/Systems/Combat/Data/combat_action.gd`, `combatant_snapshot.gd` | ✅ committed |
 | 4 — CombatRoundResult | `src/Entities/Systems/Combat/Data/combat_round_result.gd` | ✅ committed |
-| 5 — CombatEvents autoload | `src/Core/Events/combat_events.gd` + `project.godot` | ✅ committed |
+| 5 — CombatEvents autoload | `src/Core/Events/combat_events.gd` | ✅ committed |
 | 6 — CombatRoundResolver | `src/Entities/Systems/Combat/combat_round_resolver.gd` | ✅ committed |
 | 7 — Headless tests | `src/Entities/Systems/Combat/Tests/` | ✅ committed, 11/11 passing |
+| 8 — CombatContext | `src/Entities/Systems/Combat/combat_context.gd` | ✅ scripted |
+| 9 — CombatFlowController | `src/Entities/Systems/Combat/combat_flow_controller.gd` | ✅ scripted |
+| 10 — AI strategies | `src/Entities/Systems/Combat/Ai/combat_ai_strategy.gd`, `weighted_random_strategy.gd` | ✅ scripted |
+| 11 — CreatureData combat fields | `src/Entities/Creatures/creature_data.gd` | ✅ scripted |
+| 12 — CombatPreviewPanel | `src/Ui/Common/CombatPreviewPanel/combat_preview_panel.gd` | ✅ scripted |
+| 13 — CombatScene | `src/World/Combat/combat_scene.gd` | ✅ scripted |
+| 14 — MobileCombatUi | `src/Ui/Mobile/Combat/mobile_combat_ui.gd` | ✅ scripted |
+| 15 — Overworld wiring | `src/World/Overworld/overworld.gd`, `src/World/main.gd` | ✅ scripted |
+| 16 — PlayerProfileService XP | `src/Core/player_profile_service.gd` | ✅ scripted |
 
-### Up Next
+### Pending — editor steps (scenes to build)
 
-Start here: **Task 8 — CombatContext**
+1. **Open editor** → let Godot scan + generate uid files for all new scripts
+2. **`src/Ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`**
+   - Root: `CombatPreviewPanel` (script: `combat_preview_panel.gd`, inherits `AdaptiveOverlayPanel`)
+   - `Layout` (VBoxContainer) → `EnemyPortrait` (TextureRect, stretch KEEP_ASPECT_CENTERED, min 256×256) → `NameLabel` (Label, center) → `LevelLabel` → `PowerLabel` → `Buttons` (HBoxContainer) → `FleeButton` ("Flee") + `FightButton` ("Fight!")
+3. **`src/World/Combat/combat_scene.tscn`**
+   - Root: `CombatScene` (script: `combat_scene.gd`)
+   - Child: `CombatFlowController` (script: `combat_flow_controller.gd`) → add to group `combat_flow`
+     - Child: `CombatRoundResolver` (script: `combat_round_resolver.gd`)
+   - Child: `CombatUi` (Node — placeholder)
+4. **`src/Ui/Mobile/Combat/mobile_combat_ui.tscn`**
+   - Root: `MobileCombatUi` (Control, script: `mobile_combat_ui.gd`, anchor full-rect)
+   - `EnemyPanel` (VBoxContainer, top 35%) → `NameLabel` + `HpBar` (ProgressBar)
+   - `RoundLog` (RichTextLabel, bbcode_enabled: true, scroll_following: true)
+   - `PlayerPanel` (VBoxContainer, bottom 40%) → `HpBar` + `EnergyBar` + `SkillBar` (HBoxContainer) + `TimerLabel`
+5. **`src/World/Overworld/overworld.tscn`** — instance `combat_preview_panel.tscn` as a child, name it `CombatPreviewPanel`
+6. **Wire `CombatUi` in `combat_scene.tscn`** — replace the placeholder `CombatUi` node with an instance of `mobile_combat_ui.tscn`
+7. **Commit** all new files + uid files
 
-- Task 8 — `src/Entities/Systems/Combat/combat_context.gd` (live HP/energy state, applies round results)
-- Task 9 — `src/Entities/Systems/Combat/combat_flow_controller.gd` (round loop + 20s timer, calls resolver)
-- Task 10 — `src/Entities/Systems/Combat/Ai/combat_ai_strategy.gd` + `weighted_random_strategy.gd`
-- Task 11 — Extend `src/Entities/Creatures/creature_data.gd` (add `skill_loadout` + `ai_strategy` export group)
-- Task 12 — `src/Ui/Common/CombatPreviewPanel/` (pre-fight info card, extends AdaptiveOverlayPanel)
-- Task 13 — `src/World/Combat/combat_scene.tscn` + `combat_scene.gd` (entry point)
-- Task 14 — `src/Ui/Mobile/Combat/mobile_combat_ui.tscn` + `.gd` (full mobile UI layout)
-- Task 15 — Overworld wiring (intercept `creature_fight_requested`, show preview, confirm → COMBAT state)
-- Task 16 — `PlayerProfileService` XP + level persistence
+---
 
-### Godot Executable (this machine)
+## Godot Executable (this machine)
 
 ```text
 C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_win64.exe
 ```
 
-### Run tests
+## Run tests
 
 ```bash
 "C:/Users/Anton.Khrobust/projects/Godot_v4.6-stable_win64.exe/Godot_v4.6-stable_win64.exe" --headless --path . --script res://src/Entities/Systems/Combat/Tests/run_combat_tests.gd

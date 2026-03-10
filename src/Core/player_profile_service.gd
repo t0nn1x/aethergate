@@ -8,6 +8,10 @@ const PLAYER_APPEARANCE_DATA_SCRIPT := preload(
 const PROFILE_SAVE_PATH: String = "user://player_profile.cfg"
 const SETTINGS_SECTION: String = "settings"
 const SETTINGS_KEY_PREFERRED_LOCALE: String = "preferred_locale"
+const COMBAT_SECTION: String = "combat"
+const KEY_PLAYER_LEVEL: String = "player_level"
+const KEY_PLAYER_XP: String = "player_xp"
+const BASE_XP_PER_LEVEL: int = 100  ## XP needed: level * BASE_XP_PER_LEVEL
 
 @export var cosmetic_catalog: Resource = preload(
 	"res://src/Entities/Player/Resources/player_cosmetic_catalog.tres"
@@ -15,11 +19,14 @@ const SETTINGS_KEY_PREFERRED_LOCALE: String = "preferred_locale"
 
 var _appearance: Resource
 var _preferred_locale: StringName = StringName()
+var _player_level: int = 1
+var _player_xp: int = 0
 
 
 func _ready() -> void:
 	_appearance = _resolve_default_appearance()
 	_load_locale_preference()
+	_load_combat_profile()
 
 
 func get_catalog() -> Resource:
@@ -126,6 +133,40 @@ func _catalog_get_weapon_texture(method_name: String, weapon_id: StringName) -> 
 	if cosmetic_catalog == null or not cosmetic_catalog.has_method(method_name):
 		return null
 	return cosmetic_catalog.call(method_name, weapon_id) as Texture2D
+
+
+func get_player_level() -> int:
+	return _player_level
+
+
+func get_player_xp() -> int:
+	return _player_xp
+
+
+func add_xp(amount: int) -> void:
+	_player_xp += amount
+	var xp_needed: int = _player_level * BASE_XP_PER_LEVEL
+	while _player_xp >= xp_needed:
+		_player_xp -= xp_needed
+		_player_level += 1
+		xp_needed = _player_level * BASE_XP_PER_LEVEL
+	_save_combat_profile()
+
+
+func _load_combat_profile() -> void:
+	var profile_data: ConfigFile = ConfigFile.new()
+	if profile_data.load(PROFILE_SAVE_PATH) != OK:
+		return
+	_player_level = int(profile_data.get_value(COMBAT_SECTION, KEY_PLAYER_LEVEL, 1))
+	_player_xp = int(profile_data.get_value(COMBAT_SECTION, KEY_PLAYER_XP, 0))
+
+
+func _save_combat_profile() -> void:
+	var profile_data: ConfigFile = ConfigFile.new()
+	profile_data.load(PROFILE_SAVE_PATH)
+	profile_data.set_value(COMBAT_SECTION, KEY_PLAYER_LEVEL, _player_level)
+	profile_data.set_value(COMBAT_SECTION, KEY_PLAYER_XP, _player_xp)
+	profile_data.save(PROFILE_SAVE_PATH)
 
 
 func _load_locale_preference() -> void:

@@ -29,6 +29,7 @@ var player: Player = null
 var _players_by_id: Dictionary = {}
 @onready var creature_selection_controller: OverworldCreatureSelectionController = $OverworldCreatureSelectionController
 @onready var character_creator_controller: OverworldCharacterCreatorController = $OverworldCharacterCreatorController
+@onready var _combat_preview_panel: CombatPreviewPanel = get_node_or_null("CombatPreviewPanel") as CombatPreviewPanel
 
 
 func _ready() -> void:
@@ -40,6 +41,7 @@ func _ready() -> void:
 	_wire_main_screen_signals()
 	_initialize_character_creator_controller()
 	_initialize_creature_selection_controller()
+	_wire_combat_preview()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
@@ -230,3 +232,53 @@ func _is_mobile_platform() -> bool:
 func _initialize_character_creator_controller() -> void:
 	if character_creator_controller:
 		character_creator_controller.initialize(main_screen, session_controller)
+
+
+func _wire_combat_preview() -> void:
+	if not CreatureEvents.creature_fight_requested.is_connected(_on_creature_fight_requested):
+		CreatureEvents.creature_fight_requested.connect(_on_creature_fight_requested)
+	if not CombatEvents.combat_ended.is_connected(_on_combat_ended):
+		CombatEvents.combat_ended.connect(_on_combat_ended)
+	if _combat_preview_panel:
+		_combat_preview_panel.fight_confirmed.connect(_on_combat_fight_confirmed)
+		_combat_preview_panel.dismissed.connect(_on_combat_preview_dismissed)
+
+
+func _on_creature_fight_requested(creature_node: Node) -> void:
+	var creature: Creature = creature_node as Creature
+	if creature == null or not is_instance_valid(creature):
+		return
+	if _combat_preview_panel:
+		_combat_preview_panel.show_for_creature(creature.creature_data)
+
+
+func _on_combat_fight_confirmed(enemy_snapshot: CombatantSnapshot) -> void:
+	var player_snap: CombatantSnapshot = _build_player_snapshot()
+	CombatEvents.pending_player_snapshot = player_snap
+	CombatEvents.pending_enemy_snapshot = enemy_snapshot
+	GameManager.change_state(GameManager.GameState.COMBAT)
+
+
+func _on_combat_preview_dismissed() -> void:
+	pass  # nothing to do, panel already hid itself
+
+
+func _on_combat_ended(result: CombatRoundResult) -> void:
+	if result.winner_id == &"player":
+		PlayerProfileService.add_xp(50)
+
+
+func _build_player_snapshot() -> CombatantSnapshot:
+	var stats := CombatStats.new()
+	stats.max_hp = 100
+	stats.max_energy = 100
+	stats.attack = 12.0
+	stats.defense = 5.0
+	var snap := CombatantSnapshot.new()
+	snap.combatant_id = &"player"
+	snap.display_name = "Player"
+	snap.level = 1
+	snap.base_stats = stats
+	## TODO: replace with real player gear loadout once player combat component exists.
+	snap.skill_loadout = []
+	return snap

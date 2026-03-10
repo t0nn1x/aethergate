@@ -8,6 +8,6 @@ signal round_resolved(result: CombatRoundResult)
 ## Emitted when the combat session is fully over (win, loss, or draw).
 signal combat_ended(result: CombatRoundResult)
 
-## Emitted by the overworld once the player confirms they want to fight.
-## CombatScene listens here to receive both snapshots and start the session.
-signal combat_confirmed(player_snapshot: CombatantSnapshot, enemy_snapshot: CombatantSnapshot)
+## Pending combat data set by overworld before scene change, consumed by CombatScene on _ready.
+var pending_player_snapshot: CombatantSnapshot = null
+var pending_enemy_snapshot: CombatantSnapshot = null
