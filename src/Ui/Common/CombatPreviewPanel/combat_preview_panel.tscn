@@ -35,6 +35,7 @@ custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_horizontal = 4
 stretch_mode = 5
+texture_filter = 1
 
 [node name="NameLabel" type="Label" parent="Layout"]
 layout_mode = 2

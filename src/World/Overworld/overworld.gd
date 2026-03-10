@@ -260,7 +260,8 @@ func _on_combat_fight_confirmed(enemy_snapshot: CombatantSnapshot) -> void:
 
 
 func _on_combat_preview_dismissed() -> void:
-	pass  # nothing to do, panel already hid itself
+	if creature_selection_controller:
+		creature_selection_controller.clear_selection()
 
 
 func _on_combat_ended(result: CombatRoundResult) -> void:
@@ -281,4 +282,14 @@ func _build_player_snapshot() -> CombatantSnapshot:
 	snap.base_stats = stats
 	## TODO: replace with real player gear loadout once player combat component exists.
 	snap.skill_loadout = []
+	## TODO: replace with real player sprite from PlayerProfileService cosmetics.
+	var player_sprite := load("res://src/Entities/Player/Sprites/Parts/Combined/Dude_full_body1.png") as Texture2D
+	if player_sprite:
+		snap.portrait = player_sprite
+		snap.sprite_hframes = 4
+		snap.sprite_vframes = 1
+		snap.sprite_frame_width = 32
+		snap.sprite_frame_height = 32
+		snap.sprite_idle_fps = 2.0
+		snap.sprite_default_frame = 0
 	return snap

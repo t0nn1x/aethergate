@@ -2,27 +2,40 @@ class_name WindowsCombatUi
 extends Control
 
 ## Desktop landscape combat UI (1920x1080).
-## Layout: enemy panel (top) / round log (center) / player panel + skills (bottom).
+## Battleback background, player sprite (left), enemy sprite (right), HP/skill bars.
 
+const BATTLEBACK_DIR: String = "res://src/Ui/Assets/Battlebacks/combined presets/"
+const BATTLEBACK_COUNT: int = 27
+
+@onready var _battleback: TextureRect = $Battleback
+@onready var _player_sprite: TextureRect = $PlayerSprite
+@onready var _enemy_sprite: TextureRect = $EnemySprite
 @onready var _enemy_name: Label = $EnemyPanel/NameLabel
 @onready var _enemy_hp_bar: ProgressBar = $EnemyPanel/HpBar
 @onready var _player_hp_bar: ProgressBar = $PlayerPanel/HpBar
 @onready var _player_energy_bar: ProgressBar = $PlayerPanel/EnergyBar
-@onready var _round_log: RichTextLabel = $RoundLog
-@onready var _skill_bar: HBoxContainer = $PlayerPanel/SkillBar
-@onready var _timer_label: Label = $PlayerPanel/TimerLabel
+@onready var _round_log: RichTextLabel = $LogPanel/RoundLog
+@onready var _skill_bar: HBoxContainer = $SkillBar
+@onready var _timer_label: Label = $TimerLabel
 
 var _context: CombatContext = null
 var _flow_controller: CombatFlowController = null
 
+var _player_atlas: AtlasTexture = null
+var _enemy_atlas: AtlasTexture = null
+var _player_anim_time: float = 0.0
+var _enemy_anim_time: float = 0.0
+
 
 func initialize(context: CombatContext) -> void:
 	_context = context
+	_set_random_battleback()
+	_setup_combatant_sprite(_player_sprite, context.player_snapshot, false)
+	_setup_combatant_sprite(_enemy_sprite, context.enemy_snapshot, true)
 	_refresh_hp_bars()
 	_enemy_name.text = context.enemy_snapshot.display_name
 	_build_skill_bar(context.player_snapshot.skill_loadout)
 
-	## Wire to flow controller signals.
 	var flow: CombatFlowController = get_tree().get_first_node_in_group("combat_flow")
 	if flow:
 		_flow_controller = flow
@@ -31,6 +44,72 @@ func initialize(context: CombatContext) -> void:
 		flow.awaiting_player_action.connect(_on_awaiting_player_action)
 
 	CombatEvents.round_resolved.connect(_on_round_resolved)
+
+
+func _process(delta: float) -> void:
+	if _context == null:
+		return
+	_player_anim_time = _advance_sprite_animation(
+		_player_atlas, _context.player_snapshot, _player_anim_time, delta
+	)
+	_enemy_anim_time = _advance_sprite_animation(
+		_enemy_atlas, _context.enemy_snapshot, _enemy_anim_time, delta
+	)
+
+
+func _set_random_battleback() -> void:
+	var index: int = randi() % BATTLEBACK_COUNT
+	var path: String = BATTLEBACK_DIR + "Low_battleback%d.png" % index
+	var tex: Texture2D = load(path) as Texture2D
+	if tex:
+		_battleback.texture = tex
+
+
+func _setup_combatant_sprite(
+	tex_rect: TextureRect, snapshot: CombatantSnapshot, _flip: bool
+) -> void:
+	if snapshot.portrait == null:
+		return
+	var atlas := AtlasTexture.new()
+	atlas.atlas = snapshot.portrait
+	var fw: int = snapshot.sprite_frame_width
+	var fh: int = snapshot.sprite_frame_height
+	var start: int = clampi(snapshot.sprite_default_frame, 0, snapshot.sprite_hframes * snapshot.sprite_vframes - 1)
+	var col: int = start % snapshot.sprite_hframes
+	var row: int = start / snapshot.sprite_hframes
+	atlas.region = Rect2(col * fw, row * fh, fw, fh)
+	tex_rect.texture = atlas
+	if tex_rect == _player_sprite:
+		_player_atlas = atlas
+	else:
+		_enemy_atlas = atlas
+
+
+func _advance_sprite_animation(
+	atlas: AtlasTexture,
+	snapshot: CombatantSnapshot,
+	anim_time: float,
+	delta: float
+) -> float:
+	if atlas == null or snapshot == null:
+		return anim_time
+
+	var frame_count: int = snapshot.sprite_hframes * snapshot.sprite_vframes
+	if frame_count <= 1:
+		return anim_time
+
+	var fps: float = maxf(snapshot.sprite_idle_fps, 0.1)
+	anim_time += delta * fps
+	var cycle_index: int = int(floor(anim_time)) % frame_count
+	var start_frame: int = clampi(snapshot.sprite_default_frame, 0, frame_count - 1)
+	var current_frame: int = (start_frame + cycle_index) % frame_count
+
+	var fw: int = snapshot.sprite_frame_width
+	var fh: int = snapshot.sprite_frame_height
+	var col: int = current_frame % snapshot.sprite_hframes
+	var row: int = current_frame / snapshot.sprite_hframes
+	atlas.region = Rect2(col * fw, row * fh, fw, fh)
+	return anim_time
 
 
 func _on_round_started(round_number: int) -> void:

@@ -2,6 +2,17 @@
 
 [ext_resource type="Script" path="res://src/Ui/Windows/Combat/windows_combat_ui.gd" id="1_script"]
 
+[sub_resource type="StyleBoxFlat" id="log_panel_bg"]
+bg_color = Color(0, 0, 0, 0.55)
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
 [node name="WindowsCombatUi" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -11,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Battleback" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,80 +30,120 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.08, 0.08, 0.12, 1)
+stretch_mode = 6
+
+[node name="PlayerSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchor_left = 0.22
+anchor_top = 0.58
+anchor_right = 0.22
+anchor_bottom = 0.58
+offset_left = -96.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = 96.0
+mouse_filter = 2
+stretch_mode = 5
+texture_filter = 1
+
+[node name="EnemySprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchor_left = 0.75
+anchor_top = 0.58
+anchor_right = 0.75
+anchor_bottom = 0.58
+offset_left = -96.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = 96.0
+mouse_filter = 2
+stretch_mode = 5
+flip_h = true
+texture_filter = 1
 
 [node name="EnemyPanel" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 40.0
-offset_top = 30.0
-offset_right = -40.0
-offset_bottom = 140.0
+anchor_left = 0.55
+anchor_right = 0.97
+offset_top = 16.0
+offset_bottom = 90.0
 grow_horizontal = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="NameLabel" type="Label" parent="EnemyPanel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 text = "Enemy"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="HpBar" type="ProgressBar" parent="EnemyPanel"]
-custom_minimum_size = Vector2(0, 28)
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 max_value = 100.0
 value = 100.0
 show_percentage = true
 
-[node name="RoundLog" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchor_top = 0.15
-anchor_right = 1.0
-anchor_bottom = 0.7
-offset_left = 40.0
-offset_top = 0.0
-offset_right = -40.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-scroll_following = true
-theme_override_font_sizes/normal_font_size = 20
-
 [node name="PlayerPanel" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchor_top = 0.72
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_right = -40.0
-offset_bottom = -20.0
+anchor_left = 0.03
+anchor_top = 0.76
+anchor_right = 0.42
+anchor_bottom = 0.88
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="HpBar" type="ProgressBar" parent="PlayerPanel"]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 max_value = 100.0
 value = 100.0
 show_percentage = true
 
 [node name="EnergyBar" type="ProgressBar" parent="PlayerPanel"]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 max_value = 100.0
 value = 100.0
 show_percentage = true
 
-[node name="SkillBar" type="HBoxContainer" parent="PlayerPanel"]
+[node name="LogPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.28
+anchor_top = 0.02
+anchor_right = 0.72
+anchor_bottom = 0.22
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("log_panel_bg")
+
+[node name="RoundLog" type="RichTextLabel" parent="LogPanel"]
 layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+theme_override_font_sizes/normal_font_size = 18
+
+[node name="SkillBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.15
+anchor_top = 0.9
+anchor_right = 0.85
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="TimerLabel" type="Label" parent="PlayerPanel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
+[node name="TimerLabel" type="Label" parent="."]
+layout_mode = 1
+anchor_left = 0.43
+anchor_top = 0.84
+anchor_right = 0.57
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
 text = "20s"
 horizontal_alignment = 1
+vertical_alignment = 1

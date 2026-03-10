@@ -89,8 +89,8 @@ func _set_selected_creature(creature_node: Creature) -> void:
 		_selected_creature = creature_node
 		_connect_selected_creature_signals()
 
-	if _can_show_creature_action_hud() and _creature_action_hud:
-		_creature_action_hud.show_for_creature(_selected_creature)
+	if _can_initiate_creature_interaction():
+		_emit_creature_fight_requested_event(_selected_creature)
 
 
 func _clear_selected_creature() -> void:
@@ -100,9 +100,7 @@ func _clear_selected_creature() -> void:
 		_creature_action_hud.hide_action()
 
 
-func _can_show_creature_action_hud() -> bool:
-	if _creature_action_hud == null:
-		return false
+func _can_initiate_creature_interaction() -> bool:
 	if _main_screen and _main_screen.visible:
 		return false
 	if _is_overlay_visible_callback.is_valid() and _is_overlay_visible_callback.call():
@@ -167,13 +165,6 @@ func _emit_creature_fight_requested_event(creature_node: Creature) -> void:
 func _on_inventory_toggled(is_open: bool) -> void:
 	if is_open:
 		_clear_selected_creature()
-		return
-	if _selected_creature == null:
-		return
-	if not _can_show_creature_action_hud():
-		return
-	if _creature_action_hud:
-		_creature_action_hud.show_for_creature(_selected_creature)
 
 
 func _get_inventory_panel_node() -> Node:
