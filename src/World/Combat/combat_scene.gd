@@ -25,9 +25,9 @@ func _start_combat(
 ) -> void:
 	_context = CombatContext.from_snapshots(player_snapshot, enemy_snapshot)
 	var strategy: CombatAiStrategy = WeightedRandomStrategy.new()
-	_flow_controller.start_combat(_context, strategy)
 	if _combat_ui and _combat_ui.has_method("initialize"):
 		_combat_ui.call("initialize", _context)
+	_flow_controller.start_combat(_context, strategy)
 
 
 func _on_combat_ended(_result: CombatRoundResult) -> void:
