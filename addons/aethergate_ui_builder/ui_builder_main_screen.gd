@@ -2,6 +2,11 @@
 @tool
 extends Control
 
+# Explicit preloads — class_name globals are unreliable in @tool addon scripts
+# due to editor load order.
+const SlotRegistry := preload("res://addons/aethergate_ui_builder/slot_registry.gd")
+const LayoutConfig := preload("res://src/Ui/Common/Resources/ui_layout_config.gd")
+
 signal slot_changed(slot_id: StringName, platform: StringName)
 
 @onready var _slot_picker: OptionButton = %SlotPicker
@@ -46,14 +51,14 @@ func setup_undo_redo(undo_redo: EditorUndoRedoManager) -> void:
 
 func _populate_slot_picker() -> void:
 	_slot_picker.clear()
-	for slot: Dictionary in UiBuilderSlotRegistry.SLOTS:
+	for slot: Dictionary in SlotRegistry.SLOTS:
 		_slot_picker.add_item(slot.label)
-	if UiBuilderSlotRegistry.SLOTS.size() > 0:
+	if SlotRegistry.SLOTS.size() > 0:
 		_select_slot(0)
 
 
 func _select_slot(index: int) -> void:
-	var slot: Dictionary = UiBuilderSlotRegistry.SLOTS[index]
+	var slot: Dictionary = SlotRegistry.SLOTS[index]
 	_active_slot_id = slot.id
 	_rebuild_platform_buttons(slot.platforms)
 	_select_platform(_active_platform if _active_platform in slot.platforms else slot.platforms[0])
@@ -91,13 +96,13 @@ func _on_platform_pressed(platform: StringName) -> void:
 func _on_slot_platform_changed(slot_id: StringName, platform: StringName) -> void:
 	if _canvas == null:
 		return
-	var vp_size: Vector2 = UiBuilderSlotRegistry.PLATFORM_SIZES.get(platform, Vector2(1920, 1080))
+	var vp_size: Vector2 = SlotRegistry.PLATFORM_SIZES.get(platform, Vector2(1920, 1080))
 	_canvas.set_platform_size(vp_size)
 	_load_canvas_scene(slot_id, platform)
 
 
 func _load_canvas_scene(slot_id: StringName, platform: StringName) -> void:
-	var config: UiLayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
+	var config: LayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
 	if config == null:
 		_canvas.load_scene(null)
 		return
@@ -214,9 +219,9 @@ func _on_save_pressed() -> void:
 		return
 
 	# Update ui_layout_config.tres
-	var config: UiLayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
+	var config: LayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
 	if config == null:
-		config = UiLayoutConfig.new()
+		config = LayoutConfig.new()
 
 	if not config.slots.has(_active_slot_id):
 		config.slots[_active_slot_id] = {}
@@ -228,16 +233,16 @@ func _on_save_pressed() -> void:
 
 func _resolve_output_path(slot_id: StringName, platform: StringName) -> String:
 	# Try existing path from config first
-	var config: UiLayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
+	var config: LayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
 	if config != null:
 		var existing: String = config.get_scene_path(slot_id, platform)
 		if not existing.is_empty():
 			return existing
 
 	# Derive a sensible default path
-	var slot: Dictionary = UiBuilderSlotRegistry.find_slot(slot_id)
+	var slot: Dictionary = SlotRegistry.find_slot(slot_id)
 	if slot.is_empty():
 		return ""
-	var platform_folder: String = UiBuilderSlotRegistry.PLATFORM_FOLDER_NAMES.get(platform, str(platform).capitalize())
+	var platform_folder: String = SlotRegistry.PLATFORM_FOLDER_NAMES.get(platform, str(platform).capitalize())
 	var folder: String = "res://src/Ui/%s/UiBuilder/%s/" % [platform_folder, slot.label]
 	return folder + slot_id + "_" + platform + ".tscn"

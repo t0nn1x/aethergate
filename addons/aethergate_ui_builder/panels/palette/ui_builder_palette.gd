@@ -2,6 +2,9 @@
 @tool
 extends VBoxContainer
 
+const SlotRegistry := preload("res://addons/aethergate_ui_builder/slot_registry.gd")
+const LayoutConfig := preload("res://src/Ui/Common/Resources/ui_layout_config.gd")
+
 signal node_drag_requested(scene_path: String)
 
 const PRIMITIVES: Array[Dictionary] = [
@@ -24,8 +27,8 @@ func _ready() -> void:
 
 
 func _populate_aethergate() -> void:
-	for slot: Dictionary in UiBuilderSlotRegistry.SLOTS:
-		var config: UiLayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
+	for slot: Dictionary in SlotRegistry.SLOTS:
+		var config: LayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
 		if config == null:
 			continue
 		var path: String = config.get_scene_path(slot.id, &"windows")
