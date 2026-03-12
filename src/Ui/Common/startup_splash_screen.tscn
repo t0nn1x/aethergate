@@ -1,38 +1,35 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cvydwbdjmdadt"]
 
-[ext_resource type="Script" path="res://src/Ui/Common/startup_splash_screen.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Assets/Logo/studio_logo.png" id="2_logo"]
-[ext_resource type="PackedScene" path="res://src/World/main.tscn" id="3_main"]
+[ext_resource type="Script" uid="uid://dk7fum7ui04e2" path="res://src/Ui/Common/startup_splash_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://01rtaco8geex" path="res://Assets/Logo/studio_logo.png" id="2_logo"]
+[ext_resource type="PackedScene" uid="uid://cg8mdpx8fcids" path="res://src/World/main.tscn" id="3_main"]
 
-[node name="StartupSplashScreen" type="Node"]
+[node name="StartupSplashScreen" type="Node" unique_id=744827162]
 script = ExtResource("1_script")
 
-[node name="Main" parent="." instance=ExtResource("3_main")]
+[node name="Main" parent="." unique_id=1006034860 instance=ExtResource("3_main")]
 
-[node name="SplashLayer" type="CanvasLayer" parent="."]
+[node name="SplashLayer" type="CanvasLayer" parent="." unique_id=146557183]
 layer = 100
 
-[node name="Root" type="Control" parent="SplashLayer"]
+[node name="Root" type="Control" parent="SplashLayer" unique_id=1677426998]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 
-[node name="Background" type="ColorRect" parent="SplashLayer/Root"]
+[node name="Background" type="ColorRect" parent="SplashLayer/Root" unique_id=218474400]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 color = Color(0, 0, 0, 1)
 
-[node name="Logo" type="TextureRect" parent="SplashLayer/Root"]
+[node name="Logo" type="TextureRect" parent="SplashLayer/Root" unique_id=41372133]
 layout_mode = 0
 mouse_filter = 2
-expand_mode = 1
-stretch_mode = 0
 texture = ExtResource("2_logo")
+expand_mode = 1

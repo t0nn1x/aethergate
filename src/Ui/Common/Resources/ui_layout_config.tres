@@ -1,22 +1,22 @@
-[gd_resource type="Resource" script_class="UiLayoutConfig" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="UiLayoutConfig" format=3 uid="uid://35ynf3ge37x8"]
 
-[ext_resource type="Script" path="res://src/Ui/Common/Resources/ui_layout_config.gd" id="1_config"]
+[ext_resource type="Script" uid="uid://bc3iwcp3nvodv" path="res://src/Ui/Common/Resources/ui_layout_config.gd" id="1_config"]
 
 [resource]
 script = ExtResource("1_config")
 slots = {
-"system_hud": {
-"windows": "res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn",
-"macos": "res://src/Ui/MacOS/Hud/SystemHud/system_hud_macos.tscn",
-"mobile": "res://src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn"
+"inventory_panel": {
+"macos": "res://src/Ui/MacOS/Inventory/inventory_panel_macos.tscn",
+"mobile": "res://src/Ui/Mobile/Inventory/inventory_panel_mobile.tscn",
+"windows": "res://src/Ui/Windows/Inventory/inventory_panel.tscn"
 },
 "main_screen": {
-"windows": "res://src/Ui/Windows/Gui/MainScreen/main_screen.tscn",
-"macos": "res://src/Ui/MacOS/Gui/MainScreen/main_screen_macos.tscn"
+"macos": "res://src/Ui/MacOS/Gui/MainScreen/main_screen_macos.tscn",
+"windows": "res://src/Ui/Windows/Gui/MainScreen/main_screen.tscn"
 },
-"inventory_panel": {
-"windows": "res://src/Ui/Windows/Inventory/inventory_panel.tscn",
-"macos": "res://src/Ui/MacOS/Inventory/inventory_panel_macos.tscn",
-"mobile": "res://src/Ui/Mobile/Inventory/inventory_panel_mobile.tscn"
+"system_hud": {
+"macos": "res://src/Ui/MacOS/Hud/SystemHud/system_hud_macos.tscn",
+"mobile": "res://src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn",
+"windows": "res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn"
 }
 }
