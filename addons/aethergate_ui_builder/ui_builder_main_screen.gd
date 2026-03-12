@@ -25,9 +25,9 @@ var _undo_redo: EditorUndoRedoManager = null
 
 
 func _ready() -> void:
-	anchor_right = 1.0
-	anchor_bottom = 1.0
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	# Connect signals BEFORE populating so the initial selection triggers handlers.
 	_slot_picker.item_selected.connect(_on_slot_selected)
 	_undo_btn.pressed.connect(_on_undo_pressed)
