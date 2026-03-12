@@ -124,9 +124,14 @@ func connect_delete_requested(target: Object, method: StringName) -> void:
 func add_node_to_scene(node: Control) -> void:
 	if _scene_root == null:
 		_scene_root = Control.new()
+		_scene_root.name = "SceneRoot"
 		_scene_root.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_scene_root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_scene_root.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		_viewport.add_child(_scene_root)
 	_scene_root.add_child(node)
+	# PackedScene.pack() only saves nodes whose owner == scene root.
+	_set_owner_recursive(node, _scene_root)
 	_overlay.setup(self, _scene_root)
 	canvas_changed.emit()
 
@@ -135,6 +140,13 @@ func remove_node_from_scene(node: Control) -> void:
 	if _scene_root != null and node.get_parent() == _scene_root:
 		_scene_root.remove_child(node)
 	canvas_changed.emit()
+
+
+## Recursively set owner so PackedScene.pack() includes all descendants.
+func _set_owner_recursive(node: Node, owner_node: Node) -> void:
+	node.owner = owner_node
+	for child in node.get_children():
+		_set_owner_recursive(child, owner_node)
 
 
 ## Convert a canvas-space point to viewport-space coordinates.

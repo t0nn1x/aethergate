@@ -15,8 +15,11 @@ slots = {
 "windows": "res://src/Ui/Windows/Gui/MainScreen/main_screen.tscn"
 },
 "system_hud": {
-"macos": "res://src/Ui/MacOS/Hud/SystemHud/system_hud_macos.tscn",
+"macos": "res://src/Ui/MacOS/UiBuilder/Custom/test_hud_mac_os_macos.tscn",
 "mobile": "res://src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn",
 "windows": "res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn"
+},
+"test_hud_mac_os": {
+"macos": "res://src/Ui/MacOS/UiBuilder/Custom/test_hud_mac_os_macos.tscn"
 }
 }
