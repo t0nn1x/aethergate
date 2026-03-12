@@ -15,6 +15,7 @@ func _init() -> void:
 	# exact match
 	assert(config.get_scene_path(&"system_hud", &"windows") == "res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn", "windows path")
 	assert(config.get_scene_path(&"system_hud", &"mobile")  == "res://src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn", "mobile path")
+	assert(config.get_scene_path(&"system_hud", &"macos")   == "res://src/Ui/MacOS/Hud/SystemHud/system_hud_macos.tscn", "macos path")
 	# fallback to windows when platform key missing
 	assert(config.get_scene_path(&"system_hud", &"unknown") == "res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn", "fallback")
 	# missing slot returns empty string
