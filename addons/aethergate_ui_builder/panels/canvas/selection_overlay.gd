@@ -5,6 +5,7 @@ extends Control
 signal node_selected(node: Control)
 signal move_committed(node: Control, old_pos: Vector2, new_pos: Vector2)
 signal resize_committed(node: Control, old_rect: Rect2, new_rect: Rect2)
+signal delete_requested(node: Control)
 
 const HANDLE_SIZE: float = 8.0
 const HANDLE_COLOR: Color = Color(0.29, 0.565, 0.855, 1.0)
@@ -67,6 +68,15 @@ func _gui_input(event: InputEvent) -> void:
 				_handle_left_press(mb.position)
 			else:
 				_handle_left_release(mb.position)
+
+	elif event is InputEventKey:
+		var ke := event as InputEventKey
+		if ke.pressed and not ke.echo:
+			if ke.keycode == KEY_DELETE or ke.keycode == KEY_BACKSPACE:
+				if _selected != null:
+					delete_requested.emit(_selected)
+					_selected = null
+					queue_redraw()
 
 
 func _handle_mouse_motion(mm: InputEventMouseMotion) -> void:

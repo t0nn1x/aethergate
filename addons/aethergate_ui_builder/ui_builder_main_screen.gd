@@ -49,6 +49,8 @@ func setup_undo_redo(undo_redo: EditorUndoRedoManager) -> void:
 		_canvas.connect_resize_committed(self, "_on_resize_committed")
 	if _canvas.has_method(&"connect_selection"):
 		_canvas.connect_selection(self, "_on_node_selected")
+	if _canvas.has_method(&"connect_delete_requested"):
+		_canvas.connect_delete_requested(self, "_on_delete_requested")
 
 
 func _populate_slot_picker() -> void:
@@ -160,6 +162,33 @@ func _on_resize_committed(node: Control, old_rect: Rect2, new_rect: Rect2) -> vo
 func _on_node_selected(node: Control) -> void:
 	if _inspector != null and _inspector.has_method(&"inspect"):
 		_inspector.inspect(node)
+
+
+# --- Delete ---
+
+func _on_delete_requested(node: Control) -> void:
+	if node == null or _canvas == null:
+		return
+	if _undo_redo:
+		var parent: Node = node.get_parent()
+		_undo_redo.create_action("Delete node")
+		_undo_redo.add_do_method(self, "_do_remove_node", node)
+		_undo_redo.add_undo_method(self, "_do_add_node", node, parent)
+		_undo_redo.commit_action()
+	else:
+		_canvas.remove_node_from_scene(node)
+	if _inspector != null and _inspector.has_method(&"inspect"):
+		_inspector.inspect(null)
+
+
+func _do_remove_node(node: Control) -> void:
+	if node.get_parent() != null:
+		node.get_parent().remove_child(node)
+
+
+func _do_add_node(node: Control, parent: Node) -> void:
+	if parent != null:
+		parent.add_child(node)
 
 
 # --- Palette drag → place ---

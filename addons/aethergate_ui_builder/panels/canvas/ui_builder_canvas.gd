@@ -63,7 +63,15 @@ func load_scene(packed_scene: PackedScene) -> void:
 		push_warning("[UiBuilder] Failed to instantiate scene")
 		return
 	_viewport.add_child(instance)
+	# The root may be a CanvasLayer or other non-Control node.
+	# Walk to find the first Control that contains the visual tree.
 	_scene_root = instance as Control
+	if _scene_root == null:
+		_scene_root = _find_first_control(instance)
+	if _scene_root == null:
+		push_warning("[UiBuilder] Scene has no Control nodes to edit")
+	else:
+		print("[UiBuilder] Scene root for editing: %s (%s)" % [_scene_root.name, _scene_root.get_class()])
 	_overlay.setup(self, _scene_root)
 	canvas_changed.emit()
 
@@ -107,6 +115,10 @@ func connect_resize_committed(target: Object, method: StringName) -> void:
 	_overlay.resize_committed.connect(Callable(target, method))
 
 
+func connect_delete_requested(target: Object, method: StringName) -> void:
+	_overlay.delete_requested.connect(Callable(target, method))
+
+
 # ── Adding / removing nodes (for palette + undo) ────────────────────────────
 
 func add_node_to_scene(node: Control) -> void:
@@ -136,6 +148,19 @@ func _clear_viewport() -> void:
 	for child in _viewport.get_children():
 		child.queue_free()
 	_scene_root = null
+
+
+## Recursively find the first Control child (breadth-first).
+func _find_first_control(node: Node) -> Control:
+	for child in node.get_children():
+		var ctrl: Control = child as Control
+		if ctrl != null:
+			return ctrl
+	for child in node.get_children():
+		var found: Control = _find_first_control(child)
+		if found != null:
+			return found
+	return null
 
 
 func _on_resized() -> void:
