@@ -11,9 +11,11 @@ signal slot_changed(slot_id: StringName, platform: StringName)
 
 @onready var _slot_picker: OptionButton = %SlotPicker
 @onready var _platform_toggle: HBoxContainer = %PlatformToggle
+@onready var _new_btn: Button = %NewBtn
 @onready var _undo_btn: Button = %UndoBtn
 @onready var _redo_btn: Button = %RedoBtn
 @onready var _save_btn: Button = %SaveBtn
+@onready var _status_label: Label = %StatusLabel
 @onready var _canvas: Control = %Canvas
 @onready var _palette: Control = %Palette
 @onready var _inspector: Control = %Inspector
@@ -30,6 +32,7 @@ func _ready() -> void:
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	# Connect signals BEFORE populating so the initial selection triggers handlers.
 	_slot_picker.item_selected.connect(_on_slot_selected)
+	_new_btn.pressed.connect(_on_new_pressed)
 	_undo_btn.pressed.connect(_on_undo_pressed)
 	_redo_btn.pressed.connect(_on_redo_pressed)
 	_save_btn.pressed.connect(_on_save_pressed)
@@ -110,20 +113,51 @@ func _load_canvas_scene(slot_id: StringName, platform: StringName) -> void:
 	if config == null:
 		push_warning("[UiBuilder] Could not load ui_layout_config.tres")
 		_canvas.load_scene(null)
+		_is_new_scene = true
+		_update_status()
 		return
 	var path: String = config.get_scene_path(slot_id, platform)
 	if path.is_empty():
 		push_warning("[UiBuilder] No scene path for slot '%s' platform '%s'" % [slot_id, platform])
 		_canvas.load_scene(null)
+		_is_new_scene = true
+		_update_status()
 		return
 	if not ResourceLoader.exists(path):
 		push_warning("[UiBuilder] Scene not found at '%s'" % path)
 		_canvas.load_scene(null)
+		_is_new_scene = true
+		_update_status()
 		return
 	var packed: PackedScene = load(path) as PackedScene
 	print("[UiBuilder] Loading scene: %s" % path)
 	_is_new_scene = false  # Existing scene loaded — read-only preview
 	_canvas.load_scene(packed)
+	_update_status()
+
+
+# --- New Scene ---
+
+func _on_new_pressed() -> void:
+	if _canvas == null:
+		return
+	_canvas.load_scene(null)  # clear everything
+	_is_new_scene = true
+	print("[UiBuilder] New scene — add elements from the palette, then Save.")
+	_update_status()
+
+
+func _update_status() -> void:
+	if _status_label == null:
+		return
+	if _is_new_scene:
+		_status_label.text = "● New scene (editable)"
+		_status_label.add_theme_color_override(&"font_color", Color(0.4, 0.85, 0.4, 0.9))
+		_save_btn.disabled = false
+	else:
+		_status_label.text = "● Read-only preview"
+		_status_label.add_theme_color_override(&"font_color", Color(0.85, 0.55, 0.3, 0.9))
+		_save_btn.disabled = true
 
 
 # --- Undo / Redo ---
@@ -250,8 +284,7 @@ func _on_save_pressed() -> void:
 		return
 
 	if not _is_new_scene:
-		push_warning("[UiBuilder] Cannot save edits to existing scenes — they are loaded as read-only previews. Use the Godot scene editor to modify them directly.")
-		print("[UiBuilder] Save blocked: editing existing scene is read-only. Use palette to create a new layout from scratch.")
+		push_warning("[UiBuilder] Read-only preview — press ✚ New to start a blank scene.")
 		return
 
 	# Always write to the UiBuilder/ subfolder
@@ -290,6 +323,8 @@ func _on_save_pressed() -> void:
 
 	ResourceSaver.save(config, "res://src/Ui/Common/Resources/ui_layout_config.tres")
 	print("[UiBuilder] Saved '%s' (%s) → %s" % [_active_slot_id, _active_platform, out_path])
+	_status_label.text = "● Saved → %s" % out_path.get_file()
+	_status_label.add_theme_color_override(&"font_color", Color(0.4, 0.85, 0.4, 0.9))
 
 
 func _resolve_output_path(slot_id: StringName, platform: StringName) -> String:
