@@ -3,19 +3,13 @@ extends Node
 
 ## Scene-local UI coordinator for platform-specific HUD/panel variants and panel interactions.
 
-const SYSTEM_HUD_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn")
-const SYSTEM_HUD_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Hud/SystemHud/system_hud_macos.tscn")
-const SYSTEM_HUD_MOBILE_SCENE: PackedScene = preload("res://src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn")
 const DEBUG_OVERLAY_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Debug/debug_overlay.tscn")
 const DEBUG_OVERLAY_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Debug/debug_overlay_macos.tscn")
-const MAIN_SCREEN_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Gui/MainScreen/main_screen.tscn")
-const MAIN_SCREEN_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Gui/MainScreen/main_screen_macos.tscn")
-const INVENTORY_PANEL_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Inventory/inventory_panel.tscn")
-const INVENTORY_PANEL_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Inventory/inventory_panel_macos.tscn")
-const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/Ui/Mobile/Inventory/inventory_panel_mobile.tscn")
 const INVENTORY_CLOSE_ICON: Texture2D = preload(
 	"res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/close_button.png"
 )
+
+@export var layout_config: UiLayoutConfig
 
 @export var main_screen_path: NodePath = ^"../MainScreen"
 @export var debug_overlay_path: NodePath = ^"../DebugOverlay"
@@ -72,9 +66,9 @@ func _apply_platform_ui_variants() -> void:
 		print("[UiManager] UI profile: %s" % String(ui_profile))
 
 	_replace_overlay_node(debug_overlay_path, _resolve_debug_overlay_scene(ui_profile))
-	var resolved_main_screen: Node = _replace_overlay_node(main_screen_path, _resolve_main_screen_scene(ui_profile))
-	var resolved_system_hud: Node = _replace_overlay_node(system_hud_path, _resolve_system_hud_scene(ui_profile))
-	var resolved_inventory_panel: Node = _replace_overlay_node(inventory_panel_path, _resolve_inventory_panel_scene(ui_profile))
+	var resolved_main_screen: Node = _replace_overlay_node(main_screen_path, _resolve_slot_scene(&"main_screen", ui_profile))
+	var resolved_system_hud: Node = _replace_overlay_node(system_hud_path, _resolve_slot_scene(&"system_hud", ui_profile))
+	var resolved_inventory_panel: Node = _replace_overlay_node(inventory_panel_path, _resolve_slot_scene(&"inventory_panel", ui_profile))
 
 	if resolved_main_screen:
 		_main_screen = resolved_main_screen as MainScreen
@@ -121,14 +115,14 @@ func _resolve_ui_profile() -> StringName:
 	return &"windows"
 
 
-func _resolve_system_hud_scene(ui_profile: StringName) -> PackedScene:
-	match ui_profile:
-		&"macos":
-			return SYSTEM_HUD_MACOS_SCENE
-		&"mobile":
-			return SYSTEM_HUD_MOBILE_SCENE
-		_:
-			return SYSTEM_HUD_WINDOWS_SCENE
+func _resolve_slot_scene(slot_id: StringName, ui_profile: StringName) -> PackedScene:
+	if layout_config == null:
+		push_error("[UiManager] layout_config is not assigned")
+		return null
+	var path: String = layout_config.get_scene_path(slot_id, ui_profile)
+	if path.is_empty():
+		return null
+	return load(path) as PackedScene
 
 
 func _resolve_debug_overlay_scene(ui_profile: StringName) -> PackedScene:
@@ -137,24 +131,6 @@ func _resolve_debug_overlay_scene(ui_profile: StringName) -> PackedScene:
 			return DEBUG_OVERLAY_MACOS_SCENE
 		_:
 			return DEBUG_OVERLAY_WINDOWS_SCENE
-
-
-func _resolve_main_screen_scene(ui_profile: StringName) -> PackedScene:
-	match ui_profile:
-		&"macos":
-			return MAIN_SCREEN_MACOS_SCENE
-		_:
-			return MAIN_SCREEN_WINDOWS_SCENE
-
-
-func _resolve_inventory_panel_scene(ui_profile: StringName) -> PackedScene:
-	match ui_profile:
-		&"macos":
-			return INVENTORY_PANEL_MACOS_SCENE
-		&"mobile":
-			return INVENTORY_PANEL_MOBILE_SCENE
-		_:
-			return INVENTORY_PANEL_WINDOWS_SCENE
 
 
 func _wire_hud_signals() -> void:

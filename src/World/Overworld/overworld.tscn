@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_creature_selection_controller.gd" id="16_creature_selection_ctrl"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_character_creator_controller.gd" id="17_character_creator_ctrl"]
 [ext_resource type="PackedScene" path="res://src/Ui/Common/CombatPreviewPanel/combat_preview_panel.tscn" id="18_combat_preview"]
+[ext_resource type="Resource" path="res://src/Ui/Common/Resources/ui_layout_config.tres" id="19_ui_layout_config"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -60,6 +61,7 @@ auto_start_session_on_ready = false
 
 [node name="UiManager" type="Node" parent="."]
 script = ExtResource("13_ui_manager")
+layout_config = ExtResource("19_ui_layout_config")
 
 [node name="ChunkManager" type="Node2D" parent="." unique_id=1419170274]
 script = ExtResource("3")
