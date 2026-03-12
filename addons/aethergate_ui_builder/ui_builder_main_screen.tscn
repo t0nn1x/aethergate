@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://addons/aethergate_ui_builder/ui_builder_main_screen.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://addons/aethergate_ui_builder/panels/canvas/ui_builder_canvas.tscn" id="2_canvas"]
+[ext_resource type="PackedScene" path="res://addons/aethergate_ui_builder/panels/palette/ui_builder_palette.tscn" id="3_palette"]
+[ext_resource type="PackedScene" path="res://addons/aethergate_ui_builder/panels/inspector/ui_builder_inspector.tscn" id="4_inspector"]
+
+[node name="UiBuilderMainScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Toolbar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 36)
+
+[node name="SlotLabel" type="Label" parent="VBoxContainer/Toolbar"]
+layout_mode = 2
+text = "Slot:"
+
+[node name="SlotPicker" type="OptionButton" parent="VBoxContainer/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Toolbar"]
+layout_mode = 2
+
+[node name="PlatformToggle" type="HBoxContainer" parent="VBoxContainer/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Toolbar"]
+layout_mode = 2
+
+[node name="UndoBtn" type="Button" parent="VBoxContainer/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "↩ Undo"
+
+[node name="RedoBtn" type="Button" parent="VBoxContainer/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "↪ Redo"
+
+[node name="Spacer" type="Control" parent="VBoxContainer/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveBtn" type="Button" parent="VBoxContainer/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "💾 Save"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ContentRow" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PalettePanel" type="PanelContainer" parent="VBoxContainer/ContentRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(180, 0)
+
+[node name="Palette" parent="VBoxContainer/ContentRow/PalettePanel" instance=ExtResource("3_palette")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/ContentRow"]
+layout_mode = 2
+
+[node name="CanvasPanel" type="PanelContainer" parent="VBoxContainer/ContentRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Canvas" parent="VBoxContainer/ContentRow/CanvasPanel" instance=ExtResource("2_canvas")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/ContentRow"]
+layout_mode = 2
+
+[node name="InspectorPanel" type="PanelContainer" parent="VBoxContainer/ContentRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 0)
+
+[node name="Inspector" parent="VBoxContainer/ContentRow/InspectorPanel" instance=ExtResource("4_inspector")]
+unique_name_in_owner = true
+layout_mode = 2
