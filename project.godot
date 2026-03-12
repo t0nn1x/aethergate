@@ -50,6 +50,10 @@ window/handheld/orientation=1
 window/size/viewport_width.windows=1920
 window/size/viewport_height.windows=1080
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/aethergate_ui_builder/plugin.cfg")
+
 [input]
 
 click_move={

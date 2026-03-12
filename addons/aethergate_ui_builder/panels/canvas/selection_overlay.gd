@@ -71,35 +71,34 @@ func _gui_input(event: InputEvent) -> void:
 
 func _handle_mouse_motion(mm: InputEventMouseMotion) -> void:
 	if _drag_mode == -1:
-		# Update hover
-		var vp_pos: Vector2 = _canvas.canvas_to_viewport(mm.position)
-		_hovered = _hit_test(vp_pos)
+		# Update hover – local position is already in viewport-space
+		_hovered = _hit_test(mm.position)
 		_update_cursor(mm.position)
 		queue_redraw()
 		return
 
 	if _drag_mode == 8:
-		# Moving body
-		var delta: Vector2 = (mm.position - _drag_start_mouse) / _canvas.get_zoom()
+		# Moving body – positions are already in viewport-space
+		var delta: Vector2 = mm.position - _drag_start_mouse
 		var snap: float = 8.0 if not Input.is_key_pressed(KEY_CTRL) else 1.0
 		var new_pos: Vector2 = (_drag_start_rect.position + delta).snapped(Vector2(snap, snap))
 		_selected.position = new_pos
 		queue_redraw()
 	else:
-		# Resizing via handle
-		var delta: Vector2 = (mm.position - _drag_start_mouse) / _canvas.get_zoom()
+		# Resizing via handle – positions are already in viewport-space
+		var delta: Vector2 = mm.position - _drag_start_mouse
 		_apply_resize_delta(_drag_mode, delta)
 		queue_redraw()
 
 
 func _handle_left_press(mouse_pos: Vector2) -> void:
-	var vp_pos: Vector2 = _canvas.canvas_to_viewport(mouse_pos)
+	# mouse_pos is in viewport-space (overlay lives inside scaled CanvasRoot)
 
 	# Check handles first
 	if _selected != null:
-		var screen_rect: Rect2 = _get_screen_rect(_selected)
+		var node_rect: Rect2 = _get_screen_rect(_selected)
 		for i in range(8):
-			var hp: Vector2 = _handle_position(screen_rect, i)
+			var hp: Vector2 = _handle_position(node_rect, i)
 			if mouse_pos.distance_to(hp) <= HANDLE_SIZE:
 				_drag_mode = i
 				_drag_start_mouse = mouse_pos
@@ -107,7 +106,7 @@ func _handle_left_press(mouse_pos: Vector2) -> void:
 				return
 
 	# Click on body
-	var hit: Control = _hit_test(vp_pos)
+	var hit: Control = _hit_test(mouse_pos)
 	if hit != null:
 		_selected = hit
 		_drag_mode = 8  # body drag
@@ -194,11 +193,11 @@ func _apply_resize_delta(handle: int, delta: Vector2) -> void:
 
 
 func _get_screen_rect(node: Control) -> Rect2:
-	if _canvas == null:
-		return Rect2()
-	var vp_pos: Vector2 = node.global_position
-	var screen_pos: Vector2 = _canvas.get_pan_offset() + vp_pos * _canvas.get_zoom()
-	return Rect2(screen_pos, node.size * _canvas.get_zoom())
+	## The overlay is a sibling of ViewportFrame inside CanvasRoot, which is
+	## scaled by the zoom factor.  Overlay coordinates are therefore in
+	## viewport-space (1:1 with the SubViewport), so we can use the node's
+	## position/size directly.
+	return Rect2(node.global_position, node.size)
 
 
 func _handle_position(screen_rect: Rect2, handle: int) -> Vector2:
