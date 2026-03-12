@@ -122,6 +122,7 @@ func _load_canvas_scene(slot_id: StringName, platform: StringName) -> void:
 		return
 	var packed: PackedScene = load(path) as PackedScene
 	print("[UiBuilder] Loading scene: %s" % path)
+	_is_new_scene = false  # Existing scene loaded — read-only preview
 	_canvas.load_scene(packed)
 
 
@@ -196,6 +197,9 @@ func _do_add_node(node: Control, parent: Node) -> void:
 func _on_palette_node_requested(payload: String) -> void:
 	if _canvas == null:
 		return
+	# If canvas has no scene yet, this becomes a new scene (saveable).
+	if _canvas.get_scene_root() == null:
+		_is_new_scene = true
 	var node: Control = _create_node(payload)
 	if node == null:
 		return
@@ -229,6 +233,13 @@ func _create_node(payload: String) -> Control:
 
 # --- Save ---
 
+## The builder currently loads existing scenes in read-only preview mode.
+## Save only works for NEW scenes created from scratch using the palette.
+## It always writes to a UiBuilder/ subfolder — never overwrites source scenes.
+
+var _is_new_scene: bool = false  # true when canvas was cleared and built from scratch
+
+
 func _on_save_pressed() -> void:
 	if _active_slot_id == &"" or _canvas == null:
 		return
@@ -238,7 +249,12 @@ func _on_save_pressed() -> void:
 		push_warning("[UiBuilder] Nothing on canvas to save.")
 		return
 
-	# Determine output path
+	if not _is_new_scene:
+		push_warning("[UiBuilder] Cannot save edits to existing scenes — they are loaded as read-only previews. Use the Godot scene editor to modify them directly.")
+		print("[UiBuilder] Save blocked: editing existing scene is read-only. Use palette to create a new layout from scratch.")
+		return
+
+	# Always write to the UiBuilder/ subfolder
 	var out_path: String = _resolve_output_path(_active_slot_id, _active_platform)
 	if out_path.is_empty():
 		push_error("[UiBuilder] No output path defined for slot '%s' platform '%s'" % [_active_slot_id, _active_platform])
@@ -251,36 +267,36 @@ func _on_save_pressed() -> void:
 		push_error("[UiBuilder] Failed to pack scene (error %d)" % pack_result)
 		return
 
+	# Ensure the target directory exists
+	var dir_path: String = out_path.get_base_dir()
+	if not DirAccess.dir_exists_absolute(dir_path):
+		DirAccess.make_dir_recursive_absolute(dir_path)
+
 	var save_result: int = ResourceSaver.save(packed, out_path)
 	if save_result != OK:
 		push_error("[UiBuilder] Failed to save scene to '%s' (error %d)" % [out_path, save_result])
 		return
 
-	# Update ui_layout_config.tres
+	# Update ui_layout_config.tres to point to the new scene
 	var config: LayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
 	if config == null:
 		config = LayoutConfig.new()
 
-	if not config.slots.has(_active_slot_id):
-		config.slots[_active_slot_id] = {}
-	config.slots[_active_slot_id][_active_platform] = out_path
+	var slot_key: String = str(_active_slot_id)
+	var plat_key: String = str(_active_platform)
+	if not config.slots.has(slot_key):
+		config.slots[slot_key] = {}
+	config.slots[slot_key][plat_key] = out_path
 
 	ResourceSaver.save(config, "res://src/Ui/Common/Resources/ui_layout_config.tres")
 	print("[UiBuilder] Saved '%s' (%s) → %s" % [_active_slot_id, _active_platform, out_path])
 
 
 func _resolve_output_path(slot_id: StringName, platform: StringName) -> String:
-	# Try existing path from config first
-	var config: LayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
-	if config != null:
-		var existing: String = config.get_scene_path(slot_id, platform)
-		if not existing.is_empty():
-			return existing
-
-	# Derive a sensible default path
+	## Always output to the UiBuilder/ subfolder — never return existing source paths.
 	var slot: Dictionary = SlotRegistry.find_slot(slot_id)
 	if slot.is_empty():
 		return ""
 	var platform_folder: String = SlotRegistry.PLATFORM_FOLDER_NAMES.get(platform, str(platform).capitalize())
 	var folder: String = "res://src/Ui/%s/UiBuilder/%s/" % [platform_folder, slot.label]
-	return folder + slot_id + "_" + platform + ".tscn"
+	return folder + str(slot_id) + "_" + str(platform) + ".tscn"
