@@ -86,12 +86,29 @@ enum BehaviorProfile {
 ## Loot table reference — will be typed when loot system is built.
 @export var loot_table: Resource = null
 
+@export_group("Turn-Based Combat")
+## Skills available in turn-based combat. Populated via .tres in the editor.
+@export var skill_loadout: Array[SkillData] = []
+## AI strategy (CombatAiStrategy subclass) used in turn-based encounters.
+## Typed as Resource to avoid a forward-reference parse error before uid files exist.
+@export var ai_strategy: Resource = null
+
 
 func get_effective_creature_id() -> String:
 	var normalized_id: String = creature_id.strip_edges().to_lower()
 	if not normalized_id.is_empty():
 		return normalized_id
 	return _sanitize_id("%s_%s" % [CreatureType.keys()[creature_type], display_name])
+
+
+func get_skill_loadout() -> Array[SkillData]:
+	return skill_loadout
+
+
+func get_ai_strategy() -> Resource:
+	if ai_strategy:
+		return ai_strategy
+	return load("res://src/Entities/Systems/Combat/Ai/weighted_random_strategy.gd").new()
 
 
 func validate_for_runtime(log_context: String = "") -> bool:

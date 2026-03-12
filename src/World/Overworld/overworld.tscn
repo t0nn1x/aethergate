@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" path="res://src/Ui/Windows/CharacterCreator/character_creator_panel.tscn" id="15_character_creator"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_creature_selection_controller.gd" id="16_creature_selection_ctrl"]
 [ext_resource type="Script" path="res://src/World/Overworld/overworld_character_creator_controller.gd" id="17_character_creator_ctrl"]
+[ext_resource type="PackedScene" path="res://src/Ui/Common/CombatPreviewPanel/combat_preview_panel.tscn" id="18_combat_preview"]
 
 [node name="Overworld" type="Node2D" unique_id=595158492]
 script = ExtResource("1")
@@ -71,6 +72,8 @@ preview_all_in_editor = true
 [node name="InventoryPanel" parent="." unique_id=1999082388 instance=ExtResource("12_inventory_panel")]
 [node name="CreatureActionHud" parent="." instance=ExtResource("14_creature_action_hud")]
 [node name="CharacterCreatorPanel" parent="." instance=ExtResource("15_character_creator")]
+
+[node name="CombatPreviewPanel" parent="." instance=ExtResource("18_combat_preview")]
 
 [node name="OverworldCharacterCreatorController" type="Node" parent="."]
 script = ExtResource("17_character_creator_ctrl")

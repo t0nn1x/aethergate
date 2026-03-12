@@ -1,0 +1,223 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/Ui/Windows/Combat/windows_combat_ui.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://Assets/Fonts/compass/Compass 9.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="log_bg"]
+bg_color = Color(0.03, 0.04, 0.09, 0.93)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.27, 0.45, 0.55)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="skill_panel_bg"]
+bg_color = Color(0.05, 0.06, 0.13, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.42, 0.32, 0.1, 0.65)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
+
+[node name="WindowsCombatUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Battleback" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0, 0.01, 0.05, 0.30)
+
+; ── Player: sprite + tiny bars underneath ────────────────────────────────────
+
+[node name="PlayerSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchor_left = 0.22
+anchor_top = 0.55
+anchor_right = 0.22
+anchor_bottom = 0.55
+offset_left = -96.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = 96.0
+mouse_filter = 2
+stretch_mode = 5
+texture_filter = 1
+
+[node name="PlayerHpBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchor_left = 0.22
+anchor_top = 0.55
+anchor_right = 0.22
+anchor_bottom = 0.55
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 60.0
+offset_bottom = 108.0
+mouse_filter = 2
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="PlayerEnergyBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchor_left = 0.22
+anchor_top = 0.55
+anchor_right = 0.22
+anchor_bottom = 0.55
+offset_left = -100.0
+offset_top = 111.0
+offset_right = 60.0
+offset_bottom = 119.0
+mouse_filter = 2
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+; ── Enemy: name above, sprite, tiny HP bar underneath ────────────────────────
+
+[node name="EnemySprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchor_left = 0.75
+anchor_top = 0.55
+anchor_right = 0.75
+anchor_bottom = 0.55
+offset_left = -96.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = 96.0
+mouse_filter = 2
+stretch_mode = 5
+flip_h = true
+texture_filter = 1
+
+[node name="EnemyNameLabel" type="Label" parent="."]
+layout_mode = 1
+anchor_left = 0.75
+anchor_top = 0.55
+anchor_right = 0.75
+anchor_bottom = 0.55
+offset_left = -110.0
+offset_top = -120.0
+offset_right = 110.0
+offset_bottom = -100.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.92, 0.86, 0.68, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+text = "Enemy"
+horizontal_alignment = 1
+
+[node name="EnemyHpBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchor_left = 0.75
+anchor_top = 0.55
+anchor_right = 0.75
+anchor_bottom = 0.55
+offset_left = -80.0
+offset_top = 100.0
+offset_right = 80.0
+offset_bottom = 108.0
+mouse_filter = 2
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+; ── Log panel (centered, top area) ───────────────────────────────────────────
+
+[node name="LogPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.22
+anchor_top = 0.01
+anchor_right = 0.78
+anchor_bottom = 0.22
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("log_bg")
+
+[node name="RoundLog" type="RichTextLabel" parent="LogPanel"]
+layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+theme_override_fonts/normal_font = ExtResource("2_font")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_colors/default_color = Color(0.88, 0.84, 0.74, 1)
+
+; ── Timer (center, above skill bar) ──────────────────────────────────────────
+
+[node name="TimerLabel" type="Label" parent="."]
+layout_mode = 1
+anchor_left = 0.44
+anchor_top = 0.79
+anchor_right = 0.56
+anchor_bottom = 0.86
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1.0, 0.92, 0.45, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+text = "20s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+; ── Skills panel (bottom, full width) ────────────────────────────────────────
+
+[node name="SkillsPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.02
+anchor_top = 0.87
+anchor_right = 0.97
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("skill_panel_bg")
+
+[node name="CenterContainer" type="CenterContainer" parent="SkillsPanel"]
+layout_mode = 2
+
+[node name="SkillBar" type="HBoxContainer" parent="SkillsPanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
