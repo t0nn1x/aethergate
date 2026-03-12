@@ -23,11 +23,21 @@ color = Color(0.11, 0.11, 0.12, 1)
 [node name="CanvasRoot" type="Control" parent="."]
 unique_name_in_owner = true
 
+[node name="ViewportBg" type="ColorRect" parent="CanvasRoot"]
+unique_name_in_owner = true
+mouse_filter = 2
+color = Color(0.18, 0.18, 0.20, 1)
+
 [node name="ViewportFrame" type="TextureRect" parent="CanvasRoot"]
 unique_name_in_owner = true
 texture_filter = 1
 stretch_mode = 0
 mouse_filter = 2
+
+[node name="SelectionOverlay" type="Control" parent="CanvasRoot"]
+unique_name_in_owner = true
+mouse_filter = 0
+script = ExtResource("2_overlay")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 unique_name_in_owner = true
@@ -36,8 +46,3 @@ handle_input_locally = false
 gui_disable_input = true
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
-
-[node name="SelectionOverlay" type="Control" parent="CanvasRoot"]
-unique_name_in_owner = true
-mouse_filter = 0
-script = ExtResource("2_overlay")

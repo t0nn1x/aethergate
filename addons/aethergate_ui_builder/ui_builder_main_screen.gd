@@ -28,7 +28,7 @@ func _ready() -> void:
 	anchor_right = 1.0
 	anchor_bottom = 1.0
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_populate_slot_picker()
+	# Connect signals BEFORE populating so the initial selection triggers handlers.
 	_slot_picker.item_selected.connect(_on_slot_selected)
 	_undo_btn.pressed.connect(_on_undo_pressed)
 	_redo_btn.pressed.connect(_on_redo_pressed)
@@ -36,6 +36,8 @@ func _ready() -> void:
 	slot_changed.connect(_on_slot_platform_changed)
 	if _palette.has_signal(&"node_drag_requested"):
 		_palette.node_drag_requested.connect(_on_palette_node_requested)
+	# Populate last — this emits slot_changed which is now connected.
+	_populate_slot_picker()
 
 
 func setup_undo_redo(undo_redo: EditorUndoRedoManager) -> void:

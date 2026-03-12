@@ -13,6 +13,7 @@ const MAX_ZOOM: float = 4.0
 const ZOOM_STEP: float = 0.1
 
 @onready var _canvas_root: Control = %CanvasRoot
+@onready var _viewport_bg: ColorRect = %ViewportBg
 @onready var _viewport_frame: TextureRect = %ViewportFrame
 @onready var _viewport: SubViewport = %SubViewport
 @onready var _overlay: Control = %SelectionOverlay
@@ -28,6 +29,10 @@ var _platform_size: Vector2 = Vector2(1920, 1080)
 
 func _ready() -> void:
 	resized.connect(_on_resized)
+	# Assign viewport texture immediately — ViewportTexture is always valid,
+	# it just renders transparent until the SubViewport draws something.
+	if _viewport != null:
+		_viewport_frame.texture = _viewport.get_texture()
 	# Defer initial layout so the control has its final size.
 	call_deferred(&"_initial_layout")
 
@@ -61,8 +66,6 @@ func get_scene_root() -> Control:
 func set_platform_size(p_size: Vector2) -> void:
 	_platform_size = p_size
 	_viewport.size = Vector2i(int(p_size.x), int(p_size.y))
-	# Wait one frame so the viewport texture updates to the new size.
-	await get_tree().process_frame
 	_viewport_frame.texture = _viewport.get_texture()
 	_zoom_to_fit(p_size)
 	_center_canvas()
@@ -153,8 +156,9 @@ func _apply_transform() -> void:
 	_canvas_root.position = _pan_offset
 	_canvas_root.scale = Vector2(_zoom, _zoom)
 
-	# Size the TextureRect to exactly the platform resolution (zoom is via
-	# the parent CanvasRoot's scale).
+	# Size the background, TextureRect, and overlay to exactly the platform
+	# resolution (zoom is via the parent CanvasRoot's scale).
+	_viewport_bg.size = _platform_size
 	_viewport_frame.size = _platform_size
 
 	# Assign the viewport texture if not yet assigned.
