@@ -7,6 +7,7 @@
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+clip_contents = true
 script = ExtResource("1_canvas")
 
 [node name="ScrollBg" type="ColorRect" parent="."]
@@ -17,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.078, 0.078, 0.078, 1)
+color = Color(0.11, 0.11, 0.12, 1)
 
 [node name="CanvasRoot" type="Control" parent="."]
 unique_name_in_owner = true
@@ -26,6 +27,7 @@ anchors_preset = 0
 
 [node name="ViewportContainer" type="SubViewportContainer" parent="CanvasRoot"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(1920, 1080)
 stretch = true
 
 [node name="Viewport" type="SubViewport" parent="CanvasRoot/ViewportContainer"]

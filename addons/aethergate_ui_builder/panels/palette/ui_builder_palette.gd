@@ -1,6 +1,6 @@
 # addons/aethergate_ui_builder/panels/palette/ui_builder_palette.gd
 @tool
-extends VBoxContainer
+extends ScrollContainer
 
 const SlotRegistry := preload("res://addons/aethergate_ui_builder/slot_registry.gd")
 const LayoutConfig := preload("res://src/Ui/Common/Resources/ui_layout_config.gd")
@@ -42,10 +42,13 @@ func _populate_primitives() -> void:
 		_add_palette_item(_primitives_list, prim.label, prim.type, true)
 
 
-func _add_palette_item(list: VBoxContainer, label: String, payload: String, _is_primitive: bool) -> void:
+func _add_palette_item(list: VBoxContainer, label: String, payload: String, is_primitive: bool) -> void:
 	var btn := Button.new()
-	btn.text = label
+	var icon_char: String = "◆ " if not is_primitive else "○ "
+	btn.text = icon_char + label
 	btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	btn.flat = true
+	btn.custom_minimum_size.y = 26.0
 	btn.pressed.connect(_on_item_pressed.bind(payload))
 	list.add_child(btn)
 

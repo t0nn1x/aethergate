@@ -45,10 +45,23 @@ func get_scene_root() -> Control:
 
 
 ## Set the viewport size to the given platform resolution.
-func set_platform_size(size: Vector2) -> void:
-	_viewport.size = Vector2i(int(size.x), int(size.y))
-	_viewport_container.custom_minimum_size = size * _zoom
+func set_platform_size(p_size: Vector2) -> void:
+	_viewport.size = Vector2i(int(p_size.x), int(p_size.y))
+	# Auto-fit zoom so the viewport fits inside the canvas area with padding
+	_zoom_to_fit(p_size)
+	_viewport_container.custom_minimum_size = p_size
 	_center_canvas()
+
+
+## Zoom to fit the given viewport size within the canvas bounds.
+func _zoom_to_fit(vp_size: Vector2) -> void:
+	if size.x <= 0.0 or size.y <= 0.0:
+		return
+	var pad: float = 40.0
+	var avail: Vector2 = size - Vector2(pad * 2.0, pad * 2.0)
+	if avail.x <= 0.0 or avail.y <= 0.0:
+		return
+	_zoom = clampf(minf(avail.x / vp_size.x, avail.y / vp_size.y), MIN_ZOOM, MAX_ZOOM)
 
 
 func get_zoom() -> float:

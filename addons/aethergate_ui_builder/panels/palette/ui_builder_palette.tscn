@@ -2,27 +2,44 @@
 
 [ext_resource type="Script" path="res://addons/aethergate_ui_builder/panels/palette/ui_builder_palette.gd" id="1_palette"]
 
-[node name="UiBuilderPalette" type="VBoxContainer"]
+[node name="UiBuilderPalette" type="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
 script = ExtResource("1_palette")
 
-[node name="AethergateLabel" type="Label" parent="."]
+[node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 2
-text = "AETHERGATE"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 2
 
-[node name="AethergateList" type="VBoxContainer" parent="."]
+[node name="TopMargin" type="Control" parent="Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 4)
+
+[node name="AethergateLabel" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.659, 0.486, 0.918, 1)
+theme_override_font_sizes/font_size = 11
+text = "  AETHERGATE"
+
+[node name="AethergateList" type="VBoxContainer" parent="Content"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 1
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="Content"]
 layout_mode = 2
 
-[node name="PrimitivesLabel" type="Label" parent="."]
+[node name="PrimitivesLabel" type="Label" parent="Content"]
 layout_mode = 2
-text = "PRIMITIVES"
+theme_override_colors/font_color = Color(0.357, 0.69, 0.404, 1)
+theme_override_font_sizes/font_size = 11
+text = "  PRIMITIVES"
 
-[node name="PrimitivesList" type="VBoxContainer" parent="."]
+[node name="PrimitivesList" type="VBoxContainer" parent="Content"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 1
