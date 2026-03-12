@@ -106,13 +106,20 @@ func _on_slot_platform_changed(slot_id: StringName, platform: StringName) -> voi
 func _load_canvas_scene(slot_id: StringName, platform: StringName) -> void:
 	var config: LayoutConfig = load("res://src/Ui/Common/Resources/ui_layout_config.tres")
 	if config == null:
+		push_warning("[UiBuilder] Could not load ui_layout_config.tres")
 		_canvas.load_scene(null)
 		return
 	var path: String = config.get_scene_path(slot_id, platform)
-	if path.is_empty() or not ResourceLoader.exists(path):
+	if path.is_empty():
+		push_warning("[UiBuilder] No scene path for slot '%s' platform '%s'" % [slot_id, platform])
+		_canvas.load_scene(null)
+		return
+	if not ResourceLoader.exists(path):
+		push_warning("[UiBuilder] Scene not found at '%s'" % path)
 		_canvas.load_scene(null)
 		return
 	var packed: PackedScene = load(path) as PackedScene
+	print("[UiBuilder] Loading scene: %s" % path)
 	_canvas.load_scene(packed)
 
 

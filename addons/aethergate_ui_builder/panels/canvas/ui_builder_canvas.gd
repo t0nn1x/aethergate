@@ -25,22 +25,30 @@ var _pan_start_mouse: Vector2 = Vector2.ZERO
 var _pan_start_offset: Vector2 = Vector2.ZERO
 var _scene_root: Control = null
 var _platform_size: Vector2 = Vector2(1920, 1080)
+var _needs_relayout: bool = true
 
 
 func _ready() -> void:
 	resized.connect(_on_resized)
-	# Assign viewport texture immediately — ViewportTexture is always valid,
-	# it just renders transparent until the SubViewport draws something.
 	if _viewport != null:
 		_viewport_frame.texture = _viewport.get_texture()
-	# Defer initial layout so the control has its final size.
-	call_deferred(&"_initial_layout")
 
 
-func _initial_layout() -> void:
+func _notification(what: int) -> void:
+	# Re-layout whenever the canvas becomes visible (e.g., user clicks the tab).
+	# resized may not fire if the control was already sized while invisible.
+	if what == NOTIFICATION_VISIBILITY_CHANGED and is_visible_in_tree():
+		_relayout()
+
+
+## Central layout method — safe to call at any time; skips if size is still 0.
+func _relayout() -> void:
+	if size.x <= 0.0 or size.y <= 0.0:
+		_needs_relayout = true
+		return
+	_needs_relayout = false
 	_zoom_to_fit(_platform_size)
 	_center_canvas()
-	_apply_transform()
 
 
 # ── Public API ───────────────────────────────────────────────────────────────
@@ -51,6 +59,9 @@ func load_scene(packed_scene: PackedScene) -> void:
 	if packed_scene == null:
 		return
 	var instance: Node = packed_scene.instantiate()
+	if instance == null:
+		push_warning("[UiBuilder] Failed to instantiate scene")
+		return
 	_viewport.add_child(instance)
 	_scene_root = instance as Control
 	_overlay.setup(self, _scene_root)
@@ -67,9 +78,7 @@ func set_platform_size(p_size: Vector2) -> void:
 	_platform_size = p_size
 	_viewport.size = Vector2i(int(p_size.x), int(p_size.y))
 	_viewport_frame.texture = _viewport.get_texture()
-	_zoom_to_fit(p_size)
-	_center_canvas()
-	_apply_transform()
+	_relayout()
 
 
 func get_zoom() -> float:
@@ -130,17 +139,14 @@ func _clear_viewport() -> void:
 
 
 func _on_resized() -> void:
-	_zoom_to_fit(_platform_size)
-	_center_canvas()
-	_apply_transform()
+	_relayout()
 
 
 func _zoom_to_fit(vp_size: Vector2) -> void:
-	if size.x <= 0.0 or size.y <= 0.0:
-		return
 	var pad: float = 40.0
 	var avail: Vector2 = size - Vector2(pad * 2.0, pad * 2.0)
 	if avail.x <= 0.0 or avail.y <= 0.0:
+		_zoom = 0.25  # Reasonable fallback
 		return
 	_zoom = clampf(minf(avail.x / vp_size.x, avail.y / vp_size.y), MIN_ZOOM, MAX_ZOOM)
 
@@ -152,20 +158,15 @@ func _center_canvas() -> void:
 
 
 func _apply_transform() -> void:
-	# Position the canvas root so the viewport frame is centered / panned.
 	_canvas_root.position = _pan_offset
 	_canvas_root.scale = Vector2(_zoom, _zoom)
 
-	# Size the background, TextureRect, and overlay to exactly the platform
-	# resolution (zoom is via the parent CanvasRoot's scale).
 	_viewport_bg.size = _platform_size
 	_viewport_frame.size = _platform_size
 
-	# Assign the viewport texture if not yet assigned.
 	if _viewport_frame.texture == null and _viewport != null:
 		_viewport_frame.texture = _viewport.get_texture()
 
-	# Size the overlay the same so hit-test coordinates line up.
 	_overlay.size = _platform_size
 
 

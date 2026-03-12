@@ -8,7 +8,12 @@ extends Resource
 
 
 func get_scene_path(slot_id: StringName, platform: StringName) -> String:
-	var slot: Dictionary = slots.get(slot_id, {})
+	# .tres files store Dictionary keys as String; callers may pass StringName.
+	# Try both variants to be safe across Godot versions.
+	var slot: Dictionary = slots.get(slot_id, slots.get(str(slot_id), {}))
 	if slot.has(platform):
 		return slot[platform]
-	return slot.get(&"windows", "")
+	var plat_str: String = str(platform)
+	if slot.has(plat_str):
+		return slot[plat_str]
+	return slot.get(&"windows", slot.get("windows", ""))
