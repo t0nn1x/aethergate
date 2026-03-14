@@ -273,12 +273,13 @@ func _build_player_snapshot() -> CombatantSnapshot:
 	var stats := CombatStats.new()
 	stats.max_hp = 100
 	stats.max_energy = 100
-	stats.attack = 12.0
-	stats.defense = 5.0
 	var snap := CombatantSnapshot.new()
 	snap.combatant_id = &"player"
 	snap.display_name = "Player"
-	snap.level = 1
+	snap.level = PlayerProfileService.get_player_level()
+	var weapon_base_damage: float = 0.0  # TODO: replace with equipped weapon base damage
+	stats.attack = 10.0 + snap.level * 2.0 + weapon_base_damage
+	stats.defense = 5.0
 	snap.base_stats = stats
 	## TODO: replace with real player gear loadout once player combat component exists.
 	snap.skill_loadout = []

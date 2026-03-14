@@ -167,8 +167,17 @@ func _set_bar(bar: ProgressBar, current: float, maximum: float) -> void:
 
 func _build_skill_bar(skills: Array[SkillData]) -> void:
 	for child in _skill_bar.get_children():
-		child.queue_free()
+		child.free()
 	var compass_font := load("res://Assets/Fonts/compass/Compass 9.ttf") as FontFile
+
+	var attack_btn := Button.new()
+	attack_btn.text = "Attack"
+	attack_btn.tooltip_text = "Basic attack — free, always available"
+	attack_btn.custom_minimum_size = Vector2(140, 52)
+	_style_skill_button(attack_btn, compass_font)
+	attack_btn.pressed.connect(func(): _flow_controller.submit_player_action(null))
+	_skill_bar.add_child(attack_btn)
+
 	for skill in skills:
 		var btn := Button.new()
 		btn.text = skill.display_name

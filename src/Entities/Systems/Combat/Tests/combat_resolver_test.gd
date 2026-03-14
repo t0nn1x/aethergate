@@ -11,6 +11,7 @@ func run() -> bool:
 	test_player_loses_when_hp_reaches_zero()
 	test_simultaneous_kill_has_no_winner()
 	test_heal_restores_hp()
+	test_level_scaled_attack_deals_expected_damage()
 	print("[CombatResolverTest] %d passed, %d failed." % [_pass_count, _fail_count])
 	return _fail_count == 0
 
@@ -127,6 +128,24 @@ func test_heal_restores_hp() -> void:
 	)
 
 	_assert(result.hp_delta_player > 0, "heal skill should give positive HP delta to player")
+
+
+func test_level_scaled_attack_deals_expected_damage() -> void:
+	# attack = 10.0 + level(3) * 2.0 + weapon(0) = 16.0
+	var resolver := CombatRoundResolver.new()
+	var p_snap := _make_snapshot(&"player", 100, 16.0, 0.0)
+	var e_snap := _make_snapshot(&"enemy", 100, 5.0, 5.0)
+
+	var result: CombatRoundResult = resolver.resolve(
+		1,
+		CombatAction.make(&"player", null),
+		CombatAction.make(&"enemy", null),
+		p_snap, e_snap, 100, 100
+	)
+
+	# damage = max(1, 16 - 5) = 11
+	_assert(result.hp_delta_enemy == -11,
+		"level-3 player (attack=16) vs defense=5 should deal 11 damage")
 
 
 # --- Helpers ---
