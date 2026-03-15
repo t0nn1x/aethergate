@@ -292,7 +292,7 @@ func _on_creature_spawned_for_removal(creature: Creature, _chunk_coord: Vector2i
 	if StringName(creature.creature_data.get_effective_creature_id()) != _pending_creature_removal:
 		return
 	_pending_creature_removal = &""
-	creature.queue_free()
+	creature_spawner.despawn_creature(creature)
 
 
 func _build_player_snapshot() -> CombatantSnapshot:
