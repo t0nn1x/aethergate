@@ -241,6 +241,23 @@ Each major subsystem has its own `README.md` (e.g., `src/Entities/Creatures/READ
 - **Creature tap priority:** creature selection input is consumed before move-click on the same event
 - **`PlayerMoveTargetBlockerComponent`:** must be present on both player and creature scenes for blocked-polygon nav avoidance to work
 
+### CanvasLayer layer values are always absolute
+
+In Godot 4, `CanvasLayer.layer` is **always absolute** — nesting a CanvasLayer inside another does **not** make the inner layer relative to the outer. A `CombatResultPanel` at `layer = 10` inside a `CombatScene` CanvasLayer at `layer = 50` still renders at absolute layer 10, which is **below** the parent's content.
+
+**Rule of thumb:** assign `layer` values that are self-contained and globally meaningful. Do not assume nesting gives you additive/relative layers. When a scene is a full-screen overlay that gets added on top of the world, make the scene root itself a `CanvasLayer` with an explicit `layer` value, and size any inner CanvasLayers (result panels, HUDs) above it.
+
+**Established layer budget:**
+
+| Range | Owner |
+| ----- | ----- |
+| 0 | World (Node2D terrain, entities) |
+| 20–40 | Overworld HUD (creature HUD 30, system HUD 26, main screen 30, combat preview 35) |
+| 50 | Combat scene (`CombatScene` root CanvasLayer) |
+| 55 | Combat result panel |
+| 90 | Inventory screen |
+| 100 | Debug overlay, startup splash |
+
 ## Available Skills
 
 Project-specific skills in `.claude/skills/` (invoke with the `Skill` tool):
