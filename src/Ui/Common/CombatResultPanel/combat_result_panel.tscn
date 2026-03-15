@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Ui/Common/CombatResultPanel/combat_result_panel.gd" id="1_script"]
 
 [node name="CombatResultPanel" type="CanvasLayer"]
-layer = 10
+layer = 55
 visible = false
 script = ExtResource("1_script")
 
