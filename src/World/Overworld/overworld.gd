@@ -24,10 +24,14 @@ extends Node2D
 @onready var creature_action_hud: CreatureActionHud = get_node_or_null(creature_action_hud_path) as CreatureActionHud
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
+@export var combat_approach_radius: float = 10.0
+
 ## Backward-compatible local-player reference.
 var player: Player = null
 var _players_by_id: Dictionary = {}
 var _creature_in_combat: Creature = null
+var _pending_enemy_snapshot: CombatantSnapshot = null
+var _is_approaching_for_combat: bool = false
 @onready var creature_selection_controller: OverworldCreatureSelectionController = $OverworldCreatureSelectionController
 @onready var character_creator_controller: OverworldCharacterCreatorController = $OverworldCharacterCreatorController
 @onready var _combat_preview_panel: CombatPreviewPanel = get_node_or_null("CombatPreviewPanel") as CombatPreviewPanel
@@ -254,14 +258,48 @@ func _on_creature_fight_requested(creature_node: Node) -> void:
 		_combat_preview_panel.show_for_creature(creature.creature_data)
 
 
+func _process(_delta: float) -> void:
+	if not _is_approaching_for_combat:
+		return
+	if _creature_in_combat == null or not is_instance_valid(_creature_in_combat):
+		_is_approaching_for_combat = false
+		_pending_enemy_snapshot = null
+		return
+	var local_player: Player = get_local_player()
+	if local_player == null:
+		return
+	if local_player.global_position.distance_to(_creature_in_combat.global_position) <= combat_approach_radius:
+		_is_approaching_for_combat = false
+		_begin_combat()
+
+
 func _on_combat_fight_confirmed(enemy_snapshot: CombatantSnapshot) -> void:
-	var player_snap: CombatantSnapshot = _build_player_snapshot()
-	CombatEvents.pending_player_snapshot = player_snap
-	CombatEvents.pending_enemy_snapshot = enemy_snapshot
+	_pending_enemy_snapshot = enemy_snapshot
+	var local_player: Player = get_local_player()
+	if local_player == null or _creature_in_combat == null or not is_instance_valid(_creature_in_combat):
+		_begin_combat()
+		return
+	if local_player.global_position.distance_to(_creature_in_combat.global_position) <= combat_approach_radius:
+		_begin_combat()
+	else:
+		_is_approaching_for_combat = true
+		var move_service: PlayerMoveRequestService = local_player.get_node_or_null(
+			"PlayerMoveRequestService"
+		) as PlayerMoveRequestService
+		if move_service:
+			move_service.request_move_target(_creature_in_combat.global_position)
+
+
+func _begin_combat() -> void:
+	CombatEvents.pending_player_snapshot = _build_player_snapshot()
+	CombatEvents.pending_enemy_snapshot = _pending_enemy_snapshot
+	_pending_enemy_snapshot = null
 	GameManager.change_state(GameManager.GameState.COMBAT)
 
 
 func _on_combat_preview_dismissed() -> void:
+	_is_approaching_for_combat = false
+	_pending_enemy_snapshot = null
 	_creature_in_combat = null
 	if creature_selection_controller:
 		creature_selection_controller.clear_selection()
