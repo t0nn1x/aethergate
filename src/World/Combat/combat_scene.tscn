@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" path="res://src/Ui/Windows/Combat/windows_combat_ui.tscn" id="4_combat_ui"]
 [ext_resource type="PackedScene" path="res://src/Ui/Common/CombatResultPanel/combat_result_panel.tscn" id="5_result_panel"]
 
-[node name="CombatScene" type="Node"]
+[node name="CombatScene" type="CanvasLayer"]
+layer = 50
 script = ExtResource("1_scene_script")
 
 [node name="CombatFlowController" type="Node" parent="." groups=["combat_flow"]]

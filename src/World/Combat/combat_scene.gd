@@ -1,5 +1,5 @@
 class_name CombatScene
-extends Node
+extends CanvasLayer
 
 ## Entry point for the combat game state.
 ## Reads pending snapshots from CombatEvents (set by overworld before scene change).
@@ -39,8 +39,4 @@ func _on_combat_ended(result: CombatRoundResult) -> void:
 
 
 func _on_result_panel_continue() -> void:
-	CombatEvents.returning_from_combat = true
-	CombatEvents.player_won_last_combat = _is_victory
-	CombatEvents.defeated_enemy_creature_id = _context.enemy_snapshot.combatant_id if _is_victory else &""
 	GameManager.change_state(GameManager.GameState.OVERWORLD)
-	get_tree().change_scene_to_file("res://src/World/main.tscn")
