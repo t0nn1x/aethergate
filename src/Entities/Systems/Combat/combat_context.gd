@@ -29,19 +29,35 @@ static func from_snapshots(
 	return ctx
 
 
-func apply_result(result: CombatRoundResult) -> void:
-	player_current_hp = clampi(
-		player_current_hp + result.hp_delta_player, 0, player_snapshot.base_stats.max_hp
-	)
-	enemy_current_hp = clampi(
-		enemy_current_hp + result.hp_delta_enemy, 0, enemy_snapshot.base_stats.max_hp
-	)
-	## Deduct energy for skills used (skip for null / auto-attack).
-	if result.player_action and result.player_action.skill_used:
-		player_current_energy = maxi(
-			player_current_energy - result.player_action.skill_used.energy_cost, 0
-		)
-	if result.enemy_action and result.enemy_action.skill_used:
-		enemy_current_energy = maxi(
-			enemy_current_energy - result.enemy_action.skill_used.energy_cost, 0
-		)
+## Apply a single phase result. Call once after each phase.
+## Updates defender HP (damage), attacker HP (self-heal), and attacker energy.
+func apply_phase_result(result: CombatPhaseResult) -> void:
+	# --- Defender HP (damage) ---
+	if result.defender_hp_delta != 0:
+		if result.defender_id == player_snapshot.combatant_id:
+			player_current_hp = clampi(
+				player_current_hp + result.defender_hp_delta, 0, player_snapshot.base_stats.max_hp
+			)
+		else:
+			enemy_current_hp = clampi(
+				enemy_current_hp + result.defender_hp_delta, 0, enemy_snapshot.base_stats.max_hp
+			)
+
+	# --- Attacker HP (self-heal) ---
+	if result.attacker_hp_delta > 0:
+		if result.attacker_id == player_snapshot.combatant_id:
+			player_current_hp = clampi(
+				player_current_hp + result.attacker_hp_delta, 0, player_snapshot.base_stats.max_hp
+			)
+		else:
+			enemy_current_hp = clampi(
+				enemy_current_hp + result.attacker_hp_delta, 0, enemy_snapshot.base_stats.max_hp
+			)
+
+	# --- Attacker energy ---
+	if result.action and result.action.skill_used:
+		var cost: int = result.action.skill_used.energy_cost
+		if result.attacker_id == player_snapshot.combatant_id:
+			player_current_energy = maxi(player_current_energy - cost, 0)
+		else:
+			enemy_current_energy = maxi(enemy_current_energy - cost, 0)

@@ -18,6 +18,7 @@ const BATTLEBACK_COUNT: int = 27
 @onready var _round_log: RichTextLabel = $LogPanel/RoundLog
 @onready var _skill_bar: HBoxContainer = $SkillsPanel/CenterContainer/SkillBar
 @onready var _timer_label: Label = $TimerLabel
+@onready var _turn_label: Label = $TurnLabel
 
 var _context: CombatContext = null
 var _flow_controller: CombatFlowController = null
@@ -45,15 +46,17 @@ func initialize(context: CombatContext) -> void:
 	_enemy_name.text = context.enemy_snapshot.display_name
 	_build_skill_bar(context.player_snapshot.skill_loadout)
 	_refresh_bars()
+	_turn_label.text = "Turn 1"
 
 	var flow: CombatFlowController = get_tree().get_first_node_in_group("combat_flow")
 	if flow:
 		_flow_controller = flow
 		flow.round_started.connect(_on_round_started)
-		flow.round_result_ready.connect(_on_round_result)
 		flow.awaiting_player_action.connect(_on_awaiting_player_action)
 
-	CombatEvents.round_resolved.connect(_on_round_resolved)
+	CombatEvents.player_phase_resolved.connect(_on_player_phase_resolved)
+	CombatEvents.enemy_phase_resolved.connect(_on_enemy_phase_resolved)
+	CombatEvents.round_completed.connect(_on_round_completed)
 
 
 func _process(delta: float) -> void:
@@ -242,8 +245,8 @@ func _set_skill_bar_enabled(enabled: bool) -> void:
 
 ## ── Flow controller signals ──────────────────────────────────────────────────
 
-func _on_round_started(round_number: int) -> void:
-	_round_log.append_text("\n[color=#c8a84b]── Round %d ──[/color]" % round_number)
+func _on_round_started(turn_number: int) -> void:
+	_round_log.append_text("\n[color=#c8a84b]── Turn %d ──[/color]" % turn_number)
 
 
 func _on_awaiting_player_action() -> void:
@@ -253,40 +256,49 @@ func _on_awaiting_player_action() -> void:
 	_timer_label.text = "20"
 
 
-func _on_round_result(result: CombatRoundResult) -> void:
+func _on_player_phase_resolved(result: CombatPhaseResult) -> void:
 	_timer_running = false
 	_set_skill_bar_enabled(false)
 	_refresh_bars()
-	_append_round_log(result)
+	_append_phase_log_player(result)
 
 
-func _on_round_resolved(_result: CombatRoundResult) -> void:
-	pass  # reserved for hit animations
+func _on_enemy_phase_resolved(result: CombatPhaseResult) -> void:
+	_refresh_bars()
+	_append_phase_log_enemy(result)
+
+
+func _on_round_completed(turn_number: int, _player_phase: CombatPhaseResult, _enemy_phase: CombatPhaseResult) -> void:
+	_turn_label.text = "Turn %d" % (turn_number + 1)
 
 
 ## ── Round log ────────────────────────────────────────────────────────────────
 
-func _append_round_log(result: CombatRoundResult) -> void:
-	if result.hp_delta_enemy < 0:
+func _append_phase_log_player(result: CombatPhaseResult) -> void:
+	if result.defender_hp_delta < 0:
 		_round_log.append_text(
-			"\n[color=#4ecfff]You dealt [b]%d[/b] damage.[/color]" % abs(result.hp_delta_enemy)
+			"\n[color=#4ecfff]You dealt [b]%d[/b] damage.[/color]" % abs(result.defender_hp_delta)
 		)
-	elif result.hp_delta_enemy > 0:
-		_round_log.append_text("\nYou healed enemy for %d." % result.hp_delta_enemy)
-
-	if result.hp_delta_player < 0:
+	if result.attacker_hp_delta > 0:
 		_round_log.append_text(
-			"\n[color=#ff6060]Enemy dealt [b]%d[/b] damage to you.[/color]" % abs(result.hp_delta_player)
+			"\n[color=#55ff88]You healed [b]%d[/b] HP.[/color]" % result.attacker_hp_delta
 		)
-	elif result.hp_delta_player > 0:
-		_round_log.append_text(
-			"\n[color=#55ff88]You healed [b]%d[/b] HP.[/color]" % result.hp_delta_player
-		)
-
+	if result.action and result.action.skill_used \
+			and result.action.skill_used.skill_type == SkillData.SkillType.DEFEND:
+		_round_log.append_text("\n[color=#aaaaee]You are defending.[/color]")
 	if result.combat_ended:
-		if result.winner_id == _context.player_snapshot.combatant_id:
-			_round_log.append_text("\n\n[b][color=#ffd700]✦ Victory! ✦[/color][/b]")
-		elif result.winner_id == _context.enemy_snapshot.combatant_id:
-			_round_log.append_text("\n\n[b][color=#ff4444]✦ Defeated! ✦[/color][/b]")
-		else:
-			_round_log.append_text("\n\n[b][color=#aaaaaa]Draw![/color][/b]")
+		_round_log.append_text("\n\n[b][color=#ffd700]✦ Victory! ✦[/color][/b]")
+
+
+func _append_phase_log_enemy(result: CombatPhaseResult) -> void:
+	if result.defender_hp_delta < 0:
+		_round_log.append_text(
+			"\n[color=#ff6060]Enemy dealt [b]%d[/b] damage to you.[/color]" % abs(result.defender_hp_delta)
+		)
+	if result.attacker_hp_delta > 0:
+		_round_log.append_text("\nEnemy healed %d HP." % result.attacker_hp_delta)
+	if result.action and result.action.skill_used \
+			and result.action.skill_used.skill_type == SkillData.SkillType.DEFEND:
+		_round_log.append_text("\nEnemy is defending.")
+	if result.combat_ended:
+		_round_log.append_text("\n\n[b][color=#ff4444]✦ Defeated! ✦[/color][/b]")
