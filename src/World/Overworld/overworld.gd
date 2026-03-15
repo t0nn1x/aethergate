@@ -27,6 +27,7 @@ extends Node2D
 ## Backward-compatible local-player reference.
 var player: Player = null
 var _players_by_id: Dictionary = {}
+var _pending_creature_removal: StringName = &""
 @onready var creature_selection_controller: OverworldCreatureSelectionController = $OverworldCreatureSelectionController
 @onready var character_creator_controller: OverworldCharacterCreatorController = $OverworldCharacterCreatorController
 @onready var _combat_preview_panel: CombatPreviewPanel = get_node_or_null("CombatPreviewPanel") as CombatPreviewPanel
@@ -126,6 +127,9 @@ func _wire_stage_dependencies() -> void:
 		debug_overlay.set_chunk_manager(chunk_manager)
 	if debug_overlay and creature_spawner:
 		debug_overlay.set_creature_spawner(creature_spawner)
+	if creature_spawner:
+		if not creature_spawner.creature_spawned.is_connected(_on_creature_spawned_for_removal):
+			creature_spawner.creature_spawned.connect(_on_creature_spawned_for_removal)
 	if player:
 		_wire_local_player_dependencies(player)
 
@@ -143,6 +147,17 @@ func _wire_main_screen_signals() -> void:
 
 
 func _start_session_if_menu_is_missing() -> void:
+	if CombatEvents.returning_from_combat:
+		CombatEvents.returning_from_combat = false
+		if CombatEvents.player_won_last_combat and CombatEvents.defeated_enemy_creature_id != &"":
+			_pending_creature_removal = CombatEvents.defeated_enemy_creature_id
+		CombatEvents.player_won_last_combat = false
+		CombatEvents.defeated_enemy_creature_id = &""
+		if main_screen:
+			main_screen.hide_menu()
+		if session_controller:
+			session_controller.start_session()
+		return
 	if main_screen != null:
 		main_screen.show_menu()
 		return
@@ -267,6 +282,17 @@ func _on_combat_preview_dismissed() -> void:
 func _on_combat_ended(result: CombatRoundResult) -> void:
 	if result.winner_id == &"player":
 		PlayerProfileService.add_xp(50)
+
+
+func _on_creature_spawned_for_removal(creature: Creature, _chunk_coord: Vector2i) -> void:
+	if _pending_creature_removal == &"":
+		return
+	if creature == null or not is_instance_valid(creature):
+		return
+	if StringName(creature.creature_data.get_effective_creature_id()) != _pending_creature_removal:
+		return
+	_pending_creature_removal = &""
+	creature.queue_free()
 
 
 func _build_player_snapshot() -> CombatantSnapshot:

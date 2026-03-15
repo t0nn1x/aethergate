@@ -9,6 +9,7 @@ extends Node
 @onready var _result_panel: CombatResultPanel = $CombatResultPanel
 
 var _context: CombatContext = null
+var _is_victory: bool = false
 
 
 func _ready() -> void:
@@ -33,10 +34,13 @@ func _start_combat(
 
 
 func _on_combat_ended(result: CombatRoundResult) -> void:
-	var is_victory: bool = result.winner_id == _context.player_snapshot.combatant_id
-	_result_panel.show_result(is_victory, _context.enemy_snapshot.display_name, 50)
+	_is_victory = result.winner_id == _context.player_snapshot.combatant_id
+	_result_panel.show_result(_is_victory, _context.enemy_snapshot.display_name, 50)
 
 
 func _on_result_panel_continue() -> void:
+	CombatEvents.returning_from_combat = true
+	CombatEvents.player_won_last_combat = _is_victory
+	CombatEvents.defeated_enemy_creature_id = _context.enemy_snapshot.combatant_id if _is_victory else &""
 	GameManager.change_state(GameManager.GameState.OVERWORLD)
 	get_tree().change_scene_to_file("res://src/World/main.tscn")
