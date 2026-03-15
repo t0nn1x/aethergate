@@ -6,11 +6,13 @@ extends Node
 
 @onready var _flow_controller: CombatFlowController = $CombatFlowController
 @onready var _combat_ui: Node = $CombatUi
+@onready var _result_panel: CombatResultPanel = $CombatResultPanel
 
 var _context: CombatContext = null
 
 
 func _ready() -> void:
+	_result_panel.continue_pressed.connect(_on_result_panel_continue)
 	if not CombatEvents.combat_ended.is_connected(_on_combat_ended):
 		CombatEvents.combat_ended.connect(_on_combat_ended)
 	if CombatEvents.pending_player_snapshot and CombatEvents.pending_enemy_snapshot:
@@ -30,8 +32,11 @@ func _start_combat(
 	_flow_controller.start_combat(_context, strategy)
 
 
-func _on_combat_ended(_result: CombatRoundResult) -> void:
-	## Small delay so the UI can show the result before leaving.
-	await get_tree().create_timer(1.5).timeout
+func _on_combat_ended(result: CombatRoundResult) -> void:
+	var is_victory: bool = result.winner_id == _context.player_snapshot.combatant_id
+	_result_panel.show_result(is_victory, _context.enemy_snapshot.display_name, 50)
+
+
+func _on_result_panel_continue() -> void:
 	GameManager.change_state(GameManager.GameState.OVERWORLD)
 	get_tree().change_scene_to_file("res://src/World/main.tscn")

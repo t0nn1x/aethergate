@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ibb7hicfbjrj" path="res://src/Entities/Systems/Combat/combat_flow_controller.gd" id="2_flow_ctrl"]
 [ext_resource type="Script" uid="uid://b5u288caa83aw" path="res://src/Entities/Systems/Combat/combat_round_resolver.gd" id="3_resolver"]
 [ext_resource type="PackedScene" path="res://src/Ui/Windows/Combat/windows_combat_ui.tscn" id="4_combat_ui"]
+[ext_resource type="PackedScene" path="res://src/Ui/Common/CombatResultPanel/combat_result_panel.tscn" id="5_result_panel"]
 
 [node name="CombatScene" type="Node"]
 script = ExtResource("1_scene_script")
@@ -15,3 +16,5 @@ script = ExtResource("2_flow_ctrl")
 script = ExtResource("3_resolver")
 
 [node name="CombatUi" parent="." instance=ExtResource("4_combat_ui")]
+
+[node name="CombatResultPanel" parent="." instance=ExtResource("5_result_panel")]
