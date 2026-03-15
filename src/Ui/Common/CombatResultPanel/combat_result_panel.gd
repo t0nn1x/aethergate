@@ -6,6 +6,7 @@ extends AdaptiveOverlayPanel
 
 signal continue_pressed
 
+@onready var _panel_container: PanelContainer = $PanelContainer
 @onready var _title_label: Label = $PanelContainer/MarginContainer/VBoxContainer/TitleLabel
 @onready var _subtitle_label: Label = $PanelContainer/MarginContainer/VBoxContainer/SubtitleLabel
 @onready var _xp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/XpLabel
@@ -30,6 +31,7 @@ func show_result(is_victory: bool, enemy_name: String, xp_gained: int) -> void:
 		_title_label.text = "✦ Defeated! ✦"
 		_title_label.add_theme_color_override("font_color", Color(1.0, 0.33, 0.33, 1.0))
 		_subtitle_label.text = "Bested by %s" % enemy_name
+		_xp_label.text = ""
 	_xp_label.visible = is_victory
 	_flavour_label.visible = not is_victory
 	_action_button.text = "Continue" if is_victory else "Respawn"
@@ -37,7 +39,6 @@ func show_result(is_victory: bool, enemy_name: String, xp_gained: int) -> void:
 
 
 func _apply_panel_style() -> void:
-	var panel_container: PanelContainer = $PanelContainer
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.04, 0.05, 0.09, 0.95)
 	style.set_corner_radius_all(10)
@@ -46,7 +47,7 @@ func _apply_panel_style() -> void:
 	style.border_width_right = 1
 	style.border_width_bottom = 1
 	style.border_color = Color(0.62, 0.48, 0.14, 0.65)
-	panel_container.add_theme_stylebox_override("panel", style)
+	_panel_container.add_theme_stylebox_override("panel", style)
 
 
 func _apply_button_style() -> void:
