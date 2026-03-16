@@ -287,10 +287,14 @@ func _on_enemy_phase_resolved(result: CombatPhaseResult) -> void:
 
 func _on_vfx_impact_hit() -> void:
 	if _pending_player_phase != null:
+		if _pending_player_phase.defender_hp_delta < 0:
+			_shake_sprite(_enemy_sprite)
 		_refresh_bars()
 		_append_phase_log_player(_pending_player_phase)
 		_pending_player_phase = null
 	elif _pending_enemy_phase != null:
+		if _pending_enemy_phase.defender_hp_delta < 0:
+			_shake_sprite(_player_sprite)
 		_refresh_bars()
 		_append_phase_log_enemy(_pending_enemy_phase)
 		_pending_enemy_phase = null
@@ -338,6 +342,18 @@ func _play_entry_animation() -> void:
 		_enemy_hp_frame, _enemy_hp_bar,
 	]:
 		tween.tween_property(node, "modulate:a", 1.0, 0.6).from(0.0).set_delay(0.55)
+
+
+## ── Hit shake ────────────────────────────────────────────────────────────────
+
+func _shake_sprite(sprite: TextureRect) -> void:
+	var ox := sprite.position.x
+	var tween := create_tween()
+	tween.tween_property(sprite, "position:x", ox + 10.0, 0.04)
+	tween.tween_property(sprite, "position:x", ox - 8.0,  0.04)
+	tween.tween_property(sprite, "position:x", ox + 5.0,  0.04)
+	tween.tween_property(sprite, "position:x", ox - 3.0,  0.04)
+	tween.tween_property(sprite, "position:x", ox,        0.04)
 
 
 ## ── VFX ──────────────────────────────────────────────────────────────────────
