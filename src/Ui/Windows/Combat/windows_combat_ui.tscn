@@ -89,24 +89,25 @@ anchor_bottom = 0.55
 offset_left = -90.0
 offset_top = 100.0
 offset_right = 50.0
-offset_bottom = 120
+offset_bottom = 120.0
 mouse_filter = 2
 texture_filter = 1
 
-[node name="PlayerHpBar" type="TextureProgressBar" parent="."]
+[node name="PlayerHpBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchor_left = 0.22
 anchor_top = 0.55
 anchor_right = 0.22
 anchor_bottom = 0.55
 offset_left = -70.0
-offset_top = 106.0
-offset_right = 120.0
-offset_bottom = 120
+offset_top = 106.5
+offset_right = 30.0
+offset_bottom = 112.5
+custom_minimum_size = Vector2(0, 0)
 mouse_filter = 2
-texture_filter = 1
 max_value = 100.0
 value = 100.0
+show_percentage = false
 
 [node name="PlayerEnergyFrame" type="TextureRect" parent="."]
 layout_mode = 1
@@ -115,26 +116,27 @@ anchor_top = 0.55
 anchor_right = 0.22
 anchor_bottom = 0.55
 offset_left = -90.0
-offset_top = 118.0
+offset_top = 122.0
 offset_right = 50.0
-offset_bottom = 128.0
+offset_bottom = 132.0
 mouse_filter = 2
 texture_filter = 1
 
-[node name="PlayerEnergyBar" type="TextureProgressBar" parent="."]
+[node name="PlayerEnergyBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchor_left = 0.22
 anchor_top = 0.55
 anchor_right = 0.22
 anchor_bottom = 0.55
-offset_left = -80.0
-offset_top = 118.0
-offset_right = 80.0
-offset_bottom = 128.0
+offset_left = -70.0
+offset_top = 127.5
+offset_right = 30.0
+offset_bottom = 133.5
+custom_minimum_size = Vector2(0, 0)
 mouse_filter = 2
-texture_filter = 1
 max_value = 100.0
 value = 100.0
+show_percentage = false
 
 ; ── Enemy: name above, sprite, HP bar underneath ──────────────────────────────
 
@@ -179,27 +181,28 @@ anchor_left = 0.75
 anchor_top = 0.55
 anchor_right = 0.75
 anchor_bottom = 0.55
-offset_left = -80.0
+offset_left = -70.0
 offset_top = 100.0
-offset_right = 80.0
-offset_bottom = 114.0
+offset_right = 70.0
+offset_bottom = 120.0
 mouse_filter = 2
 texture_filter = 1
 
-[node name="EnemyHpBar" type="TextureProgressBar" parent="."]
+[node name="EnemyHpBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchor_left = 0.75
 anchor_top = 0.55
 anchor_right = 0.75
 anchor_bottom = 0.55
-offset_left = -80.0
-offset_top = 100.0
-offset_right = 80.0
-offset_bottom = 114.0
+offset_left = -50.0
+offset_top = 107.0
+offset_right = 50.0
+offset_bottom = 113.0
+custom_minimum_size = Vector2(0, 0)
 mouse_filter = 2
-texture_filter = 1
 max_value = 100.0
 value = 100.0
+show_percentage = false
 
 ; ── Turn counter ─────────────────────────────────────────────────────────────
 

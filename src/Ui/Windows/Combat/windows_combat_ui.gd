@@ -15,9 +15,9 @@ const BATTLEBACK_COUNT: int = 27
 @onready var _player_hp_frame: TextureRect = $PlayerHpFrame
 @onready var _player_energy_frame: TextureRect = $PlayerEnergyFrame
 @onready var _enemy_hp_frame: TextureRect = $EnemyHpFrame
-@onready var _enemy_hp_bar: TextureProgressBar = $EnemyHpBar
-@onready var _player_hp_bar: TextureProgressBar = $PlayerHpBar
-@onready var _player_energy_bar: TextureProgressBar = $PlayerEnergyBar
+@onready var _enemy_hp_bar: ProgressBar = $EnemyHpBar
+@onready var _player_hp_bar: ProgressBar = $PlayerHpBar
+@onready var _player_energy_bar: ProgressBar = $PlayerEnergyBar
 @onready var _round_log: RichTextLabel = $LogPanel/RoundLog
 @onready var _skill_bar: HBoxContainer = $SkillsPanel/CenterContainer/SkillBar
 @onready var _timer_label: Label = $TimerLabel
@@ -37,19 +37,24 @@ var _timer_running: bool = false
 
 func _ready() -> void:
 	var charge := load("res://src/Ui/Assets/Gui-Hud/Charge Bars/Charge Bars A_05.png") as Texture2D
-	var red := load("res://src/Ui/Assets/Gui-Hud/Resources Bars/Bars and clusters/Red Bar.png") as Texture2D
-	var blue := load("res://src/Ui/Assets/Gui-Hud/Resources Bars/Bars and clusters/Blue Bar.png") as Texture2D
 	_player_hp_frame.texture = charge
 	_player_energy_frame.texture = charge
 	_enemy_hp_frame.texture = charge
-	_setup_bar(_player_hp_bar, red)
-	_setup_bar(_enemy_hp_bar, red)
-	_setup_bar(_player_energy_bar, blue)
+	_style_bar(_player_hp_bar, Color(0.78, 0.14, 0.14))
+	_style_bar(_enemy_hp_bar, Color(0.78, 0.14, 0.14))
+	_style_bar(_player_energy_bar, Color(0.18, 0.42, 0.82))
 
 
-func _setup_bar(bar: TextureProgressBar, fill: Texture2D) -> void:
-	bar.texture_progress = fill
-	bar.fill_mode = TextureProgressBar.FILL_LEFT_TO_RIGHT
+func _style_bar(bar: ProgressBar, fill_color: Color) -> void:
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = Color(0.0, 0.0, 0.0, 0.0)
+	bg.set_content_margin_all(0.0)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = fill_color
+	fill.set_corner_radius_all(2)
+	fill.set_content_margin_all(0.0)
+	bar.add_theme_stylebox_override("background", bg)
+	bar.add_theme_stylebox_override("fill", fill)
 
 
 func initialize(context: CombatContext) -> void:
@@ -150,7 +155,7 @@ func _refresh_bars() -> void:
 	_set_bar(_player_energy_bar, _context.player_current_energy, _context.player_snapshot.base_stats.max_energy)
 
 
-func _set_bar(bar: TextureProgressBar, current: float, maximum: float) -> void:
+func _set_bar(bar: ProgressBar, current: float, maximum: float) -> void:
 	if bar == null or maximum <= 0.0:
 		return
 	bar.max_value = maximum
