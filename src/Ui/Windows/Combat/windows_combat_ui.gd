@@ -270,6 +270,10 @@ func _on_awaiting_player_action() -> void:
 func _on_player_phase_resolved(result: CombatPhaseResult) -> void:
 	_timer_running = false
 	_set_skill_bar_enabled(false)
+	if result.combat_ended:
+		_refresh_bars()
+		_append_phase_log_player(result)
+		return
 	_pending_player_phase = result
 	_enemy_vfx.play(_build_vfx_config(result, _context.player_snapshot))
 
@@ -283,6 +287,10 @@ func _on_enemy_vfx_impact_hit() -> void:
 
 
 func _on_enemy_phase_resolved(result: CombatPhaseResult) -> void:
+	if result.combat_ended:
+		_refresh_bars()
+		_append_phase_log_enemy(result)
+		return
 	_pending_enemy_phase = result
 	_player_vfx.play(_build_vfx_config(result, _context.enemy_snapshot))
 
