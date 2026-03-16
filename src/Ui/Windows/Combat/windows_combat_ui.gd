@@ -287,13 +287,17 @@ func _on_enemy_phase_resolved(result: CombatPhaseResult) -> void:
 
 func _on_vfx_impact_hit() -> void:
 	if _pending_player_phase != null:
-		if _pending_player_phase.defender_hp_delta < 0:
+		if _pending_player_phase.combat_ended:
+			_play_death_animation(_enemy_sprite, _enemy_name)
+		elif _pending_player_phase.defender_hp_delta < 0:
 			_shake_sprite(_enemy_sprite)
 		_refresh_bars()
 		_append_phase_log_player(_pending_player_phase)
 		_pending_player_phase = null
 	elif _pending_enemy_phase != null:
-		if _pending_enemy_phase.defender_hp_delta < 0:
+		if _pending_enemy_phase.combat_ended:
+			_play_death_animation(_player_sprite)
+		elif _pending_enemy_phase.defender_hp_delta < 0:
 			_shake_sprite(_player_sprite)
 		_refresh_bars()
 		_append_phase_log_enemy(_pending_enemy_phase)
@@ -344,7 +348,18 @@ func _play_entry_animation() -> void:
 		tween.tween_property(node, "modulate:a", 1.0, 0.6).from(0.0).set_delay(0.55)
 
 
-## ── Hit shake ────────────────────────────────────────────────────────────────
+## ── Death + hit animations ───────────────────────────────────────────────────
+
+func _play_death_animation(sprite: TextureRect, label: Label = null) -> void:
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(sprite, "position:y", sprite.position.y - 180.0, 1.2) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite, "modulate:a", 0.0, 1.0).set_delay(0.2)
+	if label != null:
+		tween.tween_property(label, "position:y", label.position.y - 30.0, 0.9) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_delay(0.1)
+		tween.tween_property(label, "modulate:a", 0.0, 0.7).set_delay(0.15)
+
 
 func _shake_sprite(sprite: TextureRect) -> void:
 	var ox := sprite.position.x

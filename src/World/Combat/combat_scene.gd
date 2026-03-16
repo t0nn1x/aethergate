@@ -35,7 +35,10 @@ func _start_combat(
 
 func _on_combat_ended(result: CombatRoundResult) -> void:
 	_is_victory = result.winner_id == _context.player_snapshot.combatant_id
-	_result_panel.show_result(_is_victory, _context.enemy_snapshot.display_name, 50)
+	# Delay result panel so the death animation (float + fade, ~1.2 s) plays first.
+	get_tree().create_timer(1.4).timeout.connect(
+		func() -> void: _result_panel.show_result(_is_victory, _context.enemy_snapshot.display_name, 50)
+	)
 
 
 func _on_result_panel_continue() -> void:
