@@ -310,6 +310,8 @@ func _build_vfx_config(result: CombatPhaseResult, attacker_snapshot: CombatantSn
 		cfg.fps = skill.vfx_fps
 		cfg.impact_frame = skill.vfx_impact_frame
 		cfg.scale = skill.vfx_scale
+	elif not attacker_snapshot.default_attack_vfx_pool.is_empty():
+		return attacker_snapshot.default_attack_vfx_pool.pick_random()
 	else:
 		cfg.texture = attacker_snapshot.default_attack_vfx_texture
 		cfg.hframes = attacker_snapshot.default_attack_vfx_hframes

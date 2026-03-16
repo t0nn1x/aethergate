@@ -337,11 +337,17 @@ func _build_player_snapshot() -> CombatantSnapshot:
 		snap.sprite_frame_height = 32
 		snap.sprite_idle_fps = 2.0
 		snap.sprite_default_frame = 0
-		var hit_vfx := load("res://src/Entities/Systems/Combat/Assets/VFX/Hit Horizontal White.png") as Texture2D
-		if hit_vfx:
-			snap.default_attack_vfx_texture = hit_vfx
-			snap.default_attack_vfx_hframes = 5
-			snap.default_attack_vfx_fps = 24.0
-			snap.default_attack_vfx_impact_frame = 2
-			snap.default_attack_vfx_scale = 2.0
+		for vfx_path: String in [
+			"res://src/Entities/Systems/Combat/Assets/VFX/Hit Horizontal White.png",
+			"res://src/Entities/Systems/Combat/Assets/VFX/Hit Vertical White.png",
+		]:
+			var tex := load(vfx_path) as Texture2D
+			if tex:
+				var cfg := CombatVfxConfig.new()
+				cfg.texture = tex
+				cfg.hframes = 5
+				cfg.fps = 18.0
+				cfg.impact_frame = 2
+				cfg.scale = 2.0
+				snap.default_attack_vfx_pool.append(cfg)
 	return snap

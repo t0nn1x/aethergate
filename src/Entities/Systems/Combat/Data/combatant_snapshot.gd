@@ -21,6 +21,8 @@ var sprite_idle_fps: float = 1.5
 var sprite_default_frame: int = 0
 
 ## VFX played over the defender when this combatant auto-attacks (skill_used == null).
+## If default_attack_vfx_pool is non-empty it takes priority and one entry is picked randomly.
+var default_attack_vfx_pool: Array[CombatVfxConfig] = []
 var default_attack_vfx_texture: Texture2D = null
 var default_attack_vfx_hframes: int = 1
 var default_attack_vfx_fps: float = 12.0
