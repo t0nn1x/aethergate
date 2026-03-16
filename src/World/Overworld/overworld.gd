@@ -341,7 +341,7 @@ func _build_player_snapshot() -> CombatantSnapshot:
 		if hit_vfx:
 			snap.default_attack_vfx_texture = hit_vfx
 			snap.default_attack_vfx_hframes = 5
-			snap.default_attack_vfx_fps = 12.0
+			snap.default_attack_vfx_fps = 24.0
 			snap.default_attack_vfx_impact_frame = 2
-			snap.default_attack_vfx_scale = 1.0
+			snap.default_attack_vfx_scale = 2.0
 	return snap
