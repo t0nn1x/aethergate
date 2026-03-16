@@ -48,6 +48,7 @@ func play(config: CombatVfxConfig) -> void:
 
 	if config.texture == null:
 		impact_hit.emit()
+		finished.emit()
 		return
 
 	_atlas.atlas = config.texture
@@ -85,9 +86,9 @@ func _on_timer_timeout() -> void:
 
 
 func _update_atlas_frame(frame: int) -> void:
-	var frame_w: int = _config.texture.get_width() / _config.hframes
-	var frame_h: int = _config.texture.get_height()
-	_atlas.region = Rect2(frame * frame_w, 0, frame_w, frame_h)
+	var frame_w: float = _config.texture.get_width() / float(_config.hframes)
+	var frame_h: float = _config.texture.get_height()
+	_atlas.region = Rect2(frame * frame_w, 0.0, frame_w, frame_h)
 
 
 func _apply_scale(scale: float) -> void:
