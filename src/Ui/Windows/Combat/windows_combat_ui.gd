@@ -52,12 +52,12 @@ func _ready() -> void:
 	_enemy_vfx = CombatVfxPlayer.new()
 	_enemy_sprite.add_child(_enemy_vfx)
 	_enemy_vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_enemy_vfx.impact_hit.connect(_on_enemy_vfx_impact_hit)
+	_enemy_vfx.impact_hit.connect(_on_vfx_impact_hit)
 
 	_player_vfx = CombatVfxPlayer.new()
 	_player_sprite.add_child(_player_vfx)
 	_player_vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_player_vfx.impact_hit.connect(_on_player_vfx_impact_hit)
+	_player_vfx.impact_hit.connect(_on_vfx_impact_hit)
 
 
 func _style_bar(bar: ProgressBar, fill_color: Color) -> void:
@@ -271,28 +271,27 @@ func _on_player_phase_resolved(result: CombatPhaseResult) -> void:
 	_timer_running = false
 	_set_skill_bar_enabled(false)
 	_pending_player_phase = result
-	_enemy_vfx.play(_build_vfx_config(result, _context.player_snapshot))
-
-
-func _on_enemy_vfx_impact_hit() -> void:
-	if _pending_player_phase == null:
-		return
-	_refresh_bars()
-	_append_phase_log_player(_pending_player_phase)
-	_pending_player_phase = null
+	var cfg := _build_vfx_config(result, _context.player_snapshot)
+	var vfx := _player_vfx if cfg.target == CombatVfxConfig.VfxTarget.ATTACKER else _enemy_vfx
+	vfx.play(cfg)
 
 
 func _on_enemy_phase_resolved(result: CombatPhaseResult) -> void:
 	_pending_enemy_phase = result
-	_player_vfx.play(_build_vfx_config(result, _context.enemy_snapshot))
+	var cfg := _build_vfx_config(result, _context.enemy_snapshot)
+	var vfx := _enemy_vfx if cfg.target == CombatVfxConfig.VfxTarget.ATTACKER else _player_vfx
+	vfx.play(cfg)
 
 
-func _on_player_vfx_impact_hit() -> void:
-	if _pending_enemy_phase == null:
-		return
-	_refresh_bars()
-	_append_phase_log_enemy(_pending_enemy_phase)
-	_pending_enemy_phase = null
+func _on_vfx_impact_hit() -> void:
+	if _pending_player_phase != null:
+		_refresh_bars()
+		_append_phase_log_player(_pending_player_phase)
+		_pending_player_phase = null
+	elif _pending_enemy_phase != null:
+		_refresh_bars()
+		_append_phase_log_enemy(_pending_enemy_phase)
+		_pending_enemy_phase = null
 
 
 func _on_round_completed(turn_number: int, _player_phase: CombatPhaseResult, _enemy_phase: CombatPhaseResult) -> void:
@@ -310,6 +309,7 @@ func _build_vfx_config(result: CombatPhaseResult, attacker_snapshot: CombatantSn
 		cfg.fps = skill.vfx_fps
 		cfg.impact_frame = skill.vfx_impact_frame
 		cfg.scale = skill.vfx_scale
+		cfg.target = skill.vfx_target
 	elif not attacker_snapshot.default_attack_vfx_pool.is_empty():
 		return attacker_snapshot.default_attack_vfx_pool.pick_random()
 	else:

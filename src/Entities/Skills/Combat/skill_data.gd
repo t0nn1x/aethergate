@@ -36,3 +36,5 @@ enum SkillType { ATTACK, DEFEND, HEAL, BUFF, DEBUFF }
 ## Frame index (0-based) at which the HP bar updates.
 @export var vfx_impact_frame: int = 0
 @export var vfx_scale: float = 1.0
+## Who the VFX is centered over. Use ATTACKER for self-buffs.
+@export var vfx_target: CombatVfxConfig.VfxTarget = CombatVfxConfig.VfxTarget.DEFENDER
