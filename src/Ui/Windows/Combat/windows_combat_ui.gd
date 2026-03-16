@@ -34,6 +34,11 @@ var _enemy_anim_time: float = 0.0
 var _timer_seconds: float = 0.0
 var _timer_running: bool = false
 
+var _player_vfx: CombatVfxPlayer = null
+var _enemy_vfx: CombatVfxPlayer = null
+var _pending_player_phase: CombatPhaseResult = null
+var _pending_enemy_phase: CombatPhaseResult = null
+
 
 func _ready() -> void:
 	var charge := load("res://src/Ui/Assets/Gui-Hud/Charge Bars/Charge Bars A_05.png") as Texture2D
@@ -43,6 +48,16 @@ func _ready() -> void:
 	_style_bar(_player_hp_bar, Color(0.78, 0.14, 0.14))
 	_style_bar(_enemy_hp_bar, Color(0.78, 0.14, 0.14))
 	_style_bar(_player_energy_bar, Color(0.18, 0.42, 0.82))
+
+	_enemy_vfx = CombatVfxPlayer.new()
+	_enemy_sprite.add_child(_enemy_vfx)
+	_enemy_vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_enemy_vfx.impact_hit.connect(_on_enemy_vfx_impact_hit)
+
+	_player_vfx = CombatVfxPlayer.new()
+	_player_sprite.add_child(_player_vfx)
+	_player_vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_player_vfx.impact_hit.connect(_on_player_vfx_impact_hit)
 
 
 func _style_bar(bar: ProgressBar, fill_color: Color) -> void:
@@ -255,17 +270,53 @@ func _on_awaiting_player_action() -> void:
 func _on_player_phase_resolved(result: CombatPhaseResult) -> void:
 	_timer_running = false
 	_set_skill_bar_enabled(false)
+	_pending_player_phase = result
+	_enemy_vfx.play(_build_vfx_config(result, _context.player_snapshot))
+
+
+func _on_enemy_vfx_impact_hit() -> void:
+	if _pending_player_phase == null:
+		return
 	_refresh_bars()
-	_append_phase_log_player(result)
+	_append_phase_log_player(_pending_player_phase)
+	_pending_player_phase = null
 
 
 func _on_enemy_phase_resolved(result: CombatPhaseResult) -> void:
+	_pending_enemy_phase = result
+	_player_vfx.play(_build_vfx_config(result, _context.enemy_snapshot))
+
+
+func _on_player_vfx_impact_hit() -> void:
+	if _pending_enemy_phase == null:
+		return
 	_refresh_bars()
-	_append_phase_log_enemy(result)
+	_append_phase_log_enemy(_pending_enemy_phase)
+	_pending_enemy_phase = null
 
 
 func _on_round_completed(turn_number: int, _player_phase: CombatPhaseResult, _enemy_phase: CombatPhaseResult) -> void:
 	_turn_label.text = "Turn %d" % (turn_number + 1)
+
+
+## ── VFX ──────────────────────────────────────────────────────────────────────
+
+func _build_vfx_config(result: CombatPhaseResult, attacker_snapshot: CombatantSnapshot) -> CombatVfxConfig:
+	var cfg := CombatVfxConfig.new()
+	var skill: SkillData = result.action.skill_used if result.action else null
+	if skill != null and skill.vfx_texture != null:
+		cfg.texture = skill.vfx_texture
+		cfg.hframes = skill.vfx_hframes
+		cfg.fps = skill.vfx_fps
+		cfg.impact_frame = skill.vfx_impact_frame
+		cfg.scale = skill.vfx_scale
+	else:
+		cfg.texture = attacker_snapshot.default_attack_vfx_texture
+		cfg.hframes = attacker_snapshot.default_attack_vfx_hframes
+		cfg.fps = attacker_snapshot.default_attack_vfx_fps
+		cfg.impact_frame = attacker_snapshot.default_attack_vfx_impact_frame
+		cfg.scale = attacker_snapshot.default_attack_vfx_scale
+	return cfg
 
 
 ## ── Round log ────────────────────────────────────────────────────────────────
