@@ -92,6 +92,8 @@ func initialize(context: CombatContext) -> void:
 	CombatEvents.enemy_phase_resolved.connect(_on_enemy_phase_resolved)
 	CombatEvents.round_completed.connect(_on_round_completed)
 
+	_play_entry_animation()
+
 
 func _process(delta: float) -> void:
 	if _context == null:
@@ -296,6 +298,46 @@ func _on_vfx_impact_hit() -> void:
 
 func _on_round_completed(turn_number: int, _player_phase: CombatPhaseResult, _enemy_phase: CombatPhaseResult) -> void:
 	_turn_label.text = "Turn %d" % (turn_number + 1)
+
+
+## ── Entry animation ─────────────────────────────────────────────────────────
+
+func _play_entry_animation() -> void:
+	var player_x := _player_sprite.position.x
+	var enemy_x := _enemy_sprite.position.x
+
+	_player_sprite.modulate.a = 0.0
+	_enemy_sprite.modulate.a = 0.0
+	_enemy_name.modulate.a = 0.0
+	_player_hp_frame.modulate.a = 0.0
+	_player_hp_bar.modulate.a = 0.0
+	_player_energy_frame.modulate.a = 0.0
+	_player_energy_bar.modulate.a = 0.0
+	_enemy_hp_frame.modulate.a = 0.0
+	_enemy_hp_bar.modulate.a = 0.0
+
+	var tween := create_tween().set_parallel(true)
+
+	# Player swings in from the left
+	tween.tween_property(_player_sprite, "position:x", player_x, 1.0) \
+		.from(player_x - 300.0) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(_player_sprite, "modulate:a", 1.0, 0.7).from(0.0)
+
+	# Enemy swings in from the right (0.2 s stagger)
+	tween.tween_property(_enemy_sprite, "position:x", enemy_x, 1.0) \
+		.from(enemy_x + 300.0) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_delay(0.2)
+	tween.tween_property(_enemy_sprite, "modulate:a", 1.0, 0.7).from(0.0).set_delay(0.2)
+
+	# Bars and name fade in once sprites have started arriving
+	for node: CanvasItem in [
+		_enemy_name,
+		_player_hp_frame, _player_hp_bar,
+		_player_energy_frame, _player_energy_bar,
+		_enemy_hp_frame, _enemy_hp_bar,
+	]:
+		tween.tween_property(node, "modulate:a", 1.0, 0.6).from(0.0).set_delay(0.55)
 
 
 ## ── VFX ──────────────────────────────────────────────────────────────────────
