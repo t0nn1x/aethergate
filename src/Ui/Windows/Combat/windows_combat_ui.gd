@@ -12,12 +12,16 @@ const BATTLEBACK_COUNT: int = 27
 @onready var _player_sprite: TextureRect = $PlayerSprite
 @onready var _enemy_sprite: TextureRect = $EnemySprite
 @onready var _enemy_name: Label = $EnemyNameLabel
+@onready var _player_hp_frame: TextureRect = $PlayerHpFrame
+@onready var _player_energy_frame: TextureRect = $PlayerEnergyFrame
+@onready var _enemy_hp_frame: TextureRect = $EnemyHpFrame
 @onready var _enemy_hp_bar: ProgressBar = $EnemyHpBar
 @onready var _player_hp_bar: ProgressBar = $PlayerHpBar
 @onready var _player_energy_bar: ProgressBar = $PlayerEnergyBar
 @onready var _round_log: RichTextLabel = $LogPanel/RoundLog
 @onready var _skill_bar: HBoxContainer = $SkillsPanel/CenterContainer/SkillBar
 @onready var _timer_label: Label = $TimerLabel
+@onready var _turn_label: Label = $TurnLabel
 
 var _context: CombatContext = null
 var _flow_controller: CombatFlowController = null
@@ -30,11 +34,42 @@ var _enemy_anim_time: float = 0.0
 var _timer_seconds: float = 0.0
 var _timer_running: bool = false
 
+var _player_vfx: CombatVfxPlayer = null
+var _enemy_vfx: CombatVfxPlayer = null
+var _pending_player_phase: CombatPhaseResult = null
+var _pending_enemy_phase: CombatPhaseResult = null
+
 
 func _ready() -> void:
-	_apply_bar_style(_enemy_hp_bar, Color(0.18, 0.82, 0.28, 1.0), Color(0.04, 0.18, 0.07, 0.9))
-	_apply_bar_style(_player_hp_bar, Color(0.18, 0.82, 0.28, 1.0), Color(0.04, 0.18, 0.07, 0.9))
-	_apply_bar_style(_player_energy_bar, Color(0.28, 0.55, 0.98, 1.0), Color(0.04, 0.1, 0.26, 0.9))
+	var charge := load("res://src/Ui/Assets/Gui-Hud/Charge Bars/Charge Bars A_05.png") as Texture2D
+	_player_hp_frame.texture = charge
+	_player_energy_frame.texture = charge
+	_enemy_hp_frame.texture = charge
+	_style_bar(_player_hp_bar, Color(0.78, 0.14, 0.14))
+	_style_bar(_enemy_hp_bar, Color(0.78, 0.14, 0.14))
+	_style_bar(_player_energy_bar, Color(0.18, 0.42, 0.82))
+
+	_enemy_vfx = CombatVfxPlayer.new()
+	_enemy_sprite.add_child(_enemy_vfx)
+	_enemy_vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_enemy_vfx.impact_hit.connect(_on_vfx_impact_hit)
+
+	_player_vfx = CombatVfxPlayer.new()
+	_player_sprite.add_child(_player_vfx)
+	_player_vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_player_vfx.impact_hit.connect(_on_vfx_impact_hit)
+
+
+func _style_bar(bar: ProgressBar, fill_color: Color) -> void:
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = Color(0.0, 0.0, 0.0, 0.0)
+	bg.set_content_margin_all(0.0)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = fill_color
+	fill.set_corner_radius_all(2)
+	fill.set_content_margin_all(0.0)
+	bar.add_theme_stylebox_override("background", bg)
+	bar.add_theme_stylebox_override("fill", fill)
 
 
 func initialize(context: CombatContext) -> void:
@@ -45,15 +80,19 @@ func initialize(context: CombatContext) -> void:
 	_enemy_name.text = context.enemy_snapshot.display_name
 	_build_skill_bar(context.player_snapshot.skill_loadout)
 	_refresh_bars()
+	_turn_label.text = "Turn 1"
 
 	var flow: CombatFlowController = get_tree().get_first_node_in_group("combat_flow")
 	if flow:
 		_flow_controller = flow
 		flow.round_started.connect(_on_round_started)
-		flow.round_result_ready.connect(_on_round_result)
 		flow.awaiting_player_action.connect(_on_awaiting_player_action)
 
-	CombatEvents.round_resolved.connect(_on_round_resolved)
+	CombatEvents.player_phase_resolved.connect(_on_player_phase_resolved)
+	CombatEvents.enemy_phase_resolved.connect(_on_enemy_phase_resolved)
+	CombatEvents.round_completed.connect(_on_round_completed)
+
+	_play_entry_animation()
 
 
 func _process(delta: float) -> void:
@@ -123,29 +162,6 @@ func _advance_sprite_animation(
 	return anim_time
 
 
-## ── Bar styling ──────────────────────────────────────────────────────────────
-
-func _apply_bar_style(bar: ProgressBar, fill_color: Color, bg_color: Color) -> void:
-	if bar == null:
-		return
-	var bg := StyleBoxFlat.new()
-	bg.bg_color = bg_color
-	bg.set_corner_radius_all(4)
-	bg.border_width_left = 1
-	bg.border_width_top = 1
-	bg.border_width_right = 1
-	bg.border_width_bottom = 1
-	bg.border_color = fill_color.darkened(0.45)
-
-	var fill := StyleBoxFlat.new()
-	fill.bg_color = fill_color
-	fill.set_corner_radius_all(3)
-
-	bar.add_theme_stylebox_override("background", bg)
-	bar.add_theme_stylebox_override("fill", fill)
-	bar.show_percentage = false
-
-
 ## ── Bar refresh ──────────────────────────────────────────────────────────────
 
 func _refresh_bars() -> void:
@@ -167,8 +183,17 @@ func _set_bar(bar: ProgressBar, current: float, maximum: float) -> void:
 
 func _build_skill_bar(skills: Array[SkillData]) -> void:
 	for child in _skill_bar.get_children():
-		child.queue_free()
+		child.free()
 	var compass_font := load("res://Assets/Fonts/compass/Compass 9.ttf") as FontFile
+
+	var attack_btn := Button.new()
+	attack_btn.text = "Attack"
+	attack_btn.tooltip_text = "Basic attack — free, always available"
+	attack_btn.custom_minimum_size = Vector2(140, 52)
+	_style_skill_button(attack_btn, compass_font)
+	attack_btn.pressed.connect(func(): _flow_controller.submit_player_action(null))
+	_skill_bar.add_child(attack_btn)
+
 	for skill in skills:
 		var btn := Button.new()
 		btn.text = skill.display_name
@@ -233,8 +258,8 @@ func _set_skill_bar_enabled(enabled: bool) -> void:
 
 ## ── Flow controller signals ──────────────────────────────────────────────────
 
-func _on_round_started(round_number: int) -> void:
-	_round_log.append_text("\n[color=#c8a84b]── Round %d ──[/color]" % round_number)
+func _on_round_started(turn_number: int) -> void:
+	_round_log.append_text("\n[color=#c8a84b]── Turn %d ──[/color]" % turn_number)
 
 
 func _on_awaiting_player_action() -> void:
@@ -244,40 +269,158 @@ func _on_awaiting_player_action() -> void:
 	_timer_label.text = "20"
 
 
-func _on_round_result(result: CombatRoundResult) -> void:
+func _on_player_phase_resolved(result: CombatPhaseResult) -> void:
 	_timer_running = false
 	_set_skill_bar_enabled(false)
-	_refresh_bars()
-	_append_round_log(result)
+	_pending_player_phase = result
+	var cfg := _build_vfx_config(result, _context.player_snapshot)
+	var vfx := _player_vfx if cfg.target == CombatVfxConfig.VfxTarget.ATTACKER else _enemy_vfx
+	vfx.play(cfg)
 
 
-func _on_round_resolved(_result: CombatRoundResult) -> void:
-	pass  # reserved for hit animations
+func _on_enemy_phase_resolved(result: CombatPhaseResult) -> void:
+	_pending_enemy_phase = result
+	var cfg := _build_vfx_config(result, _context.enemy_snapshot)
+	var vfx := _enemy_vfx if cfg.target == CombatVfxConfig.VfxTarget.ATTACKER else _player_vfx
+	vfx.play(cfg)
+
+
+func _on_vfx_impact_hit() -> void:
+	if _pending_player_phase != null:
+		if _pending_player_phase.combat_ended:
+			_play_death_animation(_enemy_sprite, _enemy_name)
+		elif _pending_player_phase.defender_hp_delta < 0:
+			_shake_sprite(_enemy_sprite)
+		_refresh_bars()
+		_append_phase_log_player(_pending_player_phase)
+		_pending_player_phase = null
+	elif _pending_enemy_phase != null:
+		if _pending_enemy_phase.combat_ended:
+			_play_death_animation(_player_sprite)
+		elif _pending_enemy_phase.defender_hp_delta < 0:
+			_shake_sprite(_player_sprite)
+		_refresh_bars()
+		_append_phase_log_enemy(_pending_enemy_phase)
+		_pending_enemy_phase = null
+
+
+func _on_round_completed(turn_number: int, _player_phase: CombatPhaseResult, _enemy_phase: CombatPhaseResult) -> void:
+	_turn_label.text = "Turn %d" % (turn_number + 1)
+
+
+## ── Entry animation ─────────────────────────────────────────────────────────
+
+func _play_entry_animation() -> void:
+	var player_x := _player_sprite.position.x
+	var enemy_x := _enemy_sprite.position.x
+
+	_player_sprite.modulate.a = 0.0
+	_enemy_sprite.modulate.a = 0.0
+	_enemy_name.modulate.a = 0.0
+	_player_hp_frame.modulate.a = 0.0
+	_player_hp_bar.modulate.a = 0.0
+	_player_energy_frame.modulate.a = 0.0
+	_player_energy_bar.modulate.a = 0.0
+	_enemy_hp_frame.modulate.a = 0.0
+	_enemy_hp_bar.modulate.a = 0.0
+
+	var tween := create_tween().set_parallel(true)
+
+	# Player swings in from the left
+	tween.tween_property(_player_sprite, "position:x", player_x, 1.0) \
+		.from(player_x - 300.0) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(_player_sprite, "modulate:a", 1.0, 0.7).from(0.0)
+
+	# Enemy swings in from the right (0.2 s stagger)
+	tween.tween_property(_enemy_sprite, "position:x", enemy_x, 1.0) \
+		.from(enemy_x + 300.0) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_delay(0.2)
+	tween.tween_property(_enemy_sprite, "modulate:a", 1.0, 0.7).from(0.0).set_delay(0.2)
+
+	# Bars and name fade in once sprites have started arriving
+	for node: CanvasItem in [
+		_enemy_name,
+		_player_hp_frame, _player_hp_bar,
+		_player_energy_frame, _player_energy_bar,
+		_enemy_hp_frame, _enemy_hp_bar,
+	]:
+		tween.tween_property(node, "modulate:a", 1.0, 0.6).from(0.0).set_delay(0.55)
+
+
+## ── Death + hit animations ───────────────────────────────────────────────────
+
+func _play_death_animation(sprite: TextureRect, label: Label = null) -> void:
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(sprite, "position:y", sprite.position.y - 180.0, 1.2) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite, "modulate:a", 0.0, 1.0).set_delay(0.2)
+	if label != null:
+		tween.tween_property(label, "position:y", label.position.y - 30.0, 0.9) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_delay(0.1)
+		tween.tween_property(label, "modulate:a", 0.0, 0.7).set_delay(0.15)
+
+
+func _shake_sprite(sprite: TextureRect) -> void:
+	var ox := sprite.position.x
+	var tween := create_tween()
+	tween.tween_property(sprite, "position:x", ox + 10.0, 0.04)
+	tween.tween_property(sprite, "position:x", ox - 8.0,  0.04)
+	tween.tween_property(sprite, "position:x", ox + 5.0,  0.04)
+	tween.tween_property(sprite, "position:x", ox - 3.0,  0.04)
+	tween.tween_property(sprite, "position:x", ox,        0.04)
+
+
+## ── VFX ──────────────────────────────────────────────────────────────────────
+
+func _build_vfx_config(result: CombatPhaseResult, attacker_snapshot: CombatantSnapshot) -> CombatVfxConfig:
+	var cfg := CombatVfxConfig.new()
+	var skill: SkillData = result.action.skill_used if result.action else null
+	if skill != null and skill.vfx_texture != null:
+		cfg.texture = skill.vfx_texture
+		cfg.hframes = skill.vfx_hframes
+		cfg.fps = skill.vfx_fps
+		cfg.impact_frame = skill.vfx_impact_frame
+		cfg.scale = skill.vfx_scale
+		cfg.target = skill.vfx_target
+	elif not attacker_snapshot.default_attack_vfx_pool.is_empty():
+		return attacker_snapshot.default_attack_vfx_pool.pick_random()
+	else:
+		cfg.texture = attacker_snapshot.default_attack_vfx_texture
+		cfg.hframes = attacker_snapshot.default_attack_vfx_hframes
+		cfg.fps = attacker_snapshot.default_attack_vfx_fps
+		cfg.impact_frame = attacker_snapshot.default_attack_vfx_impact_frame
+		cfg.scale = attacker_snapshot.default_attack_vfx_scale
+	return cfg
 
 
 ## ── Round log ────────────────────────────────────────────────────────────────
 
-func _append_round_log(result: CombatRoundResult) -> void:
-	if result.hp_delta_enemy < 0:
+func _append_phase_log_player(result: CombatPhaseResult) -> void:
+	if result.defender_hp_delta < 0:
 		_round_log.append_text(
-			"\n[color=#4ecfff]You dealt [b]%d[/b] damage.[/color]" % abs(result.hp_delta_enemy)
+			"\n[color=#4ecfff]You dealt [b]%d[/b] damage.[/color]" % abs(result.defender_hp_delta)
 		)
-	elif result.hp_delta_enemy > 0:
-		_round_log.append_text("\nYou healed enemy for %d." % result.hp_delta_enemy)
-
-	if result.hp_delta_player < 0:
+	if result.attacker_hp_delta > 0:
 		_round_log.append_text(
-			"\n[color=#ff6060]Enemy dealt [b]%d[/b] damage to you.[/color]" % abs(result.hp_delta_player)
+			"\n[color=#55ff88]You healed [b]%d[/b] HP.[/color]" % result.attacker_hp_delta
 		)
-	elif result.hp_delta_player > 0:
-		_round_log.append_text(
-			"\n[color=#55ff88]You healed [b]%d[/b] HP.[/color]" % result.hp_delta_player
-		)
-
+	if result.action and result.action.skill_used \
+			and result.action.skill_used.skill_type == SkillData.SkillType.DEFEND:
+		_round_log.append_text("\n[color=#aaaaee]You are defending.[/color]")
 	if result.combat_ended:
-		if result.winner_id == _context.player_snapshot.combatant_id:
-			_round_log.append_text("\n\n[b][color=#ffd700]✦ Victory! ✦[/color][/b]")
-		elif result.winner_id == _context.enemy_snapshot.combatant_id:
-			_round_log.append_text("\n\n[b][color=#ff4444]✦ Defeated! ✦[/color][/b]")
-		else:
-			_round_log.append_text("\n\n[b][color=#aaaaaa]Draw![/color][/b]")
+		_round_log.append_text("\n\n[b][color=#ffd700]✦ Victory! ✦[/color][/b]")
+
+
+func _append_phase_log_enemy(result: CombatPhaseResult) -> void:
+	if result.defender_hp_delta < 0:
+		_round_log.append_text(
+			"\n[color=#ff6060]Enemy dealt [b]%d[/b] damage to you.[/color]" % abs(result.defender_hp_delta)
+		)
+	if result.attacker_hp_delta > 0:
+		_round_log.append_text("\nEnemy healed %d HP." % result.attacker_hp_delta)
+	if result.action and result.action.skill_used \
+			and result.action.skill_used.skill_type == SkillData.SkillType.DEFEND:
+		_round_log.append_text("\nEnemy is defending.")
+	if result.combat_ended:
+		_round_log.append_text("\n\n[b][color=#ff4444]✦ Defeated! ✦[/color][/b]")

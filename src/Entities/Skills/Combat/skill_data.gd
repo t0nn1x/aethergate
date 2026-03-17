@@ -26,3 +26,15 @@ enum SkillType { ATTACK, DEFEND, HEAL, BUFF, DEBUFF }
 ## Stronger skill variants unlocked at mastery tiers 3, 6, 10.
 ## Each entry should be a SkillData resource.
 @export var mastery_variants: Array[Resource] = []
+
+@export_group("VFX")
+## Sprite sheet played over the defender when this skill lands.
+## Leave blank to play no VFX.
+@export var vfx_texture: Texture2D = null
+@export var vfx_hframes: int = 1
+@export var vfx_fps: float = 12.0
+## Frame index (0-based) at which the HP bar updates.
+@export var vfx_impact_frame: int = 0
+@export var vfx_scale: float = 1.0
+## Who the VFX is centered over. Use ATTACKER for self-buffs.
+@export var vfx_target: CombatVfxConfig.VfxTarget = CombatVfxConfig.VfxTarget.DEFENDER

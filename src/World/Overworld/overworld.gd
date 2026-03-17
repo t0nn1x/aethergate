@@ -24,9 +24,14 @@ extends Node2D
 @onready var creature_action_hud: CreatureActionHud = get_node_or_null(creature_action_hud_path) as CreatureActionHud
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
+@export var combat_approach_radius: float = 10.0
+
 ## Backward-compatible local-player reference.
 var player: Player = null
 var _players_by_id: Dictionary = {}
+var _creature_in_combat: Creature = null
+var _pending_enemy_snapshot: CombatantSnapshot = null
+var _is_approaching_for_combat: bool = false
 @onready var creature_selection_controller: OverworldCreatureSelectionController = $OverworldCreatureSelectionController
 @onready var character_creator_controller: OverworldCharacterCreatorController = $OverworldCharacterCreatorController
 @onready var _combat_preview_panel: CombatPreviewPanel = get_node_or_null("CombatPreviewPanel") as CombatPreviewPanel
@@ -248,18 +253,54 @@ func _on_creature_fight_requested(creature_node: Node) -> void:
 	var creature: Creature = creature_node as Creature
 	if creature == null or not is_instance_valid(creature):
 		return
+	_creature_in_combat = creature
 	if _combat_preview_panel:
 		_combat_preview_panel.show_for_creature(creature.creature_data)
 
 
+func _process(_delta: float) -> void:
+	if not _is_approaching_for_combat:
+		return
+	if _creature_in_combat == null or not is_instance_valid(_creature_in_combat):
+		_is_approaching_for_combat = false
+		_pending_enemy_snapshot = null
+		return
+	var local_player: Player = get_local_player()
+	if local_player == null:
+		return
+	if local_player.global_position.distance_to(_creature_in_combat.global_position) <= combat_approach_radius:
+		_is_approaching_for_combat = false
+		_begin_combat()
+
+
 func _on_combat_fight_confirmed(enemy_snapshot: CombatantSnapshot) -> void:
-	var player_snap: CombatantSnapshot = _build_player_snapshot()
-	CombatEvents.pending_player_snapshot = player_snap
-	CombatEvents.pending_enemy_snapshot = enemy_snapshot
+	_pending_enemy_snapshot = enemy_snapshot
+	var local_player: Player = get_local_player()
+	if local_player == null or _creature_in_combat == null or not is_instance_valid(_creature_in_combat):
+		_begin_combat()
+		return
+	if local_player.global_position.distance_to(_creature_in_combat.global_position) <= combat_approach_radius:
+		_begin_combat()
+	else:
+		_is_approaching_for_combat = true
+		var move_service: PlayerMoveRequestService = local_player.get_node_or_null(
+			"PlayerMoveRequestService"
+		) as PlayerMoveRequestService
+		if move_service:
+			move_service.request_move_target(_creature_in_combat.global_position)
+
+
+func _begin_combat() -> void:
+	CombatEvents.pending_player_snapshot = _build_player_snapshot()
+	CombatEvents.pending_enemy_snapshot = _pending_enemy_snapshot
+	_pending_enemy_snapshot = null
 	GameManager.change_state(GameManager.GameState.COMBAT)
 
 
 func _on_combat_preview_dismissed() -> void:
+	_is_approaching_for_combat = false
+	_pending_enemy_snapshot = null
+	_creature_in_combat = null
 	if creature_selection_controller:
 		creature_selection_controller.clear_selection()
 
@@ -267,18 +308,22 @@ func _on_combat_preview_dismissed() -> void:
 func _on_combat_ended(result: CombatRoundResult) -> void:
 	if result.winner_id == &"player":
 		PlayerProfileService.add_xp(50)
+		if _creature_in_combat and is_instance_valid(_creature_in_combat):
+			creature_spawner.despawn_creature(_creature_in_combat)
+	_creature_in_combat = null
 
 
 func _build_player_snapshot() -> CombatantSnapshot:
 	var stats := CombatStats.new()
 	stats.max_hp = 100
 	stats.max_energy = 100
-	stats.attack = 12.0
-	stats.defense = 5.0
 	var snap := CombatantSnapshot.new()
 	snap.combatant_id = &"player"
 	snap.display_name = "Player"
-	snap.level = 1
+	snap.level = PlayerProfileService.get_player_level()
+	var weapon_base_damage: float = 0.0  # TODO: replace with equipped weapon base damage
+	stats.attack = 10.0 + snap.level * 2.0 + weapon_base_damage
+	stats.defense = 5.0
 	snap.base_stats = stats
 	## TODO: replace with real player gear loadout once player combat component exists.
 	snap.skill_loadout = []
@@ -292,4 +337,17 @@ func _build_player_snapshot() -> CombatantSnapshot:
 		snap.sprite_frame_height = 32
 		snap.sprite_idle_fps = 2.0
 		snap.sprite_default_frame = 0
+		for vfx_path: String in [
+			"res://src/Entities/Systems/Combat/Assets/VFX/Hit Horizontal White.png",
+			"res://src/Entities/Systems/Combat/Assets/VFX/Hit Vertical White.png",
+		]:
+			var tex := load(vfx_path) as Texture2D
+			if tex:
+				var cfg := CombatVfxConfig.new()
+				cfg.texture = tex
+				cfg.hframes = 5
+				cfg.fps = 18.0
+				cfg.impact_frame = 2
+				cfg.scale = 2.0
+				snap.default_attack_vfx_pool.append(cfg)
 	return snap

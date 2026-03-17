@@ -1,16 +1,19 @@
 class_name CombatScene
-extends Node
+extends CanvasLayer
 
 ## Entry point for the combat game state.
 ## Reads pending snapshots from CombatEvents (set by overworld before scene change).
 
 @onready var _flow_controller: CombatFlowController = $CombatFlowController
 @onready var _combat_ui: Node = $CombatUi
+@onready var _result_panel: CombatResultPanel = $CombatResultPanel
 
 var _context: CombatContext = null
+var _is_victory: bool = false
 
 
 func _ready() -> void:
+	_result_panel.continue_pressed.connect(_on_result_panel_continue)
 	if not CombatEvents.combat_ended.is_connected(_on_combat_ended):
 		CombatEvents.combat_ended.connect(_on_combat_ended)
 	if CombatEvents.pending_player_snapshot and CombatEvents.pending_enemy_snapshot:
@@ -30,8 +33,13 @@ func _start_combat(
 	_flow_controller.start_combat(_context, strategy)
 
 
-func _on_combat_ended(_result: CombatRoundResult) -> void:
-	## Small delay so the UI can show the result before leaving.
-	await get_tree().create_timer(1.5).timeout
+func _on_combat_ended(result: CombatRoundResult) -> void:
+	_is_victory = result.winner_id == _context.player_snapshot.combatant_id
+	# Delay result panel so the death animation (float + fade, ~1.2 s) plays first.
+	get_tree().create_timer(1.4).timeout.connect(
+		func() -> void: _result_panel.show_result(_is_victory, _context.enemy_snapshot.display_name, 50)
+	)
+
+
+func _on_result_panel_continue() -> void:
 	GameManager.change_state(GameManager.GameState.OVERWORLD)
-	get_tree().change_scene_to_file("res://src/World/main.tscn")

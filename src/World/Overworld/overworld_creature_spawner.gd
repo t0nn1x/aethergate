@@ -122,6 +122,8 @@ func despawn_chunk_creatures(chunk_coord: Vector2i) -> int:
 	if _spawned_by_chunk.has(chunk_coord):
 		var spawned: Array = _spawned_by_chunk.get(chunk_coord, []) as Array
 		for node_variant in spawned:
+			if not is_instance_valid(node_variant):
+				continue
 			var creature: Creature = node_variant as Creature
 			if creature and is_instance_valid(creature):
 				creature_despawned.emit(creature, chunk_coord)
@@ -131,6 +133,21 @@ func despawn_chunk_creatures(chunk_coord: Vector2i) -> int:
 
 	_clear_chunk_zone_states(chunk_coord)
 	return despawned_count
+
+
+func despawn_creature(creature: Creature) -> void:
+	if creature == null or not is_instance_valid(creature):
+		return
+	var found_chunk_coord: Vector2i = INVALID_CHUNK_COORD
+	for chunk_coord_variant in _spawned_by_chunk.keys():
+		var chunk_coord: Vector2i = chunk_coord_variant as Vector2i
+		var spawned: Array = _spawned_by_chunk.get(chunk_coord, []) as Array
+		if spawned.has(creature):
+			spawned.erase(creature)
+			found_chunk_coord = chunk_coord
+			break
+	creature_despawned.emit(creature, found_chunk_coord)
+	creature.queue_free()
 
 
 func spawn_chunk_creatures(chunk: OverworldChunk, chunk_coord: Vector2i) -> int:

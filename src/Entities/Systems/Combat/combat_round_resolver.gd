@@ -1,61 +1,46 @@
 class_name CombatRoundResolver
 extends Node
 
-## Pure, stateless round resolver.
-## Inputs: two CombatActions + current HP values.
-## Output: a CombatRoundResult resource — no side effects, no state stored here.
+## Pure, stateless phase resolver.
+## Input: one CombatAction + attacker/defender snapshots + defender's current HP.
+## Output: a CombatPhaseResult resource — no side effects, no state stored here.
 
 ## Minimum damage dealt after defense, so combat never stalls.
 const MIN_DAMAGE: int = 1
 
 
-func resolve(
-	round_number: int,
-	player_action: CombatAction,
-	enemy_action: CombatAction,
-	player_snapshot: CombatantSnapshot,
-	enemy_snapshot: CombatantSnapshot,
-	player_current_hp: int,
-	enemy_current_hp: int
-) -> CombatRoundResult:
-	var result := CombatRoundResult.new()
-	result.round_number = round_number
-	result.player_action = player_action
-	result.enemy_action = enemy_action
+## Resolve a single phase: one combatant acts against another.
+## Heal actions restore the attacker's HP (attacker_hp_delta > 0, defender unaffected).
+## Defend actions deal 0 damage (defensive benefit tracked externally for future use).
+func resolve_phase(
+	action: CombatAction,
+	attacker_snapshot: CombatantSnapshot,
+	defender_snapshot: CombatantSnapshot,
+	defender_current_hp: int
+) -> CombatPhaseResult:
+	var result := CombatPhaseResult.new()
+	result.attacker_id = attacker_snapshot.combatant_id
+	result.defender_id = defender_snapshot.combatant_id
+	result.action = action
 
-	# Healing overrides damage for the caster.
-	if _is_heal(player_action):
-		result.hp_delta_player = _calculate_heal(player_action, player_snapshot)
+	if _is_heal(action):
+		result.attacker_hp_delta = _calculate_heal(action, attacker_snapshot)
+		result.defender_hp_delta = 0
+		result.defender_hp_after = defender_current_hp
+	elif _is_defend(action):
+		result.attacker_hp_delta = 0
+		result.defender_hp_delta = 0
+		result.defender_hp_after = defender_current_hp
 	else:
-		result.hp_delta_player = -_calculate_damage(enemy_action, enemy_snapshot, player_snapshot)
+		var damage: int = _calculate_damage(action, attacker_snapshot, defender_snapshot)
+		result.defender_hp_delta = -damage
+		result.attacker_hp_delta = 0
+		result.defender_hp_after = clampi(
+			defender_current_hp - damage, 0, defender_snapshot.base_stats.max_hp
+		)
 
-	if _is_heal(enemy_action):
-		result.hp_delta_enemy = _calculate_heal(enemy_action, enemy_snapshot)
-	else:
-		result.hp_delta_enemy = -_calculate_damage(player_action, player_snapshot, enemy_snapshot)
-
-	# DEFEND halves incoming damage (applied after base calculation).
-	if _is_defend(player_action) and result.hp_delta_player < 0:
-		result.hp_delta_player = result.hp_delta_player / 2
-
-	if _is_defend(enemy_action) and result.hp_delta_enemy < 0:
-		result.hp_delta_enemy = result.hp_delta_enemy / 2
-
-	# Clamp to valid HP range and check win condition.
-	var new_player_hp: int = clampi(
-		player_current_hp + result.hp_delta_player, 0, player_snapshot.base_stats.max_hp
-	)
-	var new_enemy_hp: int = clampi(
-		enemy_current_hp + result.hp_delta_enemy, 0, enemy_snapshot.base_stats.max_hp
-	)
-
-	if new_player_hp <= 0 or new_enemy_hp <= 0:
+	if result.defender_hp_after <= 0:
 		result.combat_ended = true
-		if new_enemy_hp <= 0 and new_player_hp > 0:
-			result.winner_id = player_snapshot.combatant_id
-		elif new_player_hp <= 0 and new_enemy_hp > 0:
-			result.winner_id = enemy_snapshot.combatant_id
-		# Simultaneous kill → winner_id stays empty (draw).
 
 	return result
 
