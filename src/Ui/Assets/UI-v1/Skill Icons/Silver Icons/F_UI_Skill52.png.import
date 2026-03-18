@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://hairlore3lws"
-path="res://.godot/imported/F_UI_Skill52.png-fd2b4df0c32a61af250aacade9a02c64.ctex"
+path="res://.godot/imported/F_UI_Skill52.png-dcebb95a76e892739500492c6825b811.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Skill Icons/Silver Icons/F_UI_Skill52.png"
-dest_files=["res://.godot/imported/F_UI_Skill52.png-fd2b4df0c32a61af250aacade9a02c64.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Skill Icons/Silver Icons/F_UI_Skill52.png"
+dest_files=["res://.godot/imported/F_UI_Skill52.png-dcebb95a76e892739500492c6825b811.ctex"]
 
 [params]
 

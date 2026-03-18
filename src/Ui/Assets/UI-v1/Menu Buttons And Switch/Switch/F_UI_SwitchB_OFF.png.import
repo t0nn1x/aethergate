@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b58xi54vmi7v6"
-path="res://.godot/imported/F_UI_SwitchB_OFF.png-558967f2de1e5fb105659ec26468e092.ctex"
+path="res://.godot/imported/F_UI_SwitchB_OFF.png-f840178485385b0f8138399fe6f0dd67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Switch/F_UI_SwitchB_OFF.png"
-dest_files=["res://.godot/imported/F_UI_SwitchB_OFF.png-558967f2de1e5fb105659ec26468e092.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Menu Buttons And Switch/Switch/F_UI_SwitchB_OFF.png"
+dest_files=["res://.godot/imported/F_UI_SwitchB_OFF.png-f840178485385b0f8138399fe6f0dd67.ctex"]
 
 [params]
 

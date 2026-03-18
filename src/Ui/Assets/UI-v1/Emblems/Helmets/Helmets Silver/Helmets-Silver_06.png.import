@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dj3wgaq2ayc43"
-path="res://.godot/imported/Helmets-Silver_06.png-d0f4f4f0a17201680e27a12a1d68ec2c.ctex"
+path="res://.godot/imported/Helmets-Silver_06.png-fba8d7439513bb12253985b6f1979aa3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Emblems/Helmets/Helmets Silver/Helmets-Silver_06.png"
-dest_files=["res://.godot/imported/Helmets-Silver_06.png-d0f4f4f0a17201680e27a12a1d68ec2c.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Emblems/Helmets/Helmets Silver/Helmets-Silver_06.png"
+dest_files=["res://.godot/imported/Helmets-Silver_06.png-fba8d7439513bb12253985b6f1979aa3.ctex"]
 
 [params]
 

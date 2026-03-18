@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vxdkv1hq7eet"
-path="res://.godot/imported/F_U_SlidebarHandle_A4.png-e633a622b6dc201bdefcce2d8cec9a87.ctex"
+path="res://.godot/imported/F_U_SlidebarHandle_A4.png-6609345f5d5b5fe5f54d0c2ab6992093.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Slide Bar/Handles/F_U_SlidebarHandle_A4.png"
-dest_files=["res://.godot/imported/F_U_SlidebarHandle_A4.png-e633a622b6dc201bdefcce2d8cec9a87.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Slide Bar/Handles/F_U_SlidebarHandle_A4.png"
+dest_files=["res://.godot/imported/F_U_SlidebarHandle_A4.png-6609345f5d5b5fe5f54d0c2ab6992093.ctex"]
 
 [params]
 

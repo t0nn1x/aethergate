@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://df6py4yjvltwf"
-path="res://.godot/imported/F_UI_MenuIcons_Tile Map 16x16.png-e96018f9238daf0f2a01ef24f21634ab.ctex"
+path="res://.godot/imported/F_UI_MenuIcons_Tile Map 16x16.png-aa1dc2930d287ef43ac5d741c2fdaa52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Menu Icons/F_UI_MenuIcons_Tile Map 16x16.png"
-dest_files=["res://.godot/imported/F_UI_MenuIcons_Tile Map 16x16.png-e96018f9238daf0f2a01ef24f21634ab.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_Tile Map 16x16.png"
+dest_files=["res://.godot/imported/F_UI_MenuIcons_Tile Map 16x16.png-aa1dc2930d287ef43ac5d741c2fdaa52.ctex"]
 
 [params]
 

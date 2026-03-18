@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://celhqbbfeo5bl"
-path="res://.godot/imported/Base-D_03.png-fab36fd80d9f39401e6a6d5fe7546a46.ctex"
+path="res://.godot/imported/Base-D_03.png-2a2fb76aadfbde0b29e762098f56cb12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Emblems/Bases/BaseD/Base-D_03.png"
-dest_files=["res://.godot/imported/Base-D_03.png-fab36fd80d9f39401e6a6d5fe7546a46.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Emblems/Bases/BaseD/Base-D_03.png"
+dest_files=["res://.godot/imported/Base-D_03.png-2a2fb76aadfbde0b29e762098f56cb12.ctex"]
 
 [params]
 

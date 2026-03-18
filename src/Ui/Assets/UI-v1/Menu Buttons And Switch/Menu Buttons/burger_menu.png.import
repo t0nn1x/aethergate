@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vhylixe6p7vk"
-path="res://.godot/imported/burger_menu.png-1e0f27990b7f689a2e337a79d872aecb.ctex"
+path="res://.godot/imported/burger_menu.png-a47e00d46ae0c455b94463a93ea00cf5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/burger_menu.png"
-dest_files=["res://.godot/imported/burger_menu.png-1e0f27990b7f689a2e337a79d872aecb.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/burger_menu.png"
+dest_files=["res://.godot/imported/burger_menu.png-a47e00d46ae0c455b94463a93ea00cf5.ctex"]
 
 [params]
 

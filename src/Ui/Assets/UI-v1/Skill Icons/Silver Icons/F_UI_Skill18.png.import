@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5x6wdyw0nxh2"
-path="res://.godot/imported/F_UI_Skill18.png-a7258b1a00c2f31a68a7266a46949b9a.ctex"
+path="res://.godot/imported/F_UI_Skill18.png-405ecb542a97e2206fb18033430a6106.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Skill Icons/Silver Icons/F_UI_Skill18.png"
-dest_files=["res://.godot/imported/F_UI_Skill18.png-a7258b1a00c2f31a68a7266a46949b9a.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Skill Icons/Silver Icons/F_UI_Skill18.png"
+dest_files=["res://.godot/imported/F_UI_Skill18.png-405ecb542a97e2206fb18033430a6106.ctex"]
 
 [params]
 

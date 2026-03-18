@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drw8qkxq4xagv"
-path="res://.godot/imported/Red Square Cluster.png-d9dae0ddcdb700ac7120b9f2b96c7236.ctex"
+path="res://.godot/imported/Red Square Cluster.png-53c6fa52c703998276ea397506371560.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Bars and clusters/Red Square Cluster.png"
-dest_files=["res://.godot/imported/Red Square Cluster.png-d9dae0ddcdb700ac7120b9f2b96c7236.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Bars and clusters/Red Square Cluster.png"
+dest_files=["res://.godot/imported/Red Square Cluster.png-53c6fa52c703998276ea397506371560.ctex"]
 
 [params]
 

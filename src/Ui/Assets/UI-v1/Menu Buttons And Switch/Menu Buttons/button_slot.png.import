@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://duafcy84sgphq"
-path="res://.godot/imported/button_slot.png-2d975f9d87df91d5f8bb9625e7722264.ctex"
+path="res://.godot/imported/button_slot.png-f1899a78681ef38d6ea331c230bf9bd1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png"
-dest_files=["res://.godot/imported/button_slot.png-2d975f9d87df91d5f8bb9625e7722264.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png"
+dest_files=["res://.godot/imported/button_slot.png-f1899a78681ef38d6ea331c230bf9bd1.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkjw4ts4v1gj4"
-path="res://.godot/imported/Silver Bar.png-6a85095ca338c305df3087971ef7574f.ctex"
+path="res://.godot/imported/Silver Bar.png-e0f18d18b133907734ad9b5d469c38cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Bars and clusters/Silver Bar.png"
-dest_files=["res://.godot/imported/Silver Bar.png-6a85095ca338c305df3087971ef7574f.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Bars and clusters/Silver Bar.png"
+dest_files=["res://.godot/imported/Silver Bar.png-e0f18d18b133907734ad9b5d469c38cf.ctex"]
 
 [params]
 

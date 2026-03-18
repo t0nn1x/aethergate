@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmeq7h6r7v8rw"
-path="res://.godot/imported/MedallionsL_02.png-179193ddcdcf04ce75239e1135385f3e.ctex"
+path="res://.godot/imported/MedallionsL_02.png-0673b2fc16fcfb723a60c53666001c6c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Medallions/Animated Medallions/MedallionsL_02.png"
-dest_files=["res://.godot/imported/MedallionsL_02.png-179193ddcdcf04ce75239e1135385f3e.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Medallions/Animated Medallions/MedallionsL_02.png"
+dest_files=["res://.godot/imported/MedallionsL_02.png-0673b2fc16fcfb723a60c53666001c6c.ctex"]
 
 [params]
 

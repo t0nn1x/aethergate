@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2adbu03hiboe"
-path="res://.godot/imported/Clan-Marks_17.png-738fcd508a5f83a6f667031c836e961f.ctex"
+path="res://.godot/imported/Clan-Marks_17.png-f5b717457f2f117fc3dca8e08c8b1136.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Emblems/Clans/Clan Marks/Clan-Marks_17.png"
-dest_files=["res://.godot/imported/Clan-Marks_17.png-738fcd508a5f83a6f667031c836e961f.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Emblems/Clans/Clan Marks/Clan-Marks_17.png"
+dest_files=["res://.godot/imported/Clan-Marks_17.png-f5b717457f2f117fc3dca8e08c8b1136.ctex"]
 
 [params]
 

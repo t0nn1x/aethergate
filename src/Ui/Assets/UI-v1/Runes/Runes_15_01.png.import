@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://15l5pir1yi3"
-path="res://.godot/imported/Runes_15_01.png-3fee3395617fb2fc7dda4ba9579a07d6.ctex"
+path="res://.godot/imported/Runes_15_01.png-bdf15a0481a3a1495fef4448f9f4e6bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Runes/Runes_15_01.png"
-dest_files=["res://.godot/imported/Runes_15_01.png-3fee3395617fb2fc7dda4ba9579a07d6.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Runes/Runes_15_01.png"
+dest_files=["res://.godot/imported/Runes_15_01.png-bdf15a0481a3a1495fef4448f9f4e6bd.ctex"]
 
 [params]
 

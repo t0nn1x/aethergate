@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wsh2bfk7brts"
-path="res://.godot/imported/Weapons-A-Silver_14.png-48dd11efcc37d69d75d294f951643c8b.ctex"
+path="res://.godot/imported/Weapons-A-Silver_14.png-0b27ca59e1b6be625d5dd3a0259c3f44.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Emblems/Weapons/Weapons A/Weapons A Silver/Weapons-A-Silver_14.png"
-dest_files=["res://.godot/imported/Weapons-A-Silver_14.png-48dd11efcc37d69d75d294f951643c8b.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Emblems/Weapons/Weapons A/Weapons A Silver/Weapons-A-Silver_14.png"
+dest_files=["res://.godot/imported/Weapons-A-Silver_14.png-0b27ca59e1b6be625d5dd3a0259c3f44.ctex"]
 
 [params]
 

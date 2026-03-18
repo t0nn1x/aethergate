@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cito14ssk7nmr"
-path="res://.godot/imported/Base-B_04.png-ea1ee57dc5de99420c3ac32b98684bfe.ctex"
+path="res://.godot/imported/Base-B_04.png-a85c9ea2a49eb3e28ff25b48e6df8602.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Emblems/Bases/Base B/Base-B_04.png"
-dest_files=["res://.godot/imported/Base-B_04.png-ea1ee57dc5de99420c3ac32b98684bfe.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Emblems/Bases/Base B/Base-B_04.png"
+dest_files=["res://.godot/imported/Base-B_04.png-a85c9ea2a49eb3e28ff25b48e6df8602.ctex"]
 
 [params]
 

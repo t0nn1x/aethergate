@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ch3ajg6jeejak"
-path="res://.godot/imported/UI_ArrowsDiag3.png-f6a28c65bfba1e63b9130ba1b5b180ba.ctex"
+path="res://.godot/imported/UI_ArrowsDiag3.png-6139585ceb36a409488b0946def3de52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Ps controllers/Standard Controller/UI_ArrowsDiag3.png"
-dest_files=["res://.godot/imported/UI_ArrowsDiag3.png-f6a28c65bfba1e63b9130ba1b5b180ba.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Ps controllers/Standard Controller/UI_ArrowsDiag3.png"
+dest_files=["res://.godot/imported/UI_ArrowsDiag3.png-6139585ceb36a409488b0946def3de52.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cikeyn7d1dj0q"
-path="res://.godot/imported/ResOrbB_Base.png-dd592a722469c76fbd46c58e5a3694e5.ctex"
+path="res://.godot/imported/ResOrbB_Base.png-fbc9770517d23f4a8e0292f5c6f66ce5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Orbs/Type A/ResOrbB_Base.png"
-dest_files=["res://.godot/imported/ResOrbB_Base.png-dd592a722469c76fbd46c58e5a3694e5.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Orbs/Type A/ResOrbB_Base.png"
+dest_files=["res://.godot/imported/ResOrbB_Base.png-fbc9770517d23f4a8e0292f5c6f66ce5.ctex"]
 
 [params]
 

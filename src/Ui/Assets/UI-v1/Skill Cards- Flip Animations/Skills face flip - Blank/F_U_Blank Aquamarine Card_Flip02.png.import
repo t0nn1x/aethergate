@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dh1q0jnajehrw"
-path="res://.godot/imported/F_U_Blank Aquamarine Card_Flip02.png-866e7447c1d76b344b2ae533341918b1.ctex"
+path="res://.godot/imported/F_U_Blank Aquamarine Card_Flip02.png-d115f55cce03dbb8e3bb4b0fe23b08fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Skill Cards- Flip Animations/Skills face flip - Blank/F_U_Blank Aquamarine Card_Flip02.png"
-dest_files=["res://.godot/imported/F_U_Blank Aquamarine Card_Flip02.png-866e7447c1d76b344b2ae533341918b1.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Skill Cards- Flip Animations/Skills face flip - Blank/F_U_Blank Aquamarine Card_Flip02.png"
+dest_files=["res://.godot/imported/F_U_Blank Aquamarine Card_Flip02.png-d115f55cce03dbb8e3bb4b0fe23b08fc.ctex"]
 
 [params]
 

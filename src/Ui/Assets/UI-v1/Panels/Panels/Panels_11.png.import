@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2mnnid4v8sda"
-path="res://.godot/imported/Panels_11.png-9c38080633af8deb9c3689294be72ea5.ctex"
+path="res://.godot/imported/Panels_11.png-3a92db739330c886d197c6e4d43c4d13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Panels/Panels/Panels_11.png"
-dest_files=["res://.godot/imported/Panels_11.png-9c38080633af8deb9c3689294be72ea5.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Panels/Panels/Panels_11.png"
+dest_files=["res://.godot/imported/Panels_11.png-3a92db739330c886d197c6e4d43c4d13.ctex"]
 
 [params]
 

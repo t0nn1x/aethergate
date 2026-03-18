@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccvhthhxri1xe"
-path="res://.godot/imported/Resource bar 04.png-62af83fae21e2e2a4007b02b3ebf7086.ctex"
+path="res://.godot/imported/Resource bar 04.png-a8e457d0643d39424ac1655bcef4618a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Resources Bars/Resource bar 04.png"
-dest_files=["res://.godot/imported/Resource bar 04.png-62af83fae21e2e2a4007b02b3ebf7086.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Resources Bars/Resource bar 04.png"
+dest_files=["res://.godot/imported/Resource bar 04.png-a8e457d0643d39424ac1655bcef4618a.ctex"]
 
 [params]
 

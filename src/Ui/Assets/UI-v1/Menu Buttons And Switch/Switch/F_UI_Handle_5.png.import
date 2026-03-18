@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2dcaq4jdx557"
-path="res://.godot/imported/F_UI_Handle_5.png-d9f0fe9afe2d383580ecb7e01f909e17.ctex"
+path="res://.godot/imported/F_UI_Handle_5.png-5f253021ca050d553d189281965598c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Switch/F_UI_Handle_5.png"
-dest_files=["res://.godot/imported/F_UI_Handle_5.png-d9f0fe9afe2d383580ecb7e01f909e17.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Menu Buttons And Switch/Switch/F_UI_Handle_5.png"
+dest_files=["res://.godot/imported/F_UI_Handle_5.png-5f253021ca050d553d189281965598c4.ctex"]
 
 [params]
 

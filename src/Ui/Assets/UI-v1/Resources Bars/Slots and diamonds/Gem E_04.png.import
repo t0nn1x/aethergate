@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpw4g8ssuuk6o"
-path="res://.godot/imported/Gem E_04.png-1e30e9cd1c5dea8c58e974a15f9406a8.ctex"
+path="res://.godot/imported/Gem E_04.png-16ae0b849cfe3c3f7c1f7c918bf6cfd8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Slots and diamonds/Gem E_04.png"
-dest_files=["res://.godot/imported/Gem E_04.png-1e30e9cd1c5dea8c58e974a15f9406a8.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Slots and diamonds/Gem E_04.png"
+dest_files=["res://.godot/imported/Gem E_04.png-16ae0b849cfe3c3f7c1f7c918bf6cfd8.ctex"]
 
 [params]
 

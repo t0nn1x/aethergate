@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7w0qe7q5tmpx"
-path="res://.godot/imported/F_UI_MenuIcons_B7.png-9df7d847bccda54982ac6c1cf1b30969.ctex"
+path="res://.godot/imported/F_UI_MenuIcons_B7.png-111d8f735d3704d7c8d8268d8142f744.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Menu Icons/F_UI_MenuIcons_B7.png"
-dest_files=["res://.godot/imported/F_UI_MenuIcons_B7.png-9df7d847bccda54982ac6c1cf1b30969.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_B7.png"
+dest_files=["res://.godot/imported/F_UI_MenuIcons_B7.png-111d8f735d3704d7c8d8268d8142f744.ctex"]
 
 [params]
 

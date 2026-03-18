@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhits654agkyp"
-path="res://.godot/imported/F_U_ObjectIcon_61.png-ed48e78aa59a15a527970aa61347823c.ctex"
+path="res://.godot/imported/F_U_ObjectIcon_61.png-1e88dbde2b4040c95409e375610e5120.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Objects Icons Inventory/Single objects/Nuova cartella/F_U_ObjectIcon_61.png"
-dest_files=["res://.godot/imported/F_U_ObjectIcon_61.png-ed48e78aa59a15a527970aa61347823c.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Objects Icons Inventory/Single objects/Nuova cartella/F_U_ObjectIcon_61.png"
+dest_files=["res://.godot/imported/F_U_ObjectIcon_61.png-1e88dbde2b4040c95409e375610e5120.ctex"]
 
 [params]
 

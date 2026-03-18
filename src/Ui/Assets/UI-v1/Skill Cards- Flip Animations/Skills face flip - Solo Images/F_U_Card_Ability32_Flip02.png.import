@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://syxrf5b8sbsq"
-path="res://.godot/imported/F_U_Card_Ability32_Flip02.png-d99f56b6562c0e98e74b1c7a5c657831.ctex"
+path="res://.godot/imported/F_U_Card_Ability32_Flip02.png-b8183c7a3632b72f700c1682e23eb3bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Skill Cards- Flip Animations/Skills face flip - Solo Images/F_U_Card_Ability32_Flip02.png"
-dest_files=["res://.godot/imported/F_U_Card_Ability32_Flip02.png-d99f56b6562c0e98e74b1c7a5c657831.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Skill Cards- Flip Animations/Skills face flip - Solo Images/F_U_Card_Ability32_Flip02.png"
+dest_files=["res://.godot/imported/F_U_Card_Ability32_Flip02.png-b8183c7a3632b72f700c1682e23eb3bf.ctex"]
 
 [params]
 

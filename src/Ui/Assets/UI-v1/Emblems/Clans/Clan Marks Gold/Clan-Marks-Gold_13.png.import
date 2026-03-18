@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ow0g7nw77coe"
-path="res://.godot/imported/Clan-Marks-Gold_13.png-fa5ff13d941bc4edf2e46700c0fe71c9.ctex"
+path="res://.godot/imported/Clan-Marks-Gold_13.png-fdb3ce8a5d00901cd409021452adf2e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Emblems/Clans/Clan Marks Gold/Clan-Marks-Gold_13.png"
-dest_files=["res://.godot/imported/Clan-Marks-Gold_13.png-fa5ff13d941bc4edf2e46700c0fe71c9.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Emblems/Clans/Clan Marks Gold/Clan-Marks-Gold_13.png"
+dest_files=["res://.godot/imported/Clan-Marks-Gold_13.png-fdb3ce8a5d00901cd409021452adf2e0.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d4due5q7jshhl"
-path="res://.godot/imported/Book Inventory Small_03.png-cdda809bad20b0a301054636ab069544.ctex"
+path="res://.godot/imported/Book Inventory Small_03.png-dc3b5d4660e6d68452751904afdef2f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Book - Inventory/Book Small/Book Inventory Small_03.png"
-dest_files=["res://.godot/imported/Book Inventory Small_03.png-cdda809bad20b0a301054636ab069544.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Book - Inventory/Book Small/Book Inventory Small_03.png"
+dest_files=["res://.godot/imported/Book Inventory Small_03.png-dc3b5d4660e6d68452751904afdef2f0.ctex"]
 
 [params]
 

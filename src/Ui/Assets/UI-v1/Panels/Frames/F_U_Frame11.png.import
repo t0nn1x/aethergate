@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7rgco3hr72w8"
-path="res://.godot/imported/F_U_Frame11.png-6cf4f007110292f2b8fe71caadd1aa3d.ctex"
+path="res://.godot/imported/F_U_Frame11.png-a7aba284e8ffcf742ddb2483a0909ce8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Panels/Frames/F_U_Frame11.png"
-dest_files=["res://.godot/imported/F_U_Frame11.png-6cf4f007110292f2b8fe71caadd1aa3d.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Panels/Frames/F_U_Frame11.png"
+dest_files=["res://.godot/imported/F_U_Frame11.png-a7aba284e8ffcf742ddb2483a0909ce8.ctex"]
 
 [params]
 

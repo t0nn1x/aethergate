@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btssgt484081t"
-path="res://.godot/imported/Circle Pin_02.png-7df2768cea24f5d4e37921de3ee71838.ctex"
+path="res://.godot/imported/Circle Pin_02.png-e0361f03c51aa08c58e287c90f2f4679.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Resources Orbs/Circle Pin_02.png"
-dest_files=["res://.godot/imported/Circle Pin_02.png-7df2768cea24f5d4e37921de3ee71838.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Resources Orbs/Circle Pin_02.png"
+dest_files=["res://.godot/imported/Circle Pin_02.png-e0361f03c51aa08c58e287c90f2f4679.ctex"]
 
 [params]
 

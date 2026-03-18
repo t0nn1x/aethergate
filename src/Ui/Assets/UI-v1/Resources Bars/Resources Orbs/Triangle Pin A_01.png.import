@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ch8u1hbsy5yn3"
-path="res://.godot/imported/Triangle Pin A_01.png-90f8177f4d69da2a637bdebb0a9a6a7e.ctex"
+path="res://.godot/imported/Triangle Pin A_01.png-9d0cb1739ad359712019918e7ab99647.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Resources Orbs/Triangle Pin A_01.png"
-dest_files=["res://.godot/imported/Triangle Pin A_01.png-90f8177f4d69da2a637bdebb0a9a6a7e.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Resources Orbs/Triangle Pin A_01.png"
+dest_files=["res://.godot/imported/Triangle Pin A_01.png-9d0cb1739ad359712019918e7ab99647.ctex"]
 
 [params]
 

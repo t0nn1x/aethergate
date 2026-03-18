@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d26vhh7ekgxbm"
-path="res://.godot/imported/Exp Bar OFF.png-cf597d8a169315a3cc0ae7e3b31f7947.ctex"
+path="res://.godot/imported/Exp Bar OFF.png-087208fecb2e8b8acf93ee32b1fe89c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Orbs/Exp Bar OFF.png"
-dest_files=["res://.godot/imported/Exp Bar OFF.png-cf597d8a169315a3cc0ae7e3b31f7947.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Orbs/Exp Bar OFF.png"
+dest_files=["res://.godot/imported/Exp Bar OFF.png-087208fecb2e8b8acf93ee32b1fe89c5.ctex"]
 
 [params]
 

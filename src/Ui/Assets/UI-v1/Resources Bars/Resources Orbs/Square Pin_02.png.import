@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcso4h06wnejx"
-path="res://.godot/imported/Square Pin_02.png-c42c75bd2f32834186548484ba4cb2f9.ctex"
+path="res://.godot/imported/Square Pin_02.png-ce6f9535ed3d90f5a878b1da3cc6e2f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Resources Orbs/Square Pin_02.png"
-dest_files=["res://.godot/imported/Square Pin_02.png-c42c75bd2f32834186548484ba4cb2f9.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Resources Orbs/Square Pin_02.png"
+dest_files=["res://.godot/imported/Square Pin_02.png-ce6f9535ed3d90f5a878b1da3cc6e2f7.ctex"]
 
 [params]
 

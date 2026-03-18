@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bes6qdfpcarcv"
-path="res://.godot/imported/Red Gem_04.png-e96026d58fe2f0af03304965f1ac49d1.ctex"
+path="res://.godot/imported/Red Gem_04.png-e9cdd1c5ad347c6eae4a866db19e2b5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Animated gems/Red Gem_04.png"
-dest_files=["res://.godot/imported/Red Gem_04.png-e96026d58fe2f0af03304965f1ac49d1.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Animated gems/Red Gem_04.png"
+dest_files=["res://.godot/imported/Red Gem_04.png-e9cdd1c5ad347c6eae4a866db19e2b5f.ctex"]
 
 [params]
 

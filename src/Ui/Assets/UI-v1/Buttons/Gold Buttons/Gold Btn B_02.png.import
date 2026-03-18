@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yu3jp55ojce8"
-path="res://.godot/imported/Gold Btn B_02.png-49198488be4c40451b029a0819452293.ctex"
+path="res://.godot/imported/Gold Btn B_02.png-fd1e4ced1e1717c9c3ffa294a44cf057.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Buttons/Gold Buttons/Gold Btn B_02.png"
-dest_files=["res://.godot/imported/Gold Btn B_02.png-49198488be4c40451b029a0819452293.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Buttons/Gold Buttons/Gold Btn B_02.png"
+dest_files=["res://.godot/imported/Gold Btn B_02.png-fd1e4ced1e1717c9c3ffa294a44cf057.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbiyqmmhroe32"
-path="res://.godot/imported/Combo Objects_28.png-709cba05aee64af67c154446795f6dce.ctex"
+path="res://.godot/imported/Combo Objects_28.png-535bad78519497eab1600da8a789ffc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Combo Objects/Combo Objects_28.png"
-dest_files=["res://.godot/imported/Combo Objects_28.png-709cba05aee64af67c154446795f6dce.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Combo Objects/Combo Objects_28.png"
+dest_files=["res://.godot/imported/Combo Objects_28.png-535bad78519497eab1600da8a789ffc7.ctex"]
 
 [params]
 

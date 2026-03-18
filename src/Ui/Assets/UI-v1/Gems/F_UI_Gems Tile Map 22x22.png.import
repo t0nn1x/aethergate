@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dyoiokvomnfxl"
-path="res://.godot/imported/F_UI_Gems Tile Map 22x22.png-890cb43799b1c793abf3a36df471a91f.ctex"
+path="res://.godot/imported/F_UI_Gems Tile Map 22x22.png-ab57afe240dd469c009e06fab91dcc5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Gems/F_UI_Gems Tile Map 22x22.png"
-dest_files=["res://.godot/imported/F_UI_Gems Tile Map 22x22.png-890cb43799b1c793abf3a36df471a91f.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Gems/F_UI_Gems Tile Map 22x22.png"
+dest_files=["res://.godot/imported/F_UI_Gems Tile Map 22x22.png-ab57afe240dd469c009e06fab91dcc5f.ctex"]
 
 [params]
 

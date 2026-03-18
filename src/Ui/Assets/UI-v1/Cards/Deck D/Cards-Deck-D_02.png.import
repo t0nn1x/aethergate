@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7h10vrrig0c"
-path="res://.godot/imported/Cards-Deck-D_02.png-6c49bedb58e6c54fc25d2285d9b88089.ctex"
+path="res://.godot/imported/Cards-Deck-D_02.png-0ac82df388311cf58f78bfaf9dba0881.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Cards/Deck D/Cards-Deck-D_02.png"
-dest_files=["res://.godot/imported/Cards-Deck-D_02.png-6c49bedb58e6c54fc25d2285d9b88089.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Cards/Deck D/Cards-Deck-D_02.png"
+dest_files=["res://.godot/imported/Cards-Deck-D_02.png-0ac82df388311cf58f78bfaf9dba0881.ctex"]
 
 [params]
 

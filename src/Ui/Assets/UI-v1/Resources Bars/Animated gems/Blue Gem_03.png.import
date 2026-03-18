@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://clkcwcjtkixhn"
-path="res://.godot/imported/Blue Gem_03.png-bc60d54d1508c4aef790a4503eef70b5.ctex"
+path="res://.godot/imported/Blue Gem_03.png-578dd8856ed4451bb469edb6053c71ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Animated gems/Blue Gem_03.png"
-dest_files=["res://.godot/imported/Blue Gem_03.png-bc60d54d1508c4aef790a4503eef70b5.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Animated gems/Blue Gem_03.png"
+dest_files=["res://.godot/imported/Blue Gem_03.png-578dd8856ed4451bb469edb6053c71ea.ctex"]
 
 [params]
 

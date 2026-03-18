@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjiv6ipxctj3k"
-path="res://.godot/imported/Gold Dot Cluster.png-a1b651a653ee69b0c15e951d23dfdaa4.ctex"
+path="res://.godot/imported/Gold Dot Cluster.png-f63f925d026bd09cfb64d4cbc183ca5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Bars and clusters/Gold Dot Cluster.png"
-dest_files=["res://.godot/imported/Gold Dot Cluster.png-a1b651a653ee69b0c15e951d23dfdaa4.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Bars and clusters/Gold Dot Cluster.png"
+dest_files=["res://.godot/imported/Gold Dot Cluster.png-f63f925d026bd09cfb64d4cbc183ca5a.ctex"]
 
 [params]
 

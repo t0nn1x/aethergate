@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://raugx34y0wy1"
-path="res://.godot/imported/Weapons-B-Gold_03.png-ffd0e4cc1752881e384334e5428cedde.ctex"
+path="res://.godot/imported/Weapons-B-Gold_03.png-3c32075df07f139c3e2d05d00405ac32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Emblems/Weapons/Weapons B/Weapons B Gold/Weapons-B-Gold_03.png"
-dest_files=["res://.godot/imported/Weapons-B-Gold_03.png-ffd0e4cc1752881e384334e5428cedde.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Emblems/Weapons/Weapons B/Weapons B Gold/Weapons-B-Gold_03.png"
+dest_files=["res://.godot/imported/Weapons-B-Gold_03.png-3c32075df07f139c3e2d05d00405ac32.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5fk0max3bwdm"
-path="res://.godot/imported/Title Tilemap.png-1d85c9eabcc185e6ffb394a8e4ecc5ea.ctex"
+path="res://.godot/imported/Title Tilemap.png-ed57222a9658dd8cdef4bd740111ab79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Panels/Titles/Title Tilemap.png"
-dest_files=["res://.godot/imported/Title Tilemap.png-1d85c9eabcc185e6ffb394a8e4ecc5ea.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Panels/Titles/Title Tilemap.png"
+dest_files=["res://.godot/imported/Title Tilemap.png-ed57222a9658dd8cdef4bd740111ab79.ctex"]
 
 [params]
 

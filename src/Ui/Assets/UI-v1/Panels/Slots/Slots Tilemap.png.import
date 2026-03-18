@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6b03us0qm0rd"
-path="res://.godot/imported/Slots Tilemap.png-75ee9326519b9cca0721d4faa5d12ea6.ctex"
+path="res://.godot/imported/Slots Tilemap.png-14263cb1a83163fefce558cd5d9ce191.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Panels/Slots/Slots Tilemap.png"
-dest_files=["res://.godot/imported/Slots Tilemap.png-75ee9326519b9cca0721d4faa5d12ea6.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Panels/Slots/Slots Tilemap.png"
+dest_files=["res://.godot/imported/Slots Tilemap.png-14263cb1a83163fefce558cd5d9ce191.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d04dg1hkf0x52"
-path="res://.godot/imported/F_U_Blank Green Card_Flip03.png-cc33b05897ef8bef4768bf96c6a93de5.ctex"
+path="res://.godot/imported/F_U_Blank Green Card_Flip03.png-d779b4b1ee2fb87e12737ca34d3f9087.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Skill Cards- Flip Animations/Skills face flip - Blank/F_U_Blank Green Card_Flip03.png"
-dest_files=["res://.godot/imported/F_U_Blank Green Card_Flip03.png-cc33b05897ef8bef4768bf96c6a93de5.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Skill Cards- Flip Animations/Skills face flip - Blank/F_U_Blank Green Card_Flip03.png"
+dest_files=["res://.godot/imported/F_U_Blank Green Card_Flip03.png-d779b4b1ee2fb87e12737ca34d3f9087.ctex"]
 
 [params]
 

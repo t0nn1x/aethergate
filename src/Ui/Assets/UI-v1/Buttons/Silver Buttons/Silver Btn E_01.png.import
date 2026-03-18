@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbdmk1k7cwnl0"
-path="res://.godot/imported/Silver Btn E_01.png-5d564f25bfab3481c16e106ca5312362.ctex"
+path="res://.godot/imported/Silver Btn E_01.png-ebb4379ea10f5a58e46ae01121743f7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Buttons/Silver Buttons/Silver Btn E_01.png"
-dest_files=["res://.godot/imported/Silver Btn E_01.png-5d564f25bfab3481c16e106ca5312362.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Buttons/Silver Buttons/Silver Btn E_01.png"
+dest_files=["res://.godot/imported/Silver Btn E_01.png-ebb4379ea10f5a58e46ae01121743f7c.ctex"]
 
 [params]
 

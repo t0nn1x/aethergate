@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5w0qq7obj6te"
-path="res://.godot/imported/Switch C_03.png-d7ee9a770702147ab8bcd30ee0b690f1.ctex"
+path="res://.godot/imported/Switch C_03.png-dcc9f1643a5f5ac051d72752dbd9aae2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Switches/Switch C_03.png"
-dest_files=["res://.godot/imported/Switch C_03.png-d7ee9a770702147ab8bcd30ee0b690f1.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Switches/Switch C_03.png"
+dest_files=["res://.godot/imported/Switch C_03.png-dcc9f1643a5f5ac051d72752dbd9aae2.ctex"]
 
 [params]
 

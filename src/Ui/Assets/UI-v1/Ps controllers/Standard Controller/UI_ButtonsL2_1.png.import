@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://e7nqftv454v3"
-path="res://.godot/imported/UI_ButtonsL2_1.png-589ab06775c83beae4a7c9678bd6ca88.ctex"
+path="res://.godot/imported/UI_ButtonsL2_1.png-31cf8a5d692bfed13b3b3226c3053409.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Ps controllers/Standard Controller/UI_ButtonsL2_1.png"
-dest_files=["res://.godot/imported/UI_ButtonsL2_1.png-589ab06775c83beae4a7c9678bd6ca88.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Ps controllers/Standard Controller/UI_ButtonsL2_1.png"
+dest_files=["res://.godot/imported/UI_ButtonsL2_1.png-31cf8a5d692bfed13b3b3226c3053409.ctex"]
 
 [params]
 

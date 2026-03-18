@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgropveglx1ag"
-path="res://.godot/imported/UI_StickL_DownRight.png-904239853c021ce3ab35c5f3a7b52e01.ctex"
+path="res://.godot/imported/UI_StickL_DownRight.png-6da1591e27a9782d67a481e0afada3f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Ps controllers/Standard Controller/L Stick/UI_StickL_DownRight.png"
-dest_files=["res://.godot/imported/UI_StickL_DownRight.png-904239853c021ce3ab35c5f3a7b52e01.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Ps controllers/Standard Controller/L Stick/UI_StickL_DownRight.png"
+dest_files=["res://.godot/imported/UI_StickL_DownRight.png-6da1591e27a9782d67a481e0afada3f2.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7hhxwrxf5xcn"
-path="res://.godot/imported/Silver Square Cluster B.png-a393c8049719e1b065fe8272aa41b513.ctex"
+path="res://.godot/imported/Silver Square Cluster B.png-d29d0ec66b65ec0fd23e292c7d38b6fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Bars and clusters/Silver Square Cluster B.png"
-dest_files=["res://.godot/imported/Silver Square Cluster B.png-a393c8049719e1b065fe8272aa41b513.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Bars and clusters/Silver Square Cluster B.png"
+dest_files=["res://.godot/imported/Silver Square Cluster B.png-d29d0ec66b65ec0fd23e292c7d38b6fb.ctex"]
 
 [params]
 

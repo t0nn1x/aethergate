@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bv32n7isq2aak"
-path="res://.godot/imported/F_UI_Gem_A4.png-0676658f9c8d75b091fdd584c0391a0a.ctex"
+path="res://.godot/imported/F_UI_Gem_A4.png-2db1c23aeaa2fd10424270e35a69c126.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Gems/F_UI_Gem_A4.png"
-dest_files=["res://.godot/imported/F_UI_Gem_A4.png-0676658f9c8d75b091fdd584c0391a0a.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Gems/F_UI_Gem_A4.png"
+dest_files=["res://.godot/imported/F_UI_Gem_A4.png-2db1c23aeaa2fd10424270e35a69c126.ctex"]
 
 [params]
 

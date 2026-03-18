@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmp1wrwxws0r1"
-path="res://.godot/imported/Blue Dot Cluster.png-aaa181c44d331f6b8a636d47ac949cc1.ctex"
+path="res://.godot/imported/Blue Dot Cluster.png-81e1b7f8f74117ef8bf9ac865795d888.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Bars/Bars and clusters/Blue Dot Cluster.png"
-dest_files=["res://.godot/imported/Blue Dot Cluster.png-aaa181c44d331f6b8a636d47ac949cc1.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Bars/Bars and clusters/Blue Dot Cluster.png"
+dest_files=["res://.godot/imported/Blue Dot Cluster.png-81e1b7f8f74117ef8bf9ac865795d888.ctex"]
 
 [params]
 

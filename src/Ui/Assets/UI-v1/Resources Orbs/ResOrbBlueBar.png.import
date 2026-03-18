@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cugtbh8u8q5w"
-path="res://.godot/imported/ResOrbBlueBar.png-53839985efd835e3bee385c827980444.ctex"
+path="res://.godot/imported/ResOrbBlueBar.png-e8889aa170e873b4d42dc59dddf3a0a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Resources Orbs/ResOrbBlueBar.png"
-dest_files=["res://.godot/imported/ResOrbBlueBar.png-53839985efd835e3bee385c827980444.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Resources Orbs/ResOrbBlueBar.png"
+dest_files=["res://.godot/imported/ResOrbBlueBar.png-e8889aa170e873b4d42dc59dddf3a0a0.ctex"]
 
 [params]
 

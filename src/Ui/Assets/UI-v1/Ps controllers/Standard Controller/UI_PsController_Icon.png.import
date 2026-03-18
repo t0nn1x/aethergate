@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckqod4f6eisnw"
-path="res://.godot/imported/UI_PsController_Icon.png-dec0c5b6e71340eacb7e6b8dc8a71992.ctex"
+path="res://.godot/imported/UI_PsController_Icon.png-db370a6e69a69f1aa85dd5d9687fa5ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Ps controllers/Standard Controller/UI_PsController_Icon.png"
-dest_files=["res://.godot/imported/UI_PsController_Icon.png-dec0c5b6e71340eacb7e6b8dc8a71992.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Ps controllers/Standard Controller/UI_PsController_Icon.png"
+dest_files=["res://.godot/imported/UI_PsController_Icon.png-db370a6e69a69f1aa85dd5d9687fa5ef.ctex"]
 
 [params]
 

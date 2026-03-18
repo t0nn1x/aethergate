@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jmkji0c53fpd"
-path="res://.godot/imported/F_UI_VictoryStarAnimation_5.png-8c5833720aebbdb8f2707a77fb5cfb28.ctex"
+path="res://.godot/imported/F_UI_VictoryStarAnimation_5.png-55d2ec8d2506e595a53f76c5a4deeb6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Ui/Assets/Gui-Hud/Victory Star/F_UI_VictoryStarAnimation_5.png"
-dest_files=["res://.godot/imported/F_UI_VictoryStarAnimation_5.png-8c5833720aebbdb8f2707a77fb5cfb28.ctex"]
+source_file="res://src/Ui/Assets/UI-v1/Victory Star/F_UI_VictoryStarAnimation_5.png"
+dest_files=["res://.godot/imported/F_UI_VictoryStarAnimation_5.png-55d2ec8d2506e595a53f76c5a4deeb6b.ctex"]
 
 [params]
 
