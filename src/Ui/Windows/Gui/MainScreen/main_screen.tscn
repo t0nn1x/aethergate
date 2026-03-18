@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dc68q7ilmyt5c" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_windows.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/Ui/Windows/Gui/MainScreen/background_controller.gd" id="2_background"]
 [ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
+[ext_resource type="Texture2D" uid="uid://y5u2ftw8miwh" path="res://Assets/Logo/title_logo.png" id="4_logo"]
 
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
 layer = 30
@@ -95,6 +96,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.18)
+
+[node name="TitleLogo" type="TextureRect" parent="Root" unique_id=1715069417]
+layout_mode = 0
+offset_left = 643.0
+offset_top = 86.0
+offset_right = 1277.0
+offset_bottom = 432.0
+mouse_filter = 2
+texture = ExtResource("4_logo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="BackgroundController" type="Node" parent="." unique_id=174224736]
 script = ExtResource("2_background")

@@ -13,6 +13,7 @@ const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 @export var menu_card_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard"
 @export var menu_vbox_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox"
 @export var background_dimmer_path: NodePath = ^"Root/BackgroundDimmer"
+@export var title_logo_path: NodePath = ^"Root/TitleLogo"
 @export var title_label_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleLabel"
 @export var localization_service_path: NodePath = ^"/root/LocalizationService"
 @export var title_text_key: StringName = &"ui.main.title"
@@ -37,6 +38,10 @@ var _menu_margin: MarginContainer
 var _menu_card: Control
 var _menu_vbox: VBoxContainer
 var _background_dimmer: ColorRect
+var _title_logo: TextureRect
+var _title_logo_base_y: float = 0.0
+var _title_logo_float_tween: Tween
+var _logo_intro_done: bool = false
 var _title_label: Label
 var _viewport: Viewport
 var _is_mobile_layout_active: bool = false
@@ -67,6 +72,7 @@ func _ready() -> void:
 	_log_button_sizes()
 	_start_menu_music_if_needed()
 	print("[MainScreen] menu_open")
+	call_deferred("_play_logo_intro")
 
 
 func show_menu() -> void:
@@ -78,6 +84,7 @@ func show_menu() -> void:
 		call_deferred("_focus_play_button")
 	else:
 		call_deferred("_clear_button_focus")
+	call_deferred("_play_logo_intro")
 	print("[MainScreen] menu_shown")
 
 
@@ -105,6 +112,7 @@ func _cache_nodes() -> void:
 	_menu_vbox = get_node_or_null(menu_vbox_path) as VBoxContainer
 	_background_dimmer = get_node_or_null(background_dimmer_path) as ColorRect
 	_title_label = get_node_or_null(title_label_path) as Label
+	_title_logo = get_node_or_null(title_logo_path) as TextureRect
 
 	if _play_button == null:
 		push_warning("MainScreen: Play button is missing.")
@@ -122,6 +130,8 @@ func _cache_nodes() -> void:
 		push_warning("MainScreen: Background dimmer is missing.")
 	if _title_label == null:
 		push_warning("MainScreen: Title label is missing.")
+	if _title_logo == null:
+		push_warning("MainScreen: Title logo is missing.")
 
 
 func _apply_menu_content_visibility() -> void:
@@ -238,6 +248,7 @@ func _apply_responsive_layout() -> void:
 		"[MainScreen] responsive_layout mobile=%s viewport=%.0fx%.0f safe=%.0f,%.0f,%.0f,%.0f"
 		% [_is_mobile_layout_active, viewport_size.x, viewport_size.y, safe_left, safe_top, safe_right, safe_bottom]
 	)
+	_position_logo()
 
 
 func _log_background_dimmer_bounds() -> void:
@@ -580,3 +591,58 @@ func _log_button_sizes() -> void:
 		print("[MainScreen] Play button size: %s" % _play_button.custom_minimum_size)
 	if _quit_button:
 		print("[MainScreen] Quit button size: %s" % _quit_button.custom_minimum_size)
+
+
+func _position_logo() -> void:
+	if _title_logo == null or _title_logo.texture == null:
+		return
+	var vp_size: Vector2 = _resolve_viewport_size()
+	var tex_size: Vector2 = _title_logo.texture.get_size()
+	if tex_size.x <= 0.0 or tex_size.y <= 0.0:
+		return
+	var max_logo_width: float = vp_size.x * 0.5
+	var max_logo_height: float = vp_size.y * 0.32
+	var logo_scale: float = minf(1.0, minf(max_logo_width / tex_size.x, max_logo_height / tex_size.y))
+	var logo_w: float = tex_size.x * logo_scale
+	var logo_h: float = tex_size.y * logo_scale
+	_title_logo.size = Vector2(logo_w, logo_h)
+	var logo_x: float = roundf((vp_size.x - logo_w) * 0.5)
+	_title_logo_base_y = roundf(vp_size.y * 0.08)
+	_title_logo.position = Vector2(logo_x, _title_logo_base_y)
+	if _logo_intro_done and _title_logo_float_tween != null:
+		_start_logo_float()
+
+
+func _play_logo_intro() -> void:
+	if _title_logo == null:
+		return
+	_logo_intro_done = false
+	if _title_logo_float_tween != null:
+		_title_logo_float_tween.kill()
+		_title_logo_float_tween = null
+	_title_logo.modulate.a = 0.0
+	_title_logo.position.y = _title_logo_base_y - 30.0
+	var tween: Tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(_title_logo, "modulate:a", 1.0, 0.5) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(_title_logo, "position:y", _title_logo_base_y, 0.5) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.chain().tween_callback(func() -> void:
+		_logo_intro_done = true
+		_start_logo_float()
+	)
+
+
+func _start_logo_float() -> void:
+	if _title_logo == null:
+		return
+	if _title_logo_float_tween != null:
+		_title_logo_float_tween.kill()
+	_title_logo_float_tween = create_tween()
+	_title_logo_float_tween.set_loops()
+	# Each leg is 1.25s so the full up-down cycle = 2.5s
+	_title_logo_float_tween.tween_property(_title_logo, "position:y", _title_logo_base_y - 4.0, 1.25) \
+		.from(_title_logo_base_y).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	_title_logo_float_tween.tween_property(_title_logo, "position:y", _title_logo_base_y, 1.25) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
