@@ -14,7 +14,7 @@ const INVENTORY_PANEL_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows
 const INVENTORY_PANEL_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Inventory/inventory_panel_macos.tscn")
 const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/Ui/Mobile/Inventory/inventory_panel_mobile.tscn")
 const INVENTORY_CLOSE_ICON: Texture2D = preload(
-	"res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/close_button.png"
+	"res://src/Ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/close_button.png"
 )
 
 @export var main_screen_path: NodePath = ^"../MainScreen"

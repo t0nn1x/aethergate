@@ -13,6 +13,7 @@ const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 @export var menu_card_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard"
 @export var menu_vbox_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox"
 @export var background_dimmer_path: NodePath = ^"Root/BackgroundDimmer"
+@export var menu_panel_path: NodePath = ^"Root/MenuPanel"
 @export var title_logo_path: NodePath = ^"Root/TitleLogo"
 @export var title_label_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleLabel"
 @export var localization_service_path: NodePath = ^"/root/LocalizationService"
@@ -38,6 +39,7 @@ var _menu_margin: MarginContainer
 var _menu_card: Control
 var _menu_vbox: VBoxContainer
 var _background_dimmer: ColorRect
+var _menu_panel: NinePatchRect
 var _title_logo: TextureRect
 var _title_logo_base_y: float = 0.0
 var _title_logo_float_tween: Tween
@@ -112,6 +114,7 @@ func _cache_nodes() -> void:
 	_menu_vbox = get_node_or_null(menu_vbox_path) as VBoxContainer
 	_background_dimmer = get_node_or_null(background_dimmer_path) as ColorRect
 	_title_label = get_node_or_null(title_label_path) as Label
+	_menu_panel = get_node_or_null(menu_panel_path) as NinePatchRect
 	_title_logo = get_node_or_null(title_logo_path) as TextureRect
 
 	if _play_button == null:
@@ -249,6 +252,7 @@ func _apply_responsive_layout() -> void:
 		% [_is_mobile_layout_active, viewport_size.x, viewport_size.y, safe_left, safe_top, safe_right, safe_bottom]
 	)
 	_position_logo()
+	_position_panel()
 
 
 func _log_background_dimmer_bounds() -> void:
@@ -611,6 +615,20 @@ func _position_logo() -> void:
 	_title_logo.position = Vector2(logo_x, _title_logo_base_y)
 	if _logo_intro_done and _title_logo_float_tween != null:
 		_start_logo_float()
+
+
+func _position_panel() -> void:
+	if _menu_panel == null:
+		return
+	var vp_size: Vector2 = _resolve_viewport_size()
+	var logo_bottom: float = _title_logo_base_y + (_title_logo.size.y if _title_logo != null else 0.0)
+	var gap: float = 20.0
+	var panel_top: float = logo_bottom + gap
+	var panel_w: float = _title_logo.size.x if _title_logo != null else vp_size.x * 0.4
+	var panel_x: float = roundf((vp_size.x - panel_w) * 0.5)
+	var panel_bottom: float = roundf(vp_size.y * 0.88)
+	_menu_panel.position = Vector2(panel_x, roundf(panel_top))
+	_menu_panel.size = Vector2(panel_w, panel_bottom - panel_top)
 
 
 func _play_logo_intro() -> void:
