@@ -1,3 +1,4 @@
+@tool
 class_name MainScreen
 extends CanvasLayer
 
@@ -14,6 +15,7 @@ const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 @export var menu_vbox_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox"
 @export var background_dimmer_path: NodePath = ^"Root/BackgroundDimmer"
 @export var menu_panel_path: NodePath = ^"Root/MenuPanel"
+@export var menu_strip_path: NodePath = ^"Root/MenuStrip"
 @export var title_logo_path: NodePath = ^"Root/TitleLogo"
 @export var title_label_path: NodePath = ^"Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleLabel"
 @export var localization_service_path: NodePath = ^"/root/LocalizationService"
@@ -31,6 +33,7 @@ const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 @export_range(-40.0, 12.0, 0.1) var menu_music_volume_db: float = -14.0
 @export var sfx_bus_name: String = "SFX"
 @export var music_bus_name: String = "Music"
+@export var editor_preview_viewport: Vector2 = Vector2(1920.0, 1080.0)
 
 var _play_button: Button
 var _language_button: Button
@@ -40,6 +43,7 @@ var _menu_card: Control
 var _menu_vbox: VBoxContainer
 var _background_dimmer: ColorRect
 var _menu_panel: NinePatchRect
+var _menu_strip: Panel
 var _title_logo: TextureRect
 var _title_logo_base_y: float = 0.0
 var _title_logo_float_tween: Tween
@@ -53,18 +57,21 @@ var _creator_overlay_mode: bool = false
 
 
 func _ready() -> void:
-	if not is_in_group("ui_panels_block_movement"):
-		add_to_group("ui_panels_block_movement")
 	_viewport = get_viewport()
 	_cache_nodes()
+	_wire_viewport_resize()
+	_apply_responsive_layout()
+	_style_strip_and_buttons()
+	if Engine.is_editor_hint():
+		return
+	if not is_in_group("ui_panels_block_movement"):
+		add_to_group("ui_panels_block_movement")
 	_setup_audio()
 	_configure_touch_interactions()
 	_configure_platform_specific_ui()
 	_setup_localization()
 	_connect_signals()
 	_setup_focus_chain()
-	_wire_viewport_resize()
-	_apply_responsive_layout()
 	_apply_menu_content_visibility()
 	_log_background_dimmer_bounds()
 	if auto_focus_play_button:
@@ -115,8 +122,11 @@ func _cache_nodes() -> void:
 	_background_dimmer = get_node_or_null(background_dimmer_path) as ColorRect
 	_title_label = get_node_or_null(title_label_path) as Label
 	_menu_panel = get_node_or_null(menu_panel_path) as NinePatchRect
+	_menu_strip = get_node_or_null(menu_strip_path) as Panel
 	_title_logo = get_node_or_null(title_logo_path) as TextureRect
 
+	if Engine.is_editor_hint():
+		return
 	if _play_button == null:
 		push_warning("MainScreen: Play button is missing.")
 	if _language_button == null:
@@ -253,6 +263,7 @@ func _apply_responsive_layout() -> void:
 	)
 	_position_logo()
 	_position_panel()
+	_position_strip()
 
 
 func _log_background_dimmer_bounds() -> void:
@@ -380,6 +391,10 @@ func _build_proportional_button_size(
 
 
 func _resolve_viewport_size() -> Vector2:
+	if Engine.is_editor_hint():
+		if editor_preview_viewport.x > 0.0 and editor_preview_viewport.y > 0.0:
+			return editor_preview_viewport
+		return Vector2(1920.0, 1080.0)
 	if _viewport:
 		var rect_size: Vector2 = _viewport.get_visible_rect().size
 		if rect_size.x > 0.0 and rect_size.y > 0.0:
@@ -604,14 +619,14 @@ func _position_logo() -> void:
 	var tex_size: Vector2 = _title_logo.texture.get_size()
 	if tex_size.x <= 0.0 or tex_size.y <= 0.0:
 		return
-	var max_logo_width: float = vp_size.x * 0.5
-	var max_logo_height: float = vp_size.y * 0.32
+	var max_logo_width: float = vp_size.x * 0.6
+	var max_logo_height: float = vp_size.y * 0.42
 	var logo_scale: float = minf(1.0, minf(max_logo_width / tex_size.x, max_logo_height / tex_size.y))
 	var logo_w: float = tex_size.x * logo_scale
 	var logo_h: float = tex_size.y * logo_scale
 	_title_logo.size = Vector2(logo_w, logo_h)
 	var logo_x: float = roundf((vp_size.x - logo_w) * 0.5)
-	_title_logo_base_y = roundf(vp_size.y * 0.08)
+	_title_logo_base_y = roundf(vp_size.y * 0.07)
 	_title_logo.position = Vector2(logo_x, _title_logo_base_y)
 	if _logo_intro_done and _title_logo_float_tween != null:
 		_start_logo_float()
@@ -622,13 +637,59 @@ func _position_panel() -> void:
 		return
 	var vp_size: Vector2 = _resolve_viewport_size()
 	var logo_bottom: float = _title_logo_base_y + (_title_logo.size.y if _title_logo != null else 0.0)
-	var gap: float = 20.0
+	var gap: float = 4.0
 	var panel_top: float = logo_bottom + gap
 	var panel_w: float = _title_logo.size.x if _title_logo != null else vp_size.x * 0.4
 	var panel_x: float = roundf((vp_size.x - panel_w) * 0.5)
 	var panel_bottom: float = roundf(vp_size.y * 0.88)
 	_menu_panel.position = Vector2(panel_x, roundf(panel_top))
 	_menu_panel.size = Vector2(panel_w, panel_bottom - panel_top)
+
+
+func _position_strip() -> void:
+	if _menu_strip == null:
+		return
+	var vp_size: Vector2 = _resolve_viewport_size()
+	var logo_bottom: float = _title_logo_base_y + (_title_logo.size.y if _title_logo != null else 0.0)
+	var strip_h: float = roundf(vp_size.y * 0.15)
+	_menu_strip.offset_top = roundf(logo_bottom)
+	_menu_strip.offset_bottom = roundf(logo_bottom + strip_h)
+
+
+func _style_strip_and_buttons() -> void:
+	if _menu_strip != null:
+		var strip_style := StyleBoxFlat.new()
+		strip_style.bg_color = Color(0.02, 0.05, 0.10, 0.72)
+		strip_style.border_width_top = 1
+		strip_style.border_width_bottom = 1
+		strip_style.border_color = Color(0.25, 0.45, 0.75, 0.3)
+		_menu_strip.add_theme_stylebox_override("panel", strip_style)
+	var buttons: Array = [_play_button, _language_button, _quit_button]
+	for btn_node: Variant in buttons:
+		var btn := btn_node as Button
+		if btn == null:
+			continue
+		var normal := StyleBoxFlat.new()
+		normal.bg_color = Color(0.12, 0.18, 0.32, 0.0)
+		normal.set_corner_radius_all(6)
+		btn.add_theme_stylebox_override("normal", normal)
+		btn.add_theme_stylebox_override("focus", normal)
+		var hover := StyleBoxFlat.new()
+		hover.bg_color = Color(0.14, 0.22, 0.42, 0.85)
+		hover.set_corner_radius_all(6)
+		hover.border_width_left = 1
+		hover.border_width_right = 1
+		hover.border_width_top = 1
+		hover.border_width_bottom = 1
+		hover.border_color = Color(0.85, 0.72, 0.28, 0.9)
+		btn.add_theme_stylebox_override("hover", hover)
+		var pressed := StyleBoxFlat.new()
+		pressed.bg_color = Color(0.06, 0.10, 0.20, 0.92)
+		pressed.set_corner_radius_all(6)
+		btn.add_theme_stylebox_override("pressed", pressed)
+		btn.add_theme_color_override("font_color", Color(0.92, 0.88, 0.72, 1.0))
+		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.95, 0.65, 1.0))
+		btn.add_theme_color_override("font_pressed_color", Color(0.70, 0.65, 0.40, 1.0))
 
 
 func _play_logo_intro() -> void:

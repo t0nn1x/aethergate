@@ -1,3 +1,4 @@
+@tool
 extends MainScreen
 
 const DESKTOP_TITLE_FONT_SIZE: int = 62
@@ -31,6 +32,8 @@ func _ready() -> void:
 	_social_icons_container = get_node_or_null(social_icons_container_path) as Control
 	_apply_title_banner_transform()
 	_apply_social_icons_transform()
+	if Engine.is_editor_hint():
+		return
 	call_deferred("_apply_social_icons_transform")
 	_connect_social_icon_links()
 
