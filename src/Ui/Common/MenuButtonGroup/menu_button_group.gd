@@ -5,13 +5,17 @@ extends Node
 ##
 ## Provides keyboard/mouse-synced focus, smooth font-size animation on hover,
 ## and a press-bounce animation. Drop it as a child node of any screen, then
-## call setup() once after the buttons are ready.
+## call setup() or setup_grid() once after the buttons are ready.
 ##
-## Usage:
-##   var group := MenuButtonGroup.new()
-##   add_child(group)
-##   group.button_focused.connect(func(_b): play_hover_sound())
-##   group.setup([play_btn, lang_btn, quit_btn])
+## Linear list usage:
+##   group.setup([play_btn, settings_btn, quit_btn])
+##
+## 2-D grid usage (4-directional arrow nav):
+##   group.setup_grid([
+##       [language_btn, sound_btn],
+##       [graphics_btn, controls_btn],
+##       [back_btn],
+##   ])
 
 signal button_focused(button: Button)
 
@@ -52,6 +56,22 @@ func _wire(btn: Button) -> void:
 	)
 
 
+## Sets up a 2-D grid with 4-directional arrow key navigation.
+## rows is Array[Array] — each inner array is one row of buttons.
+## Rows can have different lengths; shorter rows clamp the column index.
+func setup_grid(rows: Array) -> void:
+	_buttons.clear()
+	for row: Variant in rows:
+		for node: Variant in row:
+			var btn := node as Button
+			if btn == null:
+				continue
+			if not _buttons.has(btn):
+				_buttons.append(btn)
+				_wire(btn)
+	_build_grid_focus_chain(rows)
+
+
 func _build_focus_chain() -> void:
 	var focusable: Array[Button] = []
 	for btn: Button in _buttons:
@@ -63,6 +83,38 @@ func _build_focus_chain() -> void:
 	for i in range(count):
 		focusable[i].focus_neighbor_top    = focusable[(i - 1 + count) % count].get_path()
 		focusable[i].focus_neighbor_bottom = focusable[(i + 1) % count].get_path()
+
+
+func _build_grid_focus_chain(rows: Array) -> void:
+	var row_count: int = rows.size()
+	for r: int in row_count:
+		var row: Array = rows[r]
+		var col_count: int = row.size()
+		for c: int in col_count:
+			var btn := row[c] as Button
+			if btn == null or not btn.visible or btn.disabled:
+				continue
+			var above: Button = _find_grid_neighbor(rows, r, c, -1)
+			var below: Button = _find_grid_neighbor(rows, r, c, 1)
+			if above != null:
+				btn.focus_neighbor_top = above.get_path()
+			if below != null:
+				btn.focus_neighbor_bottom = below.get_path()
+			if col_count > 1:
+				btn.focus_neighbor_left  = (row[(c - 1 + col_count) % col_count] as Button).get_path()
+				btn.focus_neighbor_right = (row[(c + 1) % col_count] as Button).get_path()
+
+
+func _find_grid_neighbor(rows: Array, start_row: int, col: int, direction: int) -> Button:
+	var row_count: int = rows.size()
+	var r: int = (start_row + direction + row_count) % row_count
+	for _attempt: int in row_count - 1:
+		var row: Array = rows[r]
+		var btn := row[mini(col, row.size() - 1)] as Button
+		if btn != null and btn.visible and not btn.disabled:
+			return btn
+		r = (r + direction + row_count) % row_count
+	return null
 
 
 func _set_size(btn: Button, target: int, duration: float) -> void:

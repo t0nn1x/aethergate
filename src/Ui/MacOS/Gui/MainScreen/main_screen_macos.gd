@@ -41,7 +41,7 @@ func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
 		return
 
 	_scale_desktop_button(_play_button, viewport_size)
-	_scale_desktop_button(_language_button, viewport_size)
+	_scale_desktop_button(_settings_button, viewport_size)
 	_scale_desktop_button(_quit_button, viewport_size)
 
 
@@ -59,7 +59,7 @@ func _scale_desktop_button(button: Button, viewport_size: Vector2) -> void:
 
 func _resolve_desktop_button_scale() -> float:
 	var visible_button_count: int = 0
-	var candidates: Array = [_play_button, _language_button, _quit_button]
+	var candidates: Array = [_play_button, _settings_button, _quit_button]
 	for node: Variant in candidates:
 		var button: Button = node as Button
 		if button == null:

@@ -19,8 +19,13 @@ messages = {
 "ui.inventory.character": "Character",
 "ui.inventory.inventory": "Inventory",
 "ui.inventory.skills": "Skills",
-"ui.main.language": "Language: %s",
-"ui.main.play": "Create a character",
+"ui.main.play": "Play",
 "ui.main.quit": "Quit",
-"ui.main.title": "AETHERGATE"
+"ui.main.settings": "Settings",
+"ui.main.title": "AETHERGATE",
+"ui.settings.back": "Back",
+"ui.settings.controls": "Controls",
+"ui.settings.graphics": "Graphics",
+"ui.settings.language": "Language: %s",
+"ui.settings.sound": "Sound"
 }

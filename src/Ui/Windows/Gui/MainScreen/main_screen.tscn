@@ -111,15 +111,50 @@ custom_minimum_size = Vector2(200, 70)
 focus_mode = 2
 text = "Play"
 
-[node name="LanguageButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567894]
+[node name="SettingsButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567894]
 custom_minimum_size = Vector2(200, 70)
 focus_mode = 2
-text = "Language"
+text = "Settings"
 
 [node name="QuitButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567895]
 custom_minimum_size = Vector2(200, 70)
 focus_mode = 2
 text = "Quit"
+
+[node name="SettingsPanel" type="VBoxContainer" parent="Root/MenuStrip/Center" unique_id=2000000001]
+visible = false
+theme_override_constants/separation = 10
+
+[node name="SettingsGrid" type="GridContainer" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000002]
+columns = 2
+theme_override_constants/h_separation = 120
+theme_override_constants/v_separation = 8
+
+[node name="LanguageButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000003]
+custom_minimum_size = Vector2(180, 70)
+focus_mode = 2
+text = "Language"
+
+[node name="SoundButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000004]
+custom_minimum_size = Vector2(180, 70)
+focus_mode = 2
+text = "Sound"
+
+[node name="GraphicsButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000005]
+custom_minimum_size = Vector2(180, 70)
+focus_mode = 2
+text = "Graphics"
+
+[node name="ControlsButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000006]
+custom_minimum_size = Vector2(180, 70)
+focus_mode = 2
+text = "Controls"
+
+[node name="BackButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000007]
+custom_minimum_size = Vector2(200, 70)
+size_flags_horizontal = 4
+focus_mode = 2
+text = "Back"
 
 [node name="TitleLogo" type="TextureRect" parent="Root" unique_id=1715069417]
 layout_mode = 1

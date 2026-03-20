@@ -11,12 +11,14 @@ const ScreenLocalization = preload("res://src/Ui/Common/ScreenLocalization/scree
 const UiSoundPlayer = preload("res://src/Ui/Common/UiSoundPlayer/ui_sound_player.gd")
 
 @export var play_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/PlayButton"
-@export var language_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/LanguageButton"
+@export var settings_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/SettingsButton"
 @export var quit_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/QuitButton"
+@export var main_buttons_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow"
+@export var settings_panel_path: NodePath = ^"Root/MenuStrip/Center/SettingsPanel"
 @export var menu_strip_path: NodePath = ^"Root/MenuStrip"
 @export var title_logo_path: NodePath = ^"Root/TitleLogo"
 @export var play_button_text_key: StringName = &"ui.main.play"
-@export var language_button_text_key: StringName = &"ui.main.language"
+@export var settings_button_text_key: StringName = &"ui.main.settings"
 @export var quit_button_text_key: StringName = &"ui.main.quit"
 @export var auto_focus_play_button: bool = true
 @export_dir var menu_music_folder_path: String = ""
@@ -24,14 +26,22 @@ const UiSoundPlayer = preload("res://src/Ui/Common/UiSoundPlayer/ui_sound_player
 @export var music_bus_name: String = "Music"
 
 var _play_button: Button
-var _language_button: Button
+var _settings_button: Button
 var _quit_button: Button
+var _main_buttons_container: Control
+var _settings_panel: Control
+var _settings_language_button: Button
+var _settings_sound_button: Button
+var _settings_graphics_button: Button
+var _settings_controls_button: Button
+var _settings_back_button: Button
 var _menu_strip: Panel
 var _title_logo: TextureRect
 var _logo_float_offset: float = 0.0
 var _title_logo_intro_tween: Tween
 var _title_logo_float_tween: Tween
 var _strip_intro_tween: Tween
+var _view_tween: Tween
 var _logo_intro_done: bool = false
 var _splash_intro_pending: bool = false
 var _viewport: Viewport
@@ -39,6 +49,7 @@ var _is_mobile_layout_active: bool = false
 var _music_service: Node
 var _creator_overlay_mode: bool = false
 var _button_group: MenuButtonGroup
+var _settings_button_group: MenuButtonGroup
 var _loc: ScreenLocalization
 var _sfx: UiSoundPlayer
 
@@ -96,16 +107,24 @@ func set_creator_overlay_mode(enabled: bool) -> void:
 
 func _cache_nodes() -> void:
 	_play_button = get_node_or_null(play_button_path) as Button
-	_language_button = get_node_or_null(language_button_path) as Button
+	_settings_button = get_node_or_null(settings_button_path) as Button
 	_quit_button = get_node_or_null(quit_button_path) as Button
+	_main_buttons_container = get_node_or_null(main_buttons_path) as Control
+	_settings_panel = get_node_or_null(settings_panel_path) as Control
 	_menu_strip = get_node_or_null(menu_strip_path) as Panel
 	_title_logo = get_node_or_null(title_logo_path) as TextureRect
+	if _settings_panel != null:
+		_settings_language_button = _settings_panel.get_node_or_null(^"SettingsGrid/LanguageButton") as Button
+		_settings_sound_button = _settings_panel.get_node_or_null(^"SettingsGrid/SoundButton") as Button
+		_settings_graphics_button = _settings_panel.get_node_or_null(^"SettingsGrid/GraphicsButton") as Button
+		_settings_controls_button = _settings_panel.get_node_or_null(^"SettingsGrid/ControlsButton") as Button
+		_settings_back_button = _settings_panel.get_node_or_null(^"BackButton") as Button
 	if Engine.is_editor_hint():
 		return
 	if _play_button == null:
 		push_warning("MainScreen: Play button is missing.")
-	if _language_button == null:
-		push_warning("MainScreen: Language button is missing.")
+	if _settings_button == null:
+		push_warning("MainScreen: Settings button is missing.")
 	if _quit_button == null:
 		push_warning("MainScreen: Quit button is missing.")
 	if _title_logo == null:
@@ -149,14 +168,28 @@ func _stop_menu_music() -> void:
 func _connect_signals() -> void:
 	if _play_button and not _play_button.pressed.is_connected(_on_play_pressed):
 		_play_button.pressed.connect(_on_play_pressed)
-	if _language_button and not _language_button.pressed.is_connected(_on_language_pressed):
-		_language_button.pressed.connect(_on_language_pressed)
+	if _settings_button and not _settings_button.pressed.is_connected(_on_settings_pressed):
+		_settings_button.pressed.connect(_on_settings_pressed)
 	if _quit_button and not _quit_button.pressed.is_connected(_on_quit_pressed):
 		_quit_button.pressed.connect(_on_quit_pressed)
+	if _settings_language_button and not _settings_language_button.pressed.is_connected(_on_settings_language_pressed):
+		_settings_language_button.pressed.connect(_on_settings_language_pressed)
+	if _settings_back_button and not _settings_back_button.pressed.is_connected(_on_settings_back_pressed):
+		_settings_back_button.pressed.connect(_on_settings_back_pressed)
+
 	_button_group = MenuButtonGroup.new()
 	add_child(_button_group)
 	_button_group.button_focused.connect(func(_b: Button) -> void: _sfx.play_hover())
-	_button_group.setup([_play_button, _language_button, _quit_button])
+	_button_group.setup([_play_button, _settings_button, _quit_button])
+
+	_settings_button_group = MenuButtonGroup.new()
+	add_child(_settings_button_group)
+	_settings_button_group.button_focused.connect(func(_b: Button) -> void: _sfx.play_hover())
+	_settings_button_group.setup_grid([
+		[_settings_language_button, _settings_sound_button],
+		[_settings_graphics_button, _settings_controls_button],
+		[_settings_back_button],
+	])
 
 
 func _wire_viewport_resize() -> void:
@@ -197,7 +230,7 @@ func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
 		var h: float = clampf(viewport_size.y * 0.068, 68.0, 96.0)
 		button_size = _build_proportional_button_size(h, button_aspect_ratio, 260.0, viewport_size.x * 0.26)
 	_apply_button_target_size(_play_button, button_size)
-	_apply_button_target_size(_language_button, button_size)
+	_apply_button_target_size(_settings_button, button_size)
 	_apply_button_target_size(_quit_button, button_size)
 
 
@@ -239,7 +272,11 @@ func _is_mobile_platform() -> bool:
 
 
 func _configure_touch_interactions() -> void:
-	var buttons: Array = [_play_button, _language_button, _quit_button]
+	var buttons: Array = [
+		_play_button, _settings_button, _quit_button,
+		_settings_language_button, _settings_sound_button,
+		_settings_graphics_button, _settings_controls_button, _settings_back_button,
+	]
 	for node: Variant in buttons:
 		var button: Button = node as Button
 		if button == null:
@@ -269,7 +306,7 @@ func _focus_play_button() -> void:
 
 
 func _clear_button_focus() -> void:
-	var buttons: Array = [_play_button, _language_button, _quit_button]
+	var buttons: Array = [_play_button, _settings_button, _quit_button]
 	for node: Variant in buttons:
 		var button: Button = node as Button
 		if button and button.has_focus():
@@ -279,17 +316,27 @@ func _clear_button_focus() -> void:
 func _apply_localized_texts() -> void:
 	if _play_button:
 		_play_button.text = _loc.translate(play_button_text_key)
+	if _settings_button:
+		_settings_button.text = _loc.translate(settings_button_text_key)
 	if _quit_button:
 		_quit_button.text = _loc.translate(quit_button_text_key)
-	_update_language_button_label()
+	_update_settings_language_label()
+	if _settings_sound_button:
+		_settings_sound_button.text = _loc.translate(&"ui.settings.sound")
+	if _settings_graphics_button:
+		_settings_graphics_button.text = _loc.translate(&"ui.settings.graphics")
+	if _settings_controls_button:
+		_settings_controls_button.text = _loc.translate(&"ui.settings.controls")
+	if _settings_back_button:
+		_settings_back_button.text = _loc.translate(&"ui.settings.back")
 
 
-func _update_language_button_label() -> void:
-	if _language_button == null:
+func _update_settings_language_label() -> void:
+	if _settings_language_button == null:
 		return
 	var locale_code: String = _loc.get_current_locale()
 	var localized_name: String = _resolve_localized_language_name(locale_code)
-	_language_button.text = _loc.translate(language_button_text_key) % [localized_name]
+	_settings_language_button.text = _loc.translate(&"ui.settings.language") % [localized_name]
 
 
 func _resolve_localized_language_name(locale_code: String) -> String:
@@ -301,9 +348,57 @@ func _resolve_localized_language_name(locale_code: String) -> String:
 	return translated if translated != key else code.to_upper()
 
 
-func _on_language_pressed() -> void:
+func _on_settings_pressed() -> void:
+	_sfx.play_click()
+	_open_settings_view()
+
+
+func _on_settings_back_pressed() -> void:
+	_sfx.play_click()
+	_close_settings_view()
+
+
+func _on_settings_language_pressed() -> void:
 	_sfx.play_click()
 	_loc.set_next_locale()
+
+
+func _open_settings_view() -> void:
+	if _settings_panel == null or _main_buttons_container == null:
+		return
+	if _view_tween != null:
+		_view_tween.kill()
+	_settings_panel.visible = true
+	_settings_panel.modulate.a = 0.0
+	_view_tween = create_tween().set_parallel(true)
+	_view_tween.tween_property(_main_buttons_container, "modulate:a", 0.0, 0.18) \
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	_view_tween.tween_property(_settings_panel, "modulate:a", 1.0, 0.28) \
+		.set_delay(0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	_view_tween.chain().tween_callback(func() -> void:
+		_main_buttons_container.visible = false
+		if _settings_language_button:
+			_settings_language_button.grab_focus()
+	)
+
+
+func _close_settings_view() -> void:
+	if _settings_panel == null or _main_buttons_container == null:
+		return
+	if _view_tween != null:
+		_view_tween.kill()
+	_main_buttons_container.visible = true
+	_main_buttons_container.modulate.a = 0.0
+	_view_tween = create_tween().set_parallel(true)
+	_view_tween.tween_property(_settings_panel, "modulate:a", 0.0, 0.18) \
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	_view_tween.tween_property(_main_buttons_container, "modulate:a", 1.0, 0.28) \
+		.set_delay(0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	_view_tween.chain().tween_callback(func() -> void:
+		_settings_panel.visible = false
+		if _play_button:
+			_play_button.grab_focus()
+	)
 
 
 func _on_play_pressed() -> void:
@@ -339,7 +434,11 @@ func _style_strip_and_buttons() -> void:
 		_menu_strip.add_theme_stylebox_override("panel", strip_style)
 	var awesome_font: FontFile = load("res://Assets/Fonts/awesome/Awesome 9.ttf") as FontFile
 	var empty_style := StyleBoxEmpty.new()
-	var buttons: Array = [_play_button, _language_button, _quit_button]
+	var buttons: Array = [
+		_play_button, _settings_button, _quit_button,
+		_settings_language_button, _settings_sound_button,
+		_settings_graphics_button, _settings_controls_button, _settings_back_button,
+	]
 	for btn_node: Variant in buttons:
 		var btn := btn_node as Button
 		if btn == null:
@@ -356,6 +455,13 @@ func _style_strip_and_buttons() -> void:
 		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.98, 0.78, 1.0))
 		btn.add_theme_color_override("font_pressed_color", Color(0.65, 0.60, 0.38, 1.0))
 		btn.add_theme_color_override("font_focus_color", Color(1.0, 0.98, 0.78, 1.0))
+	# Grid buttons expand to fill their column so both columns stay equal width.
+	for btn: Button in [
+		_settings_language_button, _settings_sound_button,
+		_settings_graphics_button, _settings_controls_button,
+	]:
+		if btn != null:
+			btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 
 func _on_splash_completed() -> void:
@@ -370,7 +476,7 @@ func _pre_hide_intro_elements() -> void:
 	if _menu_strip != null:
 		_menu_strip.modulate.a = 0.0
 		_set_strip_intro_offset(50.0)
-	var buttons: Array = [_play_button, _language_button, _quit_button]
+	var buttons: Array = [_play_button, _settings_button, _quit_button]
 	for node: Variant in buttons:
 		var btn := node as Button
 		if btn != null:
@@ -403,15 +509,13 @@ func _play_logo_intro() -> void:
 	)
 
 	# Strip + buttons on a separate tween so the logo float callback fires on time.
-	var buttons: Array = [_play_button, _language_button, _quit_button]
+	var buttons: Array = [_play_button, _settings_button, _quit_button]
 	_strip_intro_tween = create_tween().set_parallel(true)
-	# Strip: slide up from below + fade in.
 	if _menu_strip != null:
 		_strip_intro_tween.tween_property(_menu_strip, "modulate:a", 1.0, 0.7) \
 			.set_delay(0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 		_strip_intro_tween.tween_method(_set_strip_intro_offset, 50.0, 0.0, 0.6) \
 			.set_delay(0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	# Buttons: staggered fade-in after strip settles.
 	for i: int in buttons.size():
 		var btn := buttons[i] as Button
 		if btn == null:

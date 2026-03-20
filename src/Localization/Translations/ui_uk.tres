@@ -19,8 +19,13 @@ messages = {
 "ui.inventory.character": "Персонаж",
 "ui.inventory.inventory": "Інвентар",
 "ui.inventory.skills": "Навички",
-"ui.main.language": "Мова: %s",
-"ui.main.play": "Створити персонажа",
+"ui.main.play": "Грати",
 "ui.main.quit": "Вийти",
-"ui.main.title": "AETHERGATE"
+"ui.main.settings": "Налаштування",
+"ui.main.title": "AETHERGATE",
+"ui.settings.back": "Назад",
+"ui.settings.controls": "Керування",
+"ui.settings.graphics": "Графіка",
+"ui.settings.language": "Мова: %s",
+"ui.settings.sound": "Звук"
 }
