@@ -49,6 +49,19 @@ const SLOT_LEGS: StringName = &"legs"
 @export var head_label_text_key: StringName = &"ui.creator.head"
 @export var body_label_text_key: StringName = &"ui.creator.body"
 @export var legs_label_text_key: StringName = &"ui.creator.legs"
+@export_group("Panel Appearance")
+## Set to override the panel background texture (StyleBoxTexture with 9-patch).
+@export var panel_texture: Texture2D
+## 9-patch slice lines (pixels from each edge): left, top, right, bottom.
+@export var panel_texture_margin: Vector4i = Vector4i(40, 40, 40, 40)
+## Inner content padding: left, top, right, bottom.
+@export var panel_content_margin: Vector4i = Vector4i(26, 24, 26, 24)
+## Border expansion outside the control bounds: left, top, right, bottom.
+@export var panel_expand_margin: Vector4i = Vector4i(52, 76, 52, 92)
+@export_group("Banner Appearance")
+## Set to override the title banner texture.
+@export var banner_texture: Texture2D
+@export_group("")
 @export var audio_service_path: NodePath = ^"/root/MusicPlayer"
 @export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_2.mp3"
 @export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_8.mp3"
@@ -57,6 +70,8 @@ const SLOT_LEGS: StringName = &"legs"
 @export var sfx_bus_name: String = "SFX"
 
 @onready var _root: Control = get_node_or_null(root_path) as Control
+@onready var _card: PanelContainer = get_node_or_null(^"Root/ContentMargin/CenterContainer/Card") as PanelContainer
+@onready var _banner_texture_rect: TextureRect = get_node_or_null(^"Root/ContentMargin/CenterContainer/Card/Padding/VStack/TitleBanner/BannerTexture") as TextureRect
 @onready var _preview_area: Control = get_node_or_null(preview_area_path) as Control
 @onready var _preview_root: Node2D = get_node_or_null(preview_root_path) as Node2D
 
@@ -106,6 +121,8 @@ func _ready() -> void:
 		content_margin_path = content_margin_default_path
 	super._ready()
 
+	_apply_panel_appearance()
+	_apply_banner_appearance()
 	_rng.randomize()
 	_rebuild_ids()
 	_setup_audio()
@@ -149,6 +166,32 @@ func get_current_appearance() -> Resource:
 	if _current_appearance.has_method("duplicate_data"):
 		return _current_appearance.call("duplicate_data") as Resource
 	return _current_appearance
+
+
+func _apply_panel_appearance() -> void:
+	if panel_texture == null or _card == null:
+		return
+	var style := StyleBoxTexture.new()
+	style.texture = panel_texture
+	style.texture_margin_left = float(panel_texture_margin.x)
+	style.texture_margin_top = float(panel_texture_margin.y)
+	style.texture_margin_right = float(panel_texture_margin.z)
+	style.texture_margin_bottom = float(panel_texture_margin.w)
+	style.content_margin_left = float(panel_content_margin.x)
+	style.content_margin_top = float(panel_content_margin.y)
+	style.content_margin_right = float(panel_content_margin.z)
+	style.content_margin_bottom = float(panel_content_margin.w)
+	style.expand_margin_left = float(panel_expand_margin.x)
+	style.expand_margin_top = float(panel_expand_margin.y)
+	style.expand_margin_right = float(panel_expand_margin.z)
+	style.expand_margin_bottom = float(panel_expand_margin.w)
+	_card.add_theme_stylebox_override(&"panel", style)
+
+
+func _apply_banner_appearance() -> void:
+	if _banner_texture_rect == null or banner_texture == null:
+		return
+	_banner_texture_rect.texture = banner_texture
 
 
 func _on_overlay_viewport_resized() -> void:

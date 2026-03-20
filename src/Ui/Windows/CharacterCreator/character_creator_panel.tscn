@@ -2,22 +2,22 @@
 
 [ext_resource type="Script" uid="uid://dlvkii3odxfw0" path="res://src/Ui/Windows/CharacterCreator/character_creator_panel.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="2_theme"]
-[ext_resource type="Texture2D" uid="uid://db6ld1pwycnd" path="res://src/Ui/Assets/Gui-Hud/Panels/Panels/F_UI_Panel_A.png" id="3_panel_a"]
-[ext_resource type="Texture2D" uid="uid://kvo2tyle1uke" path="res://src/Ui/Assets/Gui-Hud/Titles/Title B_03.png" id="4_t7ggd"]
-[ext_resource type="Script" uid="uid://c2cmxuquaeqlv" path="res://src/Ui/Windows/Gui/MainScreen/nine_slice_menu_button.gd" id="5_button"]
-[ext_resource type="Texture2D" uid="uid://brrghoefrqf3u" path="res://src/Ui/Assets/Gui-Hud/Menu Icons/F_UI_MenuIcons_A1.png" id="12_menu_icon_left"]
-[ext_resource type="Texture2D" uid="uid://cx322dck61cfv" path="res://src/Ui/Assets/Gui-Hud/Menu Icons/F_UI_MenuIcons_A2.png" id="13_menu_icon_right"]
+[ext_resource type="Texture2D" uid="uid://def4a0ahau708" path="res://src/Ui/Assets/UI-v2/Frames.png" id="3_adwco"]
+[ext_resource type="Texture2D" uid="uid://b0hndfd6rqrix" path="res://src/Ui/Assets/UI-v2/Banners.png" id="4_adwco"]
+[ext_resource type="Texture2D" uid="uid://brrghoefrqf3u" path="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_A1.png" id="12_menu_icon_left"]
+[ext_resource type="Texture2D" uid="uid://cx322dck61cfv" path="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_A2.png" id="13_menu_icon_right"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel_a"]
-content_margin_left = 26.0
-content_margin_top = 24.0
-content_margin_right = 26.0
-content_margin_bottom = 24.0
-texture = ExtResource("3_panel_a")
-expand_margin_left = 52.0
-expand_margin_top = 76.0
-expand_margin_right = 52.0
-expand_margin_bottom = 92.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t7ggd"]
+texture = ExtResource("3_adwco")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 21.0
+region_rect = Rect2(848, 38, 52, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7ggd"]
+atlas = ExtResource("4_adwco")
+region = Rect2(0, 38, 96, 20)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_switch"]
 
@@ -62,7 +62,7 @@ layout_mode = 2
 [node name="Card" type="PanelContainer" parent="Root/ContentMargin/CenterContainer" unique_id=299996144]
 custom_minimum_size = Vector2(760, 760)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_panel_a")
+theme_override_styles/panel = SubResource("StyleBoxTexture_t7ggd")
 
 [node name="Padding" type="MarginContainer" parent="Root/ContentMargin/CenterContainer/Card" unique_id=1458480725]
 layout_mode = 2
@@ -82,17 +82,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 2
 
-[node name="BannerTexture" type="NinePatchRect" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/TitleBanner" unique_id=913464707]
+[node name="BannerTexture" type="TextureRect" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/TitleBanner" unique_id=913464707]
 custom_minimum_size = Vector2(700, 140)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("4_t7ggd")
+texture = SubResource("AtlasTexture_t7ggd")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="TitleLabel" type="Label" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/TitleBanner/BannerTexture" unique_id=1122355486]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 14.0
+offset_right = -12.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 1
@@ -254,15 +260,11 @@ alignment = 1
 custom_minimum_size = Vector2(320, 90)
 layout_mode = 2
 text = "Start Adventure"
-script = ExtResource("5_button")
-button_size = Vector2(320, 90)
 
 [node name="RandomizeButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons/TopRow" unique_id=2139859340]
 custom_minimum_size = Vector2(320, 90)
 layout_mode = 2
 text = "Randomize"
-script = ExtResource("5_button")
-button_size = Vector2(320, 90)
 
 [node name="BottomRow" type="HBoxContainer" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/BottomButtons" unique_id=27014405]
 layout_mode = 2
@@ -272,5 +274,3 @@ alignment = 1
 custom_minimum_size = Vector2(360, 96)
 layout_mode = 2
 text = "Cancel"
-script = ExtResource("5_button")
-button_size = Vector2(360, 96)
