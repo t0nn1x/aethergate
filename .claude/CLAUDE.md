@@ -107,8 +107,7 @@ src/World/main.tscn          ← root; loads overworld
 
 `UiManager` (`src/Ui/Common/ui_manager.gd`) selects scenes at runtime:
 
-- `src/Ui/Windows/` — desktop HUD, inventory, character creator, main screen
-- `src/Ui/MacOS/` — macOS HUD, inventory, main screen variants
+- `src/Ui/Desktop/` — desktop HUD, inventory, character creator, main screen (used on Windows and macOS)
 - `src/Ui/Mobile/` — mobile HUD, inventory
 - `src/Ui/Common/` — shared primitives: `AdaptiveOverlayPanel`, style profiles, `UiManager`
 - `src/Ui/Hud/` — shared cross-platform HUD (e.g., `creature_action_hud.tscn`)

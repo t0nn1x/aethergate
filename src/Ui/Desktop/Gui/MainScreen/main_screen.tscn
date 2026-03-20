@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://crpggtwu5kpag"]
 
-[ext_resource type="Script" uid="uid://dc68q7ilmyt5c" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_windows.gd" id="1_main"]
-[ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/Ui/Windows/Gui/MainScreen/background_controller.gd" id="2_background"]
-[ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
+[ext_resource type="Script" uid="uid://dc68q7ilmyt5c" path="res://src/Ui/Desktop/Gui/MainScreen/main_screen_desktop.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/Ui/Desktop/Gui/MainScreen/background_controller.gd" id="2_background"]
+[ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Desktop/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
 [ext_resource type="Texture2D" uid="uid://co4yko63mhret" path="res://Assets/Logo/title_logo.png" id="4_logo"]
 
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]

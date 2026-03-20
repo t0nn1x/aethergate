@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://src/Ui/MacOS/Inventory/inventory_panel_macos.gd" id="1"]
-[ext_resource type="Shader" path="res://src/Ui/Windows/Inventory/background_blur.gdshader" id="2_blur_shader"]
+[ext_resource type="Script" path="res://src/Ui/Desktop/Inventory/inventory_panel.gd" id="1"]
+[ext_resource type="Shader" path="res://src/Ui/Desktop/Inventory/background_blur.gdshader" id="2_blur_shader"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
 shader = ExtResource("2_blur_shader")

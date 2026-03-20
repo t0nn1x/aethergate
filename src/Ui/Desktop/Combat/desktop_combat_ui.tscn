@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://src/Ui/Windows/Combat/windows_combat_ui.gd" id="1_script"]
+[ext_resource type="Script" path="res://src/Ui/Desktop/Combat/desktop_combat_ui.gd" id="1_script"]
 [ext_resource type="FontFile" path="res://Assets/Fonts/compass/Compass 9.ttf" id="2_font"]
 
 [sub_resource type="StyleBoxFlat" id="log_bg"]

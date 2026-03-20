@@ -6,7 +6,7 @@ signal inventory_toggled(is_open: bool)
 const INVENTORY_COLUMNS: int = 5
 const INVENTORY_ROWS: int = 4
 const INVENTORY_SLOT_COUNT: int = INVENTORY_COLUMNS * INVENTORY_ROWS
-const INVENTORY_SLOT_BUTTON_SCRIPT := preload("res://src/Ui/Windows/Inventory/inventory_slot_button.gd")
+const INVENTORY_SLOT_BUTTON_SCRIPT := preload("res://src/Ui/Desktop/Inventory/inventory_slot_button.gd")
 const DRAG_DATA_TYPE_KEY: StringName = &"drag_type"
 const DRAG_DATA_SOURCE_SLOT_KEY: StringName = &"source_slot_index"
 const DRAG_DATA_SOURCE_PANEL_KEY: StringName = &"source_panel_id"

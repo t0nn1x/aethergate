@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c7u2dmo8qv0mm"]
 
-[ext_resource type="Script" path="res://src/Ui/Windows/CharacterCreator/character_creator_panel.gd" id="1_script"]
-[ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="2_theme"]
+[ext_resource type="Script" path="res://src/Ui/Desktop/CharacterCreator/character_creator_panel.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Desktop/Gui/MainScreen/main_screen_theme.tres" id="2_theme"]
 [ext_resource type="Texture2D" uid="uid://def4a0ahau708" path="res://src/Ui/Assets/UI-v2/Frames.png" id="3_adwco"]
 [ext_resource type="Texture2D" uid="uid://b0hndfd6rqrix" path="res://src/Ui/Assets/UI-v2/Banners.png" id="4_adwco"]
 [ext_resource type="Texture2D" uid="uid://5iq4g0kymi7a" path="res://src/Ui/Assets/Creator-Backgrounds/creator_bg1.png" id="5_creator_bg"]
