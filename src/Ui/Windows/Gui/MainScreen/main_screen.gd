@@ -103,6 +103,30 @@ func hide_menu() -> void:
 	_stop_menu_music()
 
 
+## Animate the logo and menu strip out of view, then call on_complete.
+## Used when transitioning to the character creator.
+func animate_menu_out(on_complete: Callable) -> void:
+	if _title_logo_intro_tween != null:
+		_title_logo_intro_tween.kill()
+	if _title_logo_float_tween != null:
+		_title_logo_float_tween.kill()
+		_title_logo_float_tween = null
+	if _strip_intro_tween != null:
+		_strip_intro_tween.kill()
+	var tween := create_tween().set_parallel(true)
+	if _title_logo != null:
+		tween.tween_property(_title_logo, "modulate:a", 0.0, 0.35) \
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+		tween.tween_method(_set_logo_float_offset, _logo_float_offset, -28.0, 0.3) \
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	if _menu_strip != null:
+		tween.tween_property(_menu_strip, "modulate:a", 0.0, 0.35) \
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+		tween.tween_method(_set_strip_intro_offset, 0.0, 28.0, 0.3) \
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	tween.chain().tween_callback(on_complete)
+
+
 func set_creator_overlay_mode(enabled: bool) -> void:
 	_creator_overlay_mode = enabled
 

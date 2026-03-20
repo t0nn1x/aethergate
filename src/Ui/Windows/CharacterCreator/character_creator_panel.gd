@@ -119,6 +119,8 @@ func _ready() -> void:
 
 
 func show_panel(initial_appearance: Resource = null) -> void:
+	if _root != null:
+		_root.modulate.a = 0.0
 	visible = true
 	if initial_appearance:
 		if initial_appearance.has_method("duplicate_data"):
@@ -131,6 +133,10 @@ func show_panel(initial_appearance: Resource = null) -> void:
 	_reset_preview_idle_animation()
 	_refresh_preview()
 	call_deferred("_apply_layout")
+	if _root != null:
+		var tween := create_tween()
+		tween.tween_property(_root, "modulate:a", 1.0, 0.45) \
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 func hide_panel() -> void:
@@ -373,8 +379,17 @@ func _on_randomize_pressed() -> void:
 
 
 func _on_cancel_pressed() -> void:
-	hide_panel()
-	creation_cancelled.emit()
+	if _root != null:
+		var tween := create_tween()
+		tween.tween_property(_root, "modulate:a", 0.0, 0.25) \
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+		tween.tween_callback(func() -> void:
+			visible = false
+			creation_cancelled.emit()
+		)
+	else:
+		visible = false
+		creation_cancelled.emit()
 
 
 func _on_confirm_pressed() -> void:

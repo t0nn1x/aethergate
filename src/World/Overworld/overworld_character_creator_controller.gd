@@ -42,12 +42,12 @@ func open_panel() -> void:
 	if _main_screen:
 		if not _main_screen.visible:
 			_main_screen.show_menu()
-		if _main_screen.has_method("set_creator_overlay_mode"):
-			_main_screen.call("set_creator_overlay_mode", true)
-		print("[FIX][CreatorFlow] Opened creator with main-screen background/music preserved.")
-
-	# Start from fresh defaults each time while persistence is disabled.
-	_character_creator_panel.call("show_panel", null)
+		_main_screen.set_creator_overlay_mode(true)
+		_main_screen.animate_menu_out(func() -> void:
+			_character_creator_panel.call("show_panel", null)
+		)
+	else:
+		_character_creator_panel.call("show_panel", null)
 
 
 func _wire_signals() -> void:

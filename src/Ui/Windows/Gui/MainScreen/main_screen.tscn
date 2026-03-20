@@ -89,10 +89,10 @@ color = Color(0, 0, 0, 0.18)
 
 [node name="MenuStrip" type="Panel" parent="Root" unique_id=1234567890]
 layout_mode = 1
-anchor_left = 0.0
-anchor_right = 1.0
+anchors_preset = -1
 anchor_top = 0.42
-anchor_bottom = 0.70
+anchor_right = 1.0
+anchor_bottom = 0.7
 mouse_filter = 1
 
 [node name="Center" type="CenterContainer" parent="Root/MenuStrip" unique_id=1234567891]
@@ -104,74 +104,77 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ButtonRow" type="VBoxContainer" parent="Root/MenuStrip/Center" unique_id=1234567892]
+layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="PlayButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567893]
 custom_minimum_size = Vector2(200, 70)
-focus_mode = 2
+layout_mode = 2
 text = "Play"
 
 [node name="SettingsButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567894]
 custom_minimum_size = Vector2(200, 70)
-focus_mode = 2
+layout_mode = 2
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567895]
 custom_minimum_size = Vector2(200, 70)
-focus_mode = 2
+layout_mode = 2
 text = "Quit"
 
 [node name="SettingsPanel" type="VBoxContainer" parent="Root/MenuStrip/Center" unique_id=2000000001]
 visible = false
+layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="LanguageButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000003]
 custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
 size_flags_horizontal = 4
-focus_mode = 2
 text = "Language"
 
 [node name="VolumeRow" type="HBoxContainer" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000009]
+layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 12
 
 [node name="VolumeLabel" type="Label" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000010]
 custom_minimum_size = Vector2(100, 0)
-size_flags_vertical = 4
+layout_mode = 2
 text = "Volume"
 
 [node name="VolumeSlider" type="HSlider" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000011]
 custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
 size_flags_vertical = 4
-focus_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 1.0
 
 [node name="VolumePctLabel" type="Label" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000012]
 custom_minimum_size = Vector2(56, 0)
-size_flags_vertical = 4
+layout_mode = 2
 text = "100%"
 horizontal_alignment = 2
 
 [node name="VsyncButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000008]
 custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
 size_flags_horizontal = 4
-focus_mode = 2
 text = "VSync: On"
 
 [node name="BackButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000007]
 custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
 size_flags_horizontal = 4
-focus_mode = 2
 text = "Back"
 
 [node name="TitleLogo" type="TextureRect" parent="Root" unique_id=1715069417]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.1
-anchor_right = 0.9
 anchor_top = 0.03
+anchor_right = 0.9
 anchor_bottom = 0.46
 grow_horizontal = 2
 grow_vertical = 2
