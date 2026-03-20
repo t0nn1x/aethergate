@@ -31,7 +31,9 @@ var _title_logo: TextureRect
 var _logo_float_offset: float = 0.0
 var _title_logo_intro_tween: Tween
 var _title_logo_float_tween: Tween
+var _strip_intro_tween: Tween
 var _logo_intro_done: bool = false
+var _splash_intro_pending: bool = false
 var _viewport: Viewport
 var _is_mobile_layout_active: bool = false
 var _music_service: Node
@@ -63,7 +65,10 @@ func _ready() -> void:
 		call_deferred("_focus_play_button")
 	else:
 		call_deferred("_clear_button_focus")
-	call_deferred("_play_logo_intro")
+	# Pre-hide elements now; animation fires once the splash screen signals completion.
+	_pre_hide_intro_elements()
+	_splash_intro_pending = true
+	UIEvents.splash_completed.connect(_on_splash_completed, CONNECT_ONE_SHOT)
 
 
 func show_menu() -> void:
@@ -75,7 +80,8 @@ func show_menu() -> void:
 		call_deferred("_focus_play_button")
 	else:
 		call_deferred("_clear_button_focus")
-	call_deferred("_play_logo_intro")
+	if not _splash_intro_pending:
+		call_deferred("_play_logo_intro")
 
 
 func hide_menu() -> void:
@@ -352,6 +358,25 @@ func _style_strip_and_buttons() -> void:
 		btn.add_theme_color_override("font_focus_color", Color(1.0, 0.98, 0.78, 1.0))
 
 
+func _on_splash_completed() -> void:
+	_splash_intro_pending = false
+	_play_logo_intro()
+
+
+func _pre_hide_intro_elements() -> void:
+	if _title_logo != null:
+		_title_logo.modulate.a = 0.0
+		_set_logo_float_offset(-40.0)
+	if _menu_strip != null:
+		_menu_strip.modulate.a = 0.0
+		_set_strip_intro_offset(50.0)
+	var buttons: Array = [_play_button, _language_button, _quit_button]
+	for node: Variant in buttons:
+		var btn := node as Button
+		if btn != null:
+			btn.modulate.a = 0.0
+
+
 func _play_logo_intro() -> void:
 	if _title_logo == null:
 		return
@@ -361,18 +386,45 @@ func _play_logo_intro() -> void:
 	if _title_logo_float_tween != null:
 		_title_logo_float_tween.kill()
 		_title_logo_float_tween = null
-	_title_logo.modulate.a = 0.0
-	_set_logo_float_offset(-30.0)
-	_title_logo_intro_tween = create_tween()
-	_title_logo_intro_tween.set_parallel(true)
-	_title_logo_intro_tween.tween_property(_title_logo, "modulate:a", 1.0, 0.5) \
+	if _strip_intro_tween != null:
+		_strip_intro_tween.kill()
+
+	_pre_hide_intro_elements()
+
+	# Logo: fade in + rise up. Callback starts the looping float once done.
+	_title_logo_intro_tween = create_tween().set_parallel(true)
+	_title_logo_intro_tween.tween_property(_title_logo, "modulate:a", 1.0, 0.9) \
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	_title_logo_intro_tween.tween_method(_set_logo_float_offset, -30.0, 0.0, 0.5) \
+	_title_logo_intro_tween.tween_method(_set_logo_float_offset, -40.0, 0.0, 0.85) \
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	_title_logo_intro_tween.chain().tween_callback(func() -> void:
 		_logo_intro_done = true
 		_start_logo_float()
 	)
+
+	# Strip + buttons on a separate tween so the logo float callback fires on time.
+	var buttons: Array = [_play_button, _language_button, _quit_button]
+	_strip_intro_tween = create_tween().set_parallel(true)
+	# Strip: slide up from below + fade in.
+	if _menu_strip != null:
+		_strip_intro_tween.tween_property(_menu_strip, "modulate:a", 1.0, 0.7) \
+			.set_delay(0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+		_strip_intro_tween.tween_method(_set_strip_intro_offset, 50.0, 0.0, 0.6) \
+			.set_delay(0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	# Buttons: staggered fade-in after strip settles.
+	for i: int in buttons.size():
+		var btn := buttons[i] as Button
+		if btn == null:
+			continue
+		_strip_intro_tween.tween_property(btn, "modulate:a", 1.0, 0.35) \
+			.set_delay(0.5 + i * 0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+
+func _set_strip_intro_offset(v: float) -> void:
+	if _menu_strip == null:
+		return
+	_menu_strip.offset_top = v
+	_menu_strip.offset_bottom = v
 
 
 func _start_logo_float() -> void:
