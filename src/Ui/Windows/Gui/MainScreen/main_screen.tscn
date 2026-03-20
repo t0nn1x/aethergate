@@ -8,17 +8,6 @@
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
 layer = 30
 script = ExtResource("1_main")
-title_banner_texture_path = NodePath("")
-social_icons_row_path = NodePath("")
-social_icons_container_path = NodePath("")
-play_button_path = NodePath("")
-language_button_path = NodePath("")
-quit_button_path = NodePath("")
-menu_margin_path = NodePath("")
-menu_card_path = NodePath("")
-menu_vbox_path = NodePath("")
-menu_panel_path = NodePath("")
-title_label_path = NodePath("")
 menu_music_folder_path = "res://src/Ui/Assets/Music"
 
 [node name="Root" type="Control" parent="." unique_id=1118522623]
@@ -98,12 +87,48 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.18)
 
+[node name="MenuStrip" type="Panel" parent="Root" unique_id=1234567890]
+layout_mode = 1
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_top = 0.42
+anchor_bottom = 0.70
+mouse_filter = 1
+
+[node name="Center" type="CenterContainer" parent="Root/MenuStrip" unique_id=1234567891]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonRow" type="VBoxContainer" parent="Root/MenuStrip/Center" unique_id=1234567892]
+theme_override_constants/separation = 8
+
+[node name="PlayButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567893]
+custom_minimum_size = Vector2(200, 70)
+focus_mode = 2
+text = "Play"
+
+[node name="LanguageButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567894]
+custom_minimum_size = Vector2(200, 70)
+focus_mode = 2
+text = "Language"
+
+[node name="QuitButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567895]
+custom_minimum_size = Vector2(200, 70)
+focus_mode = 2
+text = "Quit"
+
 [node name="TitleLogo" type="TextureRect" parent="Root" unique_id=1715069417]
-layout_mode = 0
-offset_left = 415.0
-offset_top = 38.011017
-offset_right = 710.0933
-offset_bottom = 198.97104
+layout_mode = 1
+anchor_left = 0.1
+anchor_right = 0.9
+anchor_top = 0.03
+anchor_bottom = 0.46
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_logo")
 expand_mode = 1

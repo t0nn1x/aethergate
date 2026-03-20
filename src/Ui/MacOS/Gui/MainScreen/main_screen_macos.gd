@@ -1,6 +1,5 @@
 extends MainScreen
 
-const DESKTOP_TITLE_FONT_SIZE: int = 62
 const DESKTOP_BUTTON_SCALE: float = 1.45
 const DESKTOP_MIN_BUTTON_SIZE: Vector2 = Vector2(360.0, 102.0)
 const DESKTOP_MAX_BUTTON_HEIGHT: float = 124.0
@@ -33,17 +32,6 @@ func _ready() -> void:
 	_apply_social_icons_transform()
 	call_deferred("_apply_social_icons_transform")
 	_connect_social_icon_links()
-
-
-func _apply_title_style(_viewport_size: Vector2, is_portrait: bool) -> void:
-	if _title_label == null:
-		return
-
-	var title_size: int = DESKTOP_TITLE_FONT_SIZE
-	if _is_mobile_layout_active:
-		title_size = 52 if is_portrait else 48
-	_title_label.add_theme_font_size_override("font_size", title_size)
-	_title_label.add_theme_constant_override("outline_size", 2)
 
 
 func _apply_button_sizes(viewport_size: Vector2, is_portrait: bool) -> void:
