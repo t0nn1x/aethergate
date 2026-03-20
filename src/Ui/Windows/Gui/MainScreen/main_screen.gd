@@ -6,25 +6,21 @@ signal play_pressed()
 signal quit_requested()
 
 const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
+const FONT_SIZE_NORMAL: int = 36
+const ScreenLocalization = preload("res://src/Ui/Common/ScreenLocalization/screen_localization.gd")
+const UiSoundPlayer = preload("res://src/Ui/Common/UiSoundPlayer/ui_sound_player.gd")
 
 @export var play_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/PlayButton"
 @export var language_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/LanguageButton"
 @export var quit_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/QuitButton"
 @export var menu_strip_path: NodePath = ^"Root/MenuStrip"
 @export var title_logo_path: NodePath = ^"Root/TitleLogo"
-@export var localization_service_path: NodePath = ^"/root/LocalizationService"
 @export var play_button_text_key: StringName = &"ui.main.play"
 @export var language_button_text_key: StringName = &"ui.main.language"
 @export var quit_button_text_key: StringName = &"ui.main.quit"
-@export var auto_focus_play_button: bool = false
-@export var audio_service_path: NodePath = ^"/root/MusicPlayer"
-@export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_2.mp3"
-@export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/Ui/Assets/Sounds/UI_Button_Click_8.mp3"
+@export var auto_focus_play_button: bool = true
 @export_dir var menu_music_folder_path: String = ""
-@export_range(-40.0, 12.0, 0.1) var hover_volume_db: float = -10.0
-@export_range(-40.0, 12.0, 0.1) var click_volume_db: float = -3.0
 @export_range(-40.0, 12.0, 0.1) var menu_music_volume_db: float = -14.0
-@export var sfx_bus_name: String = "SFX"
 @export var music_bus_name: String = "Music"
 
 var _play_button: Button
@@ -38,9 +34,11 @@ var _title_logo_float_tween: Tween
 var _logo_intro_done: bool = false
 var _viewport: Viewport
 var _is_mobile_layout_active: bool = false
-var _music_player_service: Node
-var _localization_service: Node
+var _music_service: Node
 var _creator_overlay_mode: bool = false
+var _button_group: MenuButtonGroup
+var _loc: ScreenLocalization
+var _sfx: UiSoundPlayer
 
 
 func _ready() -> void:
@@ -55,17 +53,16 @@ func _ready() -> void:
 		return
 	if not is_in_group("ui_panels_block_movement"):
 		add_to_group("ui_panels_block_movement")
+	_setup_localization()
+	_setup_sfx()
 	_setup_audio()
 	_configure_touch_interactions()
 	_configure_platform_specific_ui()
-	_setup_localization()
 	_connect_signals()
-	_setup_focus_chain()
 	if auto_focus_play_button:
 		call_deferred("_focus_play_button")
 	else:
 		call_deferred("_clear_button_focus")
-	_start_menu_music_if_needed()
 	call_deferred("_play_logo_intro")
 
 
@@ -109,36 +106,38 @@ func _cache_nodes() -> void:
 		push_warning("MainScreen: Title logo is missing.")
 
 
+func _setup_localization() -> void:
+	_loc = ScreenLocalization.new()
+	add_child(_loc)
+	_loc.locale_updated.connect(func(_l: StringName) -> void: _apply_localized_texts())
+	_apply_localized_texts()
+
+
+func _setup_sfx() -> void:
+	_sfx = UiSoundPlayer.new()
+	add_child(_sfx)
+
+
 func _setup_audio() -> void:
-	_music_player_service = get_node_or_null(audio_service_path)
-	if _music_player_service == null:
-		push_warning("MainScreen: MusicPlayer service not found at '%s'." % audio_service_path)
+	_music_service = get_node_or_null(^"/root/MusicPlayer")
+	if _music_service == null:
+		push_warning("MainScreen: MusicPlayer service not found.")
 		return
-	_music_player_service.configure_ui_sounds(
-		hover_sound_path,
-		hover_volume_db,
-		click_sound_path,
-		click_volume_db,
-		sfx_bus_name
+	_music_service.configure_menu_music_from_folder(
+		menu_music_folder_path, menu_music_volume_db, music_bus_name, true
 	)
-	_music_player_service.configure_menu_music_from_folder(
-		menu_music_folder_path,
-		menu_music_volume_db,
-		music_bus_name,
-		true
-	)
-	_music_player_service.play_menu_music(true)
+	_music_service.play_menu_music(true)
 
 
 func _start_menu_music_if_needed() -> void:
-	if _music_player_service == null or not visible:
+	if _music_service == null or not visible:
 		return
-	_music_player_service.play_menu_music(false)
+	_music_service.play_menu_music(false)
 
 
 func _stop_menu_music() -> void:
-	if _music_player_service:
-		_music_player_service.stop_music()
+	if _music_service:
+		_music_service.stop_music()
 
 
 func _connect_signals() -> void:
@@ -148,37 +147,10 @@ func _connect_signals() -> void:
 		_language_button.pressed.connect(_on_language_pressed)
 	if _quit_button and not _quit_button.pressed.is_connected(_on_quit_pressed):
 		_quit_button.pressed.connect(_on_quit_pressed)
-	_wire_button_audio_signals()
-
-
-func _wire_button_audio_signals() -> void:
-	var buttons: Array = [_play_button, _language_button, _quit_button]
-	for node: Variant in buttons:
-		var button: Button = node as Button
-		if button == null:
-			continue
-		if not button.mouse_entered.is_connected(_on_button_hovered):
-			button.mouse_entered.connect(_on_button_hovered)
-		if not button.focus_entered.is_connected(_on_button_hovered):
-			button.focus_entered.connect(_on_button_hovered)
-
-
-func _on_button_hovered() -> void:
-	_play_hover_sound()
-
-
-func _setup_focus_chain() -> void:
-	var menu_buttons: Array[Button] = _get_focusable_menu_buttons()
-	if menu_buttons.is_empty():
-		push_warning("MainScreen: focus chain setup skipped (no focusable menu buttons).")
-		return
-	var button_count: int = menu_buttons.size()
-	for index in range(button_count):
-		var current: Button = menu_buttons[index]
-		var previous: Button = menu_buttons[(index - 1 + button_count) % button_count]
-		var next: Button = menu_buttons[(index + 1) % button_count]
-		current.focus_neighbor_top = previous.get_path()
-		current.focus_neighbor_bottom = next.get_path()
+	_button_group = MenuButtonGroup.new()
+	add_child(_button_group)
+	_button_group.button_focused.connect(func(_b: Button) -> void: _sfx.play_hover())
+	_button_group.setup([_play_button, _language_button, _quit_button])
 
 
 func _wire_viewport_resize() -> void:
@@ -281,17 +253,6 @@ func _configure_platform_specific_ui() -> void:
 		_quit_button.focus_mode = Control.FOCUS_NONE
 
 
-func _get_focusable_menu_buttons() -> Array[Button]:
-	var result: Array[Button] = []
-	var candidates: Array = [_play_button, _language_button, _quit_button]
-	for node: Variant in candidates:
-		var button: Button = node as Button
-		if button == null or not button.visible or button.disabled:
-			continue
-		result.append(button)
-	return result
-
-
 func _can_programmatically_quit() -> bool:
 	return OS.get_name() != "iOS"
 
@@ -309,38 +270,20 @@ func _clear_button_focus() -> void:
 			button.release_focus()
 
 
-func _setup_localization() -> void:
-	_localization_service = get_node_or_null(localization_service_path)
-	if _localization_service and _localization_service.has_signal("locale_changed"):
-		if not _localization_service.locale_changed.is_connected(_on_locale_changed):
-			_localization_service.locale_changed.connect(_on_locale_changed)
-	_apply_localized_texts()
-
-
-func _on_locale_changed(_locale: StringName) -> void:
-	_apply_localized_texts()
-
-
-func _translate_key(key: StringName) -> String:
-	if _localization_service:
-		return _localization_service.translate_key(key)
-	return tr(String(key))
-
-
 func _apply_localized_texts() -> void:
 	if _play_button:
-		_play_button.text = _translate_key(play_button_text_key)
+		_play_button.text = _loc.translate(play_button_text_key)
 	if _quit_button:
-		_quit_button.text = _translate_key(quit_button_text_key)
+		_quit_button.text = _loc.translate(quit_button_text_key)
 	_update_language_button_label()
 
 
 func _update_language_button_label() -> void:
 	if _language_button == null:
 		return
-	var locale_code: String = _resolve_current_locale_code()
+	var locale_code: String = _loc.get_current_locale()
 	var localized_name: String = _resolve_localized_language_name(locale_code)
-	_language_button.text = _translate_key(language_button_text_key) % [localized_name]
+	_language_button.text = _loc.translate(language_button_text_key) % [localized_name]
 
 
 func _resolve_localized_language_name(locale_code: String) -> String:
@@ -348,60 +291,24 @@ func _resolve_localized_language_name(locale_code: String) -> String:
 	if code.is_empty():
 		code = "en"
 	var key: String = "ui.common.language_name_%s" % code
-	var translated: String = _translate_key(StringName(key))
+	var translated: String = _loc.translate(StringName(key))
 	return translated if translated != key else code.to_upper()
 
 
-func _resolve_current_locale_code() -> String:
-	if _localization_service:
-		return String(_localization_service.get_current_locale()).strip_edges().to_lower()
-	return String(TranslationServer.get_locale()).get_slice("_", 0).get_slice("-", 0).to_lower()
-
-
-func _resolve_supported_locales() -> PackedStringArray:
-	if _localization_service:
-		var locales: Variant = _localization_service.get_supported_locales()
-		if locales is PackedStringArray:
-			return locales
-	return PackedStringArray(["en", "uk"])
-
-
 func _on_language_pressed() -> void:
-	_play_click_sound()
-	var supported: PackedStringArray = _resolve_supported_locales()
-	if supported.is_empty():
-		return
-	var current: String = _resolve_current_locale_code()
-	var idx: int = supported.find(current)
-	if idx < 0:
-		idx = 0
-	var next_locale: String = supported[(idx + 1) % supported.size()]
-	if _localization_service:
-		_localization_service.set_locale(StringName(next_locale), true)
-		return
-	TranslationServer.set_locale(next_locale)
-	_apply_localized_texts()
-
-
-func _play_hover_sound() -> void:
-	if _music_player_service:
-		_music_player_service.play_ui_hover()
-
-
-func _play_click_sound() -> void:
-	if _music_player_service:
-		_music_player_service.play_ui_click()
+	_sfx.play_click()
+	_loc.set_next_locale()
 
 
 func _on_play_pressed() -> void:
-	_play_click_sound()
+	_sfx.play_click()
 	play_pressed.emit()
 
 
 func _on_quit_pressed() -> void:
 	if not _can_programmatically_quit():
 		return
-	_play_click_sound()
+	_sfx.play_click()
 	quit_requested.emit()
 	call_deferred("_quit_application")
 
@@ -438,11 +345,11 @@ func _style_strip_and_buttons() -> void:
 		btn.add_theme_stylebox_override("disabled", empty_style)
 		if awesome_font != null:
 			btn.add_theme_font_override("font", awesome_font)
-		btn.add_theme_font_size_override("font_size", 36)
+		btn.add_theme_font_size_override("font_size", FONT_SIZE_NORMAL)
 		btn.add_theme_color_override("font_color", Color(0.92, 0.85, 0.62, 1.0))
 		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.98, 0.78, 1.0))
 		btn.add_theme_color_override("font_pressed_color", Color(0.65, 0.60, 0.38, 1.0))
-		btn.add_theme_color_override("font_focus_color", Color(0.92, 0.85, 0.62, 1.0))
+		btn.add_theme_color_override("font_focus_color", Color(1.0, 0.98, 0.78, 1.0))
 
 
 func _play_logo_intro() -> void:

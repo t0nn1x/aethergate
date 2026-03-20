@@ -31,7 +31,6 @@ discord_url = "https://www.youtube.com/"
 youtube_url = "https://www.youtube.com/"
 telegram_url = "https://www.youtube.com/"
 twitter_url = "https://www.youtube.com/"
-title_label_path = NodePath("Root/MenuMargin/CenterContainer/MenuCard/MenuPadding/MenuVBox/TitleBanner/BannerTexture/TitleLabel")
 menu_music_folder_path = "res://src/Ui/Assets/Music"
 
 [node name="Root" type="Control" parent="." unique_id=1118522623]
