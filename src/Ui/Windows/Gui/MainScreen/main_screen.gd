@@ -31,10 +31,12 @@ var _quit_button: Button
 var _main_buttons_container: Control
 var _settings_panel: Control
 var _settings_language_button: Button
-var _settings_sound_button: Button
-var _settings_graphics_button: Button
-var _settings_controls_button: Button
+var _settings_vsync_button: Button
 var _settings_back_button: Button
+var _volume_slider: HSlider
+var _volume_label: Label
+var _volume_value_label: Label
+var _volume_sound_timer: Timer
 var _menu_strip: Panel
 var _title_logo: TextureRect
 var _logo_float_offset: float = 0.0
@@ -114,10 +116,11 @@ func _cache_nodes() -> void:
 	_menu_strip = get_node_or_null(menu_strip_path) as Panel
 	_title_logo = get_node_or_null(title_logo_path) as TextureRect
 	if _settings_panel != null:
-		_settings_language_button = _settings_panel.get_node_or_null(^"SettingsGrid/LanguageButton") as Button
-		_settings_sound_button = _settings_panel.get_node_or_null(^"SettingsGrid/SoundButton") as Button
-		_settings_graphics_button = _settings_panel.get_node_or_null(^"SettingsGrid/GraphicsButton") as Button
-		_settings_controls_button = _settings_panel.get_node_or_null(^"SettingsGrid/ControlsButton") as Button
+		_settings_language_button = _settings_panel.get_node_or_null(^"LanguageButton") as Button
+		_settings_vsync_button = _settings_panel.get_node_or_null(^"VsyncButton") as Button
+		_volume_slider = _settings_panel.get_node_or_null(^"VolumeRow/VolumeSlider") as HSlider
+		_volume_label = _settings_panel.get_node_or_null(^"VolumeRow/VolumeLabel") as Label
+		_volume_value_label = _settings_panel.get_node_or_null(^"VolumeRow/VolumePctLabel") as Label
 		_settings_back_button = _settings_panel.get_node_or_null(^"BackButton") as Button
 	if Engine.is_editor_hint():
 		return
@@ -174,8 +177,12 @@ func _connect_signals() -> void:
 		_quit_button.pressed.connect(_on_quit_pressed)
 	if _settings_language_button and not _settings_language_button.pressed.is_connected(_on_settings_language_pressed):
 		_settings_language_button.pressed.connect(_on_settings_language_pressed)
+	if _settings_vsync_button and not _settings_vsync_button.pressed.is_connected(_on_settings_vsync_pressed):
+		_settings_vsync_button.pressed.connect(_on_settings_vsync_pressed)
 	if _settings_back_button and not _settings_back_button.pressed.is_connected(_on_settings_back_pressed):
 		_settings_back_button.pressed.connect(_on_settings_back_pressed)
+	if _volume_slider and not _volume_slider.value_changed.is_connected(_on_volume_changed):
+		_volume_slider.value_changed.connect(_on_volume_changed)
 
 	_button_group = MenuButtonGroup.new()
 	add_child(_button_group)
@@ -185,11 +192,21 @@ func _connect_signals() -> void:
 	_settings_button_group = MenuButtonGroup.new()
 	add_child(_settings_button_group)
 	_settings_button_group.button_focused.connect(func(_b: Button) -> void: _sfx.play_hover())
-	_settings_button_group.setup_grid([
-		[_settings_language_button, _settings_sound_button],
-		[_settings_graphics_button, _settings_controls_button],
-		[_settings_back_button],
-	])
+	# Linear chain: Language → (slider) → VSync → Back, wrapping around.
+	_settings_button_group.setup([_settings_language_button, _settings_vsync_button, _settings_back_button])
+	# Insert the volume slider between Language and VSync.
+	if _settings_language_button and _volume_slider:
+		_settings_language_button.focus_neighbor_bottom = _volume_slider.get_path()
+	if _volume_slider:
+		_volume_slider.focus_neighbor_top = _settings_language_button.get_path() if _settings_language_button else ^""
+		_volume_slider.focus_neighbor_bottom = _settings_vsync_button.get_path() if _settings_vsync_button else ^""
+	if _settings_vsync_button and _volume_slider:
+		_settings_vsync_button.focus_neighbor_top = _volume_slider.get_path()
+	_volume_sound_timer = Timer.new()
+	_volume_sound_timer.wait_time = 0.4
+	_volume_sound_timer.one_shot = true
+	add_child(_volume_sound_timer)
+	_volume_sound_timer.timeout.connect(_play_volume_sound)
 
 
 func _wire_viewport_resize() -> void:
@@ -274,8 +291,7 @@ func _is_mobile_platform() -> bool:
 func _configure_touch_interactions() -> void:
 	var buttons: Array = [
 		_play_button, _settings_button, _quit_button,
-		_settings_language_button, _settings_sound_button,
-		_settings_graphics_button, _settings_controls_button, _settings_back_button,
+		_settings_language_button, _settings_vsync_button, _settings_back_button,
 	]
 	for node: Variant in buttons:
 		var button: Button = node as Button
@@ -321,12 +337,9 @@ func _apply_localized_texts() -> void:
 	if _quit_button:
 		_quit_button.text = _loc.translate(quit_button_text_key)
 	_update_settings_language_label()
-	if _settings_sound_button:
-		_settings_sound_button.text = _loc.translate(&"ui.settings.sound")
-	if _settings_graphics_button:
-		_settings_graphics_button.text = _loc.translate(&"ui.settings.graphics")
-	if _settings_controls_button:
-		_settings_controls_button.text = _loc.translate(&"ui.settings.controls")
+	_update_vsync_button_label()
+	if _volume_label:
+		_volume_label.text = _loc.translate(&"ui.settings.volume")
 	if _settings_back_button:
 		_settings_back_button.text = _loc.translate(&"ui.settings.back")
 
@@ -363,6 +376,48 @@ func _on_settings_language_pressed() -> void:
 	_loc.set_next_locale()
 
 
+func _on_settings_vsync_pressed() -> void:
+	var mode := DisplayServer.window_get_vsync_mode()
+	if mode == DisplayServer.VSYNC_DISABLED:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	_update_vsync_button_label()
+	if _music_service:
+		_music_service.play_sfx("res://src/Ui/Assets/Sounds/UI_Button_Enable.mp3", -3.0)
+
+
+func _update_vsync_button_label() -> void:
+	if _settings_vsync_button == null:
+		return
+	var is_on: bool = DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED
+	var state: String = _loc.translate(&"ui.settings.on") if is_on else _loc.translate(&"ui.settings.off")
+	_settings_vsync_button.text = _loc.translate(&"ui.settings.vsync") % [state]
+
+
+func _on_volume_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(value, 0.0001)))
+	if _volume_value_label:
+		_volume_value_label.text = "%d%%" % [roundi(value * 100.0)]
+	if _volume_sound_timer:
+		_volume_sound_timer.stop()
+		_volume_sound_timer.start()
+
+
+func _play_volume_sound() -> void:
+	if _music_service:
+		_music_service.play_sfx("res://src/Ui/Assets/Sounds/UI_Keypad_Confirmed .mp3", -3.0)
+
+
+func _sync_volume_slider() -> void:
+	if _volume_slider == null:
+		return
+	var linear: float = clampf(db_to_linear(AudioServer.get_bus_volume_db(0)), 0.0, 1.0)
+	_volume_slider.set_value_no_signal(linear)
+	if _volume_value_label:
+		_volume_value_label.text = "%d%%" % [roundi(linear * 100.0)]
+
+
 func _open_settings_view() -> void:
 	if _settings_panel == null or _main_buttons_container == null:
 		return
@@ -375,6 +430,7 @@ func _open_settings_view() -> void:
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	_view_tween.tween_property(_settings_panel, "modulate:a", 1.0, 0.28) \
 		.set_delay(0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	_sync_volume_slider()
 	_view_tween.chain().tween_callback(func() -> void:
 		_main_buttons_container.visible = false
 		if _settings_language_button:
@@ -436,8 +492,7 @@ func _style_strip_and_buttons() -> void:
 	var empty_style := StyleBoxEmpty.new()
 	var buttons: Array = [
 		_play_button, _settings_button, _quit_button,
-		_settings_language_button, _settings_sound_button,
-		_settings_graphics_button, _settings_controls_button, _settings_back_button,
+		_settings_language_button, _settings_vsync_button, _settings_back_button,
 	]
 	for btn_node: Variant in buttons:
 		var btn := btn_node as Button
@@ -455,13 +510,14 @@ func _style_strip_and_buttons() -> void:
 		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.98, 0.78, 1.0))
 		btn.add_theme_color_override("font_pressed_color", Color(0.65, 0.60, 0.38, 1.0))
 		btn.add_theme_color_override("font_focus_color", Color(1.0, 0.98, 0.78, 1.0))
-	# Grid buttons expand to fill their column so both columns stay equal width.
-	for btn: Button in [
-		_settings_language_button, _settings_sound_button,
-		_settings_graphics_button, _settings_controls_button,
-	]:
-		if btn != null:
-			btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# Style the volume row labels to match the button font.
+	for lbl: Label in [_volume_label, _volume_value_label]:
+		if lbl == null:
+			continue
+		if awesome_font != null:
+			lbl.add_theme_font_override("font", awesome_font)
+		lbl.add_theme_font_size_override("font_size", FONT_SIZE_NORMAL)
+		lbl.add_theme_color_override("font_color", Color(0.92, 0.85, 0.62, 1.0))
 
 
 func _on_splash_completed() -> void:

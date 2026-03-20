@@ -125,30 +125,41 @@ text = "Quit"
 visible = false
 theme_override_constants/separation = 10
 
-[node name="SettingsGrid" type="GridContainer" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000002]
-columns = 2
-theme_override_constants/h_separation = 120
-theme_override_constants/v_separation = 8
-
-[node name="LanguageButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000003]
-custom_minimum_size = Vector2(180, 70)
+[node name="LanguageButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000003]
+custom_minimum_size = Vector2(200, 70)
+size_flags_horizontal = 4
 focus_mode = 2
 text = "Language"
 
-[node name="SoundButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000004]
-custom_minimum_size = Vector2(180, 70)
-focus_mode = 2
-text = "Sound"
+[node name="VolumeRow" type="HBoxContainer" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000009]
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
 
-[node name="GraphicsButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000005]
-custom_minimum_size = Vector2(180, 70)
-focus_mode = 2
-text = "Graphics"
+[node name="VolumeLabel" type="Label" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000010]
+custom_minimum_size = Vector2(100, 0)
+size_flags_vertical = 4
+text = "Volume"
 
-[node name="ControlsButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel/SettingsGrid" unique_id=2000000006]
-custom_minimum_size = Vector2(180, 70)
+[node name="VolumeSlider" type="HSlider" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000011]
+custom_minimum_size = Vector2(160, 36)
+size_flags_vertical = 4
 focus_mode = 2
-text = "Controls"
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="VolumePctLabel" type="Label" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000012]
+custom_minimum_size = Vector2(56, 0)
+size_flags_vertical = 4
+text = "100%"
+horizontal_alignment = 2
+
+[node name="VsyncButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000008]
+custom_minimum_size = Vector2(200, 70)
+size_flags_horizontal = 4
+focus_mode = 2
+text = "VSync: On"
 
 [node name="BackButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000007]
 custom_minimum_size = Vector2(200, 70)
