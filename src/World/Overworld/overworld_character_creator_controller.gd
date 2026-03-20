@@ -30,13 +30,13 @@ func is_visible() -> bool:
 
 
 func should_open() -> bool:
-	return _character_creator_panel != null
+	return true
 
 
 func open_panel() -> void:
 	if _character_creator_panel == null:
-		if _session_controller:
-			_session_controller.start_session()
+		if _main_screen != null:
+			_main_screen.animate_play_transition()
 		return
 
 	if _main_screen:

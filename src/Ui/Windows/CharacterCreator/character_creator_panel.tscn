@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://clbhtiqfv1nkc"]
+[gd_scene format=3 uid="uid://c7u2dmo8qv0mm"]
 
-[ext_resource type="Script" uid="uid://dlvkii3odxfw0" path="res://src/Ui/Windows/CharacterCreator/character_creator_panel.gd" id="1_script"]
+[ext_resource type="Script" path="res://src/Ui/Windows/CharacterCreator/character_creator_panel.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Windows/Gui/MainScreen/main_screen_theme.tres" id="2_theme"]
 [ext_resource type="Texture2D" uid="uid://def4a0ahau708" path="res://src/Ui/Assets/UI-v2/Frames.png" id="3_adwco"]
 [ext_resource type="Texture2D" uid="uid://b0hndfd6rqrix" path="res://src/Ui/Assets/UI-v2/Banners.png" id="4_adwco"]
+[ext_resource type="Texture2D" uid="uid://5iq4g0kymi7a" path="res://src/Ui/Assets/Creator-Backgrounds/creator_bg1.png" id="5_creator_bg"]
 [ext_resource type="Texture2D" uid="uid://brrghoefrqf3u" path="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_A1.png" id="12_menu_icon_left"]
 [ext_resource type="Texture2D" uid="uid://cx322dck61cfv" path="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_A2.png" id="13_menu_icon_right"]
 
@@ -18,6 +19,10 @@ region_rect = Rect2(848, 38, 52, 53)
 [sub_resource type="AtlasTexture" id="AtlasTexture_t7ggd"]
 atlas = ExtResource("4_adwco")
 region = Rect2(0, 38, 96, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6jv4"]
+atlas = ExtResource("3_adwco")
+region = Rect2(784, 38, 52, 53)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_switch"]
 
@@ -60,7 +65,7 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 
 [node name="Card" type="PanelContainer" parent="Root/ContentMargin/CenterContainer" unique_id=299996144]
-custom_minimum_size = Vector2(760, 760)
+custom_minimum_size = Vector2(860, 760)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_t7ggd")
 
@@ -107,44 +112,88 @@ text = "CREATE YOUR ADVENTURER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PreviewArea" type="Control" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack" unique_id=1333413021]
-custom_minimum_size = Vector2(620, 180)
+[node name="ContentRow" type="HBoxContainer" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack" unique_id=-1294967295]
+custom_minimum_size = Vector2(0, 360)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
 
-[node name="PreviewRoot" type="Node2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea" unique_id=1109055426]
-position = Vector2(310, 90)
+[node name="PreviewPanel" type="Control" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow" unique_id=-1294967294]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
-[node name="PreviewWeaponBack" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea/PreviewRoot" unique_id=2124200590]
+[node name="PreviewBg" type="TextureRect" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel" unique_id=-1294967293]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_creator_bg")
+expand_mode = 1
+
+[node name="PreviewFrame" type="NinePatchRect" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel" unique_id=-1294967292]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_x6jv4")
+draw_center = false
+
+[node name="PreviewArea" type="Control" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel" unique_id=1333413021]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PreviewRoot" type="Node2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel/PreviewArea" unique_id=1109055426]
+
+[node name="PreviewWeaponBack" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel/PreviewArea/PreviewRoot" unique_id=2124200590]
 z_index = -1
 hframes = 4
 
-[node name="PreviewLegs" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea/PreviewRoot" unique_id=54360514]
+[node name="PreviewLegs" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel/PreviewArea/PreviewRoot" unique_id=54360514]
 hframes = 4
 
-[node name="PreviewBody" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea/PreviewRoot" unique_id=813842426]
+[node name="PreviewBody" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel/PreviewArea/PreviewRoot" unique_id=813842426]
 z_index = 1
 hframes = 4
 
-[node name="PreviewHead" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea/PreviewRoot" unique_id=4360367]
+[node name="PreviewHead" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel/PreviewArea/PreviewRoot" unique_id=4360367]
 z_index = 2
 hframes = 4
 
-[node name="PreviewWeaponFront" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/PreviewArea/PreviewRoot" unique_id=3773080]
+[node name="PreviewWeaponFront" type="Sprite2D" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/PreviewPanel/PreviewArea/PreviewRoot" unique_id=3773080]
 z_index = 3
 hframes = 4
 
-[node name="SelectorsOffset" type="Control" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack" unique_id=632693891]
+[node name="RightPanel" type="VBoxContainer" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow" unique_id=-1294967291]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="SelectorsOffset" type="Control" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel" unique_id=632693891]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
-[node name="OptionsGrid" type="GridContainer" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack" unique_id=2009961962]
+[node name="OptionsGrid" type="GridContainer" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel" unique_id=2009961962]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 6
 columns = 3
 
-[node name="HeadPrevButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=980956100]
+[node name="HeadPrevButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=980956100]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_switch")
@@ -156,7 +205,7 @@ icon = ExtResource("12_menu_icon_left")
 icon_alignment = 1
 expand_icon = true
 
-[node name="HeadValueLabel" type="Label" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=1925597458]
+[node name="HeadValueLabel" type="Label" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=1925597458]
 custom_minimum_size = Vector2(180, 52)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
@@ -164,7 +213,7 @@ text = "-"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HeadNextButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=1470645010]
+[node name="HeadNextButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=1470645010]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_switch")
@@ -176,7 +225,7 @@ icon = ExtResource("13_menu_icon_right")
 icon_alignment = 1
 expand_icon = true
 
-[node name="BodyPrevButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=685265992]
+[node name="BodyPrevButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=685265992]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_switch")
@@ -188,7 +237,7 @@ icon = ExtResource("12_menu_icon_left")
 icon_alignment = 1
 expand_icon = true
 
-[node name="BodyValueLabel" type="Label" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=52546083]
+[node name="BodyValueLabel" type="Label" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=52546083]
 custom_minimum_size = Vector2(180, 52)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
@@ -196,7 +245,7 @@ text = "-"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BodyNextButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=1704828291]
+[node name="BodyNextButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=1704828291]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_switch")
@@ -208,7 +257,7 @@ icon = ExtResource("13_menu_icon_right")
 icon_alignment = 1
 expand_icon = true
 
-[node name="LegsPrevButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=1553940255]
+[node name="LegsPrevButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=1553940255]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_switch")
@@ -220,7 +269,7 @@ icon = ExtResource("12_menu_icon_left")
 icon_alignment = 1
 expand_icon = true
 
-[node name="LegsValueLabel" type="Label" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=1111484933]
+[node name="LegsValueLabel" type="Label" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=1111484933]
 custom_minimum_size = Vector2(180, 52)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
@@ -228,7 +277,7 @@ text = "-"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LegsNextButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/OptionsGrid" unique_id=1088381556]
+[node name="LegsNextButton" type="Button" parent="Root/ContentMargin/CenterContainer/Card/Padding/VStack/ContentRow/RightPanel/OptionsGrid" unique_id=1088381556]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_switch")
