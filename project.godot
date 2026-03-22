@@ -21,6 +21,10 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[audio]
+
+general/ios_background_audio=true
+
 [autoload]
 
 ProjectConfig="*res://src/Config/project_config_service.gd"
