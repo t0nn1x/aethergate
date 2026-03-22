@@ -452,7 +452,7 @@ func _update_settings_language_label() -> void:
 		return
 	var locale_code: String = _loc.get_current_locale()
 	var localized_name: String = _resolve_localized_language_name(locale_code)
-	_settings_language_button.text = _loc.translate(&"ui.settings.language") % [localized_name]
+	_settings_language_button.text = _loc.translate(&"ui.settings.language") + ": " + localized_name
 
 
 func _resolve_localized_language_name(locale_code: String) -> String:
@@ -495,7 +495,7 @@ func _update_vsync_button_label() -> void:
 		return
 	var is_on: bool = DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED
 	var state: String = _loc.translate(&"ui.settings.on") if is_on else _loc.translate(&"ui.settings.off")
-	_settings_vsync_button.text = _loc.translate(&"ui.settings.vsync") % [state]
+	_settings_vsync_button.text = _loc.translate(&"ui.settings.vsync") + ": " + state
 
 
 func _on_volume_changed(value: float) -> void:

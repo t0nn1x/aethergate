@@ -27,7 +27,9 @@ func _ready() -> void:
 
 func translate(key: StringName) -> String:
 	if _service:
-		return _service.translate_key(key)
+		var result: String = _service.translate_key(key)
+		if result != String(key):
+			return result
 	return tr(String(key))
 
 

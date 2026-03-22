@@ -24,9 +24,9 @@ messages = {
 "ui.main.settings": "Settings",
 "ui.main.title": "AETHERGATE",
 "ui.settings.back": "Back",
-"ui.settings.language": "Language: %s",
+"ui.settings.language": "Language",
 "ui.settings.off": "Off",
 "ui.settings.on": "On",
 "ui.settings.volume": "Volume",
-"ui.settings.vsync": "VSync: %s"
+"ui.settings.vsync": "VSync"
 }
