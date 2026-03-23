@@ -131,6 +131,8 @@ func _set_size(btn: Button, target: int, duration: float) -> void:
 
 func _play_press(btn: Button) -> void:
 	var current: float = float(btn.get_theme_font_size("font_size"))
+	var press_min: float = maxf(float(font_size_normal) * 0.72, 8.0)
+	var press_peak: float = maxf(float(font_size_hover) * 1.10, press_min)
 	if _font_tweens.has(btn):
 		(_font_tweens[btn] as Tween).kill()
 	var tween: Tween = create_tween()
@@ -138,13 +140,13 @@ func _play_press(btn: Button) -> void:
 	# Shrink → overshoot → settle back to hover size.
 	tween.tween_method(
 		func(s: float) -> void: btn.add_theme_font_size_override("font_size", roundi(s)),
-		current, 26.0, 0.07
+		current, press_min, 0.07
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_method(
 		func(s: float) -> void: btn.add_theme_font_size_override("font_size", roundi(s)),
-		26.0, 44.0, 0.14
+		press_min, press_peak, 0.14
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_method(
 		func(s: float) -> void: btn.add_theme_font_size_override("font_size", roundi(s)),
-		44.0, float(font_size_hover), 0.07
+		press_peak, float(font_size_hover), 0.07
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
