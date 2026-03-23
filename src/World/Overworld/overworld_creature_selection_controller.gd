@@ -25,7 +25,10 @@ func initialize(
 
 ## Public API — clears selection and hides the action HUD.
 func clear_selection() -> void:
+	var had_selection: bool = _selected_creature != null
 	_clear_selected_creature()
+	if had_selection:
+		_emit_creature_deselected_event()
 
 
 func _wire_creature_interaction_signals() -> void:
@@ -153,7 +156,7 @@ func _on_creature_despawned(creature_node: Creature, _chunk_coord: Vector2i) -> 
 
 func _on_creature_action_hud_fight_pressed(creature_node: Creature) -> void:
 	if creature_node == null or not is_instance_valid(creature_node):
-		_clear_selected_creature()
+		clear_selection()
 		return
 	_emit_creature_fight_requested_event(creature_node)
 
@@ -162,9 +165,13 @@ func _emit_creature_fight_requested_event(creature_node: Creature) -> void:
 	CreatureEvents.creature_fight_requested.emit(creature_node)
 
 
+func _emit_creature_deselected_event() -> void:
+	CreatureEvents.creature_deselected.emit()
+
+
 func _on_inventory_toggled(is_open: bool) -> void:
 	if is_open:
-		_clear_selected_creature()
+		clear_selection()
 
 
 func _get_inventory_panel_node() -> Node:

@@ -54,6 +54,7 @@ func _ready() -> void:
 
 	_apply_project_config()
 	_apply_input_config()
+	_wire_creature_selection_events()
 	_move_request_service = creature.get_node_or_null(move_request_service_path) as PlayerMoveRequestService
 	if _move_request_service:
 		_sync_move_request_service_config()
@@ -275,6 +276,21 @@ func _emit_creature_selected_event(selected_creature: Creature) -> void:
 func _emit_creature_deselected_event() -> void:
 	_selected_creature = null
 	CreatureEvents.creature_deselected.emit()
+
+
+func _wire_creature_selection_events() -> void:
+	if not CreatureEvents.creature_selected.is_connected(_on_global_creature_selected):
+		CreatureEvents.creature_selected.connect(_on_global_creature_selected)
+	if not CreatureEvents.creature_deselected.is_connected(_on_global_creature_deselected):
+		CreatureEvents.creature_deselected.connect(_on_global_creature_deselected)
+
+
+func _on_global_creature_selected(creature_node: Node) -> void:
+	_selected_creature = creature_node as Creature
+
+
+func _on_global_creature_deselected() -> void:
+	_selected_creature = null
 
 
 func _spawn_creature_press_feedback(target_creature: Creature) -> void:
