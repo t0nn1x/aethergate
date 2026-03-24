@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vslls"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Ominous Raven/Sprites/OminousRaven_128x32.png" id="2_bq82r"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_q8hkx"]
 
 [resource]
 script = ExtResource("1_vslls")

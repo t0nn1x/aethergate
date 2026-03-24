@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_x2aut"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/goblin occultist/Sprites/GoblinOccultist_128x32.png" id="2_c3ccy"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_wy1ct"]
 
 [resource]
 script = ExtResource("1_x2aut")

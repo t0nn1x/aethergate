@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_wbh5g"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Blessed Gladiator/Sprites/BlessedGladiator_128x32.png" id="2_g803b"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_vb2m0"]
 
 [resource]
 script = ExtResource("1_wbh5g")

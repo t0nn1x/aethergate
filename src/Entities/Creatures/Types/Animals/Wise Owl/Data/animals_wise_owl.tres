@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_6ur72"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Wise Owl/Sprites/WiseOwl_128x32.png" id="2_asbsj"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_kgvdh"]
 
 [resource]
 script = ExtResource("1_6ur72")

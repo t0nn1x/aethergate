@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://kjbmpocgilj7"]
+[gd_resource type="Resource" script_class="CreatureData" format=3]
 
-[ext_resource type="Script" uid="uid://cmaj65fonsjmq" path="res://src/Entities/Creatures/creature_data.gd" id="1_ijbvx"]
-[ext_resource type="Texture2D" uid="uid://cdtrauru7cuvy" path="res://src/Entities/Creatures/Types/Animals/Agitated Orangutan/Sprites/AgitatedOrangutan_128x32.png" id="2_rgg4j"]
+[ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_ijbvx"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_kuia8"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Agitated Orangutan/Sprites/AgitatedOrangutan_128x32.png" id="2_rgg4j"]
 
 [resource]
 script = ExtResource("1_ijbvx")
@@ -10,3 +11,4 @@ display_name = "Agitated Orangutan"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Agitated Orangutan/Sprites/AgitatedOrangutan_128x32.png"
 sprite_sheet = ExtResource("2_rgg4j")
+hframes = 5

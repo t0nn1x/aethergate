@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_2resq"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Blinded Grimlock/Sprites/BlindedGrimlock_128x32.png" id="2_8eg24"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_hs5rn"]
 
 [resource]
 script = ExtResource("1_2resq")

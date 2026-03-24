@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_23syq"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Depraved Blackguard/Sprites/DepravedBlackguard_128x32.png" id="2_581fs"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_p7cgx"]
 
 [resource]
 script = ExtResource("1_23syq")

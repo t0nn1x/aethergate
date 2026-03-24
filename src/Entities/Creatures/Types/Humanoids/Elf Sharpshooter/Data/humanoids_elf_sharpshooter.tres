@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_jwd6l"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Elf Sharpshooter/Sprites/ElfSharpshooter_128x32.png" id="2_nwcj7"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_wkuem"]
 
 [resource]
 script = ExtResource("1_jwd6l")

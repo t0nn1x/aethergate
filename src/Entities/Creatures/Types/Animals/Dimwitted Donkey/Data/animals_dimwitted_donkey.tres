@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_427wh"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Dimwitted Donkey/Sprites/DimwittedDonkey_128x32.png" id="2_jj6ma"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_tahiv"]
 
 [resource]
 script = ExtResource("1_427wh")

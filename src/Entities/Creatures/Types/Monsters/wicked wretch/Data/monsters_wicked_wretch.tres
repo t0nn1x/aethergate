@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_fefqa"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_b415o"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/wicked wretch/Sprites/WickedWretch_128x32.png" id="2_gt4ib"]
 
 [resource]

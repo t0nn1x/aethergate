@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_nwbna"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Bronthak the Ape/Sprites/Bronthak_128x32.png" id="2_4b25h"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_jxa7h"]
 
 [resource]
 script = ExtResource("1_nwbna")

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_yg6fd"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/orc warlock/Sprites/OrcWarlock_128x32.png" id="2_2siyw"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_32gmq"]
 
 [resource]
 script = ExtResource("1_yg6fd")

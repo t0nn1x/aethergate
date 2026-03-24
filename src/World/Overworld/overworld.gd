@@ -340,10 +340,10 @@ func _build_player_snapshot() -> CombatantSnapshot:
 	var player_sprite := load("res://src/Entities/Player/Sprites/Parts/Combined/Dude_full_body1.png") as Texture2D
 	if player_sprite:
 		snap.portrait = player_sprite
-		snap.sprite_hframes = 4
-		snap.sprite_vframes = 1
 		snap.sprite_frame_width = 32
 		snap.sprite_frame_height = 32
+		snap.sprite_hframes = maxi(1, player_sprite.get_width() / snap.sprite_frame_width)
+		snap.sprite_vframes = 1
 		snap.sprite_idle_fps = 2.0
 		snap.sprite_default_frame = 0
 		for vfx_path: String in [

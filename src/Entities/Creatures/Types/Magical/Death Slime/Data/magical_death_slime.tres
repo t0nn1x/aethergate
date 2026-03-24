@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_ka60f"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Magical/Death Slime/Sprites/DeathSlime_128x32.png" id="2_8kfl0"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_yn8ym"]
 
 [resource]
 script = ExtResource("1_ka60f")

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_aqavg"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Vermin/Umber Moth/Sprites/UmberMoth_128x32.png" id="2_4p1x5"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_oilny"]
 
 [resource]
 script = ExtResource("1_aqavg")

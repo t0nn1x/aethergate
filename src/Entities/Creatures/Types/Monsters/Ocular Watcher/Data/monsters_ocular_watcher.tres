@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_u75ok"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Ocular Watcher/Sprites/OcularWatcher_128x32.png" id="2_0ytnr"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_1eobi"]
 
 [resource]
 script = ExtResource("1_u75ok")

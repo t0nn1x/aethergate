@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_egvtb"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Croaking Toad/Sprites/CroakingToad_128x32.png" id="2_2ln3b"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_yktnd"]
 
 [resource]
 script = ExtResource("1_egvtb")

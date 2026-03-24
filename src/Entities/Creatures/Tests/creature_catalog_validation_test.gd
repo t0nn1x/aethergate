@@ -1,12 +1,12 @@
 class_name CreatureCatalogValidationTest
 extends RefCounted
 
-## Validates creature catalog consistency and 128x32 sheet assumptions.
+## Validates creature catalog consistency.
+## Sprite sheets must be N×32 px (height=32, width a multiple of 32). hframes is derived from width.
 
 const CATALOG_PATH := "res://src/Entities/Creatures/Resources/creature_catalog.tres"
-const REQUIRED_SPRITE_SUFFIX := "_128x32.png"
-const EXPECTED_SHEET_SIZE := Vector2i(128, 32)
-const EXPECTED_HFRAMES := 4
+const REQUIRED_SPRITE_SUFFIX := "x32.png"
+const FRAME_SIZE := 32
 const EXPECTED_VFRAMES := 1
 const EXPECTED_FRAME_WIDTH := 32
 const EXPECTED_FRAME_HEIGHT := 32
@@ -93,10 +93,10 @@ func _validate_sprite_source(creature_data, context: String) -> void:
 		return
 
 	var image_size: Vector2i = image.get_size()
-	if image_size != EXPECTED_SHEET_SIZE:
+	if image_size.y != FRAME_SIZE or image_size.x < FRAME_SIZE or image_size.x % FRAME_SIZE != 0:
 		_add_failure(
-			"'%s' texture size is %s but expected %s."
-			% [context, str(image_size), str(EXPECTED_SHEET_SIZE)]
+			"'%s' texture size %s is invalid: height must be %d and width a multiple of %d."
+			% [context, str(image_size), FRAME_SIZE, FRAME_SIZE]
 		)
 
 
@@ -107,11 +107,8 @@ func _validate_frame_configuration(creature_data, context: String) -> void:
 	var frame_height_pixels: int = int(creature_data.get("frame_height_pixels"))
 	var default_frame: int = int(creature_data.get("default_frame"))
 
-	if hframes != EXPECTED_HFRAMES:
-		_add_failure(
-			"'%s' hframes is %d but expected %d."
-			% [context, hframes, EXPECTED_HFRAMES]
-		)
+	if hframes < 1:
+		_add_failure("'%s' hframes must be >= 1, got %d." % [context, hframes])
 	if vframes != EXPECTED_VFRAMES:
 		_add_failure(
 			"'%s' vframes is %d but expected %d."

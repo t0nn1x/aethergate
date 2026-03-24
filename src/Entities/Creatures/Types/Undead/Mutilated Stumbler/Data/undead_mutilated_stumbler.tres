@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_h4g34"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Undead/Mutilated Stumbler/Sprites/MutilatedStumbler_128x32.png" id="2_cive0"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_wnmac"]
 
 [resource]
 script = ExtResource("1_h4g34")

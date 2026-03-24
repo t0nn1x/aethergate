@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_m1tir"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Carcass Feeder/Sprites/CarcassFeeder_128x32.png" id="2_jg5s3"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_k1s7c"]
 
 [resource]
 script = ExtResource("1_m1tir")

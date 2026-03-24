@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_khae2"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Demons/bulging incubus/Sprites/BulgingIncubusIdleSide/BulgingIncubus_128x32.png" id="2_14nv1"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_owg3y"]
 
 [resource]
 script = ExtResource("1_khae2")

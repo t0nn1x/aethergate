@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_0ret7"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/evil titan/Sprites/EvilTitan_128x32.png" id="2_g0qb6"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_sbv0m"]
 
 [resource]
 script = ExtResource("1_0ret7")

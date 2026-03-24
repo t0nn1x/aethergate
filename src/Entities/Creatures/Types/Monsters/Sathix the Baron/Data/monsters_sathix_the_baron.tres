@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_3g2xn"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Sathix the Baron/Sprites/Sathix_128x32.png" id="2_1tjvg"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_rx8pf"]
 
 [resource]
 script = ExtResource("1_3g2xn")

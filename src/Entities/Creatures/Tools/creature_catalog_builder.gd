@@ -2,12 +2,13 @@
 class_name CreatureCatalogBuilder
 extends RefCounted
 
-## Deterministically builds CreatureData resources from *_128x32.png assets.
+## Deterministically builds CreatureData resources from *x32.png sprite sheets.
+## Frame count is auto-detected: width / FRAME_SIZE. Height must equal FRAME_SIZE.
 
 const TYPES_ROOT: String = "res://src/Entities/Creatures/Types"
 const CATALOG_PATH: String = "res://src/Entities/Creatures/Resources/creature_catalog.tres"
-const SPRITE_SUFFIX: String = "_128x32.png"
-const EXPECTED_SHEET_SIZE: Vector2i = Vector2i(128, 32)
+const SPRITE_SUFFIX: String = "x32.png"
+const FRAME_SIZE: int = 32
 const CREATURE_CATALOG_SCRIPT: Script = preload("res://src/Entities/Creatures/creature_catalog.gd")
 
 var _type_by_category: Dictionary = {
@@ -191,11 +192,11 @@ func _apply_entry_to_data(creature_data: CreatureData, entry: Dictionary) -> voi
 	creature_data.source_category = entry["category"]
 	creature_data.source_sprite_path = sprite_path
 	creature_data.sprite_sheet = _try_load_texture(sprite_path)
-	creature_data.hframes = 4
+	creature_data.frame_width_pixels = FRAME_SIZE
+	creature_data.frame_height_pixels = FRAME_SIZE
+	creature_data.hframes = maxi(1, creature_data.sprite_sheet.get_width() / FRAME_SIZE) if creature_data.sprite_sheet else 4
 	creature_data.vframes = 1
 	creature_data.default_frame = 0
-	creature_data.frame_width_pixels = 32
-	creature_data.frame_height_pixels = 32
 
 	# Keep builder output focused on core identity/presentation; legacy AI fields stay untouched.
 	if creature_data.idle_animation_fps <= 0.0:
@@ -262,10 +263,10 @@ func _is_valid_sprite_sheet(sprite_path: String) -> bool:
 		return false
 
 	var image_size: Vector2i = image.get_size()
-	if image_size != EXPECTED_SHEET_SIZE:
+	if image_size.y != FRAME_SIZE or image_size.x < FRAME_SIZE or image_size.x % FRAME_SIZE != 0:
 		push_warning(
-			"CreatureCatalogBuilder: skipped '%s' (size=%s expected=%s)."
-			% [sprite_path, str(image_size), str(EXPECTED_SHEET_SIZE)]
+			"CreatureCatalogBuilder: skipped '%s' (size=%s, expected height=%d and width a multiple of %d)."
+			% [sprite_path, str(image_size), FRAME_SIZE, FRAME_SIZE]
 		)
 		return false
 

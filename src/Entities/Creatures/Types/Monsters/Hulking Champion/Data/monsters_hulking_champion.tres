@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_kqif0"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Hulking Champion/Sprites/HulkingChampion_128x32.png" id="2_cul2f"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_v6lhq"]
 
 [resource]
 script = ExtResource("1_kqif0")

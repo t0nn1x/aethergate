@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_mp8c2"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Vermin/Tainted Cockroach/Sprites/TaintedCockroach_128x32.png" id="2_cqew6"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_wsh8a"]
 
 [resource]
 script = ExtResource("1_mp8c2")

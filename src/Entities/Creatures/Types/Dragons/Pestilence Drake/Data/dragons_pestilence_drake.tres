@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_hvho1"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Pestilence Drake/Sprites/PestilenceDrake_128x32.png" id="2_08wqc"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_eviac"]
 
 [resource]
 script = ExtResource("1_hvho1")

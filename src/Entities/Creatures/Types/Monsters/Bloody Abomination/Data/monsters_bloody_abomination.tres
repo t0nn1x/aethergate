@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_op25s"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Bloody Abomination/Sprites/BloodyAbomination_128x32.png" id="2_sdnhg"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_wb4rl"]
 
 [resource]
 script = ExtResource("1_op25s")

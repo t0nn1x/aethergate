@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vdajl"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Daron the Halfling Rogue/Sprites/Daron_128x32.png" id="2_1drjp"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_8q6yk"]
 
 [resource]
 script = ExtResource("1_vdajl")
