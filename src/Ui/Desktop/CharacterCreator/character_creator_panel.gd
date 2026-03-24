@@ -5,7 +5,7 @@ signal confirmed
 signal creation_cancelled
 
 const PREVIEW_SCALE: float = 4.0
-const PREVIEW_SPRITE_HFRAMES: int = 4
+const PREVIEW_FRAME_SIZE: int = 32
 const FONT_SIZE_BUTTON: int = 28
 const FONT_SIZE_LABEL: int = 26
 const FONT_SIZE_TITLE: int = 24
@@ -154,7 +154,7 @@ func _slot_display(ids: Array[StringName], idx: int, fallback: String) -> String
 
 func _update_sprite(sprite: Sprite2D, texture: Texture2D) -> void:
 	sprite.texture = texture
-	sprite.hframes = PREVIEW_SPRITE_HFRAMES
+	sprite.hframes = maxi(1, texture.get_width() / PREVIEW_FRAME_SIZE)
 	sprite.frame = 0
 	sprite.scale = Vector2.ONE * PREVIEW_SCALE
 
