@@ -12,10 +12,6 @@ const STRIP_ANCHOR_LEFT_MENU: float = 0.0
 const STRIP_ANCHOR_RIGHT_MENU: float = 1.0
 const STRIP_ANCHOR_TOP_MENU: float = 0.42
 const STRIP_ANCHOR_BOTTOM_MENU: float = 0.7
-const STRIP_ANCHOR_LEFT_CREATOR: float = 0.30
-const STRIP_ANCHOR_RIGHT_CREATOR: float = 0.70
-const STRIP_ANCHOR_TOP_CREATOR: float = 0.10
-const STRIP_ANCHOR_BOTTOM_CREATOR: float = 0.90
 const ScreenLocalization = preload("res://src/Ui/Common/ScreenLocalization/screen_localization.gd")
 const UiSoundPlayer = preload("res://src/Ui/Common/UiSoundPlayer/ui_sound_player.gd")
 
@@ -26,8 +22,8 @@ const UiSoundPlayer = preload("res://src/Ui/Common/UiSoundPlayer/ui_sound_player
 @export var settings_panel_path: NodePath = ^"Root/MenuStrip/Center/SettingsPanel"
 @export var menu_strip_path: NodePath = ^"Root/MenuStrip"
 @export var title_logo_path: NodePath = ^"Root/TitleLogo"
-@export var creator_content_path: NodePath = ^"Root/MenuStrip/Center/CreatorContent"
-@export var begin_button_path: NodePath = ^"Root/MenuStrip/Center/CreatorContent/BeginButton"
+@export var creator_panel_path: NodePath = ^"Root/MenuStrip/CharacterCreatorPanel"
+@export var center_container_path: NodePath = ^"Root/MenuStrip/Center"
 @export var play_button_text_key: StringName = &"ui.main.play"
 @export var settings_button_text_key: StringName = &"ui.main.settings"
 @export var quit_button_text_key: StringName = &"ui.main.quit"
@@ -50,8 +46,8 @@ var _volume_value_label: Label
 var _volume_sound_timer: Timer
 var _menu_strip: Panel
 var _title_logo: TextureRect
-var _creator_content: Control
-var _begin_button: Button
+var _creator_panel: CharacterCreatorPanel
+var _center_container: Control
 var _logo_float_offset: float = 0.0
 var _title_logo_intro_tween: Tween
 var _title_logo_float_tween: Tween
@@ -108,8 +104,10 @@ func show_menu() -> void:
 		call_deferred("_clear_button_focus")
 	if _main_buttons_container != null:
 		_main_buttons_container.visible = true
-	if _creator_content != null:
-		_creator_content.visible = false
+	if _center_container != null:
+		_center_container.visible = true
+	if _creator_panel != null:
+		_creator_panel.visible = false
 	if _menu_strip != null:
 		_menu_strip.anchor_left = STRIP_ANCHOR_LEFT_MENU
 		_menu_strip.anchor_right = STRIP_ANCHOR_RIGHT_MENU
@@ -172,33 +170,75 @@ func animate_play_transition() -> void:
 		tween.tween_property(_main_buttons_container, "modulate:a", 0.0, 0.25) \
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	if _menu_strip != null:
-		tween.tween_property(_menu_strip, "anchor_left", STRIP_ANCHOR_LEFT_CREATOR, 0.55) \
+		var ca := _compute_creator_anchors()
+		tween.tween_property(_menu_strip, "anchor_left", ca.left, 0.55) \
 			.set_delay(0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-		tween.tween_property(_menu_strip, "anchor_right", STRIP_ANCHOR_RIGHT_CREATOR, 0.55) \
+		tween.tween_property(_menu_strip, "anchor_right", ca.right, 0.55) \
 			.set_delay(0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-		tween.tween_property(_menu_strip, "anchor_top", STRIP_ANCHOR_TOP_CREATOR, 0.55) \
+		tween.tween_property(_menu_strip, "anchor_top", ca.top, 0.55) \
 			.set_delay(0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-		tween.tween_property(_menu_strip, "anchor_bottom", STRIP_ANCHOR_BOTTOM_CREATOR, 0.55) \
+		tween.tween_property(_menu_strip, "anchor_bottom", ca.bottom, 0.55) \
 			.set_delay(0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	# Phase 2: hide buttons, fade in creator content.
+	# Phase 2: hide buttons, show creator panel.
 	tween.chain().tween_callback(func() -> void:
 		if _main_buttons_container != null:
 			_main_buttons_container.visible = false
-		if _creator_content != null:
-			_creator_content.modulate.a = 0.0
-			_creator_content.visible = true
+		if _center_container != null:
+			_center_container.visible = false
+		if _creator_panel != null:
+			_creator_panel.modulate.a = 0.0
+			_creator_panel.visible = true
 		var tween2 := create_tween()
-		if _creator_content != null:
-			tween2.tween_property(_creator_content, "modulate:a", 1.0, 0.45) \
+		if _creator_panel != null:
+			tween2.tween_property(_creator_panel, "modulate:a", 1.0, 0.45) \
 				.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-		if _begin_button != null:
-			tween2.chain().tween_callback(func() -> void: _begin_button.grab_focus())
 	)
 
 
 func _on_begin_pressed() -> void:
 	_sfx.play_click()
 	begin_adventure_pressed.emit()
+
+
+func _on_creator_cancelled() -> void:
+	_sfx.play_click()
+	if _view_tween != null:
+		_view_tween.kill()
+	var tween := create_tween().set_parallel(true)
+	if _creator_panel != null:
+		tween.tween_property(_creator_panel, "modulate:a", 0.0, 0.25) \
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	if _menu_strip != null:
+		tween.tween_property(_menu_strip, "anchor_left", STRIP_ANCHOR_LEFT_MENU, 0.5) \
+			.set_delay(0.05).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(_menu_strip, "anchor_right", STRIP_ANCHOR_RIGHT_MENU, 0.5) \
+			.set_delay(0.05).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(_menu_strip, "anchor_top", STRIP_ANCHOR_TOP_MENU, 0.5) \
+			.set_delay(0.05).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(_menu_strip, "anchor_bottom", STRIP_ANCHOR_BOTTOM_MENU, 0.5) \
+			.set_delay(0.05).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.chain().tween_callback(func() -> void:
+		if _creator_panel != null:
+			_creator_panel.visible = false
+		if _center_container != null:
+			_center_container.visible = true
+		if _main_buttons_container != null:
+			_main_buttons_container.visible = true
+			_main_buttons_container.modulate.a = 0.0
+		var tween2 := create_tween().set_parallel(true)
+		if _main_buttons_container != null:
+			tween2.tween_property(_main_buttons_container, "modulate:a", 1.0, 0.35) \
+				.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+		if _title_logo != null:
+			_set_logo_float_offset(0.0)
+			tween2.tween_property(_title_logo, "modulate:a", 1.0, 0.4) \
+				.set_delay(0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+		tween2.chain().tween_callback(func() -> void:
+			if _play_button:
+				_play_button.grab_focus()
+			_start_logo_float()
+		)
+	)
 
 
 func set_creator_overlay_mode(enabled: bool) -> void:
@@ -213,8 +253,8 @@ func _cache_nodes() -> void:
 	_settings_panel = get_node_or_null(settings_panel_path) as Control
 	_menu_strip = get_node_or_null(menu_strip_path) as Panel
 	_title_logo = get_node_or_null(title_logo_path) as TextureRect
-	_creator_content = get_node_or_null(creator_content_path) as Control
-	_begin_button = get_node_or_null(begin_button_path) as Button
+	_creator_panel = get_node_or_null(creator_panel_path) as CharacterCreatorPanel
+	_center_container = get_node_or_null(center_container_path) as Control
 	if _settings_panel != null:
 		_settings_language_button = _settings_panel.get_node_or_null(^"LanguageButton") as Button
 		_settings_vsync_button = _settings_panel.get_node_or_null(^"VsyncButton") as Button
@@ -283,8 +323,10 @@ func _connect_signals() -> void:
 		_settings_back_button.pressed.connect(_on_settings_back_pressed)
 	if _volume_slider and not _volume_slider.value_changed.is_connected(_on_volume_changed):
 		_volume_slider.value_changed.connect(_on_volume_changed)
-	if _begin_button and not _begin_button.pressed.is_connected(_on_begin_pressed):
-		_begin_button.pressed.connect(_on_begin_pressed)
+	if _creator_panel and not _creator_panel.confirmed.is_connected(_on_begin_pressed):
+		_creator_panel.confirmed.connect(_on_begin_pressed)
+	if _creator_panel and not _creator_panel.creation_cancelled.is_connected(_on_creator_cancelled):
+		_creator_panel.creation_cancelled.connect(_on_creator_cancelled)
 
 	_button_group = MenuButtonGroup.new()
 	add_child(_button_group)
@@ -394,7 +436,6 @@ func _configure_touch_interactions() -> void:
 	var buttons: Array = [
 		_play_button, _settings_button, _quit_button,
 		_settings_language_button, _settings_vsync_button, _settings_back_button,
-		_begin_button,
 	]
 	for node: Variant in buttons:
 		var button: Button = node as Button
@@ -613,26 +654,6 @@ func _style_strip_and_buttons() -> void:
 		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.98, 0.78, 1.0))
 		btn.add_theme_color_override("font_pressed_color", Color(0.65, 0.60, 0.38, 1.0))
 		btn.add_theme_color_override("font_focus_color", Color(1.0, 0.98, 0.78, 1.0))
-	if _creator_content != null:
-		var title_lbl := _creator_content.get_node_or_null(^"TitleLabel") as Label
-		if title_lbl != null:
-			if awesome_font != null:
-				title_lbl.add_theme_font_override("font", awesome_font)
-			title_lbl.add_theme_font_size_override("font_size", 44)
-			title_lbl.add_theme_color_override("font_color", Color(0.92, 0.85, 0.62, 1.0))
-	if _begin_button != null:
-		_begin_button.add_theme_stylebox_override("normal", empty_style)
-		_begin_button.add_theme_stylebox_override("hover", empty_style)
-		_begin_button.add_theme_stylebox_override("pressed", empty_style)
-		_begin_button.add_theme_stylebox_override("focus", empty_style)
-		_begin_button.add_theme_stylebox_override("disabled", empty_style)
-		if awesome_font != null:
-			_begin_button.add_theme_font_override("font", awesome_font)
-		_begin_button.add_theme_font_size_override("font_size", FONT_SIZE_NORMAL)
-		_begin_button.add_theme_color_override("font_color", Color(0.92, 0.85, 0.62, 1.0))
-		_begin_button.add_theme_color_override("font_hover_color", Color(1.0, 0.98, 0.78, 1.0))
-		_begin_button.add_theme_color_override("font_pressed_color", Color(0.65, 0.60, 0.38, 1.0))
-		_begin_button.add_theme_color_override("font_focus_color", Color(1.0, 0.98, 0.78, 1.0))
 	# Style the volume row labels to match the button font.
 	for lbl: Label in [_volume_label, _volume_value_label]:
 		if lbl == null:
@@ -641,6 +662,7 @@ func _style_strip_and_buttons() -> void:
 			lbl.add_theme_font_override("font", awesome_font)
 		lbl.add_theme_font_size_override("font_size", FONT_SIZE_NORMAL)
 		lbl.add_theme_color_override("font_color", Color(0.92, 0.85, 0.62, 1.0))
+
 
 
 func _on_splash_completed() -> void:
@@ -701,6 +723,25 @@ func _play_logo_intro() -> void:
 			continue
 		_strip_intro_tween.tween_property(btn, "modulate:a", 1.0, 0.35) \
 			.set_delay(0.5 + i * 0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+
+func _compute_creator_anchors() -> Dictionary:
+	var viewport_size := _resolve_viewport_size()
+	var panel_min := Vector2(620.0, 520.0)
+	if _creator_panel != null:
+		var card := _creator_panel.get_node_or_null(^"Card") as Control
+		if card != null:
+			var ms := card.get_combined_minimum_size()
+			if ms.x > 10.0 and ms.y > 10.0:
+				panel_min = ms
+	var cx: float = viewport_size.x * 0.5
+	var cy: float = viewport_size.y * 0.5
+	return {
+		"left": clampf((cx - panel_min.x * 0.5) / viewport_size.x, 0.05, 0.45),
+		"right": clampf((cx + panel_min.x * 0.5) / viewport_size.x, 0.55, 0.95),
+		"top": clampf((cy - panel_min.y * 0.5) / viewport_size.y, 0.05, 0.45),
+		"bottom": clampf((cy + panel_min.y * 0.5) / viewport_size.y, 0.55, 0.95),
+	}
 
 
 func _set_strip_intro_offset(v: float) -> void:

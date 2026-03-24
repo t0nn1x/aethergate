@@ -45,7 +45,6 @@ func _apply_mobile_sizes() -> void:
 	for btn: Variant in [
 		_play_button, _settings_button, _quit_button,
 		_settings_language_button, _settings_vsync_button, _settings_back_button,
-		_begin_button,
 	]:
 		if not btn is Button:
 			continue
