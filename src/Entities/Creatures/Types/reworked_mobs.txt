@@ -1,6 +1,7 @@
 # Animals
-- pidar1
-- pidar2
+- Agitated Orangutan
+- Arcti cWolf
+- Bald Eagle
 
 # Demons
 - pidarDemon1
@@ -9,12 +10,21 @@
 # Dragons
 
 # Holy
+- Divine Planetar
 
 # Humanoids
+- Adventurous Adolescent
+- Aelrik the Elf Sharpshooter
+- Aelthorin the Elf Lord
+- Bestial Lizardfolk
 
 # Magical
+- Aquis the Water Elemental
 
 # Monsters
+- Antlered Rascal
+- Toxic Hound
+- Unholy Skull
 
 # Undead
 
