@@ -12,6 +12,8 @@ const COMBAT_SECTION: String = "combat"
 const KEY_PLAYER_LEVEL: String = "player_level"
 const KEY_PLAYER_XP: String = "player_xp"
 const BASE_XP_PER_LEVEL: int = 100  ## XP needed: level * BASE_XP_PER_LEVEL
+const PROFILE_SECTION: String = "profile"
+const KEY_SETUP_COMPLETED: String = "setup_completed"
 
 @export var cosmetic_catalog: Resource = preload(
 	"res://src/Entities/Player/Resources/player_cosmetic_catalog.tres"
@@ -21,12 +23,14 @@ var _appearance: Resource
 var _preferred_locale: StringName = StringName()
 var _player_level: int = 1
 var _player_xp: int = 0
+var _setup_completed: bool = false
 
 
 func _ready() -> void:
 	_appearance = _resolve_default_appearance()
 	_load_locale_preference()
 	_load_combat_profile()
+	_load_setup_completed()
 
 
 func get_catalog() -> Resource:
@@ -41,23 +45,26 @@ func get_appearance() -> Resource:
 	return _appearance
 
 
-func set_appearance(appearance: Resource, _mark_completed: bool = true) -> void:
+func set_appearance(appearance: Resource, mark_complete: bool = true) -> void:
 	if appearance == null:
 		push_warning("PlayerProfileService: cannot save null appearance.")
 		return
 
 	_appearance = _sanitize_appearance(appearance)
-	# Persistence is intentionally disabled for now.
-	# Keep selected appearance only for the current runtime session.
+	if mark_complete and not _setup_completed:
+		_setup_completed = true
+		_save_setup_completed()
 
 
 func has_completed_setup() -> bool:
-	# Force creator flow on every Play for now.
-	return false
+	return _setup_completed
 
 
-func mark_setup_completed(_completed: bool = true) -> void:
-	pass
+func mark_setup_completed(completed: bool = true) -> void:
+	if _setup_completed == completed:
+		return
+	_setup_completed = completed
+	_save_setup_completed()
 
 
 func reset_profile() -> void:
@@ -159,6 +166,22 @@ func _load_combat_profile() -> void:
 		return
 	_player_level = int(profile_data.get_value(COMBAT_SECTION, KEY_PLAYER_LEVEL, 1))
 	_player_xp = int(profile_data.get_value(COMBAT_SECTION, KEY_PLAYER_XP, 0))
+
+
+func _load_setup_completed() -> void:
+	var profile_data: ConfigFile = ConfigFile.new()
+	if profile_data.load(PROFILE_SAVE_PATH) != OK:
+		return
+	_setup_completed = bool(profile_data.get_value(PROFILE_SECTION, KEY_SETUP_COMPLETED, false))
+
+
+func _save_setup_completed() -> void:
+	var profile_data: ConfigFile = ConfigFile.new()
+	profile_data.load(PROFILE_SAVE_PATH)
+	profile_data.set_value(PROFILE_SECTION, KEY_SETUP_COMPLETED, _setup_completed)
+	var save_error: Error = profile_data.save(PROFILE_SAVE_PATH)
+	if save_error != OK and OS.is_debug_build():
+		push_warning("PlayerProfileService: failed to save setup_completed (%d)." % int(save_error))
 
 
 func _save_combat_profile() -> void:
