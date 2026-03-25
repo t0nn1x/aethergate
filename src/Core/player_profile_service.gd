@@ -1,6 +1,6 @@
 extends Node
 
-## Holds local player appearance selection for current runtime only.
+## Persists player profile data (locale, combat progress, setup state) to user://player_profile.cfg.
 
 const PLAYER_APPEARANCE_DATA_SCRIPT := preload(
 	"res://src/Entities/Player/Resources/player_appearance_data.gd"
@@ -71,6 +71,8 @@ func reset_profile() -> void:
 	_appearance = _resolve_default_appearance()
 	_preferred_locale = StringName()
 	_save_locale_preference()
+	_setup_completed = false
+	_save_setup_completed()
 
 
 func get_preferred_locale() -> StringName:
