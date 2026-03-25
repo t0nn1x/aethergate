@@ -26,6 +26,7 @@ var _slot_indices: Dictionary = {&"head": 0, &"body": 0, &"legs": 0}
 var _value_labels: Dictionary = {}
 var _counter_labels: Dictionary = {}
 var _customizing_label: Label = null
+var _panel: Panel = null
 
 
 func _ready() -> void:
@@ -49,17 +50,18 @@ func show_for_player(player: Player, catalog: PlayerCosmeticCatalog, initial_app
 	_refresh_all_labels()
 	_add_customizing_label()
 
-	modulate.a = 0.0
+	if _panel:
+		_panel.modulate.a = 0.0
 	show()
 	var tween := create_tween()
-	tween.tween_property(self, "modulate:a", 1.0, 0.35) \
+	tween.tween_property(_panel, "modulate:a", 1.0, 0.35) \
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 func hide_hud() -> void:
 	_remove_customizing_label()
 	var tween := create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 0.25) \
+	tween.tween_property(_panel, "modulate:a", 0.0, 0.25) \
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	tween.tween_callback(hide)
 
@@ -143,7 +145,8 @@ func _remove_customizing_label() -> void:
 # --- UI Construction ---
 
 func _build_panel() -> void:
-	var panel := Panel.new()
+	_panel = Panel.new()
+	var panel := _panel
 	panel.name = "Panel"
 	panel.anchor_left = 1.0
 	panel.anchor_right = 1.0
