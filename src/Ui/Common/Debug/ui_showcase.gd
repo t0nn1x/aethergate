@@ -630,6 +630,87 @@ func _build_flat_buttons_page() -> VBoxContainer:
 		row_n.add_child(btn)
 	page.add_child(row_n)
 
+	# --- Style O: "Gradient Bar" (top-bottom color shift via two borders) ---
+	page.add_child(_section_label("O: Gradient Bar — warm-to-cool shift"))
+	var row_o := _hbox(8)
+	for text: String in ["Explore", "Rest", "Trade"]:
+		var btn := Button.new()
+		btn.text = text
+		btn.custom_minimum_size = Vector2(180, 52)
+		_apply_font(btn, _awesome_font, 20)
+		btn.add_theme_color_override("font_color", WARM_WHITE)
+		var ns_o := _flat(Color(0.09, 0.07, 0.05, 0.88), 6)
+		ns_o.border_width_top = 3
+		ns_o.border_width_bottom = 3
+		ns_o.border_color = Color(0.85, 0.60, 0.25, 0.40)
+		ns_o.shadow_color = Color(0.30, 0.50, 0.90, 0.08)
+		ns_o.shadow_size = 8
+		ns_o.shadow_offset = Vector2(0, 4)
+		btn.add_theme_stylebox_override("normal", ns_o)
+		var hs_o := ns_o.duplicate() as StyleBoxFlat
+		hs_o.bg_color = Color(0.12, 0.10, 0.07, 0.92)
+		hs_o.border_color = Color(0.95, 0.70, 0.30, 0.65)
+		btn.add_theme_stylebox_override("hover", hs_o)
+		btn.add_theme_stylebox_override("pressed", ns_o)
+		row_o.add_child(btn)
+	page.add_child(row_o)
+
+	# --- Style P: "Icon Badge" (circle icon prefix + label) ---
+	page.add_child(_section_label("P: Icon Badge — circle prefix + text"))
+	var row_p := VBoxContainer.new()
+	row_p.add_theme_constant_override("separation", 6)
+	var badge_data: Array[Array] = [
+		["!", "New Quest Available", Color(0.95, 0.78, 0.20)],
+		["+", "Add to Party", Color(0.45, 0.85, 0.55)],
+		["?", "Unknown Region", Color(0.55, 0.65, 0.95)],
+	]
+	for bd: Array in badge_data:
+		var btn := Button.new()
+		btn.custom_minimum_size = Vector2(340, 48)
+		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		_apply_font(btn, _awesome_font, 17)
+		btn.text = "   %s   %s" % [bd[0] as String, bd[1] as String]
+		var bc: Color = bd[2] as Color
+		btn.add_theme_color_override("font_color", WARM_WHITE)
+		var ns_p := _flat(Color(0.06, 0.055, 0.05, 0.85), 24)
+		ns_p.border_width_left = 0
+		ns_p.border_width_bottom = 1
+		ns_p.border_color = Color(bc, 0.25)
+		ns_p.content_margin_left = 6.0
+		btn.add_theme_stylebox_override("normal", ns_p)
+		var hs_p := ns_p.duplicate() as StyleBoxFlat
+		hs_p.bg_color = Color(bc, 0.08)
+		hs_p.border_color = Color(bc, 0.50)
+		btn.add_theme_stylebox_override("hover", hs_p)
+		btn.add_theme_stylebox_override("pressed", ns_p)
+		row_p.add_child(btn)
+	page.add_child(row_p)
+
+	# --- Style Q: "Toggle State" (on/off visual difference) ---
+	page.add_child(_section_label("Q: Toggle — on vs off states"))
+	var row_q := _hbox(8)
+	var toggle_data: Array[Array] = [
+		["Sound: ON", true], ["Music: OFF", false], ["Vibration: ON", true], ["Hints: OFF", false],
+	]
+	for td: Array in toggle_data:
+		var btn := Button.new()
+		btn.text = td[0] as String
+		btn.custom_minimum_size = Vector2(160, 44)
+		_apply_font(btn, _awesome_font, 15)
+		var on: bool = td[1] as bool
+		btn.add_theme_color_override("font_color", GOLD if on else Color(0.45, 0.42, 0.38))
+		var ns_q := _flat(Color(GOLD, 0.06) if on else Color(0.06, 0.055, 0.05, 0.75), 6)
+		ns_q.border_width_bottom = 2
+		ns_q.border_width_top = 1
+		ns_q.border_width_left = 1
+		ns_q.border_width_right = 1
+		ns_q.border_color = Color(GOLD, 0.45) if on else Color(0.20, 0.18, 0.16, 0.40)
+		btn.add_theme_stylebox_override("normal", ns_q)
+		btn.add_theme_stylebox_override("hover", ns_q)
+		btn.add_theme_stylebox_override("pressed", ns_q)
+		row_q.add_child(btn)
+	page.add_child(row_q)
+
 	return page
 
 
@@ -729,6 +810,67 @@ func _build_flat_panels_page() -> VBoxContainer:
 	p9_style.border_color = Color(0.50, 0.75, 1.0, 0.45)
 	page.add_child(_demo_panel_from_style(p9_style, "Dual Accent", "Cool blue stripes on top and bottom. Map / status panel feel."))
 
+	# Style 10: Sidebar Panel (left accent wide + lighter inner region)
+	page.add_child(_section_label("10: Wide Sidebar — split region"))
+	var p10 := HBoxContainer.new()
+	p10.add_theme_constant_override("separation", 0)
+	var p10_side := PanelContainer.new()
+	p10_side.custom_minimum_size = Vector2(60, 100)
+	var p10s_sb := _flat(Color(GOLD, 0.08), 0)
+	p10s_sb.border_width_right = 2
+	p10s_sb.border_color = Color(GOLD, 0.30)
+	p10_side.add_theme_stylebox_override("panel", p10s_sb)
+	var p10_icon := Label.new()
+	p10_icon.text = "!"
+	p10_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	p10_icon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_apply_font(p10_icon, _compass_font, 28)
+	p10_icon.add_theme_color_override("font_color", GOLD)
+	p10_side.add_child(p10_icon)
+	p10.add_child(p10_side)
+	var p10_body := PanelContainer.new()
+	p10_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var p10b_sb := _flat(Color(0.06, 0.055, 0.05, 0.90), 0)
+	p10b_sb.content_margin_left = 16.0
+	p10b_sb.content_margin_top = 12.0
+	p10b_sb.content_margin_bottom = 12.0
+	p10_body.add_theme_stylebox_override("panel", p10b_sb)
+	var p10_vb := VBoxContainer.new()
+	p10_vb.add_theme_constant_override("separation", 4)
+	p10_vb.add_child(_make_label("Wide Sidebar", GOLD_BRIGHT, _compass_font, 20))
+	p10_vb.add_child(_make_label("Icon sits in the accent strip. Body is a separate region.", Color(WARM_WHITE, 0.60), _awesome_font, 14))
+	p10_body.add_child(p10_vb)
+	p10.add_child(p10_body)
+	page.add_child(p10)
+
+	# Style 11: Stacked Header panel (dark header + lighter body)
+	page.add_child(_section_label("11: Stacked Header — two-tone"))
+	var p11 := VBoxContainer.new()
+	p11.add_theme_constant_override("separation", 0)
+	var p11_hdr := PanelContainer.new()
+	var p11h_sb := _flat(Color(GOLD, 0.06), 0)
+	p11h_sb.corner_radius_top_left = 8
+	p11h_sb.corner_radius_top_right = 8
+	p11h_sb.border_width_bottom = 2
+	p11h_sb.border_color = Color(GOLD, 0.30)
+	p11h_sb.content_margin_top = 10.0
+	p11h_sb.content_margin_bottom = 10.0
+	p11_hdr.add_theme_stylebox_override("panel", p11h_sb)
+	var p11_hl := _make_label("Panel Header", GOLD_BRIGHT, _compass_font, 20)
+	p11_hl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	p11_hdr.add_child(p11_hl)
+	p11.add_child(p11_hdr)
+	var p11_bdy := PanelContainer.new()
+	var p11b_sb := _flat(Color(0.05, 0.045, 0.04, 0.92), 0)
+	p11b_sb.corner_radius_bottom_left = 8
+	p11b_sb.corner_radius_bottom_right = 8
+	p11b_sb.content_margin_top = 12.0
+	p11b_sb.content_margin_bottom = 12.0
+	p11_bdy.add_theme_stylebox_override("panel", p11b_sb)
+	p11_bdy.add_child(_make_label("Content area below the header. Two-tone vertical split.", Color(WARM_WHITE, 0.60), _awesome_font, 15))
+	p11.add_child(p11_bdy)
+	page.add_child(p11)
+
 	return page
 
 
@@ -776,6 +918,89 @@ func _build_textured_panels_page() -> VBoxContainer:
 
 		row.add_child(nine)
 		page.add_child(row)
+
+	_add_spacer(page, 16)
+
+	# Combined showcase: textured panel with flat inner elements
+	page.add_child(_section_label("Combo: Textured Panel + Flat Inner Cards"))
+	var combo_tex := load(PANEL_PATHS[0]) as Texture2D
+	if combo_tex:
+		var combo_nine := NinePatchRect.new()
+		combo_nine.texture = combo_tex
+		combo_nine.custom_minimum_size = Vector2(500, 200)
+		combo_nine.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var cm: int = clampi(int(combo_tex.get_width() * 0.30), 10, 30)
+		combo_nine.patch_margin_left = cm
+		combo_nine.patch_margin_right = cm
+		combo_nine.patch_margin_top = cm
+		combo_nine.patch_margin_bottom = cm
+		var combo_margin := MarginContainer.new()
+		combo_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		combo_margin.add_theme_constant_override("margin_left", 16)
+		combo_margin.add_theme_constant_override("margin_right", 16)
+		combo_margin.add_theme_constant_override("margin_top", 12)
+		combo_margin.add_theme_constant_override("margin_bottom", 12)
+		var combo_vb := VBoxContainer.new()
+		combo_vb.add_theme_constant_override("separation", 8)
+		combo_vb.add_child(_make_label("Panel A — with inner cards", GOLD_BRIGHT, _compass_font, 20))
+		for item_text: String in ["Iron Sword  +15 ATK", "Oak Shield  +8 DEF"]:
+			var inner := PanelContainer.new()
+			var isb := _flat(Color(0.04, 0.035, 0.03, 0.70), 4)
+			isb.border_width_left = 3
+			isb.border_color = Color(GOLD, 0.35)
+			isb.content_margin_left = 12.0
+			isb.content_margin_top = 6.0
+			isb.content_margin_bottom = 6.0
+			inner.add_theme_stylebox_override("panel", isb)
+			inner.add_child(_make_label(item_text, WARM_WHITE, _awesome_font, 15))
+			combo_vb.add_child(inner)
+		combo_margin.add_child(combo_vb)
+		combo_nine.add_child(combo_margin)
+		page.add_child(combo_nine)
+
+	# Combo 2: Panel with slot grid overlaid
+	var combo2_tex := load(PANEL_PATHS[2]) as Texture2D
+	if combo2_tex:
+		page.add_child(_section_label("Combo: Textured Panel C + Slot Grid"))
+		var c2_nine := NinePatchRect.new()
+		c2_nine.texture = combo2_tex
+		c2_nine.custom_minimum_size = Vector2(500, 160)
+		c2_nine.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var c2m: int = clampi(int(combo2_tex.get_width() * 0.30), 10, 30)
+		c2_nine.patch_margin_left = c2m
+		c2_nine.patch_margin_right = c2m
+		c2_nine.patch_margin_top = c2m
+		c2_nine.patch_margin_bottom = c2m
+		var c2_margin := MarginContainer.new()
+		c2_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		c2_margin.add_theme_constant_override("margin_left", 20)
+		c2_margin.add_theme_constant_override("margin_right", 20)
+		c2_margin.add_theme_constant_override("margin_top", 14)
+		c2_margin.add_theme_constant_override("margin_bottom", 14)
+		var c2_hb := HBoxContainer.new()
+		c2_hb.add_theme_constant_override("separation", 8)
+		for j: int in 5:
+			var s := PanelContainer.new()
+			s.custom_minimum_size = Vector2(56, 56)
+			var ssb := _flat(Color(0.04, 0.035, 0.03, 0.75), 4)
+			ssb.border_width_bottom = 1
+			ssb.border_width_top = 1
+			ssb.border_width_left = 1
+			ssb.border_width_right = 1
+			ssb.border_color = Color(GOLD, 0.20) if j >= 2 else Color(GOLD, 0.50)
+			s.add_theme_stylebox_override("panel", ssb)
+			if j < 2:
+				var ql := Label.new()
+				ql.text = str(j + 1)
+				ql.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				ql.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+				_apply_font(ql, _awesome_font, 14)
+				ql.add_theme_color_override("font_color", GOLD)
+				s.add_child(ql)
+			c2_hb.add_child(s)
+		c2_margin.add_child(c2_hb)
+		c2_nine.add_child(c2_margin)
+		page.add_child(c2_nine)
 
 	return page
 
@@ -919,6 +1144,72 @@ func _build_title_bars_page() -> VBoxContainer:
 	t6.add_child(t6_right)
 	page.add_child(t6)
 
+	# Notched title (top tabs feel)
+	var t7 := PanelContainer.new()
+	var t7s := _flat(Color(0.06, 0.055, 0.05, 0.80), 0)
+	t7s.border_width_top = 4
+	t7s.border_width_bottom = 1
+	t7s.border_color = GOLD
+	t7s.corner_radius_top_left = 12
+	t7s.corner_radius_top_right = 12
+	t7s.content_margin_top = 10.0
+	t7s.content_margin_bottom = 10.0
+	t7.add_theme_stylebox_override("panel", t7s)
+	var t7l := _make_label("FLAT: Notched Tab Title", GOLD_BRIGHT, _compass_font, 22)
+	t7l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t7.add_child(t7l)
+	page.add_child(t7)
+
+	# Badge title (centered badge with side lines simulated via border)
+	var t8 := HBoxContainer.new()
+	t8.add_theme_constant_override("separation", 0)
+	var t8_line_l := PanelContainer.new()
+	t8_line_l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var t8ls := _flat(Color(0, 0, 0, 0), 0)
+	t8ls.border_width_bottom = 1
+	t8ls.border_color = Color(GOLD, 0.25)
+	t8ls.content_margin_top = 18.0
+	t8ls.content_margin_bottom = 18.0
+	t8_line_l.add_theme_stylebox_override("panel", t8ls)
+	t8_line_l.add_child(Control.new())
+	t8.add_child(t8_line_l)
+	var t8_badge := PanelContainer.new()
+	var t8bs := _flat(Color(GOLD, 0.10), 16)
+	t8bs.border_width_bottom = 2
+	t8bs.border_width_top = 2
+	t8bs.border_width_left = 2
+	t8bs.border_width_right = 2
+	t8bs.border_color = Color(GOLD, 0.45)
+	t8bs.content_margin_left = 24.0
+	t8bs.content_margin_right = 24.0
+	t8bs.content_margin_top = 6.0
+	t8bs.content_margin_bottom = 6.0
+	t8_badge.add_theme_stylebox_override("panel", t8bs)
+	t8_badge.add_child(_make_label("BADGE TITLE", GOLD_BRIGHT, _compass_font, 20))
+	t8.add_child(t8_badge)
+	var t8_line_r := PanelContainer.new()
+	t8_line_r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	t8_line_r.add_theme_stylebox_override("panel", t8ls.duplicate())
+	t8_line_r.add_child(Control.new())
+	t8.add_child(t8_line_r)
+	page.add_child(t8)
+
+	# Gradient fade title
+	var t9 := PanelContainer.new()
+	var t9s := _flat(Color(0.08, 0.075, 0.06, 0.85), 0)
+	t9s.border_width_bottom = 2
+	t9s.border_color = Color(GOLD, 0.35)
+	t9s.shadow_color = Color(GOLD, 0.04)
+	t9s.shadow_size = 16
+	t9s.shadow_offset = Vector2(0, -6)
+	t9s.content_margin_top = 12.0
+	t9s.content_margin_bottom = 12.0
+	t9.add_theme_stylebox_override("panel", t9s)
+	var t9l := _make_label("FLAT: Gradient Fade Title", PARCHMENT, _compass_font, 24)
+	t9l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t9.add_child(t9l)
+	page.add_child(t9)
+
 	return page
 
 
@@ -1020,6 +1311,78 @@ func _build_frames_slots_page() -> VBoxContainer:
 			sq.add_child(ql)
 		flat_sq_row.add_child(sq)
 	page.add_child(flat_sq_row)
+
+	# Diamond / rotated slots
+	page.add_child(_section_label("Diamond Slots — rotated feel"))
+	var diamond_row := _hbox(14)
+	var dia_colors: Array[Color] = [Color(1.0, 0.80, 0.25), Color(0.70, 0.45, 0.90), Color(0.40, 0.60, 0.95), Color(0.85, 0.35, 0.30)]
+	for i: int in 4:
+		var dc: Color = dia_colors[i]
+		var dia := PanelContainer.new()
+		dia.custom_minimum_size = Vector2(72, 72)
+		var dsb := StyleBoxFlat.new()
+		dsb.bg_color = Color(0.06, 0.055, 0.05, 0.88)
+		# Asymmetric corners to create a diamond feel
+		dsb.corner_radius_top_left = 24
+		dsb.corner_radius_top_right = 4
+		dsb.corner_radius_bottom_left = 4
+		dsb.corner_radius_bottom_right = 24
+		dsb.border_width_bottom = 2
+		dsb.border_width_top = 2
+		dsb.border_width_left = 2
+		dsb.border_width_right = 2
+		dsb.border_color = Color(dc, 0.45)
+		dsb.shadow_color = Color(dc, 0.06)
+		dsb.shadow_size = 4
+		dia.add_theme_stylebox_override("panel", dsb)
+		var dl := Label.new()
+		dl.text = ["L", "E", "R", "M"][i]
+		dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		dl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_apply_font(dl, _compass_font, 20)
+		dl.add_theme_color_override("font_color", dc)
+		dia.add_child(dl)
+		diamond_row.add_child(dia)
+	page.add_child(diamond_row)
+
+	# Ornate flat frames (multi-layer border simulation)
+	page.add_child(_section_label("Ornate Flat Frames — double layer"))
+	var ornate_row := _hbox(12)
+	for i: int in 4:
+		var oframe := PanelContainer.new()
+		oframe.custom_minimum_size = Vector2(88, 88)
+		var ofsb := StyleBoxFlat.new()
+		ofsb.bg_color = Color(0, 0, 0, 0)
+		ofsb.set_corner_radius_all(6)
+		ofsb.border_width_bottom = 3
+		ofsb.border_width_top = 3
+		ofsb.border_width_left = 3
+		ofsb.border_width_right = 3
+		ofsb.border_color = Color(GOLD, 0.25)
+		oframe.add_theme_stylebox_override("panel", ofsb)
+		var of_inner := PanelContainer.new()
+		of_inner.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+		of_inner.custom_minimum_size = Vector2(68, 68)
+		var oisb := StyleBoxFlat.new()
+		oisb.bg_color = Color(0.06, 0.055, 0.05, 0.90) if i < 2 else Color(0.04, 0.035, 0.03, 0.70)
+		oisb.set_corner_radius_all(4)
+		oisb.border_width_bottom = 2
+		oisb.border_width_top = 2
+		oisb.border_width_left = 2
+		oisb.border_width_right = 2
+		oisb.border_color = Color(GOLD, 0.50) if i < 2 else Color(GOLD, 0.18)
+		of_inner.add_theme_stylebox_override("panel", oisb)
+		if i < 2:
+			var ol := Label.new()
+			ol.text = ["Sw", "Sh"][i]
+			ol.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			ol.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+			_apply_font(ol, _compass_font, 16)
+			ol.add_theme_color_override("font_color", GOLD)
+			of_inner.add_child(ol)
+		oframe.add_child(of_inner)
+		ornate_row.add_child(oframe)
+	page.add_child(ornate_row)
 
 	return page
 
@@ -1135,6 +1498,138 @@ func _build_composed_cards_page() -> VBoxContainer:
 		nvb.add_child(ntxt)
 		ncard.add_child(nvb)
 		page.add_child(ncard)
+
+	_add_spacer(page, 16)
+
+	# --- Loot Drop Card ---
+	page.add_child(_section_label("Composed Card: Loot Drop"))
+	var loot_items: Array[Array] = [
+		["Ruby Pendant", "x1", Color(0.85, 0.30, 0.30), "Rare"],
+		["Gold Coins", "x120", Color(1.0, 0.85, 0.30), "Common"],
+		["Shadow Essence", "x3", Color(0.65, 0.40, 0.90), "Epic"],
+	]
+	var loot_panel := PanelContainer.new()
+	var lpsb := _flat(Color(0.055, 0.05, 0.045, 0.92), 6)
+	lpsb.border_width_top = 3
+	lpsb.border_color = Color(GOLD, 0.45)
+	lpsb.content_margin_left = 14.0
+	lpsb.content_margin_right = 14.0
+	lpsb.content_margin_top = 12.0
+	lpsb.content_margin_bottom = 12.0
+	loot_panel.add_theme_stylebox_override("panel", lpsb)
+	var lpvb := VBoxContainer.new()
+	lpvb.add_theme_constant_override("separation", 8)
+	lpvb.add_child(_make_label("Loot Acquired!", GOLD_BRIGHT, _compass_font, 22))
+	for li: Array in loot_items:
+		var lr := HBoxContainer.new()
+		lr.add_theme_constant_override("separation", 10)
+		var lslot := PanelContainer.new()
+		lslot.custom_minimum_size = Vector2(36, 36)
+		var lssb := StyleBoxFlat.new()
+		lssb.bg_color = Color(li[2] as Color, 0.08)
+		lssb.set_corner_radius_all(4)
+		lssb.border_width_bottom = 1
+		lssb.border_width_top = 1
+		lssb.border_width_left = 1
+		lssb.border_width_right = 1
+		lssb.border_color = Color(li[2] as Color, 0.35)
+		lslot.add_theme_stylebox_override("panel", lssb)
+		lr.add_child(lslot)
+		var ln := _make_label(li[0] as String, WARM_WHITE, _awesome_font, 15)
+		ln.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		lr.add_child(ln)
+		lr.add_child(_make_label(li[1] as String, Color(li[2] as Color, 0.80), _awesome_font, 15))
+		lr.add_child(_make_label(li[3] as String, Color(li[2] as Color, 0.60), _awesome_font, 12))
+		lpvb.add_child(lr)
+	loot_panel.add_child(lpvb)
+	page.add_child(loot_panel)
+
+	_add_spacer(page, 16)
+
+	# --- Achievement Card ---
+	page.add_child(_section_label("Composed Card: Achievement"))
+	var ach_data: Array[Array] = [
+		["First Blood", "Defeat your first enemy", Color(0.70, 0.70, 0.75)],
+		["Master Alchemist", "Craft 100 potions", Color(1.0, 0.80, 0.25)],
+	]
+	for ad: Array in ach_data:
+		var acard := PanelContainer.new()
+		var ac: Color = ad[2] as Color
+		var acsb := _flat(Color(0.06, 0.055, 0.05, 0.88), 6)
+		acsb.border_width_bottom = 2
+		acsb.border_color = Color(ac, 0.40)
+		acsb.content_margin_left = 14.0
+		acsb.content_margin_right = 14.0
+		acsb.content_margin_top = 10.0
+		acsb.content_margin_bottom = 10.0
+		acard.add_theme_stylebox_override("panel", acsb)
+		var ahb := HBoxContainer.new()
+		ahb.add_theme_constant_override("separation", 12)
+		# Trophy circle
+		var trophy := PanelContainer.new()
+		trophy.custom_minimum_size = Vector2(44, 44)
+		var tsb := StyleBoxFlat.new()
+		tsb.bg_color = Color(ac, 0.12)
+		tsb.set_corner_radius_all(22)
+		tsb.border_width_bottom = 2
+		tsb.border_width_top = 2
+		tsb.border_width_left = 2
+		tsb.border_width_right = 2
+		tsb.border_color = Color(ac, 0.40)
+		trophy.add_theme_stylebox_override("panel", tsb)
+		var tl := Label.new()
+		tl.text = "*"
+		tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		tl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_apply_font(tl, _compass_font, 20)
+		tl.add_theme_color_override("font_color", ac)
+		trophy.add_child(tl)
+		ahb.add_child(trophy)
+		var avb := VBoxContainer.new()
+		avb.add_theme_constant_override("separation", 2)
+		avb.add_child(_make_label(ad[0] as String, GOLD_BRIGHT, _awesome_font, 17))
+		avb.add_child(_make_label(ad[1] as String, Color(WARM_WHITE, 0.55), _awesome_font, 13))
+		ahb.add_child(avb)
+		acard.add_child(ahb)
+		page.add_child(acard)
+
+	_add_spacer(page, 16)
+
+	# --- Status Effect Card ---
+	page.add_child(_section_label("Composed Card: Status Effects"))
+	var status_row := _hbox(8)
+	var status_data: Array[Array] = [
+		["Poison", "3 turns", Color(0.40, 0.85, 0.30)],
+		["Burn", "2 turns", Color(0.95, 0.50, 0.20)],
+		["Frozen", "1 turn", Color(0.40, 0.70, 0.95)],
+		["Blessed", "5 turns", Color(1.0, 0.90, 0.40)],
+	]
+	for sd: Array in status_data:
+		var scard := PanelContainer.new()
+		scard.custom_minimum_size = Vector2(110, 0)
+		var sc: Color = sd[2] as Color
+		var scsb := _flat(Color(sc, 0.06), 8)
+		scsb.border_width_bottom = 2
+		scsb.border_width_top = 1
+		scsb.border_width_left = 1
+		scsb.border_width_right = 1
+		scsb.border_color = Color(sc, 0.35)
+		scsb.content_margin_left = 10.0
+		scsb.content_margin_right = 10.0
+		scsb.content_margin_top = 8.0
+		scsb.content_margin_bottom = 8.0
+		scard.add_theme_stylebox_override("panel", scsb)
+		var svb := VBoxContainer.new()
+		svb.add_theme_constant_override("separation", 2)
+		var sn := _make_label(sd[0] as String, sc, _awesome_font, 14)
+		sn.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		svb.add_child(sn)
+		var st := _make_label(sd[1] as String, Color(sc, 0.55), _awesome_font, 11)
+		st.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		svb.add_child(st)
+		scard.add_child(svb)
+		status_row.add_child(scard)
+	page.add_child(status_row)
 
 	return page
 
@@ -1447,6 +1942,74 @@ func _build_circle_buttons_slots_page() -> VBoxContainer:
 		row8.add_child(outer)
 	page.add_child(row8)
 
+	# --- Row 9: Cooldown timer circles ---
+	page.add_child(_section_label("Cooldown Timers — partial fill"))
+	var row9 := _hbox(12)
+	var cd_data: Array[Array] = [
+		["ATK", 0.75, Color(0.85, 0.30, 0.25)],
+		["MAG", 0.40, Color(0.65, 0.40, 0.90)],
+		["HEL", 0.90, Color(0.40, 0.85, 0.50)],
+		["ULT", 0.15, Color(1.0, 0.85, 0.30)],
+	]
+	for data: Array in cd_data:
+		var c: Color = data[2] as Color
+		var pct: float = data[1] as float
+		var cd_panel := PanelContainer.new()
+		cd_panel.custom_minimum_size = Vector2(72, 72)
+		var cdsb := StyleBoxFlat.new()
+		cdsb.bg_color = Color(0.06, 0.055, 0.05, 0.90)
+		cdsb.set_corner_radius_all(36)
+		cdsb.border_width_bottom = 3
+		cdsb.border_width_top = 3
+		cdsb.border_width_left = 3
+		cdsb.border_width_right = 3
+		cdsb.border_color = Color(c, 0.50)
+		if pct < 0.5:
+			cdsb.bg_color = Color(c, 0.04)
+			cdsb.border_color = Color(c, 0.20)
+		cd_panel.add_theme_stylebox_override("panel", cdsb)
+		var cd_vb := VBoxContainer.new()
+		cd_vb.add_theme_constant_override("separation", 0)
+		cd_vb.alignment = BoxContainer.ALIGNMENT_CENTER
+		var cd_lbl := Label.new()
+		cd_lbl.text = data[0] as String
+		cd_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_apply_font(cd_lbl, _compass_font, 14)
+		cd_lbl.add_theme_color_override("font_color", c if pct >= 0.5 else Color(c, 0.45))
+		cd_vb.add_child(cd_lbl)
+		var pct_lbl := Label.new()
+		pct_lbl.text = "%d%%" % int(pct * 100.0)
+		pct_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_apply_font(pct_lbl, _awesome_font, 11)
+		pct_lbl.add_theme_color_override("font_color", Color(c, 0.60))
+		cd_vb.add_child(pct_lbl)
+		cd_panel.add_child(cd_vb)
+		row9.add_child(cd_panel)
+	page.add_child(row9)
+
+	# --- Row 10: Pip/dot indicators ---
+	page.add_child(_section_label("Pip Indicators — filled vs empty"))
+	var row10 := _hbox(6)
+	for i: int in 8:
+		var pip := PanelContainer.new()
+		pip.custom_minimum_size = Vector2(20, 20)
+		var psb := StyleBoxFlat.new()
+		var filled: bool = i < 5
+		psb.bg_color = Color(GOLD, 0.70) if filled else Color(0.15, 0.14, 0.12, 0.50)
+		psb.set_corner_radius_all(10)
+		psb.border_width_bottom = 1
+		psb.border_width_top = 1
+		psb.border_width_left = 1
+		psb.border_width_right = 1
+		psb.border_color = Color(GOLD, 0.40) if filled else Color(0.25, 0.23, 0.20, 0.30)
+		pip.add_theme_stylebox_override("panel", psb)
+		pip.add_child(Control.new())
+		row10.add_child(pip)
+	var pip_label := _make_label("  5 / 8 charges", DIM, _awesome_font, 13)
+	pip_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	row10.add_child(pip_label)
+	page.add_child(row10)
+
 	return page
 
 
@@ -1694,6 +2257,96 @@ func _build_notifications_dialogs_page() -> VBoxContainer:
 		seg.add_child(sl)
 		seg_outer.add_child(seg)
 	page.add_child(seg_outer)
+
+	# --- System message panel ---
+	page.add_child(_section_label("System Message Panel"))
+	var sys_msg := PanelContainer.new()
+	var sm_sb := _flat(Color(0.04, 0.04, 0.06, 0.94), 4)
+	sm_sb.border_width_bottom = 1
+	sm_sb.border_width_top = 1
+	sm_sb.border_width_left = 1
+	sm_sb.border_width_right = 1
+	sm_sb.border_color = Color(0.25, 0.23, 0.20, 0.35)
+	sm_sb.content_margin_left = 16.0
+	sm_sb.content_margin_right = 16.0
+	sm_sb.content_margin_top = 10.0
+	sm_sb.content_margin_bottom = 10.0
+	sys_msg.add_theme_stylebox_override("panel", sm_sb)
+	var sm_vb := VBoxContainer.new()
+	sm_vb.add_theme_constant_override("separation", 4)
+	sm_vb.add_child(_make_label("[System]", Color(0.55, 0.52, 0.48), _awesome_font, 12))
+	sm_vb.add_child(_make_label("Server maintenance scheduled at 02:00 UTC.", Color(WARM_WHITE, 0.70), _awesome_font, 15))
+	sm_vb.add_child(_make_label("All progress will be saved automatically.", Color(WARM_WHITE, 0.45), _awesome_font, 13))
+	sys_msg.add_child(sm_vb)
+	page.add_child(sys_msg)
+
+	# --- Currency gain popup ---
+	page.add_child(_section_label("Currency Gain Popup"))
+	var curr_popup := PanelContainer.new()
+	curr_popup.custom_minimum_size = Vector2(280, 0)
+	var cp_sb := _flat(Color(0.08, 0.07, 0.05, 0.92), 10)
+	cp_sb.border_width_bottom = 2
+	cp_sb.border_color = Color(GOLD, 0.40)
+	cp_sb.shadow_color = Color(GOLD, 0.06)
+	cp_sb.shadow_size = 8
+	cp_sb.content_margin_left = 16.0
+	cp_sb.content_margin_right = 16.0
+	cp_sb.content_margin_top = 12.0
+	cp_sb.content_margin_bottom = 12.0
+	curr_popup.add_theme_stylebox_override("panel", cp_sb)
+	var cp_hb := HBoxContainer.new()
+	cp_hb.add_theme_constant_override("separation", 12)
+	cp_hb.alignment = BoxContainer.ALIGNMENT_CENTER
+	var coin_icon := PanelContainer.new()
+	coin_icon.custom_minimum_size = Vector2(40, 40)
+	var ci_sb := StyleBoxFlat.new()
+	ci_sb.bg_color = Color(GOLD, 0.15)
+	ci_sb.set_corner_radius_all(20)
+	ci_sb.border_width_bottom = 2
+	ci_sb.border_width_top = 2
+	ci_sb.border_width_left = 2
+	ci_sb.border_width_right = 2
+	ci_sb.border_color = Color(GOLD, 0.45)
+	coin_icon.add_theme_stylebox_override("panel", ci_sb)
+	var ci_lbl := Label.new()
+	ci_lbl.text = "G"
+	ci_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ci_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_apply_font(ci_lbl, _compass_font, 18)
+	ci_lbl.add_theme_color_override("font_color", GOLD)
+	coin_icon.add_child(ci_lbl)
+	cp_hb.add_child(coin_icon)
+	cp_hb.add_child(_make_label("+350 Gold", GOLD_BRIGHT, _compass_font, 24))
+	curr_popup.add_child(cp_hb)
+	page.add_child(curr_popup)
+
+	# --- Achievement unlock banner ---
+	page.add_child(_section_label("Achievement Unlock"))
+	var ach := PanelContainer.new()
+	var ach_sb := _flat(Color(0.07, 0.065, 0.05, 0.94), 6)
+	ach_sb.border_width_top = 3
+	ach_sb.border_width_bottom = 1
+	ach_sb.border_color = Color(1.0, 0.80, 0.25, 0.55)
+	ach_sb.shadow_color = Color(1.0, 0.85, 0.30, 0.08)
+	ach_sb.shadow_size = 10
+	ach_sb.content_margin_left = 16.0
+	ach_sb.content_margin_right = 16.0
+	ach_sb.content_margin_top = 12.0
+	ach_sb.content_margin_bottom = 12.0
+	ach.add_theme_stylebox_override("panel", ach_sb)
+	var ach_vb := VBoxContainer.new()
+	ach_vb.add_theme_constant_override("separation", 4)
+	var ach_top := _make_label("ACHIEVEMENT UNLOCKED", Color(1.0, 0.85, 0.30, 0.70), _awesome_font, 12)
+	ach_top.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ach_vb.add_child(ach_top)
+	var ach_name := _make_label("Dragon Slayer", GOLD_BRIGHT, _compass_font, 24)
+	ach_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ach_vb.add_child(ach_name)
+	var ach_desc := _make_label("Defeat the Elder Dragon in under 5 minutes", Color(WARM_WHITE, 0.55), _awesome_font, 14)
+	ach_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ach_vb.add_child(ach_desc)
+	ach.add_child(ach_vb)
+	page.add_child(ach)
 
 	return page
 
@@ -2035,6 +2688,138 @@ func _build_full_mockups_page() -> VBoxContainer:
 	shop.add_child(sh_vb)
 	page.add_child(shop)
 
+	# --- Mockup F: Dialogue Panel ---
+	page.add_child(_section_label("Mockup F: Dialogue Panel"))
+	var dlg_panel := PanelContainer.new()
+	var dp_sb := _flat(Color(0.05, 0.045, 0.04, 0.95), 0)
+	dp_sb.border_width_top = 3
+	dp_sb.border_color = Color(0.50, 0.75, 1.0, 0.50)
+	dp_sb.content_margin_left = 20.0
+	dp_sb.content_margin_right = 20.0
+	dp_sb.content_margin_top = 16.0
+	dp_sb.content_margin_bottom = 16.0
+	dlg_panel.add_theme_stylebox_override("panel", dp_sb)
+	var dp_vb := VBoxContainer.new()
+	dp_vb.add_theme_constant_override("separation", 10)
+	# Speaker name
+	var dp_name := _make_label("Elder Mirael", Color(0.55, 0.80, 1.0), _compass_font, 22)
+	dp_vb.add_child(dp_name)
+	# Dialogue text
+	var dp_text := Label.new()
+	dp_text.text = "The amulet you seek lies deep within the Shadow Caves.\nBut beware — the path is guarded by creatures of the dark."
+	dp_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_apply_font(dp_text, _awesome_font, 16)
+	dp_text.add_theme_color_override("font_color", Color(WARM_WHITE, 0.80))
+	dp_vb.add_child(dp_text)
+	# Choice buttons
+	var dp_choices := VBoxContainer.new()
+	dp_choices.add_theme_constant_override("separation", 6)
+	var choices: Array[String] = ["1. Tell me more about the caves.", "2. I'm ready. Let's go.", "3. Maybe later."]
+	for ch: String in choices:
+		var ch_btn := Button.new()
+		ch_btn.text = ch
+		ch_btn.custom_minimum_size = Vector2(0, 40)
+		ch_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		_apply_font(ch_btn, _awesome_font, 15)
+		ch_btn.add_theme_color_override("font_color", GOLD)
+		var ch_ns := _flat(Color(GOLD, 0.03), 4)
+		ch_ns.border_width_left = 3
+		ch_ns.border_color = Color(GOLD, 0.15)
+		ch_ns.content_margin_left = 14.0
+		ch_btn.add_theme_stylebox_override("normal", ch_ns)
+		var ch_hs := ch_ns.duplicate() as StyleBoxFlat
+		ch_hs.bg_color = Color(GOLD, 0.08)
+		ch_hs.border_color = Color(GOLD, 0.45)
+		ch_btn.add_theme_stylebox_override("hover", ch_hs)
+		ch_btn.add_theme_stylebox_override("pressed", ch_ns)
+		ch_btn.add_theme_color_override("font_hover_color", GOLD_BRIGHT)
+		dp_choices.add_child(ch_btn)
+	dp_vb.add_child(dp_choices)
+	dlg_panel.add_child(dp_vb)
+	page.add_child(dlg_panel)
+
+	# --- Mockup G: Party Composition ---
+	page.add_child(_section_label("Mockup G: Party Composition"))
+	var party := PanelContainer.new()
+	var pt_sb := _flat(Color(0.055, 0.05, 0.045, 0.94), 6)
+	pt_sb.border_width_top = 2
+	pt_sb.border_color = Color(GOLD, 0.30)
+	pt_sb.content_margin_left = 16.0
+	pt_sb.content_margin_right = 16.0
+	pt_sb.content_margin_top = 14.0
+	pt_sb.content_margin_bottom = 14.0
+	party.add_theme_stylebox_override("panel", pt_sb)
+	var pt_vb := VBoxContainer.new()
+	pt_vb.add_theme_constant_override("separation", 10)
+	pt_vb.add_child(_make_label("Party", GOLD_BRIGHT, _compass_font, 22))
+	var party_data: Array[Array] = [
+		["Wanderer", "Lv.12", "Swordsman", 0.72, Color(0.78, 0.22, 0.18)],
+		["Kira", "Lv.10", "Scout", 0.90, Color(0.45, 0.85, 0.50)],
+		["Thorn", "Lv.11", "Mage", 0.55, Color(0.30, 0.50, 0.90)],
+	]
+	for pd: Array in party_data:
+		var pr := PanelContainer.new()
+		var prsb := _flat(Color(0.07, 0.065, 0.06, 0.80), 4)
+		prsb.content_margin_left = 10.0
+		prsb.content_margin_right = 10.0
+		prsb.content_margin_top = 8.0
+		prsb.content_margin_bottom = 8.0
+		pr.add_theme_stylebox_override("panel", prsb)
+		var pr_hb := HBoxContainer.new()
+		pr_hb.add_theme_constant_override("separation", 10)
+		# Avatar circle
+		var av := PanelContainer.new()
+		av.custom_minimum_size = Vector2(40, 40)
+		var avsb := StyleBoxFlat.new()
+		avsb.bg_color = Color(pd[4] as Color, 0.12)
+		avsb.set_corner_radius_all(20)
+		avsb.border_width_bottom = 2
+		avsb.border_width_top = 2
+		avsb.border_width_left = 2
+		avsb.border_width_right = 2
+		avsb.border_color = Color(pd[4] as Color, 0.40)
+		av.add_theme_stylebox_override("panel", avsb)
+		var av_l := Label.new()
+		av_l.text = (pd[0] as String).left(1)
+		av_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		av_l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_apply_font(av_l, _compass_font, 16)
+		av_l.add_theme_color_override("font_color", pd[4] as Color)
+		av.add_child(av_l)
+		pr_hb.add_child(av)
+		# Info
+		var pr_info := VBoxContainer.new()
+		pr_info.add_theme_constant_override("separation", 2)
+		pr_info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var pr_top := HBoxContainer.new()
+		pr_top.add_child(_make_label(pd[0] as String, WARM_WHITE, _awesome_font, 15))
+		var pr_lv := _make_label(pd[1] as String, DIM, _awesome_font, 12)
+		pr_lv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		pr_lv.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		pr_top.add_child(pr_lv)
+		pr_info.add_child(pr_top)
+		pr_info.add_child(_make_label(pd[2] as String, Color(pd[4] as Color, 0.65), _awesome_font, 12))
+		# HP bar
+		var hp_track := PanelContainer.new()
+		hp_track.custom_minimum_size = Vector2(0, 10)
+		var htsb := _flat(Color(0.06, 0.05, 0.04), 2)
+		htsb.content_margin_left = 0.0
+		htsb.content_margin_right = 0.0
+		htsb.content_margin_top = 0.0
+		htsb.content_margin_bottom = 0.0
+		hp_track.add_theme_stylebox_override("panel", htsb)
+		var hp_fill := ColorRect.new()
+		hp_fill.custom_minimum_size = Vector2(180.0 * (pd[3] as float), 0)
+		hp_fill.color = pd[4] as Color
+		hp_fill.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		hp_track.add_child(hp_fill)
+		pr_info.add_child(hp_track)
+		pr_hb.add_child(pr_info)
+		pr.add_child(pr_hb)
+		pt_vb.add_child(pr)
+	party.add_child(pt_vb)
+	page.add_child(party)
+
 	return page
 
 
@@ -2109,6 +2894,61 @@ func _build_typography_page() -> VBoxContainer:
 		svb.add_child(_make_label("Body text at normal reading size", Color(bg[2] as Color, 0.70), _awesome_font, 15))
 		samp.add_child(svb)
 		page.add_child(samp)
+
+	_add_spacer(page, 24)
+
+	# Heading hierarchy
+	page.add_child(_section_label("Heading Hierarchy"))
+	var headings: Array[Array] = [
+		["H1 — Screen Title", _compass_font, 36, GOLD_BRIGHT],
+		["H2 — Section Header", _compass_font, 26, GOLD],
+		["H3 — Subsection", _compass_font, 22, Color(GOLD, 0.80)],
+		["H4 — Card Title", _awesome_font, 18, WARM_WHITE],
+		["H5 — Label / Caption", _awesome_font, 15, Color(WARM_WHITE, 0.70)],
+		["H6 — Fine Print", _awesome_font, 12, DIM],
+	]
+	for h: Array in headings:
+		page.add_child(_make_label(h[0] as String, h[3] as Color, h[1] as Font, h[2] as int))
+
+	_add_spacer(page, 24)
+
+	# Number/stat display styles
+	page.add_child(_section_label("Number / Stat Displays"))
+	var num_row := _hbox(20)
+	var num_data: Array[Array] = [
+		["1,247", "Gold", GOLD],
+		["42", "Level", Color(0.50, 0.75, 1.0)],
+		["+15", "ATK", Color(0.85, 0.35, 0.30)],
+		["88%", "Crit", Color(0.70, 0.50, 0.90)],
+	]
+	for nd: Array in num_data:
+		var nv := VBoxContainer.new()
+		nv.add_theme_constant_override("separation", 2)
+		var n_val := _make_label(nd[0] as String, nd[2] as Color, _compass_font, 32)
+		n_val.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		nv.add_child(n_val)
+		var n_cap := _make_label(nd[1] as String, Color(nd[2] as Color, 0.50), _awesome_font, 12)
+		n_cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		nv.add_child(n_cap)
+		num_row.add_child(nv)
+	page.add_child(num_row)
+
+	_add_spacer(page, 24)
+
+	# Long paragraph readability
+	page.add_child(_section_label("Paragraph Readability"))
+	var para := Label.new()
+	para.text = "The ancient ruins stretch before you, their crumbling walls covered in moss and forgotten runes. A faint glow emanates from deep within, promising both treasure and danger. Your companion draws their weapon, ready for whatever lies ahead."
+	para.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_apply_font(para, _awesome_font, 16)
+	para.add_theme_color_override("font_color", Color(WARM_WHITE, 0.75))
+	page.add_child(para)
+	var para2 := Label.new()
+	para2.text = "Same text in Compass 9 at 18px for comparison. The ancient ruins stretch before you, their crumbling walls covered in moss and forgotten runes."
+	para2.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_apply_font(para2, _compass_font, 18)
+	para2.add_theme_color_override("font_color", Color(PARCHMENT, 0.75))
+	page.add_child(para2)
 
 	return page
 
