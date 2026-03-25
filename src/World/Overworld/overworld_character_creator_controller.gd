@@ -6,6 +6,7 @@ extends Node
 ## shows OverworldCreatorHud. On "Begin Adventure": saves appearance, unlocks.
 
 var _creator_hud: OverworldCreatorHud
+## Reserved: stored for potential future session coordination (e.g., pausing session during creator).
 var _session_controller: OverworldSessionController
 var _locked_player: Player
 
