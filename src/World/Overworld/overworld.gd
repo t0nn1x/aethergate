@@ -47,6 +47,7 @@ func _ready() -> void:
 	_initialize_character_creator_controller()
 	_initialize_creature_selection_controller()
 	_wire_combat_preview()
+	_initialize_debug_panel()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
@@ -235,6 +236,15 @@ func _is_mobile_platform() -> bool:
 func _initialize_character_creator_controller() -> void:
 	if character_creator_controller:
 		character_creator_controller.initialize(session_controller)
+
+
+func _initialize_debug_panel() -> void:
+	if not OS.is_debug_build():
+		return
+	var panel := DebugPanel.new()
+	panel.name = "DebugPanel"
+	panel.set_debug_overlay(debug_overlay)
+	add_child(panel)
 
 
 func _wire_combat_preview() -> void:
