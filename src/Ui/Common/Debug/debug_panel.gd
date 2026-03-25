@@ -219,6 +219,14 @@ func _on_print_tree() -> void:
 	_set_status("Scene tree printed to console")
 
 
+func _on_open_ui_showcase() -> void:
+	var ShowcaseScript: GDScript = load("res://src/Ui/Common/Debug/ui_showcase.gd")
+	var showcase: CanvasLayer = ShowcaseScript.new()
+	get_tree().root.add_child(showcase)
+	_on_close()
+	_set_status("UI Showcase opened")
+
+
 func _on_close() -> void:
 	_panel.hide()
 	_bg.hide()
@@ -333,6 +341,7 @@ func _build_ui() -> void:
 	display_content.add_theme_constant_override("separation", 4)
 	display_content.add_child(_make_btn("Toggle Debug Overlay", _on_toggle_debug_overlay))
 	display_content.add_child(_make_btn("Print Scene Tree", _on_print_tree))
+	display_content.add_child(_make_btn("UI Showcase", _on_open_ui_showcase))
 	vbox.add_child(_make_section_card("DISPLAY", display_content))
 
 	# ── CHARACTER & PROFILE section ──
