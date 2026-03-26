@@ -79,11 +79,13 @@ func _toggle_panel() -> void:
 
 
 func _build_toggle_button() -> void:
+	if not ProjectConfig.is_mobile_runtime():
+		return
 	_toggle_btn = Button.new()
 	_toggle_btn.text = "DBG"
-	_toggle_btn.custom_minimum_size = Vector2(56, 56)
+	_toggle_btn.custom_minimum_size = Vector2(72, 72)
 	_toggle_btn.mouse_filter = Control.MOUSE_FILTER_STOP
-	_apply_font(_toggle_btn, 14)
+	_apply_font(_toggle_btn, 16)
 	_toggle_btn.add_theme_color_override("font_color", Color(1.0, 0.92, 0.68, 0.6))
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.07, 0.07, 0.09, 0.55)
@@ -100,14 +102,19 @@ func _build_toggle_button() -> void:
 	hover.border_color = Color(1.0, 0.92, 0.68, 0.55)
 	_toggle_btn.add_theme_stylebox_override("hover", hover)
 	_toggle_btn.add_theme_stylebox_override("pressed", hover)
+	# Safe area offset for mobile (system nav bar / gesture zone)
+	var screen_size := DisplayServer.screen_get_size()
+	var safe_area := DisplayServer.get_display_safe_area()
+	var safe_bottom: float = maxf(screen_size.y - safe_area.end.y, 30.0)
+	var safe_right: float = maxf(screen_size.x - safe_area.end.x, 10.0)
 	_toggle_btn.anchor_left = 1.0
 	_toggle_btn.anchor_right = 1.0
 	_toggle_btn.anchor_top = 1.0
 	_toggle_btn.anchor_bottom = 1.0
-	_toggle_btn.offset_left = -56
-	_toggle_btn.offset_right = 0
-	_toggle_btn.offset_top = -56
-	_toggle_btn.offset_bottom = 0
+	_toggle_btn.offset_left = -(72.0 + safe_right)
+	_toggle_btn.offset_right = -safe_right
+	_toggle_btn.offset_top = -(72.0 + safe_bottom)
+	_toggle_btn.offset_bottom = -safe_bottom
 	_toggle_btn.pressed.connect(_toggle_panel)
 	add_child(_toggle_btn)
 
