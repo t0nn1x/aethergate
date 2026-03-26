@@ -85,6 +85,11 @@ const ICON_PATHS: Dictionary = {
 	"ring": "res://Assets/Icons/Rings_jewellery/PNG/Transperent/Icon1.png",
 	"buff": "res://Assets/Icons/Buffs/PNG/Transperent/Icon1.png",
 	"curse": "res://Assets/Icons/Curse/PNG/Transperent/Icon1.png",
+	"staff": "res://Assets/Icons/Staffs/PNG/Transperent/Icon1.png",
+	"spear": "res://Assets/Icons/Spears/PNG/Transperent/Icon1.png",
+	"mace": "res://Assets/Icons/Maces/PNG/Transperent/Icon1.png",
+	"sabatons": "res://Assets/Icons/Sabatons/PNG/Transperent/Icon1.png",
+	"paladin": "res://Assets/Icons/Paladin/PNG/Icon1.png",
 }
 
 # Palette
@@ -3242,6 +3247,7 @@ func _build_full_mockups_page() -> VBoxContainer:
 	inv_title.add_theme_color_override("font_color", GOLD_BRIGHT)
 	inv_vb.add_child(inv_title)
 	# Slot grid
+	var inv_icons: Array[String] = ["sword", "shield", "potion_red", "gem_red", "scroll", "helmet", "dagger", "ring"]
 	var grid := GridContainer.new()
 	grid.columns = 6
 	grid.add_theme_constant_override("h_separation", 6)
@@ -3250,7 +3256,7 @@ func _build_full_mockups_page() -> VBoxContainer:
 		var slot := PanelContainer.new()
 		slot.custom_minimum_size = Vector2(64, 64)
 		var ssb := StyleBoxFlat.new()
-		ssb.bg_color = Color(0.08, 0.07, 0.06, 0.85) if i >= 5 else Color(0.12, 0.10, 0.08, 0.90)
+		ssb.bg_color = Color(0.08, 0.07, 0.06, 0.85) if i >= inv_icons.size() else Color(0.12, 0.10, 0.08, 0.90)
 		ssb.corner_radius_top_left = 4
 		ssb.corner_radius_top_right = 4
 		ssb.corner_radius_bottom_left = 4
@@ -3259,16 +3265,14 @@ func _build_full_mockups_page() -> VBoxContainer:
 		ssb.border_width_top = 1
 		ssb.border_width_left = 1
 		ssb.border_width_right = 1
-		ssb.border_color = Color(GOLD, 0.15) if i >= 5 else Color(GOLD, 0.50)
+		ssb.border_color = Color(GOLD, 0.15) if i >= inv_icons.size() else Color(GOLD, 0.50)
 		slot.add_theme_stylebox_override("panel", ssb)
-		if i < 5:
-			var qty := Label.new()
-			qty.text = str(randi_range(1, 64))
-			qty.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			qty.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-			_apply_font(qty, _awesome_font, 11)
-			qty.add_theme_color_override("font_color", Color(0.75, 0.72, 0.65))
-			slot.add_child(qty)
+		if i < inv_icons.size():
+			var slot_center := CenterContainer.new()
+			slot_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			slot_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			slot_center.add_child(_make_icon_rect(inv_icons[i], 40.0))
+			slot.add_child(slot_center)
 		grid.add_child(slot)
 	inv_vb.add_child(grid)
 	# Gold display
@@ -3471,13 +3475,12 @@ func _build_full_mockups_page() -> VBoxContainer:
 	cb_mp_fill.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	cb_mp_track.add_child(cb_mp_fill)
 	cb_hb.add_child(cb_mp_track)
-	# Action buttons
-	for txt: String in ["ATK", "DEF", "FLE"]:
+	# Action buttons with icons
+	var combat_btns: Array[Array] = [["ATK", "sword"], ["DEF", "shield"], ["FLE", "sabatons"]]
+	for cb: Array in combat_btns:
 		var ab := Button.new()
-		ab.text = txt
+		ab.text = ""
 		ab.custom_minimum_size = Vector2(56, 56)
-		_apply_font(ab, _compass_font, 14)
-		ab.add_theme_color_override("font_color", GOLD)
 		var abs := StyleBoxFlat.new()
 		abs.bg_color = Color(0.08, 0.07, 0.06, 0.90)
 		abs.set_corner_radius_all(28)
@@ -3486,6 +3489,11 @@ func _build_full_mockups_page() -> VBoxContainer:
 		ab.add_theme_stylebox_override("normal", abs)
 		ab.add_theme_stylebox_override("hover", abs)
 		ab.add_theme_stylebox_override("pressed", abs)
+		var ab_center := CenterContainer.new()
+		ab_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		ab_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		ab_center.add_child(_make_icon_rect(cb[1] as String, 32.0))
+		ab.add_child(ab_center)
 		cb_hb.add_child(ab)
 	combat_bar.add_child(cb_hb)
 	page.add_child(combat_bar)
@@ -3507,9 +3515,9 @@ func _build_full_mockups_page() -> VBoxContainer:
 	sh_vb.add_theme_constant_override("separation", 10)
 	sh_vb.add_child(_make_label("Blacksmith's Wares", GOLD_BRIGHT, _compass_font, 22))
 	var shop_items: Array[Array] = [
-		["Iron Sword", "120 G", Color(0.70, 0.70, 0.75)],
-		["Steel Shield", "240 G", Color(0.40, 0.60, 0.95)],
-		["Healing Potion x5", "50 G", Color(0.45, 0.85, 0.50)],
+		["Iron Sword", "120 G", Color(0.70, 0.70, 0.75), "sword"],
+		["Steel Shield", "240 G", Color(0.40, 0.60, 0.95), "shield"],
+		["Healing Potion x5", "50 G", Color(0.45, 0.85, 0.50), "potion_red"],
 	]
 	for si: Array in shop_items:
 		var si_row := HBoxContainer.new()
@@ -3526,6 +3534,11 @@ func _build_full_mockups_page() -> VBoxContainer:
 		sisb.border_width_right = 1
 		sisb.border_color = Color(si[2] as Color, 0.40)
 		si_slot.add_theme_stylebox_override("panel", sisb)
+		var si_center := CenterContainer.new()
+		si_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		si_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		si_center.add_child(_make_icon_rect(si[3] as String, 32.0))
+		si_slot.add_child(si_center)
 		si_row.add_child(si_slot)
 		var si_name := _make_label(si[0] as String, WARM_WHITE, _awesome_font, 15)
 		si_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -3612,9 +3625,9 @@ func _build_full_mockups_page() -> VBoxContainer:
 	pt_vb.add_theme_constant_override("separation", 10)
 	pt_vb.add_child(_make_label("Party", GOLD_BRIGHT, _compass_font, 22))
 	var party_data: Array[Array] = [
-		["Wanderer", "Lv.12", "Swordsman", 0.72, Color(0.78, 0.22, 0.18)],
-		["Kira", "Lv.10", "Scout", 0.90, Color(0.45, 0.85, 0.50)],
-		["Thorn", "Lv.11", "Mage", 0.55, Color(0.30, 0.50, 0.90)],
+		["Wanderer", "Lv.12", "Swordsman", 0.72, Color(0.78, 0.22, 0.18), "sword"],
+		["Kira", "Lv.10", "Scout", 0.90, Color(0.45, 0.85, 0.50), "dagger"],
+		["Thorn", "Lv.11", "Mage", 0.55, Color(0.30, 0.50, 0.90), "staff"],
 	]
 	for pd: Array in party_data:
 		var pr := PanelContainer.new()
@@ -3638,13 +3651,11 @@ func _build_full_mockups_page() -> VBoxContainer:
 		avsb.border_width_right = 2
 		avsb.border_color = Color(pd[4] as Color, 0.40)
 		av.add_theme_stylebox_override("panel", avsb)
-		var av_l := Label.new()
-		av_l.text = (pd[0] as String).left(1)
-		av_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		av_l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_apply_font(av_l, _compass_font, 16)
-		av_l.add_theme_color_override("font_color", pd[4] as Color)
-		av.add_child(av_l)
+		var av_center := CenterContainer.new()
+		av_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		av_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		av_center.add_child(_make_icon_rect(pd[5] as String, 28.0))
+		av.add_child(av_center)
 		pr_hb.add_child(av)
 		# Info
 		var pr_info := VBoxContainer.new()
