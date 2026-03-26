@@ -4,6 +4,7 @@
 - Bald Eagle
 
 # Demons
+- blade hellion
 - pidarDemon1
 - pidarDimkas228, etc...
 
