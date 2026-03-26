@@ -54,6 +54,39 @@ const SLOT_PATHS: Array[String] = [
 	"res://src/Ui/Assets/UI-v1/Panels/Slots/F_U_SlotF1.png",
 ]
 
+# Sample icons from Assets/Icons (32x32 transparent PNGs)
+const ICON_PATHS: Dictionary = {
+	"sword": "res://Assets/Icons/Swords/PNG/Transperent/Icon1.png",
+	"sword2": "res://Assets/Icons/Swords/PNG/Transperent/Icon3.png",
+	"dagger": "res://Assets/Icons/Daggers/PNG/Transperent/Icon1.png",
+	"dagger2": "res://Assets/Icons/Daggers/PNG/Transperent/Icon5.png",
+	"shield": "res://Assets/Icons/Shields/PNG/Transperent/Icon1.png",
+	"helmet": "res://Assets/Icons/Helmets/PNG/Transperent/Icon1.png",
+	"potion_red": "res://Assets/Icons/Potions/PNG/Transperent/Icon1.png",
+	"potion_blue": "res://Assets/Icons/Potions/PNG/Transperent/Icon3.png",
+	"gem_red": "res://Assets/Icons/Gems1/PNG/Transperent/Icon1.png",
+	"gem_blue": "res://Assets/Icons/Gems1/PNG/Transperent/Icon3.png",
+	"gem_green": "res://Assets/Icons/Gems1/PNG/Transperent/Icon5.png",
+	"gem_purple": "res://Assets/Icons/Gems1/PNG/Transperent/Icon7.png",
+	"gem_yellow": "res://Assets/Icons/Gems1/PNG/Transperent/Icon9.png",
+	"gem_grey": "res://Assets/Icons/Gems1/PNG/Transperent/Icon11.png",
+	"scroll": "res://Assets/Icons/Scrolls/PNG/Transperent/Icon1.png",
+	"rune1": "res://Assets/Icons/Runes/PNG/Transperent/Icon1.png",
+	"rune2": "res://Assets/Icons/Runes/PNG/Transperent/Icon3.png",
+	"rune3": "res://Assets/Icons/Runes/PNG/Transperent/Icon5.png",
+	"skull": "res://Assets/Icons/Bones_sculls/PNG/Transperent/Icon1.png",
+	"necro1": "res://Assets/Icons/Necromancer Skill Icons/PNG/Transperent/Icon1.png",
+	"necro2": "res://Assets/Icons/Necromancer Skill Icons/PNG/Transperent/Icon3.png",
+	"necro3": "res://Assets/Icons/Necromancer Skill Icons/PNG/Transperent/Icon5.png",
+	"necro4": "res://Assets/Icons/Necromancer Skill Icons/PNG/Transperent/Icon7.png",
+	"axe": "res://Assets/Icons/Axes/PNG/Transperent/Icon1.png",
+	"chest": "res://Assets/Icons/Chests_keys_treasure/PNG/Transperent/Icon1.png",
+	"book": "res://Assets/Icons/Books/PNG/Transperent/Icon1.png",
+	"ring": "res://Assets/Icons/Rings_jewellery/PNG/Transperent/Icon1.png",
+	"buff": "res://Assets/Icons/Buffs/PNG/Transperent/Icon1.png",
+	"curse": "res://Assets/Icons/Curse/PNG/Transperent/Icon1.png",
+}
+
 # Palette
 const GOLD := Color(0.92, 0.85, 0.62)
 const GOLD_BRIGHT := Color(1.0, 0.98, 0.78)
@@ -1613,26 +1646,37 @@ func _build_frames_slots_page() -> VBoxContainer:
 	_add_spacer(page, 16)
 
 	# Slots
-	page.add_child(_section_label("Item Slots (A-F)"))
+	page.add_child(_section_label("Item Slots (A-F) — with icons"))
 	var slot_grid := _wrap_flow(8)
+	var slot_icons: Array[String] = ["sword", "shield", "helmet", "potion_red", "gem_red", "scroll"]
+	var si: int = 0
 	for path: String in SLOT_PATHS:
 		var tex := load(path) as Texture2D
 		if not tex:
+			si += 1
 			continue
+		var slot_container := CenterContainer.new()
+		slot_container.custom_minimum_size = Vector2(80, 80)
 		var tr := TextureRect.new()
 		tr.texture = tex
 		tr.custom_minimum_size = Vector2(80, 80)
 		tr.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		slot_grid.add_child(tr)
+		slot_container.add_child(tr)
+		if si < slot_icons.size():
+			var icon := _make_icon_rect(slot_icons[si], 40.0)
+			slot_container.add_child(icon)
+		slot_grid.add_child(slot_container)
+		si += 1
 	page.add_child(slot_grid)
 
 	_add_spacer(page, 16)
 
 	# Flat circle slots (no texture, pure code)
-	page.add_child(_section_label("Flat Circle Frames (code-only)"))
+	page.add_child(_section_label("Flat Circle Frames — with icons"))
 	var flat_circle_row := _hbox(10)
 	var frame_colors: Array[Color] = [GOLD, Color(0.50, 0.75, 1.0), Color(0.85, 0.35, 0.30), Color(0.55, 0.85, 0.45), Color(0.70, 0.50, 0.90)]
+	var circle_icons: Array[String] = ["axe", "potion_blue", "skull", "buff", "ring"]
 	for i: int in 5:
 		var fc: Color = frame_colors[i]
 		var frame := PanelContainer.new()
@@ -1648,13 +1692,11 @@ func _build_frames_slots_page() -> VBoxContainer:
 		fsb.shadow_color = Color(fc, 0.08)
 		fsb.shadow_size = 6
 		frame.add_theme_stylebox_override("panel", fsb)
-		var fl := Label.new()
-		fl.text = str(i + 1)
-		fl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		fl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_apply_font(fl, _compass_font, 24)
-		fl.add_theme_color_override("font_color", fc)
-		frame.add_child(fl)
+		var icon_center := CenterContainer.new()
+		icon_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		icon_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		icon_center.add_child(_make_icon_rect(circle_icons[i], 44.0))
+		frame.add_child(icon_center)
 		flat_circle_row.add_child(frame)
 	page.add_child(flat_circle_row)
 
@@ -1690,6 +1732,7 @@ func _build_frames_slots_page() -> VBoxContainer:
 	page.add_child(_section_label("Diamond Slots — rotated feel"))
 	var diamond_row := _hbox(14)
 	var dia_colors: Array[Color] = [Color(1.0, 0.80, 0.25), Color(0.70, 0.45, 0.90), Color(0.40, 0.60, 0.95), Color(0.85, 0.35, 0.30)]
+	var dia_icons: Array[String] = ["gem_yellow", "gem_purple", "gem_blue", "gem_red"]
 	for i: int in 4:
 		var dc: Color = dia_colors[i]
 		var dia := PanelContainer.new()
@@ -1709,19 +1752,18 @@ func _build_frames_slots_page() -> VBoxContainer:
 		dsb.shadow_color = Color(dc, 0.06)
 		dsb.shadow_size = 4
 		dia.add_theme_stylebox_override("panel", dsb)
-		var dl := Label.new()
-		dl.text = ["L", "E", "R", "M"][i]
-		dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		dl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_apply_font(dl, _compass_font, 20)
-		dl.add_theme_color_override("font_color", dc)
-		dia.add_child(dl)
+		var dia_center := CenterContainer.new()
+		dia_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		dia_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		dia_center.add_child(_make_icon_rect(dia_icons[i], 36.0))
+		dia.add_child(dia_center)
 		diamond_row.add_child(dia)
 	page.add_child(diamond_row)
 
 	# Ornate flat frames (multi-layer border simulation)
-	page.add_child(_section_label("Ornate Flat Frames — double layer"))
+	page.add_child(_section_label("Ornate Flat Frames — with icons"))
 	var ornate_row := _hbox(12)
+	var ornate_icons: Array[String] = ["sword", "shield", "chest", "book"]
 	for i: int in 4:
 		var oframe := PanelContainer.new()
 		oframe.custom_minimum_size = Vector2(88, 88)
@@ -1746,25 +1788,22 @@ func _build_frames_slots_page() -> VBoxContainer:
 		oisb.border_width_right = 2
 		oisb.border_color = Color(GOLD, 0.50) if i < 2 else Color(GOLD, 0.18)
 		of_inner.add_theme_stylebox_override("panel", oisb)
-		if i < 2:
-			var ol := Label.new()
-			ol.text = ["Sw", "Sh"][i]
-			ol.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			ol.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			_apply_font(ol, _compass_font, 16)
-			ol.add_theme_color_override("font_color", GOLD)
-			of_inner.add_child(ol)
+		var oi_center := CenterContainer.new()
+		oi_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		oi_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		oi_center.add_child(_make_icon_rect(ornate_icons[i], 38.0))
+		of_inner.add_child(oi_center)
 		oframe.add_child(of_inner)
 		ornate_row.add_child(oframe)
 	page.add_child(ornate_row)
 
-	# Elemental gem slots (colored inner glow, each element)
-	page.add_child(_section_label("Elemental Gem Slots — inner glow"))
+	# Elemental gem slots (colored inner glow, with gem icons)
+	page.add_child(_section_label("Elemental Gem Slots — with icons"))
 	var gem_row := _hbox(10)
 	var gem_data: Array[Array] = [
-		["F", Color(1.0, 0.35, 0.10)], ["I", Color(0.30, 0.75, 1.0)],
-		["L", Color(1.0, 0.90, 0.20)], ["N", Color(0.20, 0.85, 0.35)],
-		["D", Color(0.55, 0.10, 0.80)], ["V", Color(0.50, 0.50, 0.55)],
+		["gem_red", Color(1.0, 0.35, 0.10)], ["gem_blue", Color(0.30, 0.75, 1.0)],
+		["gem_yellow", Color(1.0, 0.90, 0.20)], ["gem_green", Color(0.20, 0.85, 0.35)],
+		["gem_purple", Color(0.55, 0.10, 0.80)], ["gem_grey", Color(0.50, 0.50, 0.55)],
 	]
 	for gd: Array in gem_data:
 		var gc: Color = gd[1] as Color
@@ -1782,13 +1821,11 @@ func _build_frames_slots_page() -> VBoxContainer:
 		gsb.shadow_size = 12
 		gsb.shadow_offset = Vector2(0, 0)
 		gem.add_theme_stylebox_override("panel", gsb)
-		var gl := Label.new()
-		gl.text = gd[0] as String
-		gl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		gl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_apply_font(gl, _compass_font, 24)
-		gl.add_theme_color_override("font_color", gc)
-		gem.add_child(gl)
+		var gem_center := CenterContainer.new()
+		gem_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		gem_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		gem_center.add_child(_make_icon_rect(gd[0] as String, 40.0))
+		gem.add_child(gem_center)
 		gem_row.add_child(gem)
 	page.add_child(gem_row)
 
@@ -2176,6 +2213,7 @@ func _build_composed_cards_page() -> VBoxContainer:
 	cur_vb.add_theme_constant_override("separation", 4)
 	var cur_top := HBoxContainer.new()
 	cur_top.add_theme_constant_override("separation", 8)
+	cur_top.add_child(_make_icon_rect("dagger", 28.0))
 	cur_top.add_child(_make_label("Whispering Dagger", Color(0.80, 0.50, 1.0), _compass_font, 22))
 	var cur_tag := _make_label("CURSED", Color(0.95, 0.20, 0.60), _awesome_font, 12)
 	cur_tag.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -3668,12 +3706,14 @@ func _build_full_mockups_page() -> VBoxContainer:
 	necro_sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	necro_vb.add_child(necro_sub)
 	# Spell list
+	var spell_icons: Array[String] = ["necro1", "necro2", "necro3", "necro4"]
 	var spells: Array[Array] = [
 		["Soul Harvest", "Drain 200 HP from all nearby enemies", 3, Color(0.60, 0.85, 0.20)],
 		["Bone Prison", "Trap target for 8 seconds", 5, Color(0.80, 0.75, 0.60)],
 		["Raise Dead", "Summon 3 skeletal warriors (60s)", 8, Color(0.55, 0.40, 0.75)],
 		["Death Nova", "AoE explosion, 500 dark damage", 12, Color(0.85, 0.25, 0.35)],
 	]
+	var sp_idx: int = 0
 	for sp: Array in spells:
 		var sp_row := HBoxContainer.new()
 		sp_row.add_theme_constant_override("separation", 8)
@@ -3688,13 +3728,11 @@ func _build_full_mockups_page() -> VBoxContainer:
 		spsb.border_width_right = 1
 		spsb.border_color = Color(sp[3] as Color, 0.35)
 		sp_icon.add_theme_stylebox_override("panel", spsb)
-		var sp_cost := Label.new()
-		sp_cost.text = str(sp[2])
-		sp_cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		sp_cost.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_apply_font(sp_cost, _compass_font, 16)
-		sp_cost.add_theme_color_override("font_color", sp[3] as Color)
-		sp_icon.add_child(sp_cost)
+		var sp_center := CenterContainer.new()
+		sp_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		sp_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		sp_center.add_child(_make_icon_rect(spell_icons[sp_idx], 32.0))
+		sp_icon.add_child(sp_center)
 		sp_row.add_child(sp_icon)
 		var sp_info := VBoxContainer.new()
 		sp_info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -3702,6 +3740,7 @@ func _build_full_mockups_page() -> VBoxContainer:
 		sp_info.add_child(_make_label(sp[1] as String, Color(WARM_WHITE, 0.45), _awesome_font, 12))
 		sp_row.add_child(sp_info)
 		necro_vb.add_child(sp_row)
+		sp_idx += 1
 	necro.add_child(necro_vb)
 	page.add_child(necro)
 
@@ -4187,3 +4226,17 @@ func _add_spacer(parent: Control, height: float) -> void:
 	var spacer := Control.new()
 	spacer.custom_minimum_size.y = height
 	parent.add_child(spacer)
+
+
+func _make_icon_rect(icon_key: String, size: float = 32.0) -> TextureRect:
+	var tr := TextureRect.new()
+	var path: String = ICON_PATHS.get(icon_key, "") as String
+	if path != "":
+		var tex := load(path) as Texture2D
+		if tex:
+			tr.texture = tex
+	tr.custom_minimum_size = Vector2(size, size)
+	tr.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return tr
