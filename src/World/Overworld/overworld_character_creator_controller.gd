@@ -9,16 +9,25 @@ var _creator_hud: OverworldCreatorHud
 ## Reserved: stored for potential future session coordination (e.g., pausing session during creator).
 var _session_controller: OverworldSessionController
 var _locked_player: Player
+var _creature_hud: CreatureActionHud
+var _ui_manager: UiManager
 
 
 func _ready() -> void:
 	_creator_hud = OverworldCreatorHud.new()
 	_creator_hud.name = "OverworldCreatorHud"
 	add_child(_creator_hud)
+	_creator_hud.hidden.connect(_on_creator_hidden)
 
 
-func initialize(session_controller: OverworldSessionController) -> void:
+func initialize(
+	session_controller: OverworldSessionController,
+	creature_hud: CreatureActionHud,
+	ui_manager: UiManager,
+) -> void:
 	_session_controller = session_controller
+	_creature_hud = creature_hud
+	_ui_manager = ui_manager
 	if not PlayerEvents.player_spawned.is_connected(_on_player_spawned):
 		PlayerEvents.player_spawned.connect(_on_player_spawned)
 
@@ -46,6 +55,11 @@ func _on_player_spawned(player: Node) -> void:
 	if not _creator_hud.confirmed.is_connected(_on_hud_confirmed):
 		_creator_hud.confirmed.connect(_on_hud_confirmed)
 
+	if _creature_hud:
+		_creature_hud.visible = false
+	if _ui_manager:
+		_ui_manager.set_gameplay_ui_visible(false)
+
 	_creator_hud.show_for_player(p, catalog, appearance)
 
 
@@ -57,6 +71,13 @@ func _on_hud_confirmed(appearance: Resource) -> void:
 	_locked_player = null
 
 	_creator_hud.hide_hud()
+
+
+func _on_creator_hidden() -> void:
+	if _creature_hud:
+		_creature_hud.visible = true
+	if _ui_manager:
+		_ui_manager.set_gameplay_ui_visible(true)
 
 
 func _set_player_input_enabled(player: Player, enabled: bool) -> void:

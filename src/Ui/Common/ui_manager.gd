@@ -50,6 +50,13 @@ func close_open_panels() -> bool:
 	return false
 
 
+func set_gameplay_ui_visible(vis: bool) -> void:
+	if _system_hud != null:
+		_system_hud.visible = vis
+	if _inventory_panel != null:
+		_inventory_panel.visible = vis
+
+
 func bind_inventory_component(component: Node) -> void:
 	if _inventory_panel == null:
 		return

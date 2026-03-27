@@ -235,7 +235,11 @@ func _is_mobile_platform() -> bool:
 
 func _initialize_character_creator_controller() -> void:
 	if character_creator_controller:
-		character_creator_controller.initialize(session_controller)
+		character_creator_controller.initialize(
+			session_controller,
+			creature_action_hud,
+			ui_manager as UiManager,
+		)
 
 
 func _initialize_debug_panel() -> void:
