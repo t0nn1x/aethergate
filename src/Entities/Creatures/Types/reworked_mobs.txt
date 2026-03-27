@@ -5,6 +5,7 @@
 
 # Demons
 - blade hellion
+- crimson imp
 - pidarDemon1
 - pidarDimkas228, etc...
 
