@@ -78,6 +78,10 @@ func _toggle_panel() -> void:
 		_refresh_status()
 
 
+func is_open() -> bool:
+	return _panel != null and _panel.visible
+
+
 func _build_toggle_button() -> void:
 	if not ProjectConfig.is_mobile_runtime():
 		return

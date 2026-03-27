@@ -139,6 +139,10 @@ func _is_wheel_zoom_blocked_by_ui() -> bool:
 	for blocker in blockers:
 		if blocker == null or not is_instance_valid(blocker):
 			continue
+		if blocker.has_method("is_open"):
+			if bool(blocker.call("is_open")):
+				return true
+			continue
 		if blocker is CanvasLayer:
 			if (blocker as CanvasLayer).visible:
 				return true

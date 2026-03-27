@@ -84,4 +84,6 @@ func _set_player_input_enabled(player: Player, enabled: bool) -> void:
 	var input_comp := player.get_node_or_null("PlayerInputComponent") as PlayerInputComponent
 	if input_comp == null:
 		return
+	if input_comp.has_method("set_input_enabled"):
+		input_comp.set_input_enabled(enabled)
 	input_comp.process_mode = Node.PROCESS_MODE_INHERIT if enabled else Node.PROCESS_MODE_DISABLED
