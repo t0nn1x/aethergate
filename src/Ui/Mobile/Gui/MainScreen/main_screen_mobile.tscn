@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/Ui/Desktop/Gui/MainScreen/background_controller.gd" id="2_background"]
 [ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Desktop/Gui/MainScreen/main_screen_theme.tres" id="3_theme"]
 [ext_resource type="Texture2D" uid="uid://co4yko63mhret" path="res://Assets/Logo/title_logo.png" id="4_logo"]
+[ext_resource type="PackedScene" uid="uid://mobile_creator_panel" path="res://src/Ui/Mobile/CharacterCreator/character_creator_panel_mobile.tscn" id="5_creator_mobile"]
 
 [node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
 layer = 30
@@ -185,6 +186,13 @@ custom_minimum_size = Vector2(280, 88)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Begin Adventure"
+
+[node name="CharacterCreatorPanel" parent="Root/MenuStrip" instance=ExtResource("5_creator_mobile")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
 
 [node name="TitleLogo" type="TextureRect" parent="Root" unique_id=1715069417]
 layout_mode = 1
