@@ -2,23 +2,20 @@
 
 [ext_resource type="Script" uid="uid://536p3ihsfljg" path="res://src/Ui/Desktop/CharacterCreator/character_creator_panel.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/Ui/Desktop/Gui/MainScreen/main_screen_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://c7ktrut73mkwd" path="res://src/Ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_O_2.png" id="3_7gt3i"]
 [ext_resource type="Texture2D" uid="uid://def4a0ahau708" path="res://src/Ui/Assets/UI-v2/Frames.png" id="3_adwco"]
-[ext_resource type="Texture2D" uid="uid://cfbfohsictobt" path="res://src/Ui/Assets/UI-v1/Banners/Banners A/Banners-A_04.png" id="4_pc1xf"]
 [ext_resource type="Texture2D" uid="uid://5iq4g0kymi7a" path="res://src/Ui/Assets/Creator-Backgrounds/creator_bg1.png" id="5_creator_bg"]
+[ext_resource type="Texture2D" uid="uid://v7hmijsxd0an" path="res://src/Ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_H.png" id="8_7gt3i"]
 [ext_resource type="Texture2D" uid="uid://brrghoefrqf3u" path="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_A1.png" id="12_menu_icon_left"]
 [ext_resource type="Texture2D" uid="uid://cx322dck61cfv" path="res://src/Ui/Assets/UI-v1/Menu Icons/F_UI_MenuIcons_A2.png" id="13_menu_icon_right"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t7ggd"]
-texture = ExtResource("3_adwco")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 21.0
-region_rect = Rect2(848, 38, 52, 53)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7gt3i"]
-atlas = ExtResource("4_pc1xf")
-region = Rect2(0, 1, 232, 69)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7gt3i"]
+texture = ExtResource("3_7gt3i")
+texture_margin_left = 40.0
+texture_margin_top = 41.0
+texture_margin_right = 40.0
+texture_margin_bottom = 41.0
+region_rect = Rect2(0, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x6jv4"]
 atlas = ExtResource("3_adwco")
@@ -41,12 +38,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_t7ggd")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7gt3i")
 
 [node name="Padding" type="MarginContainer" parent="Card" unique_id=1045611461]
 layout_mode = 2
 theme_override_constants/margin_left = 22
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 22
 theme_override_constants/margin_bottom = 12
 
@@ -54,39 +51,6 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 6
-
-[node name="TitleBanner" type="CenterContainer" parent="Card/Padding/VStack" unique_id=734195691]
-custom_minimum_size = Vector2(420, 80)
-layout_mode = 2
-size_flags_horizontal = 4
-mouse_filter = 2
-
-[node name="BannerTexture" type="NinePatchRect" parent="Card/Padding/VStack/TitleBanner" unique_id=499199519]
-custom_minimum_size = Vector2(400, 72)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = SubResource("AtlasTexture_7gt3i")
-patch_margin_left = 45
-patch_margin_top = 12
-patch_margin_right = 45
-patch_margin_bottom = 13
-
-[node name="TitleLabel" type="Label" parent="Card/Padding/VStack/TitleBanner/BannerTexture" unique_id=574312488]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 8.0
-offset_right = -10.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 22
-text = "CREATE YOUR ADVENTURER"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ContentRow" type="HBoxContainer" parent="Card/Padding/VStack" unique_id=752433369]
 custom_minimum_size = Vector2(0, 320)
@@ -298,3 +262,41 @@ alignment = 1
 custom_minimum_size = Vector2(170, 48)
 layout_mode = 2
 text = "Back"
+
+[node name="TitleBanner" type="CenterContainer" parent="." unique_id=734195691]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -82.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BannerTexture" type="NinePatchRect" parent="TitleBanner" unique_id=499199519]
+custom_minimum_size = Vector2(400, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("8_7gt3i")
+region_rect = Rect2(0, 0, 95, 96)
+patch_margin_left = 56
+patch_margin_top = 41
+patch_margin_right = 55
+patch_margin_bottom = 41
+
+[node name="TitleLabel" type="Label" parent="TitleBanner/BannerTexture" unique_id=574312488]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 3.0
+offset_right = -9.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 22
+text = "CREATE YOUR ADVENTURER"
+horizontal_alignment = 1
+vertical_alignment = 1

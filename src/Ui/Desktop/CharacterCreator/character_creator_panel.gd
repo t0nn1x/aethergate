@@ -27,7 +27,7 @@ const FONT_SIZE_TITLE: int = 24
 @onready var _confirm_button: Button = $Card/Padding/VStack/BottomButtons/TopRow/ConfirmButton
 @onready var _randomize_button: Button = $Card/Padding/VStack/BottomButtons/TopRow/RandomizeButton
 @onready var _cancel_button: Button = $Card/Padding/VStack/BottomButtons/BottomRow/CancelButton
-@onready var _title_label: Label = $Card/Padding/VStack/TitleBanner/BannerTexture/TitleLabel
+@onready var _title_label: Label = $TitleBanner/BannerTexture/TitleLabel
 
 var _button_group: MenuButtonGroup
 var _catalog: PlayerCosmeticCatalog

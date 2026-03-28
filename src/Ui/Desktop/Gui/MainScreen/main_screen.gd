@@ -185,6 +185,8 @@ func animate_play_transition() -> void:
 			_main_buttons_container.visible = false
 		if _center_container != null:
 			_center_container.visible = false
+		if _menu_strip != null:
+			_menu_strip.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 		if _creator_panel != null:
 			_creator_panel.modulate.a = 0.0
 			_creator_panel.visible = true
@@ -218,6 +220,8 @@ func _on_creator_cancelled() -> void:
 		tween.tween_property(_menu_strip, "anchor_bottom", STRIP_ANCHOR_BOTTOM_MENU, 0.5) \
 			.set_delay(0.05).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.chain().tween_callback(func() -> void:
+		if _menu_strip != null:
+			_style_strip()
 		if _creator_panel != null:
 			_creator_panel.visible = false
 		if _center_container != null:
@@ -627,11 +631,16 @@ func _set_logo_float_offset(v: float) -> void:
 	_title_logo.offset_bottom = v
 
 
+func _style_strip() -> void:
+	if _menu_strip == null:
+		return
+	var strip_style := StyleBoxFlat.new()
+	strip_style.bg_color = Color(0.02, 0.05, 0.10, 0.72)
+	_menu_strip.add_theme_stylebox_override("panel", strip_style)
+
+
 func _style_strip_and_buttons() -> void:
-	if _menu_strip != null:
-		var strip_style := StyleBoxFlat.new()
-		strip_style.bg_color = Color(0.02, 0.05, 0.10, 0.72)
-		_menu_strip.add_theme_stylebox_override("panel", strip_style)
+	_style_strip()
 	var awesome_font: FontFile = load("res://Assets/Fonts/awesome/Awesome 9.ttf") as FontFile
 	var empty_style := StyleBoxEmpty.new()
 	var buttons: Array = [
