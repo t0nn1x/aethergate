@@ -146,6 +146,8 @@ func _wire_main_screen_signals() -> void:
 		main_screen.play_pressed.connect(_on_main_screen_play_pressed)
 	if not main_screen.quit_requested.is_connected(_on_main_screen_quit_requested):
 		main_screen.quit_requested.connect(_on_main_screen_quit_requested)
+	if not main_screen.begin_adventure_pressed.is_connected(_on_begin_adventure_pressed):
+		main_screen.begin_adventure_pressed.connect(_on_begin_adventure_pressed)
 
 
 func _start_session_if_menu_is_missing() -> void:
@@ -159,11 +161,20 @@ func _start_session_if_menu_is_missing() -> void:
 func _on_main_screen_play_pressed() -> void:
 	creature_selection_controller.clear_selection()
 	print("[Overworld] play_started")
+	if character_creator_controller and character_creator_controller.should_open():
+		character_creator_controller.open_panel()
+		return
 	if main_screen:
 		main_screen.hide_menu()
 	if session_controller:
 		session_controller.start_session()
 
+
+func _on_begin_adventure_pressed() -> void:
+	if main_screen:
+		main_screen.hide_menu()
+	if session_controller:
+		session_controller.start_session()
 
 
 func _on_main_screen_quit_requested() -> void:
@@ -235,11 +246,7 @@ func _is_mobile_platform() -> bool:
 
 func _initialize_character_creator_controller() -> void:
 	if character_creator_controller:
-		character_creator_controller.initialize(
-			session_controller,
-			creature_action_hud,
-			ui_manager as UiManager,
-		)
+		character_creator_controller.initialize(main_screen, session_controller)
 
 
 func _initialize_debug_panel() -> void:

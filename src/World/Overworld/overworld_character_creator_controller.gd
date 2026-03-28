@@ -1,89 +1,92 @@
 class_name OverworldCharacterCreatorController
 extends Node
 
-## Manages the in-game character creator flow.
-## On first Play: intercepts PlayerEvents.player_spawned, locks movement,
-## shows OverworldCreatorHud. On "Begin Adventure": saves appearance, unlocks.
+## Manages the character creator open/confirm/cancel flow.
 
-var _creator_hud: OverworldCreatorHud
-## Reserved: stored for potential future session coordination (e.g., pausing session during creator).
+@export var character_creator_panel_path: NodePath = ^"../CharacterCreatorPanel"
+
+var _character_creator_panel: Node
+var _main_screen: MainScreen
 var _session_controller: OverworldSessionController
-var _locked_player: Player
-var _creature_hud: CreatureActionHud
-var _ui_manager: UiManager
-
-
-func _ready() -> void:
-	_creator_hud = OverworldCreatorHud.new()
-	_creator_hud.name = "OverworldCreatorHud"
-	add_child(_creator_hud)
-	_creator_hud.hidden.connect(_on_creator_hidden)
 
 
 func initialize(
-	session_controller: OverworldSessionController,
-	creature_hud: CreatureActionHud,
-	ui_manager: UiManager,
+	main_screen: MainScreen,
+	session_controller: OverworldSessionController
 ) -> void:
+	_character_creator_panel = get_node_or_null(character_creator_panel_path)
+	_main_screen = main_screen
 	_session_controller = session_controller
-	_creature_hud = creature_hud
-	_ui_manager = ui_manager
-	if not PlayerEvents.player_spawned.is_connected(_on_player_spawned):
-		PlayerEvents.player_spawned.connect(_on_player_spawned)
+	_wire_signals()
 
 
-## Used by OverworldCreatureSelectionController to block tap selection while HUD is open.
+## Public — used by creature selection controller via callback.
 func is_visible() -> bool:
-	return _creator_hud != null and _creator_hud.visible
+	if _character_creator_panel == null:
+		return false
+	if _character_creator_panel is CanvasItem:
+		return (_character_creator_panel as CanvasItem).visible
+	return false
 
 
 func should_open() -> bool:
-	return not PlayerProfileService.has_completed_setup()
+	return true
 
 
-func _on_player_spawned(player: Node) -> void:
-	var p := player as Player
-	if p == null or not should_open():
+func open_panel() -> void:
+	if _character_creator_panel == null:
+		if _main_screen != null:
+			_main_screen.animate_play_transition()
 		return
 
-	_locked_player = p
-	_set_player_input_enabled(p, false)
-
-	var catalog: PlayerCosmeticCatalog = PlayerProfileService.get_catalog() as PlayerCosmeticCatalog
-	var appearance: Resource = PlayerProfileService.get_appearance()
-
-	if not _creator_hud.confirmed.is_connected(_on_hud_confirmed):
-		_creator_hud.confirmed.connect(_on_hud_confirmed)
-
-	if _creature_hud:
-		_creature_hud.visible = false
-	if _ui_manager:
-		_ui_manager.set_gameplay_ui_visible(false)
-
-	_creator_hud.show_for_player(p, catalog, appearance)
+	if _main_screen:
+		if not _main_screen.visible:
+			_main_screen.show_menu()
+		_main_screen.set_creator_overlay_mode(true)
+		_main_screen.animate_menu_out(func() -> void:
+			_character_creator_panel.call("show_panel", null)
+		)
+	else:
+		_character_creator_panel.call("show_panel", null)
 
 
-func _on_hud_confirmed(appearance: Resource) -> void:
-	PlayerProfileService.set_appearance(appearance, true)
-
-	if _locked_player != null and is_instance_valid(_locked_player):
-		_set_player_input_enabled(_locked_player, true)
-	_locked_player = null
-
-	_creator_hud.hide_hud()
-
-
-func _on_creator_hidden() -> void:
-	if _creature_hud:
-		_creature_hud.visible = true
-	if _ui_manager:
-		_ui_manager.set_gameplay_ui_visible(true)
-
-
-func _set_player_input_enabled(player: Player, enabled: bool) -> void:
-	var input_comp := player.get_node_or_null("PlayerInputComponent") as PlayerInputComponent
-	if input_comp == null:
+func _wire_signals() -> void:
+	if _character_creator_panel == null:
 		return
-	if input_comp.has_method("set_input_enabled"):
-		input_comp.set_input_enabled(enabled)
-	input_comp.process_mode = Node.PROCESS_MODE_INHERIT if enabled else Node.PROCESS_MODE_DISABLED
+
+	var confirmed_callable: Callable = Callable(self, "_on_appearance_confirmed")
+	var cancelled_callable: Callable = Callable(self, "_on_creation_cancelled")
+	if _character_creator_panel.has_signal("appearance_confirmed") and not _character_creator_panel.is_connected("appearance_confirmed", confirmed_callable):
+		_character_creator_panel.connect("appearance_confirmed", confirmed_callable)
+	if _character_creator_panel.has_signal("creation_cancelled") and not _character_creator_panel.is_connected("creation_cancelled", cancelled_callable):
+		_character_creator_panel.connect("creation_cancelled", cancelled_callable)
+
+
+func _on_appearance_confirmed(appearance: Resource) -> void:
+	if appearance == null:
+		push_warning("Overworld: creator confirmed without appearance payload.")
+		return
+
+	var profile_service: Node = _get_player_profile_service()
+	if profile_service and profile_service.has_method("set_appearance"):
+		profile_service.call("set_appearance", appearance, true)
+
+	if _main_screen:
+		if _main_screen.has_method("set_creator_overlay_mode"):
+			_main_screen.call("set_creator_overlay_mode", false)
+		_main_screen.hide_menu()
+	if _session_controller:
+		_session_controller.start_session()
+
+
+func _on_creation_cancelled() -> void:
+	if _character_creator_panel and _character_creator_panel.has_method("hide_panel"):
+		_character_creator_panel.call("hide_panel")
+	if _main_screen:
+		if _main_screen.has_method("set_creator_overlay_mode"):
+			_main_screen.call("set_creator_overlay_mode", false)
+		_main_screen.show_menu()
+
+
+func _get_player_profile_service() -> Node:
+	return get_node_or_null("/root/PlayerProfileService")
