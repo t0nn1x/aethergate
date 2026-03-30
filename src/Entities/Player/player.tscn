@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bume2vfytjwef" path="res://src/Entities/Player/player.gd" id="1"]
 [ext_resource type="Script" uid="uid://0x5d1qflun1b" path="res://src/Entities/Player/Components/Movement/player_movement_component.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://bvkdy4xga5ugc" path="res://src/Entities/Player/Sprites/Parts/Body/Dude_body1.png" id="2_body_1"]
-[ext_resource type="Texture2D" uid="uid://braliypg24qli" path="res://src/Entities/Player/Sprites/Parts/Head/Dude_head1.png" id="2_head_1"]
-[ext_resource type="Texture2D" uid="uid://bn78jc87i6dcd" path="res://src/Entities/Player/Sprites/Parts/Legs/Dude_legs1.png" id="2_legs_1"]
 [ext_resource type="Shader" uid="uid://dws727wjsskme" path="res://src/Common/Shaders/silhouette.gdshader" id="3_sil"]
 [ext_resource type="Script" uid="uid://brpmyo0esxf07" path="res://src/Entities/Player/Components/Visual/player_visual_component.gd" id="4_vis"]
 [ext_resource type="Script" uid="uid://c2n2pnl8vdast" path="res://src/Entities/Player/Components/Camera/player_camera_component.gd" id="5_cam"]
@@ -33,7 +30,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("VisualRoot/Body:frame")
+tracks/0/path = NodePath("VisualRoot/OverworldSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -51,7 +48,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("VisualRoot/Body:frame")
+tracks/0/path = NodePath("VisualRoot/OverworldSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +65,6 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=73119585]
-scale = Vector2(0.5, 0.5)
 collision_layer = 2
 collision_mask = 261
 script = ExtResource("1")
@@ -76,44 +72,12 @@ script = ExtResource("1")
 [node name="VisualRoot" type="Node2D" parent="." unique_id=997174020]
 position = Vector2(0, -16)
 
-[node name="WeaponBack" type="Sprite2D" parent="VisualRoot" unique_id=1706837912]
-hframes = 4
+[node name="OverworldSprite" type="Sprite2D" parent="VisualRoot" unique_id=1706837914]
 
-[node name="Legs" type="Sprite2D" parent="VisualRoot" unique_id=1706837913]
-texture = ExtResource("2_legs_1")
-hframes = 4
-
-[node name="Body" type="Sprite2D" parent="VisualRoot" unique_id=1706837914]
-texture = ExtResource("2_body_1")
-hframes = 4
-
-[node name="Head" type="Sprite2D" parent="VisualRoot" unique_id=1706837915]
-texture = ExtResource("2_head_1")
-hframes = 4
-
-[node name="WeaponFront" type="Sprite2D" parent="VisualRoot" unique_id=1706837916]
-hframes = 4
-
-[node name="SilhouetteLegs" type="Sprite2D" parent="VisualRoot" unique_id=1257953016]
+[node name="Silhouette" type="Sprite2D" parent="VisualRoot" unique_id=1257953017]
 z_index = 100
 z_as_relative = false
 material = SubResource("ShaderMaterial_sil")
-texture = ExtResource("2_legs_1")
-hframes = 4
-
-[node name="SilhouetteBody" type="Sprite2D" parent="VisualRoot" unique_id=1257953017]
-z_index = 100
-z_as_relative = false
-material = SubResource("ShaderMaterial_sil")
-texture = ExtResource("2_body_1")
-hframes = 4
-
-[node name="SilhouetteHead" type="Sprite2D" parent="VisualRoot" unique_id=1257953018]
-z_index = 100
-z_as_relative = false
-material = SubResource("ShaderMaterial_sil")
-texture = ExtResource("2_head_1")
-hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1401535832]
 position = Vector2(-6, -12)

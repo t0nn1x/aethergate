@@ -2,7 +2,7 @@ class_name DebugPanel
 extends CanvasLayer
 
 ## Full-screen debug control panel toggled with F3 (debug builds only).
-## Provides buttons/toggles for common debug actions: overlay, appearance reset,
+## Provides buttons/toggles for common debug actions: overlay, skin/profile reset,
 ## game state changes, teleport, speed, etc.
 
 # --- Palette ---
@@ -154,7 +154,7 @@ func _on_toggle_debug_overlay() -> void:
 
 func _on_reset_appearance() -> void:
 	PlayerProfileService.reset_profile()
-	_set_status("Profile reset — restart or re-enter overworld to trigger creator")
+	_set_status("Profile reset — skin selection and setup state will reload on next spawn")
 	_refresh_status()
 
 

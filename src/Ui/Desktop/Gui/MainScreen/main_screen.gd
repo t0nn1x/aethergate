@@ -4,7 +4,6 @@ extends CanvasLayer
 
 signal play_pressed()
 signal quit_requested()
-signal begin_adventure_pressed()
 
 const MENU_BUTTON_TEXTURE_SIZE: Vector2 = Vector2(84.0, 23.0)
 const FONT_SIZE_NORMAL: int = 36
@@ -148,7 +147,6 @@ func animate_menu_out(on_complete: Callable) -> void:
 
 
 ## Logo flies off screen, strip morphs into a panel, creator content fades in.
-## Emits begin_adventure_pressed when the player clicks "Begin Adventure".
 func animate_play_transition() -> void:
 	if _title_logo_intro_tween != null:
 		_title_logo_intro_tween.kill()
@@ -197,12 +195,8 @@ func animate_play_transition() -> void:
 	)
 
 
-func _on_begin_pressed() -> void:
-	_sfx.play_click()
-	begin_adventure_pressed.emit()
-
-
-func _on_creator_cancelled() -> void:
+func animate_creator_cancel() -> void:
+	set_creator_overlay_mode(false)
 	_sfx.play_click()
 	if _view_tween != null:
 		_view_tween.kill()
@@ -327,11 +321,6 @@ func _connect_signals() -> void:
 		_settings_back_button.pressed.connect(_on_settings_back_pressed)
 	if _volume_slider and not _volume_slider.value_changed.is_connected(_on_volume_changed):
 		_volume_slider.value_changed.connect(_on_volume_changed)
-	if _creator_panel and not _creator_panel.confirmed.is_connected(_on_begin_pressed):
-		_creator_panel.confirmed.connect(_on_begin_pressed)
-	if _creator_panel and not _creator_panel.creation_cancelled.is_connected(_on_creator_cancelled):
-		_creator_panel.creation_cancelled.connect(_on_creator_cancelled)
-
 	_button_group = MenuButtonGroup.new()
 	add_child(_button_group)
 	_button_group.button_focused.connect(func(_b: Button) -> void: _sfx.play_hover())

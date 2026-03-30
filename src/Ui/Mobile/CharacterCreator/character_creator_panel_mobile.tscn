@@ -4,4 +4,5 @@
 [ext_resource type="Script" uid="uid://mobile_creator_panel_gd" path="res://src/Ui/Mobile/CharacterCreator/character_creator_panel_mobile.gd" id="2_script"]
 
 [node name="CharacterCreatorPanel" instance=ExtResource("1_base")]
+custom_minimum_size = Vector2(0, 780)
 script = ExtResource("2_script")

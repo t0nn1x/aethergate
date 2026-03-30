@@ -146,10 +146,6 @@ func _wire_main_screen_signals() -> void:
 		main_screen.play_pressed.connect(_on_main_screen_play_pressed)
 	if not main_screen.quit_requested.is_connected(_on_main_screen_quit_requested):
 		main_screen.quit_requested.connect(_on_main_screen_quit_requested)
-	if not main_screen.begin_adventure_pressed.is_connected(_on_begin_adventure_pressed):
-		main_screen.begin_adventure_pressed.connect(_on_begin_adventure_pressed)
-
-
 func _start_session_if_menu_is_missing() -> void:
 	if main_screen != null:
 		main_screen.show_menu()
@@ -164,13 +160,6 @@ func _on_main_screen_play_pressed() -> void:
 	if character_creator_controller and character_creator_controller.should_open():
 		character_creator_controller.open_panel()
 		return
-	if main_screen:
-		main_screen.hide_menu()
-	if session_controller:
-		session_controller.start_session()
-
-
-func _on_begin_adventure_pressed() -> void:
 	if main_screen:
 		main_screen.hide_menu()
 	if session_controller:
@@ -346,8 +335,7 @@ func _build_player_snapshot() -> CombatantSnapshot:
 	snap.base_stats = stats
 	## TODO: replace with real player gear loadout once player combat component exists.
 	snap.skill_loadout = []
-	## TODO: replace with real player sprite from PlayerProfileService cosmetics.
-	var player_sprite := load("res://src/Entities/Player/Sprites/Parts/Combined/Dude_full_body1.png") as Texture2D
+	var player_sprite: Texture2D = _resolve_player_battle_sprite()
 	if player_sprite:
 		snap.portrait = player_sprite
 		snap.sprite_frame_width = 32
@@ -370,3 +358,23 @@ func _build_player_snapshot() -> CombatantSnapshot:
 				cfg.scale = 2.0
 				snap.default_attack_vfx_pool.append(cfg)
 	return snap
+
+
+func _resolve_player_battle_sprite() -> Texture2D:
+	var profile_service: Node = get_node_or_null("/root/PlayerProfileService")
+	if profile_service == null:
+		return null
+	if not profile_service.has_method("get_skin_catalog") or not profile_service.has_method("get_appearance"):
+		return null
+
+	var skin_catalog: PlayerSkinCatalog = profile_service.call("get_skin_catalog") as PlayerSkinCatalog
+	var appearance: PlayerAppearanceData = profile_service.call("get_appearance") as PlayerAppearanceData
+	if skin_catalog == null:
+		return null
+	if appearance == null:
+		var default_skin: PlayerSkinDefinition = skin_catalog.get_default_skin()
+		if default_skin != null:
+			return default_skin.battle_idle_texture
+		return null
+
+	return skin_catalog.get_battle_idle_texture(appearance.skin_id)
