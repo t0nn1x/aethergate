@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Elf Bladedancer/Sprites/ElfBladedancer.png" id="1_8wdbk"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_enga0"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Elf Bladedancer/Sprites/ElfBladedancer_128x32.png" id="2_bn3ye"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_eoqwx"]
@@ -12,3 +13,4 @@ creature_type = 0
 source_category = "Humanoids"
 source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/Elf Bladedancer/Sprites/ElfBladedancer_128x32.png"
 sprite_sheet = ExtResource("2_bn3ye")
+overworld_sprite_sheet = ExtResource("1_8wdbk")

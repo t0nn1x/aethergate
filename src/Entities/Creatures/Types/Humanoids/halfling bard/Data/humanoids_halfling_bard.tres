@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_lqtce"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/halfling bard/Sprites/HalflingBard.png" id="1_xh4x8"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_0unh0"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/halfling bard/Sprites/HalflingBard_128x32.png" id="2_vj4l6"]
 
@@ -12,3 +13,4 @@ creature_type = 0
 source_category = "Humanoids"
 source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/halfling bard/Sprites/HalflingBard_128x32.png"
 sprite_sheet = ExtResource("2_vj4l6")
+overworld_sprite_sheet = ExtResource("1_xh4x8")

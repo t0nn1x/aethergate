@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/kobold rockthrower/Sprites/KoboldRockthrower.png" id="1_88f47"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_e0iam"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/kobold rockthrower/Sprites/KoboldRockthrower_128x32.png" id="2_1ro86"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_wjurl"]
@@ -12,3 +13,4 @@ creature_type = 0
 source_category = "Humanoids"
 source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/kobold rockthrower/Sprites/KoboldRockthrower_128x32.png"
 sprite_sheet = ExtResource("2_1ro86")
+overworld_sprite_sheet = ExtResource("1_88f47")

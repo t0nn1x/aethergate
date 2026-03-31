@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Chubby Cat/Sprites/ChubbyCat.png" id="1_3gg3c"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_8bxcs"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_fcc4c"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Chubby Cat/Sprites/ChubbyCat_128x32.png" id="2_w4fxn"]
@@ -11,3 +12,4 @@ display_name = "Chubby Cat"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Chubby Cat/Sprites/ChubbyCat_128x32.png"
 sprite_sheet = ExtResource("2_w4fxn")
+overworld_sprite_sheet = ExtResource("1_3gg3c")

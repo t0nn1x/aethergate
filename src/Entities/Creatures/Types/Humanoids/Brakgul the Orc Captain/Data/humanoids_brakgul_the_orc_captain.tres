@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Brakgul the Orc Captain/Sprites/Brakgul.png" id="1_6yj6x"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_s8cqa"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/Brakgul the Orc Captain/Sprites/Brakgul_128x32.png" id="2_glcub"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_nhi7s"]
@@ -12,3 +13,4 @@ creature_type = 0
 source_category = "Humanoids"
 source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/Brakgul the Orc Captain/Sprites/Brakgul_128x32.png"
 sprite_sheet = ExtResource("2_glcub")
+overworld_sprite_sheet = ExtResource("1_6yj6x")

@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Ancient Gold Dragon/Sprites/AncientGoldDragon.png" id="1_gewv0"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vfamg"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Ancient Gold Dragon/Sprites/AncientGoldDragon_128x32.png" id="2_qbta2"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_xhn6y"]
@@ -12,3 +13,4 @@ creature_type = 4
 source_category = "Dragons"
 source_sprite_path = "res://src/Entities/Creatures/Types/Dragons/Ancient Gold Dragon/Sprites/AncientGoldDragon_128x32.png"
 sprite_sheet = ExtResource("2_qbta2")
+overworld_sprite_sheet = ExtResource("1_gewv0")

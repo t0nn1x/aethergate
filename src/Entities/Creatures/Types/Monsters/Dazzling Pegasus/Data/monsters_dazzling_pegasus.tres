@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Dazzling Pegasus/Sprites/DazzlingPegasus.png" id="1_qylot"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_sst7u"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_h7iq5"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Dazzling Pegasus/Sprites/DazzlingPegasus_128x32.png" id="2_my4s2"]
@@ -12,3 +13,4 @@ creature_type = 3
 source_category = "Monsters"
 source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Dazzling Pegasus/Sprites/DazzlingPegasus_128x32.png"
 sprite_sheet = ExtResource("2_my4s2")
+overworld_sprite_sheet = ExtResource("1_qylot")

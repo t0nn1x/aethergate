@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Dimwitted Donkey/Sprites/DimwittedDonkey.png" id="1_4ju0a"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_427wh"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Dimwitted Donkey/Sprites/DimwittedDonkey_128x32.png" id="2_jj6ma"]
 [ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_tahiv"]
@@ -11,3 +12,4 @@ display_name = "Dimwitted Donkey"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Dimwitted Donkey/Sprites/DimwittedDonkey_128x32.png"
 sprite_sheet = ExtResource("2_jj6ma")
+overworld_sprite_sheet = ExtResource("1_4ju0a")
