@@ -321,7 +321,9 @@ func _spawn_creature_press_feedback(target_creature: Creature) -> void:
 		return
 
 	parent_node.add_child(feedback_node)
-	feedback_node.global_position = target_creature.global_position
+	var sprite: Sprite2D = target_creature.get_node_or_null("Sprite2D") as Sprite2D
+	var sprite_offset: Vector2 = sprite.position if sprite != null else Vector2.ZERO
+	feedback_node.global_position = target_creature.global_position + sprite_offset
 
 
 func _is_pointer_over_ui(_screen_position: Vector2) -> bool:

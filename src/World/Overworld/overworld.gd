@@ -24,7 +24,7 @@ extends Node2D
 @onready var creature_action_hud: CreatureActionHud = get_node_or_null(creature_action_hud_path) as CreatureActionHud
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
-@export var combat_approach_radius: float = 10.0
+@export var combat_approach_radius: float = 20.0
 
 ## Backward-compatible local-player reference.
 var player: Player = null
