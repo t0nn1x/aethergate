@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Undead/Virulent Wight/Sprites/VirulentWight.png" id="1_el15q"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_yfn5i"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_4fjnj"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Undead/Virulent Wight/Sprites/VirulentWight_128x32.png" id="2_v2445"]
 
 [resource]
@@ -11,3 +13,4 @@ creature_type = 7
 source_category = "Undead"
 source_sprite_path = "res://src/Entities/Creatures/Types/Undead/Virulent Wight/Sprites/VirulentWight_128x32.png"
 sprite_sheet = ExtResource("2_v2445")
+overworld_sprite_sheet = ExtResource("1_el15q")

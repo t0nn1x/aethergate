@@ -38,6 +38,7 @@ var _hold_retarget_timer: float = 0.0
 var _has_last_hold_target: bool = false
 var _last_hold_target_world: Vector2 = Vector2.ZERO
 var _selected_creature: Creature = null
+var _input_enabled: bool = true
 
 var _move_request_service: PlayerMoveRequestService
 var _platform_profile: GamePlatformProfile
@@ -54,6 +55,7 @@ func _ready() -> void:
 
 	_apply_project_config()
 	_apply_input_config()
+	_wire_creature_selection_events()
 	_move_request_service = creature.get_node_or_null(move_request_service_path) as PlayerMoveRequestService
 	if _move_request_service:
 		_sync_move_request_service_config()
@@ -64,6 +66,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if not _input_enabled:
+		return
 	if not _has_input_authority():
 		return
 
@@ -83,6 +87,8 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not _input_enabled:
+		return
 	if not creature or not creature.is_alive:
 		return
 	if not _has_input_authority():
@@ -126,6 +132,14 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Backward-compatible legacy API (move requests are now applied by service immediately).
 func consume_move_target_request() -> Variant:
 	return null
+
+
+func set_input_enabled(enabled: bool) -> void:
+	if _input_enabled == enabled:
+		return
+	_input_enabled = enabled
+	if not _input_enabled and _is_pointer_held:
+		_set_pointer_held(false)
 
 
 func _should_process_hold_retarget() -> bool:
@@ -277,6 +291,21 @@ func _emit_creature_deselected_event() -> void:
 	CreatureEvents.creature_deselected.emit()
 
 
+func _wire_creature_selection_events() -> void:
+	if not CreatureEvents.creature_selected.is_connected(_on_global_creature_selected):
+		CreatureEvents.creature_selected.connect(_on_global_creature_selected)
+	if not CreatureEvents.creature_deselected.is_connected(_on_global_creature_deselected):
+		CreatureEvents.creature_deselected.connect(_on_global_creature_deselected)
+
+
+func _on_global_creature_selected(creature_node: Node) -> void:
+	_selected_creature = creature_node as Creature
+
+
+func _on_global_creature_deselected() -> void:
+	_selected_creature = null
+
+
 func _spawn_creature_press_feedback(target_creature: Creature) -> void:
 	if target_creature == null or not is_instance_valid(target_creature):
 		return
@@ -292,7 +321,9 @@ func _spawn_creature_press_feedback(target_creature: Creature) -> void:
 		return
 
 	parent_node.add_child(feedback_node)
-	feedback_node.global_position = target_creature.global_position
+	var sprite: Sprite2D = target_creature.get_node_or_null("Sprite2D") as Sprite2D
+	var sprite_offset: Vector2 = sprite.position if sprite != null else Vector2.ZERO
+	feedback_node.global_position = target_creature.global_position + sprite_offset
 
 
 func _is_pointer_over_ui(_screen_position: Vector2) -> bool:
@@ -316,6 +347,10 @@ func _is_movement_blocked_by_ui() -> bool:
 	var blockers: Array[Node] = scene_tree.get_nodes_in_group("ui_panels_block_movement")
 	for blocker in blockers:
 		if blocker == null or not is_instance_valid(blocker):
+			continue
+		if blocker.has_method("is_open"):
+			if bool(blocker.call("is_open")):
+				return true
 			continue
 		if blocker is CanvasLayer:
 			if (blocker as CanvasLayer).visible:

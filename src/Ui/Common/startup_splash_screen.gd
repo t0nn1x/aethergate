@@ -93,6 +93,10 @@ func _play_splash_then_reveal_main_menu() -> void:
 		fade_out_tween.tween_property(_logo, "modulate:a", 0.0, fade_out_duration)
 		await fade_out_tween.finished
 
+	# Signal the main menu to start its intro animation while the background fades out,
+	# so both transitions overlap rather than playing one after the other.
+	UIEvents.splash_completed.emit()
+
 	if background_fade_out_duration > 0.0:
 		var background_tween: Tween = create_tween()
 		background_tween.tween_property(_background, "color:a", 0.0, background_fade_out_duration)

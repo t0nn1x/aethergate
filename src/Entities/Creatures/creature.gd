@@ -5,7 +5,8 @@ extends CharacterBody2D
 ## A thin shell: holds stats, visuals, and component child nodes.
 ## Configure via a CreatureData resource; behavior lives in components/states.
 
-const DEFAULT_NON_BOSS_WORLD_SCALE: Vector2 = Vector2(0.5, 0.5)
+## Emergency fallback if non_boss_world_scale is invalid. Matches the field default in CreatureData.
+const DEFAULT_NON_BOSS_WORLD_SCALE: Vector2 = Vector2(1.0, 1.0)
 
 @export var creature_data: CreatureData
 
@@ -126,9 +127,29 @@ func _apply_visual_data(data: CreatureData) -> void:
 		push_warning("Creature '%s': Sprite2D node is missing." % name)
 		return
 
-	var texture: Texture2D = data.sprite_sheet
-	if texture == null and not data.source_sprite_path.is_empty():
-		texture = load(data.source_sprite_path) as Texture2D
+	var texture: Texture2D
+	var hframes: int
+	var vframes: int
+	if data.overworld_sprite_sheet != null:
+		texture = data.overworld_sprite_sheet
+		if texture.get_width() % CreatureData.OVERWORLD_FRAME_SIZE != 0:
+			push_warning(
+				"Creature '%s': overworld sprite width %d is not a multiple of %d."
+				% [name, texture.get_width(), CreatureData.OVERWORLD_FRAME_SIZE]
+			)
+		hframes = maxi(1, texture.get_width() / CreatureData.OVERWORLD_FRAME_SIZE)
+		vframes = 1
+		if data.vframes != 1:
+			push_warning(
+				"Creature '%s': vframes=%d ignored for overworld sprite (must be 1)."
+				% [name, data.vframes]
+			)
+	else:
+		texture = data.sprite_sheet
+		if texture == null and not data.source_sprite_path.is_empty():
+			texture = load(data.source_sprite_path) as Texture2D
+		hframes = maxi(data.hframes, 1)
+		vframes = maxi(data.vframes, 1)
 
 	if texture == null:
 		push_warning(
@@ -138,8 +159,8 @@ func _apply_visual_data(data: CreatureData) -> void:
 		return
 
 	_sprite.texture = texture
-	_sprite.hframes = maxi(data.hframes, 1)
-	_sprite.vframes = maxi(data.vframes, 1)
+	_sprite.hframes = hframes
+	_sprite.vframes = vframes
 	_sprite.frame = clampi(data.default_frame, 0, _sprite.hframes * _sprite.vframes - 1)
 
 	if _silhouette == null:

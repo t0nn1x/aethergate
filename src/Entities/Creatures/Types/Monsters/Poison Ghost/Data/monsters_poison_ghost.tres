@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_aaut6"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Poison Ghost/Sprites/PoisonGhost.png" id="1_mmn1v"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_fg0sr"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Monsters/Poison Ghost/Sprites/PoisonGhost_128x32.png" id="2_jtyan"]
 
 [resource]
@@ -11,3 +13,4 @@ creature_type = 3
 source_category = "Monsters"
 source_sprite_path = "res://src/Entities/Creatures/Types/Monsters/Poison Ghost/Sprites/PoisonGhost_128x32.png"
 sprite_sheet = ExtResource("2_jtyan")
+overworld_sprite_sheet = ExtResource("1_mmn1v")

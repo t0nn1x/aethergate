@@ -3,18 +3,15 @@ extends Node
 
 ## Scene-local UI coordinator for platform-specific HUD/panel variants and panel interactions.
 
-const SYSTEM_HUD_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Hud/SystemHud/system_hud.tscn")
-const SYSTEM_HUD_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Hud/SystemHud/system_hud_macos.tscn")
+const SYSTEM_HUD_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/Desktop/Hud/SystemHud/system_hud.tscn")
 const SYSTEM_HUD_MOBILE_SCENE: PackedScene = preload("res://src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn")
-const DEBUG_OVERLAY_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Debug/debug_overlay.tscn")
-const DEBUG_OVERLAY_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Debug/debug_overlay_macos.tscn")
-const MAIN_SCREEN_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Gui/MainScreen/main_screen.tscn")
-const MAIN_SCREEN_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Gui/MainScreen/main_screen_macos.tscn")
-const INVENTORY_PANEL_WINDOWS_SCENE: PackedScene = preload("res://src/Ui/Windows/Inventory/inventory_panel.tscn")
-const INVENTORY_PANEL_MACOS_SCENE: PackedScene = preload("res://src/Ui/MacOS/Inventory/inventory_panel_macos.tscn")
+const DEBUG_OVERLAY_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/Desktop/Debug/debug_overlay.tscn")
+const MAIN_SCREEN_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/Desktop/Gui/MainScreen/main_screen.tscn")
+const MAIN_SCREEN_MOBILE_SCENE: PackedScene = preload("res://src/Ui/Mobile/Gui/MainScreen/main_screen_mobile.tscn")
+const INVENTORY_PANEL_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/Desktop/Inventory/inventory_panel.tscn")
 const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/Ui/Mobile/Inventory/inventory_panel_mobile.tscn")
 const INVENTORY_CLOSE_ICON: Texture2D = preload(
-	"res://src/Ui/Assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/close_button.png"
+	"res://src/Ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/close_button.png"
 )
 
 @export var main_screen_path: NodePath = ^"../MainScreen"
@@ -51,6 +48,13 @@ func close_open_panels() -> bool:
 		_inventory_panel.set_inventory_open(false)
 		return true
 	return false
+
+
+func set_gameplay_ui_visible(vis: bool) -> void:
+	if _system_hud != null:
+		_system_hud.visible = vis
+	if not vis and _inventory_panel != null and _inventory_panel.visible:
+		_inventory_panel.set_inventory_open(false)
 
 
 func bind_inventory_component(component: Node) -> void:
@@ -116,45 +120,29 @@ func _replace_overlay_node(node_path: NodePath, next_scene: PackedScene) -> Node
 func _resolve_ui_profile() -> StringName:
 	if _is_mobile_platform():
 		return &"mobile"
-	if OS.has_feature("macos"):
-		return &"macos"
-	return &"windows"
+	return &"desktop"
 
 
 func _resolve_system_hud_scene(ui_profile: StringName) -> PackedScene:
-	match ui_profile:
-		&"macos":
-			return SYSTEM_HUD_MACOS_SCENE
-		&"mobile":
-			return SYSTEM_HUD_MOBILE_SCENE
-		_:
-			return SYSTEM_HUD_WINDOWS_SCENE
+	if ui_profile == &"mobile":
+		return SYSTEM_HUD_MOBILE_SCENE
+	return SYSTEM_HUD_DESKTOP_SCENE
 
 
-func _resolve_debug_overlay_scene(ui_profile: StringName) -> PackedScene:
-	match ui_profile:
-		&"macos":
-			return DEBUG_OVERLAY_MACOS_SCENE
-		_:
-			return DEBUG_OVERLAY_WINDOWS_SCENE
+func _resolve_debug_overlay_scene(_ui_profile: StringName) -> PackedScene:
+	return DEBUG_OVERLAY_DESKTOP_SCENE
 
 
 func _resolve_main_screen_scene(ui_profile: StringName) -> PackedScene:
-	match ui_profile:
-		&"macos":
-			return MAIN_SCREEN_MACOS_SCENE
-		_:
-			return MAIN_SCREEN_WINDOWS_SCENE
+	if ui_profile == &"mobile":
+		return MAIN_SCREEN_MOBILE_SCENE
+	return MAIN_SCREEN_DESKTOP_SCENE
 
 
 func _resolve_inventory_panel_scene(ui_profile: StringName) -> PackedScene:
-	match ui_profile:
-		&"macos":
-			return INVENTORY_PANEL_MACOS_SCENE
-		&"mobile":
-			return INVENTORY_PANEL_MOBILE_SCENE
-		_:
-			return INVENTORY_PANEL_WINDOWS_SCENE
+	if ui_profile == &"mobile":
+		return INVENTORY_PANEL_MOBILE_SCENE
+	return INVENTORY_PANEL_DESKTOP_SCENE
 
 
 func _wire_hud_signals() -> void:

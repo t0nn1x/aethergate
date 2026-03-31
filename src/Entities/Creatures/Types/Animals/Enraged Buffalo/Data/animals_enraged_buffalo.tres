@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Enraged Buffalo/Sprites/EnragedBuffalo.png" id="1_8j6k8"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_u246g"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Enraged Buffalo/Sprites/EnragedBuffalo_128x32.png" id="2_557iq"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_wbn0y"]
 
 [resource]
 script = ExtResource("1_u246g")
@@ -10,3 +12,4 @@ display_name = "Enraged Buffalo"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Enraged Buffalo/Sprites/EnragedBuffalo_128x32.png"
 sprite_sheet = ExtResource("2_557iq")
+overworld_sprite_sheet = ExtResource("1_8j6k8")

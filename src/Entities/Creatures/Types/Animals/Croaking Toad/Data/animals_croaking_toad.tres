@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_egvtb"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Croaking Toad/Sprites/CroakingToad.png" id="1_ucpn5"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Croaking Toad/Sprites/CroakingToad_128x32.png" id="2_2ln3b"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_yktnd"]
 
 [resource]
 script = ExtResource("1_egvtb")
@@ -10,3 +12,4 @@ display_name = "Croaking Toad"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Croaking Toad/Sprites/CroakingToad_128x32.png"
 sprite_sheet = ExtResource("2_2ln3b")
+overworld_sprite_sheet = ExtResource("1_ucpn5")

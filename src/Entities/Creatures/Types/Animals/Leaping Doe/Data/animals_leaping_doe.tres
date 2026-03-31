@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Leaping Doe/Sprites/LeapingDoe.png" id="1_1osrj"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_krlnh"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_beiij"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Leaping Doe/Sprites/LeapingDoe_128x32.png" id="2_dl4i3"]
 
 [resource]
@@ -10,3 +12,4 @@ display_name = "Leaping Doe"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Leaping Doe/Sprites/LeapingDoe_128x32.png"
 sprite_sheet = ExtResource("2_dl4i3")
+overworld_sprite_sheet = ExtResource("1_1osrj")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/proficient bard/Sprites/ProficientBard.png" id="1_emxxp"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vvafq"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Humanoids/proficient bard/Sprites/ProficientBard_128x32.png" id="2_2bhio"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_kyw21"]
 
 [resource]
 script = ExtResource("1_vvafq")
@@ -11,3 +13,4 @@ creature_type = 0
 source_category = "Humanoids"
 source_sprite_path = "res://src/Entities/Creatures/Types/Humanoids/proficient bard/Sprites/ProficientBard_128x32.png"
 sprite_sheet = ExtResource("2_2bhio")
+overworld_sprite_sheet = ExtResource("1_emxxp")

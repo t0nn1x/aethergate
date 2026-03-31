@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://mobile_creator_panel"]
+
+[ext_resource type="PackedScene" uid="uid://c7u2dmo8qv0mm" path="res://src/Ui/Desktop/CharacterCreator/character_creator_panel.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://mobile_creator_panel_gd" path="res://src/Ui/Mobile/CharacterCreator/character_creator_panel_mobile.gd" id="2_script"]
+
+[node name="CharacterCreatorPanel" instance=ExtResource("1_base")]
+custom_minimum_size = Vector2(0, 780)
+script = ExtResource("2_script")

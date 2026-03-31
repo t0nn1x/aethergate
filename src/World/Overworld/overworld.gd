@@ -24,7 +24,7 @@ extends Node2D
 @onready var creature_action_hud: CreatureActionHud = get_node_or_null(creature_action_hud_path) as CreatureActionHud
 @onready var session_controller: OverworldSessionController = get_node_or_null(session_controller_path) as OverworldSessionController
 
-@export var combat_approach_radius: float = 10.0
+@export var combat_approach_radius: float = 20.0
 
 ## Backward-compatible local-player reference.
 var player: Player = null
@@ -47,6 +47,7 @@ func _ready() -> void:
 	_initialize_character_creator_controller()
 	_initialize_creature_selection_controller()
 	_wire_combat_preview()
+	_initialize_debug_panel()
 	if navigation_blocker_registry:
 		navigation_blocker_registry.refresh()
 	if chunk_manager and navigation_blocker_registry:
@@ -145,8 +146,6 @@ func _wire_main_screen_signals() -> void:
 		main_screen.play_pressed.connect(_on_main_screen_play_pressed)
 	if not main_screen.quit_requested.is_connected(_on_main_screen_quit_requested):
 		main_screen.quit_requested.connect(_on_main_screen_quit_requested)
-
-
 func _start_session_if_menu_is_missing() -> void:
 	if main_screen != null:
 		main_screen.show_menu()
@@ -239,6 +238,15 @@ func _initialize_character_creator_controller() -> void:
 		character_creator_controller.initialize(main_screen, session_controller)
 
 
+func _initialize_debug_panel() -> void:
+	if not OS.is_debug_build():
+		return
+	var panel := DebugPanel.new()
+	panel.name = "DebugPanel"
+	panel.set_debug_overlay(debug_overlay)
+	add_child(panel)
+
+
 func _wire_combat_preview() -> void:
 	if not CreatureEvents.creature_fight_requested.is_connected(_on_creature_fight_requested):
 		CreatureEvents.creature_fight_requested.connect(_on_creature_fight_requested)
@@ -327,14 +335,13 @@ func _build_player_snapshot() -> CombatantSnapshot:
 	snap.base_stats = stats
 	## TODO: replace with real player gear loadout once player combat component exists.
 	snap.skill_loadout = []
-	## TODO: replace with real player sprite from PlayerProfileService cosmetics.
-	var player_sprite := load("res://src/Entities/Player/Sprites/Parts/Combined/Dude_full_body1.png") as Texture2D
+	var player_sprite: Texture2D = _resolve_player_battle_sprite()
 	if player_sprite:
 		snap.portrait = player_sprite
-		snap.sprite_hframes = 4
-		snap.sprite_vframes = 1
 		snap.sprite_frame_width = 32
 		snap.sprite_frame_height = 32
+		snap.sprite_hframes = maxi(1, player_sprite.get_width() / snap.sprite_frame_width)
+		snap.sprite_vframes = 1
 		snap.sprite_idle_fps = 2.0
 		snap.sprite_default_frame = 0
 		for vfx_path: String in [
@@ -351,3 +358,23 @@ func _build_player_snapshot() -> CombatantSnapshot:
 				cfg.scale = 2.0
 				snap.default_attack_vfx_pool.append(cfg)
 	return snap
+
+
+func _resolve_player_battle_sprite() -> Texture2D:
+	var profile_service: Node = get_node_or_null("/root/PlayerProfileService")
+	if profile_service == null:
+		return null
+	if not profile_service.has_method("get_skin_catalog") or not profile_service.has_method("get_appearance"):
+		return null
+
+	var skin_catalog: PlayerSkinCatalog = profile_service.call("get_skin_catalog") as PlayerSkinCatalog
+	var appearance: PlayerAppearanceData = profile_service.call("get_appearance") as PlayerAppearanceData
+	if skin_catalog == null:
+		return null
+	if appearance == null:
+		var default_skin: PlayerSkinDefinition = skin_catalog.get_default_skin()
+		if default_skin != null:
+			return default_skin.battle_idle_texture
+		return null
+
+	return skin_catalog.get_battle_idle_texture(appearance.skin_id)

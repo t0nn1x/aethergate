@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Honking Goose/Sprites/HonkingGoose.png" id="1_m602f"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_txwv8"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Honking Goose/Sprites/HonkingGoose_128x32.png" id="2_ar2qu"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_x80iv"]
 
 [resource]
 script = ExtResource("1_txwv8")
@@ -10,3 +12,4 @@ display_name = "Honking Goose"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Honking Goose/Sprites/HonkingGoose_128x32.png"
 sprite_sheet = ExtResource("2_ar2qu")
+overworld_sprite_sheet = ExtResource("1_m602f")

@@ -1,7 +1,7 @@
 class_name DebugOverlay
 extends CanvasLayer
 
-@export var enabled: bool = true
+@export var enabled: bool = false
 @export var update_interval_seconds: float = 0.2
 @export var player_path: NodePath
 @export var chunk_manager_path: NodePath = ^"../ChunkManager"

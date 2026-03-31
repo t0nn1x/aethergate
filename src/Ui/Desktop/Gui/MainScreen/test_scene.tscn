@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://fl2k81kslgin"]
+
+[ext_resource type="Texture2D" uid="uid://v0cfg3pyrb1g" path="res://src/Ui/Assets/Gui-Hud/Buttons/Gold Buttons/Gold Btn C_01.png" id="1_ml6wr"]
+[ext_resource type="Texture2D" uid="uid://bk6x0424ctdaa" path="res://src/Ui/Assets/Gui-Hud/Panels/Panels/F_UI_Panel_G.png" id="1_oj7jh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj7jh"]
+texture = ExtResource("1_ml6wr")
+texture_margin_left = 12.0
+texture_margin_top = 7.0
+texture_margin_right = 12.0
+texture_margin_bottom = 7.0
+region_rect = Rect2(13, 4, 86, 24)
+
+[node name="Control" type="Control" unique_id=75880038]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1603173319]
+layout_mode = 0
+offset_left = 627.0
+offset_top = 95.0
+offset_right = 1291.0
+offset_bottom = 975.0
+texture = ExtResource("1_oj7jh")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="Button" type="Button" parent="." unique_id=787529654]
+layout_mode = 0
+offset_left = 782.0
+offset_top = 391.0
+offset_right = 1148.0
+offset_bottom = 439.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_oj7jh")

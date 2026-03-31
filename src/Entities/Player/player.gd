@@ -6,7 +6,7 @@ extends Creature
 ## - PlayerInputComponent: tap/click target queue
 ## - PlayerMovementComponent: movement executor
 ## - CreatureNavigationComponent: pathfinding target/direction provider
-## - PlayerVisualComponent: sprite bob, flip, silhouette sync
+## - PlayerVisualComponent: overworld sprite bob, flip, silhouette sync
 ## - PlayerCameraComponent: zoom controls
 ## - StateMachine + movement states: mode switching (idle/path)
 
@@ -15,6 +15,10 @@ extends Creature
 @export var is_local_player: bool = true
 
 @onready var visual_component: PlayerVisualComponent = $PlayerVisualComponent
+
+var _primed_spawn_appearance: PlayerAppearanceData
+var _primed_spawn_skin_catalog: PlayerSkinCatalog
+
 
 func _ready() -> void:
 	# Set player stats directly (no creature_data resource for the player).
@@ -40,11 +44,45 @@ func _emit_player_spawned_event() -> void:
 	PlayerEvents.player_spawned.emit(self)
 
 
-func apply_appearance(appearance_data: Resource, catalog: Resource) -> void:
+func apply_appearance(
+	appearance_data: PlayerAppearanceData,
+	skin_catalog_resource: PlayerSkinCatalog
+) -> void:
 	if visual_component == null or not visual_component.has_method("apply_appearance"):
 		push_warning("Player: PlayerVisualComponent missing, cannot apply appearance.")
 		return
-	visual_component.apply_appearance(appearance_data, catalog)
+	visual_component.apply_appearance(appearance_data, skin_catalog_resource)
+
+
+func prime_spawn_appearance(
+	appearance_data: PlayerAppearanceData,
+	skin_catalog_resource: PlayerSkinCatalog
+) -> void:
+	_primed_spawn_skin_catalog = skin_catalog_resource
+	_primed_spawn_appearance = _duplicate_appearance(appearance_data)
+
+	if not is_node_ready() or visual_component == null:
+		return
+	if _primed_spawn_appearance == null:
+		return
+	var effective_skin_catalog: PlayerSkinCatalog = _primed_spawn_skin_catalog
+	if effective_skin_catalog == null and visual_component != null:
+		effective_skin_catalog = visual_component.skin_catalog
+	if effective_skin_catalog == null:
+		return
+	visual_component.apply_appearance(_primed_spawn_appearance, effective_skin_catalog)
+
+
+func consume_primed_spawn_appearance() -> PlayerAppearanceData:
+	var primed_appearance: PlayerAppearanceData = _duplicate_appearance(_primed_spawn_appearance)
+	_primed_spawn_appearance = null
+	return primed_appearance
+
+
+func consume_primed_spawn_skin_catalog() -> PlayerSkinCatalog:
+	var primed_skin_catalog: PlayerSkinCatalog = _primed_spawn_skin_catalog
+	_primed_spawn_skin_catalog = null
+	return primed_skin_catalog
 
 
 func set_weapon_visual(weapon_visual_id: StringName) -> void:
@@ -78,3 +116,10 @@ func _refresh_identity_groups() -> void:
 		return
 	if is_in_group("local_player"):
 		remove_from_group("local_player")
+
+
+func _duplicate_appearance(source: PlayerAppearanceData) -> PlayerAppearanceData:
+	if source == null:
+		return null
+	var duplicated: Resource = source.duplicate_data()
+	return duplicated as PlayerAppearanceData

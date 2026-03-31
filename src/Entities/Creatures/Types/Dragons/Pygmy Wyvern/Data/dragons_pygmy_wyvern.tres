@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Pygmy Wyvern/Sprites/PygmyWyvern.png" id="1_bb2xm"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vcpmc"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_01hs1"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Dragons/Pygmy Wyvern/Sprites/PygmyWyvern_128x32.png" id="2_q5ncl"]
 
 [resource]
@@ -11,3 +13,4 @@ creature_type = 4
 source_category = "Dragons"
 source_sprite_path = "res://src/Entities/Creatures/Types/Dragons/Pygmy Wyvern/Sprites/PygmyWyvern_128x32.png"
 sprite_sheet = ExtResource("2_q5ncl")
+overworld_sprite_sheet = ExtResource("1_bb2xm")

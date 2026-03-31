@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Holy/Lumiel the Cherub/Sprites/Lumiel.png" id="1_27fws"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_vq8vf"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Holy/Lumiel the Cherub/Sprites/Lumiel_128x32.png" id="2_jp8td"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_v5l0d"]
 
 [resource]
 script = ExtResource("1_vq8vf")
@@ -11,3 +13,4 @@ creature_type = 2
 source_category = "Holy"
 source_sprite_path = "res://src/Entities/Creatures/Types/Holy/Lumiel the Cherub/Sprites/Lumiel_128x32.png"
 sprite_sheet = ExtResource("2_jp8td")
+overworld_sprite_sheet = ExtResource("1_27fws")

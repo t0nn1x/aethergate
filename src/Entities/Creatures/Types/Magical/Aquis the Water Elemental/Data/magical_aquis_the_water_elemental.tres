@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Magical/Aquis the Water Elemental/Sprites/Aquis.png" id="1_mgkq8"]
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_uiygb"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_6l7vh"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Magical/Aquis the Water Elemental/Sprites/Aquis_128x32.png" id="2_upe2i"]
 
 [resource]
@@ -11,3 +13,4 @@ creature_type = 6
 source_category = "Magical"
 source_sprite_path = "res://src/Entities/Creatures/Types/Magical/Aquis the Water Elemental/Sprites/Aquis_128x32.png"
 sprite_sheet = ExtResource("2_upe2i")
+overworld_sprite_sheet = ExtResource("1_mgkq8")

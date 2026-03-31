@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/Entities/Creatures/creature_data.gd" id="1_by52t"]
+[ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Pecking Pigeon/Sprites/PeckingPigeon.png" id="1_yvd75"]
 [ext_resource type="Texture2D" path="res://src/Entities/Creatures/Types/Animals/Pecking Pigeon/Sprites/PeckingPigeon_128x32.png" id="2_s5jk5"]
+[ext_resource type="Script" path="res://src/Entities/Skills/Combat/skill_data.gd" id="2_t2jng"]
 
 [resource]
 script = ExtResource("1_by52t")
@@ -10,3 +12,4 @@ display_name = "Pecking Pigeon"
 source_category = "Animals"
 source_sprite_path = "res://src/Entities/Creatures/Types/Animals/Pecking Pigeon/Sprites/PeckingPigeon_128x32.png"
 sprite_sheet = ExtResource("2_s5jk5")
+overworld_sprite_sheet = ExtResource("1_yvd75")
