@@ -208,6 +208,24 @@ func _apply_entry_to_data(creature_data: CreatureData, entry: Dictionary) -> voi
 	if creature_data.damage <= 0.0:
 		creature_data.damage = 10.0
 
+	var overworld_path: String = sprite_path.trim_suffix("_128x32.png") + ".png"
+	var overworld_texture: Texture2D = _try_load_texture(overworld_path)
+	if overworld_texture == null:
+		push_warning(
+			"CreatureCatalogBuilder: overworld sprite not found at '%s', will fall back to battle sprite."
+			% overworld_path
+		)
+	elif overworld_texture.get_height() != FRAME_SIZE / 2 or overworld_texture.get_width() % (FRAME_SIZE / 2) != 0:
+		push_warning(
+			"CreatureCatalogBuilder: overworld sprite '%s' has invalid size %dx%d (expected height=%d, width a multiple of %d). Skipping overworld sprite."
+			% [overworld_path, overworld_texture.get_width(), overworld_texture.get_height(), FRAME_SIZE / 2, FRAME_SIZE / 2]
+		)
+		overworld_texture = null
+	creature_data.overworld_sprite_sheet = overworld_texture
+	# Intentional migration: all non-boss creatures now use scale 1.0 with native 16px sprites.
+	# Overrides any previously hand-authored value in .tres files.
+	creature_data.non_boss_world_scale = Vector2(1.0, 1.0)
+
 	creature_data.validate_for_runtime(creature_data.creature_id)
 
 

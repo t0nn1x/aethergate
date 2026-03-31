@@ -4,6 +4,9 @@ extends Resource
 ## Data resource defining a creature's type, stats, sprite, and behavior.
 ## Create .tres instances for each creature variant (wolf, skeleton, etc.)
 
+## Pixel size of one frame in the overworld 16×16 sprite sheet.
+const OVERWORLD_FRAME_SIZE: int = 16
+
 ## The creature type categories matching the tileset.
 enum CreatureType {
 	HUMANOID,
@@ -41,7 +44,7 @@ enum BehaviorProfile {
 
 @export_group("Presentation")
 ## Non-boss creatures default to player-like scale.
-@export var non_boss_world_scale: Vector2 = Vector2(0.5, 0.5)
+@export var non_boss_world_scale: Vector2 = Vector2(1.0, 1.0)
 
 @export_group("Stats")
 @export var max_health: float = 50.0
@@ -61,6 +64,9 @@ enum BehaviorProfile {
 
 @export_group("Sprite")
 @export var sprite_sheet: Texture2D
+## 16×16 sprite sheet used on the overworld (native pixels, no downscaling).
+## Populated automatically by the catalog builder from the Name.png asset.
+@export var overworld_sprite_sheet: Texture2D
 ## 128x32 sheets default to 4 horizontal frames (4x 32x32).
 @export var hframes: int = 4
 @export var vframes: int = 1
@@ -147,6 +153,9 @@ func validate_for_runtime(log_context: String = "") -> bool:
 	if non_boss_world_scale.x <= 0.0 or non_boss_world_scale.y <= 0.0:
 		push_warning("CreatureData[%s]: non_boss_world_scale must be > 0 on both axes." % context)
 		is_valid = false
+
+	# overworld_sprite_sheet is intentionally not validated: null is valid and triggers fallback
+	# to sprite_sheet at runtime in creature.gd.
 	return is_valid
 
 
