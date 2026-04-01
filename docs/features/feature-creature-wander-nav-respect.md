@@ -20,20 +20,20 @@ Created: 2026-02-15
 
 ### Phase 1: Runtime Integration
 - [x] Task 1: Add blocker-policy component wiring to creature runtime scene and ensure spawned creatures can resolve blocker polygons from overworld registry.
-  Files: `src/Entities/Creatures/creature.tscn`, `src/World/Overworld/overworld_creature_spawner.gd`
+  Files: `src/Entities/creatures/base/creature.tscn`, `src/World/overworld/overworld_creature_spawner.gd`
   Logging (verbose): log once per spawned creature when blocker registry wiring succeeds/fails in debug builds (`[CreatureSpawner]` prefix).
 
 - [x] Task 2: Refactor `CreatureWanderComponent` to use `CreatureNavigationComponent` for path-following movement and use blocker target resolution before setting wander targets.
-  Files: `src/Gameplay/Creatures/Components/Wander/creature_wander_component.gd`
+  Files: `src/Entities/creatures/components/Wander/creature_wander_component.gd`
   Logging (verbose): add debug-level traces for target pick attempts/rejections (blocked target, nav rejection reason, fallback path) and warnings for missing dependencies.
 
 - [x] Task 3: Preserve robust fallback behavior when nav/blocker dependencies are unavailable (direct movement fallback + existing timers) while still honoring spawn-radius enforcement.
-  Files: `src/Gameplay/Creatures/Components/Wander/creature_wander_component.gd`
+  Files: `src/Entities/creatures/components/Wander/creature_wander_component.gd`
   Logging (verbose): emit one-time fallback mode notices and per-failure retry reasons in debug builds.
 
 ### Phase 2: Validation and Docs
 - [x] Task 4: Extend creature runtime smoke validation to assert the blocker component is present and wired on runtime creature instances.
-  Files: `src/Entities/Creatures/Tests/creature_runtime_smoke_test.gd`
+  Files: `src/Entities/creatures/tests/creature_runtime_smoke_test.gd`
   Logging (verbose): keep existing fail-first test output and add explicit failure message for missing blocker component.
 
 - [x] Task 5: Run headless validation for spawn-zone helpers and creature runtime smoke to verify no regressions after wander-nav integration.
@@ -41,7 +41,7 @@ Created: 2026-02-15
   Logging (verbose): capture pass/fail summaries and surface any new warnings tied to wander/nav integration.
 
 - [x] Task 6: Update creature workflow docs with wander-navigation behavior notes (nav-region compliance, blocker polygon avoidance, dependency expectations).
-  Files: `src/Entities/Creatures/README.md`
+  Files: `src/Entities/creatures/README.md`
   Logging (verbose): not applicable (documentation task).
 
 ## Acceptance Criteria

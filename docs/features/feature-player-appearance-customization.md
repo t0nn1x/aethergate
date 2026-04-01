@@ -21,9 +21,9 @@ Created: 2026-02-23
   - Define stable IDs for `head`, `body`, `legs`, and `weapon_visual`.
   - Include default/fallback appearance entry for safe startup.
   Files:
-  - `src/Entities/Player/Resources/player_appearance_data.gd` (new)
-  - `src/Entities/Player/Resources/player_cosmetic_catalog.gd` (new)
-  - `src/Entities/Player/Resources/player_cosmetic_catalog.tres` (new)
+  - `src/Entities/player/resources/player_appearance_data.gd` (new)
+  - `src/Entities/player/resources/player_cosmetic_catalog.gd` (new)
+  - `src/Entities/player/resources/player_cosmetic_catalog.tres` (new)
   Logging requirements:
   - Keep logging minimal; only `push_warning` on invalid IDs or missing fallback entries.
 
@@ -33,11 +33,8 @@ Created: 2026-02-23
   - Register current testing sprites (head/body/legs) in catalog entries with aligned frame strip assumptions.
   - Ensure import settings are consistent for pixel art and animation strips.
   Files:
-  - `src/Entities/Player/Sprites/Parts/Head/*` (new/moved)
-  - `src/Entities/Player/Sprites/Parts/Body/*` (new/moved)
-  - `src/Entities/Player/Sprites/Parts/Legs/*` (new/moved)
-  - `src/Entities/Player/Sprites/Weapons/*` (new)
-  - `src/Entities/Player/Resources/player_cosmetic_catalog.tres`
+  - `src/Entities/player/assets/<skin_id>/32x32/normal_body_idle.png` (new/moved)
+  - `src/Entities/player/resources/player_cosmetic_catalog.tres`
   Logging requirements:
   - No new runtime logs; use editor-time warnings only when catalog paths are invalid.
 
@@ -47,7 +44,7 @@ Created: 2026-02-23
   - Keep compatibility with current collision, state machine, and animation flow.
   - Preserve silhouette behavior using layered silhouette or a single composed proxy strategy.
   Files:
-  - `src/Entities/Player/player.tscn`
+  - `src/Entities/player/player.tscn`
   Logging requirements:
   - No extra logs unless a required visual node is missing; then warn once in debug builds.
 
@@ -58,7 +55,7 @@ Created: 2026-02-23
   - Apply appearance data to textures, keep frame/flip/bob synchronized across all layers.
   - Add APIs for runtime updates: `apply_appearance(...)` and `set_weapon_visual(...)`.
   Files:
-  - `src/Entities/Player/Components/Visual/player_visual_component.gd`
+  - `src/Entities/player/components/Visual/player_visual_component.gd`
   Logging requirements:
   - Minimal warnings for missing nodes/resources; avoid frame-by-frame logging.
   Depends on: Task 3
@@ -81,8 +78,8 @@ Created: 2026-02-23
   - Inject appearance into player visual component after instantiation.
   - Keep fallback to default appearance when profile is absent/corrupt.
   Files:
-  - `src/World/Overworld/overworld_player_spawner.gd`
-  - `src/Entities/Player/player.gd` (if setup hook is needed)
+  - `src/World/overworld/overworld_player_spawner.gd`
+  - `src/Entities/player/player.gd` (if setup hook is needed)
   Logging requirements:
   - Single warning on fallback usage; no per-frame logs.
   Depends on: Task 4, Task 5
@@ -94,9 +91,9 @@ Created: 2026-02-23
   - Use current UI conventions and responsive behavior compatible with mobile safe areas.
   - Expose signals for confirm/cancel and selected appearance payload.
   Files:
-  - `src/Ui/Windows/CharacterCreator/character_creator_panel.tscn` (new)
-  - `src/Ui/Windows/CharacterCreator/character_creator_panel.gd` (new)
-  - `src/Ui/Common/ui_manager.gd` (if scene replacement/profile variant handling is required)
+  - `src/Ui/desktop/character_creator/character_creator_panel.tscn` (new)
+  - `src/Ui/desktop/character_creator/character_creator_panel.gd` (new)
+  - `src/Ui/common/ui_manager.gd` (if scene replacement/profile variant handling is required)
   Logging requirements:
   - No extra interaction logs; warn only on missing preview dependencies.
   Depends on: Task 1, Task 4
@@ -108,10 +105,10 @@ Created: 2026-02-23
   - On confirm: save profile, hide creator, then start session.
   - On cancel: return to main menu state without starting session.
   Files:
-  - `src/Map/Overworld/overworld.tscn`
-  - `src/World/Overworld/overworld.gd`
-  - `src/World/Overworld/overworld_session_controller.gd` (if guard is needed)
-  - `src/Ui/Windows/Gui/MainScreen/main_screen.gd` (only if signal flow needs adjustment)
+  - `src/World/overworld/overworld.tscn`
+  - `src/World/overworld/overworld.gd`
+  - `src/World/overworld/overworld_session_controller.gd` (if guard is needed)
+  - `src/Ui/desktop/main_screen/main_screen.gd` (only if signal flow needs adjustment)
   Logging requirements:
   - Keep minimal lifecycle logs for session gate transitions in debug only.
   Depends on: Task 5, Task 7
@@ -123,9 +120,9 @@ Created: 2026-02-23
   - Add a temporary update hook so weapon visuals can be switched dynamically at runtime.
   - Keep this decoupled from full equipment logic to enable later integration.
   Files:
-  - `src/Entities/Player/Components/Visual/player_visual_component.gd`
-  - `src/Entities/Player/Resources/player_cosmetic_catalog.gd`
-  - `src/Entities/Items/item_data.gd` (optional prop key convention)
+  - `src/Entities/player/components/Visual/player_visual_component.gd`
+  - `src/Entities/player/resources/player_cosmetic_catalog.gd`
+  - `src/Entities/items/item_data.gd` (optional prop key convention)
   Logging requirements:
   - Warn on unknown weapon visual IDs; no repeated logs.
   Depends on: Task 4
@@ -140,10 +137,10 @@ Created: 2026-02-23
     - UI interaction parity for mouse and touch
   - Fix any discovered regressions in startup/UI/session wiring.
   Files:
-  - `src/World/Overworld/overworld.gd`
-  - `src/Map/Overworld/overworld.tscn`
-  - `src/Ui/Windows/CharacterCreator/*`
-  - `src/Entities/Player/*`
+  - `src/World/overworld/overworld.gd`
+  - `src/World/overworld/overworld.tscn`
+  - `src/Ui/desktop/character_creator/*`
+  - `src/Entities/player/*`
   Logging requirements:
   - No permanent extra logs; temporary debug logs allowed and removed before completion.
   Depends on: Task 6, Task 8, Task 9

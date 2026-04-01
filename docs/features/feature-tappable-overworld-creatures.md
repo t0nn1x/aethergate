@@ -22,37 +22,37 @@ Created: 2026-02-19
 
 ### Phase 1: Input Selection Contract
 - [x] Task 1: Extend bounded creature events with selection/action signals so tap interactions are exposed through the existing event channel.
-  Files: `src/Core/Events/creature_events.gd`, `src/Core/event_bus.gd`
+  Files: `src/Core/events/creature_events.gd`, `src/Core/event_bus.gd`
   Logging: none.
 
 - [x] Task 2: Add creature hit-test support to `PlayerInputComponent` (screen-to-world query + creature filtering), including configurable interaction toggles and collision mask defaults for creature layer.
-  Files: `src/Gameplay/Player/Components/Input/player_input_component.gd`, `src/Gameplay/Player/Config/player_input_config.gd`, `src/Gameplay/Player/Config/player_input_config.tres`
+  Files: `src/Entities/player/components/Input/player_input_component.gd`, `src/Entities/player/config/player_input_config.gd`, `src/Entities/player/config/player_input_config.tres`
   Logging: none.
 
 - [x] Task 3: Update mouse/touch adapters to prioritize creature selection over move-target queueing, so tapping a creature emits selection and does not issue a move command.
-  Files: `src/Gameplay/Player/Input/player_mouse_input_adapter.gd`, `src/Gameplay/Player/Input/player_touch_input_adapter.gd`
+  Files: `src/Entities/player/input/player_mouse_input_adapter.gd`, `src/Entities/player/input/player_touch_input_adapter.gd`
   Logging: none.
 
 ### Phase 2: Overworld UI Integration
 - [x] Task 4: Create a lightweight HUD widget scene for selected-creature actions with a single `Fight` button and show/hide API.
-  Files: `src/Entities/Ui/Hud/creature_action_hud.tscn`, `src/Entities/Ui/Hud/creature_action_hud.gd`
+  Files: `src/Ui/hud/creature_action_hud.tscn`, `src/Ui/hud/creature_action_hud.gd`
   Logging: none.
 
 - [x] Task 5: Add the action HUD instance into overworld composition and expose references from `Overworld` for runtime wiring.
-  Files: `src/Map/Overworld/overworld.tscn`, `src/World/Overworld/overworld.gd`
+  Files: `src/World/overworld/overworld.tscn`, `src/World/overworld/overworld.gd`
   Logging: none.
 
 - [x] Task 6: Wire event flow end-to-end: creature tap -> HUD show, fight pressed -> placeholder action event, empty-world tap/deselect -> HUD hide.
-  Files: `src/World/Overworld/overworld.gd`, `src/Core/Events/creature_events.gd`
+  Files: `src/World/overworld/overworld.gd`, `src/Core/events/creature_events.gd`
   Logging: none.
 
 ### Phase 3: Lifecycle and UX Hardening
 - [x] Task 7: Handle selection lifecycle edge cases (selected creature dies/despawns/chunk unloads, menu overlays, inventory toggles) and ensure stale references auto-clear.
-  Files: `src/World/Overworld/overworld.gd`, `src/World/Overworld/overworld_creature_spawner.gd`, `src/Entities/Ui/Inventory/inventory_screen.gd`
+  Files: `src/World/overworld/overworld.gd`, `src/World/overworld/overworld_creature_spawner.gd`, `src/Ui/common/inventory_screen.tscn`
   Logging: none.
 
 - [x] Task 8: Update creature workflow docs with interaction authoring/runtime notes and add a manual validation checklist for desktop + mobile tap behavior.
-  Files: `src/Entities/Creatures/README.md`
+  Files: `src/Entities/creatures/README.md`
   Logging: none.
 
 ## Acceptance Criteria

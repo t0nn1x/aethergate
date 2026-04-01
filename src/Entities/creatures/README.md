@@ -64,8 +64,8 @@ Legacy marker fallback is still supported:
   - otherwise (or when zone spawning is disabled), falls back to marker spawns.
 - During runtime: zone spawns tick by spawn budget (`spawn_rate_per_minute`) and enforce `max_alive`.
 - On chunk unload: despawns only creatures owned by that chunk.
-- Creatures use ambient wander only (roam near spawn point), but movement now routes through `CreatureNavigationComponent` pathing when available.
-- Wander target picks are resolved through `PlayerMoveTargetBlockerComponent`, so blocked `Polygon2D` areas under `NavigationRegion2D` are avoided using the same blocker policies as player click-to-move.
+- Creatures use ambient wander only (roam near spawn point), but movement now routes through `res://src/Common/navigation/creature_navigation_component.gd` pathing when available.
+- Wander target picks are resolved through `res://src/Common/navigation/player_move_target_blocker_component.gd`, so blocked `Polygon2D` areas under `NavigationRegion2D` are avoided using the same blocker policies as player click-to-move.
 - Combat AI remains disabled (no chase/attack state logic).
 - Creature events are emitted via `CreatureEvents` autoload with legacy bridge through `EventBus`.
 

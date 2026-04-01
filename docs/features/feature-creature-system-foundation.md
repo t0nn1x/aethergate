@@ -25,79 +25,79 @@ Created: 2026-02-15
 
 ### Phase 1: Data Model and Content Pipeline
 - [x] Task 1: Extend `CreatureData` with stable identity and visual metadata (`creature_id`, source category, sprite frame config defaults for 128x32 sheets, optional behavior tuning fields) while preserving existing fields.
-  Files: `src/Entities/Creatures/creature_data.gd`
+  Files: `src/Entities/creatures/base/creature_data.gd`
   Logging (minimal): warn/error only for invalid exported values detected at runtime (empty id, invalid frame counts).
 
 - [x] Task 2: Add a `CreatureCatalog` resource and loader service that provide `get_by_id()` and lightweight lookup indices (by type/category) for runtime spawners.
-  Files: `src/Entities/Creatures/creature_catalog.gd`, `src/Entities/Creatures/creature_catalog_service.gd`, `src/Entities/Creatures/Resources/creature_catalog.tres`
+  Files: `src/Entities/creatures/base/creature_catalog.gd`, `src/Entities/creatures/base/creature_catalog_service.gd`, `src/Entities/creatures/resources/creature_catalog.tres`
   Logging (minimal): log only missing ID lookups and duplicate ID detection during catalog load.
 
-- [x] Task 3: Create an editor tool to scan `src/Entities/Creatures/Types/**/**_128x32.png` and generate/update `CreatureData` resources + catalog entries deterministically.
-  Files: `src/Entities/Creatures/Tools/creature_catalog_builder.gd`, `src/Entities/Creatures/Resources/Data/*.tres`, `src/Entities/Creatures/Resources/creature_catalog.tres`
+- [x] Task 3: Create an editor tool to scan `src/Entities/creatures/catalog/**/sprites/*_128x32.png` and generate/update `CreatureData` resources + catalog entries deterministically.
+  Files: `src/Entities/creatures/tools/creature_catalog_builder.gd`, `src/Entities/creatures/catalog/**/data/*.tres`, `src/Entities/creatures/resources/creature_catalog.tres`
   Logging (minimal): summary output + error lines for skipped/broken assets; no per-file verbose traces.
 
 ### Phase 2: Runtime Creature Stack
 - [x] Task 4: Upgrade base `Creature` apply flow so it fully consumes `CreatureData` (stats + sprite defaults + silhouette), and add explicit hooks for component-driven runtime behavior.
-  Files: `src/Entities/Creatures/creature.gd`
+  Files: `src/Entities/creatures/base/creature.gd`
   Logging (minimal): only warnings when required nodes/resources are missing or invalid.
 
 - [x] Task 5: Add reusable creature runtime components (`CreatureVisualComponent`, `CreatureMovementComponent`) modeled after player component style, with typed references and no repeated `get_node()` in hot paths.
-  Files: `src/Gameplay/Creatures/Components/Visual/creature_visual_component.gd`, `src/Gameplay/Creatures/Components/Movement/creature_movement_component.gd`, `src/Entities/Creatures/creature.tscn`
+  Files: `src/Entities/creatures/components/Visual/creature_visual_component.gd`, `src/Entities/creatures/components/Movement/creature_movement_component.gd`, `src/Entities/creatures/base/creature.tscn`
   Logging (minimal): one warning per missing dependency node; suppress frame-level logs.
 
 - [x] Task 6: Add first-pass AI brain with state machine (`Idle`, `Wander`, `Chase`, `Attack`, `Dead`) using `CreatureNavigationComponent` and behavior profile from `CreatureData`.
-  Files: `src/Gameplay/Creatures/Components/AI/creature_brain_component.gd`, `src/Gameplay/Creatures/States/creature_idle_state.gd`, `src/Gameplay/Creatures/States/creature_wander_state.gd`, `src/Gameplay/Creatures/States/creature_chase_state.gd`, `src/Gameplay/Creatures/States/creature_attack_state.gd`, `src/Gameplay/Creatures/States/creature_dead_state.gd`, `src/Entities/Creatures/creature.tscn`
+  Files: `src/Entities/creatures/components/AI/creature_brain_component.gd`, `src/Entities/creatures/states/creature_idle_state.gd`, `src/Entities/creatures/states/creature_wander_state.gd`, `src/Entities/creatures/states/creature_chase_state.gd`, `src/Entities/creatures/states/creature_attack_state.gd`, `src/Entities/creatures/states/creature_dead_state.gd`, `src/Entities/creatures/base/creature.tscn`
   Logging (minimal): state-transition warnings/errors only; no per-frame behavior logs.
 
 ### Phase 3: Spawning and World Integration
 - [x] Task 7: Add `OverworldCreatureSpawner` to instantiate creatures via catalog + factory and parent them under `WorldYSort`, mirroring existing player spawner ownership patterns.
-  Files: `src/World/Overworld/overworld_creature_spawner.gd`, `src/Map/Overworld/overworld.tscn`, `src/World/Overworld/overworld.gd`
+  Files: `src/World/overworld/overworld_creature_spawner.gd`, `src/World/overworld/overworld.tscn`, `src/World/overworld/overworld.gd`
   Logging (minimal): spawn failures and missing spawn dependencies only.
 
 - [x] Task 8: Add chunk-aware creature lifecycle hooks so creature spawn/despawn follows chunk load/unload boundaries instead of global scans.
-  Files: `src/World/Streaming/chunk_manager.gd`, `src/World/Overworld/overworld_creature_spawner.gd`, `src/Map/Overworld/Chunks/chunk.gd`
+  Files: `src/World/streaming/chunk_manager.gd`, `src/World/overworld/overworld_creature_spawner.gd`, `src/World/overworld/chunks/chunk.gd`
   Logging (minimal): log chunk-spawn summary counts and errors, skip per-entity spam.
 
 - [x] Task 9: Introduce bounded creature event channel (`CreatureEvents` autoload) and bridge to legacy `EventBus` creature signals for backward compatibility.
-  Files: `src/Core/Events/creature_events.gd`, `src/Core/event_bus.gd`, `project.godot`, `src/Entities/Creatures/creature.gd`
+  Files: `src/Core/events/creature_events.gd`, `src/Core/event_bus.gd`, `project.godot`, `src/Entities/creatures/base/creature.gd`
   Logging (minimal): only log bridge wiring failures or missing autoload channel.
 
 ### Phase 4: Testing and Validation
 - [x] Task 10: Add data validation test script to assert catalog integrity (unique IDs, valid resources, valid 128x32 frame assumptions) and make it runnable headless.
-  Files: `src/Entities/Creatures/Tests/creature_catalog_validation_test.gd`, `src/Entities/Creatures/Tests/run_creature_catalog_validation.gd`
+  Files: `src/Entities/creatures/tests/creature_catalog_validation_test.gd`, `src/Entities/creatures/tests/run_creature_catalog_validation.gd`
   Logging (minimal): print only failures and final pass/fail summary.
 
 - [x] Task 11: Add runtime smoke test scene/script that spawns sample creatures from multiple categories and validates basic lifecycle transitions (spawn, move/chase, damage, death cleanup).
-  Files: `src/Entities/Creatures/Tests/creature_runtime_smoke_test.tscn`, `src/Entities/Creatures/Tests/creature_runtime_smoke_test.gd`
+  Files: `src/Entities/creatures/tests/creature_runtime_smoke_test.tscn`, `src/Entities/creatures/tests/creature_runtime_smoke_test.gd`
   Logging (minimal): only assert failures and terminal summary.
 
 - [x] Task 12: Document creature authoring workflow for new assets (`*_128x32.png` import, builder execution, catalog refresh, spawn config) and add troubleshooting notes.
-  Files: `src/Entities/Creatures/README.md`
+  Files: `src/Entities/creatures/README.md`
   Logging (minimal): not applicable.
 
 ### Phase 5: Zone-Based Spawn System
 - [x] Task 13: Add `CreatureSpawnZone2D` scene helper node (`Polygon2D`) with exported spawn rules (rates, caps, filters, player-distance constraints) and helper methods for point sampling + polygon containment checks.
-  Files: `src/Gameplay/Creatures/Spawning/creature_spawn_zone.gd`
+  Files: `src/Entities/creatures/spawning/creature_spawn_zone.gd`
   Logging (minimal): warn only on invalid polygon/filter configuration.
 
 - [x] Task 14: Extend chunk + spawner runtime to support zone-based spawning per loaded chunk (zone registry, spawn budget ticking, candidate resolution from catalog, max-alive enforcement, zone/chunk despawn cleanup), while preserving marker fallback for chunks without zones.
-  Files: `src/Map/Overworld/Chunks/chunk.gd`, `src/World/Overworld/overworld_creature_spawner.gd`
+  Files: `src/World/overworld/chunks/chunk.gd`, `src/World/overworld/overworld_creature_spawner.gd`
   Logging (minimal): chunk/zone spawn summaries and warnings for invalid zone configs.
 
 - [x] Task 15: Add a pilot spawn zone in a live chunk scene and validate mixed operation (zone-based spawning + legacy markers compatibility path).
-  Files: `src/Map/Overworld/Chunks/Midra/chunk_-2_-2.tscn`
+  Files: `src/World/overworld/chunks/Midra/chunk_-2_-2.tscn`
   Logging (minimal): no extra runtime logs beyond Task 14.
 
 - [x] Task 16: Surface zone-spawn runtime counters for debugging (active zones, alive creatures, per-chunk zone counts) through existing debug overlay wiring.
-  Files: `src/World/Overworld/overworld_creature_spawner.gd`, `src/Entities/Ui/Debug/debug_overlay.gd`, `src/Entities/Ui/Debug/Providers/chunk_debug_metrics_provider.gd`
+  Files: `src/World/overworld/overworld_creature_spawner.gd`, `src/Ui/common/debug/debug_overlay.gd`, `src/Ui/common/debug/Providers/chunk_debug_metrics_provider.gd`
   Logging (minimal): none; expose metrics as overlay lines.
 
 - [x] Task 17: Add headless validation for spawn-zone helper behavior (polygon sampling and filter normalization) with deterministic pass/fail output.
-  Files: `src/Entities/Creatures/Tests/creature_spawn_zone_test.gd`, `src/Entities/Creatures/Tests/run_creature_spawn_zone_test.gd`
+  Files: `src/Entities/creatures/tests/creature_spawn_zone_test.gd`, `src/Entities/creatures/tests/run_creature_spawn_zone_test.gd`
   Logging (minimal): print only failures and pass/fail summary.
 
 - [x] Task 18: Update creature authoring docs to include zone-based workflow (draw polygon, configure filters/rates, migration guidance from markers, troubleshooting invalid zones).
-  Files: `src/Entities/Creatures/README.md`
+  Files: `src/Entities/creatures/README.md`
   Logging (minimal): not applicable.
 
 ## Acceptance Criteria

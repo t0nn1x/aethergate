@@ -30,7 +30,7 @@ Example:
 ## Inventory Integration
 
 - Starter inventory resource:
-  - `res://src/Entities/systems/inventory/Resources/player_starter_inventory.tres`
+  - `res://src/Entities/systems/inventory/resources/player_starter_inventory.tres`
 - Add your new `ItemData` resource into slot `item` fields there (or via player-assigned `PlayerInventoryData`).
 
 ## Notes
