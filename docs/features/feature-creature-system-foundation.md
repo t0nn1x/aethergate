@@ -45,8 +45,8 @@ Created: 2026-02-15
   Files: `src/Entities/creatures/components/Visual/creature_visual_component.gd`, `src/Entities/creatures/components/Movement/creature_movement_component.gd`, `src/Entities/creatures/base/creature.tscn`
   Logging (minimal): one warning per missing dependency node; suppress frame-level logs.
 
-- [x] Task 6: Add first-pass AI brain with state machine (`Idle`, `Wander`, `Chase`, `Attack`, `Dead`) using `CreatureNavigationComponent` and behavior profile from `CreatureData`.
-  Files: `src/Entities/creatures/components/AI/creature_brain_component.gd`, `src/Entities/creatures/states/creature_idle_state.gd`, `src/Entities/creatures/states/creature_wander_state.gd`, `src/Entities/creatures/states/creature_chase_state.gd`, `src/Entities/creatures/states/creature_attack_state.gd`, `src/Entities/creatures/states/creature_dead_state.gd`, `src/Entities/creatures/base/creature.tscn`
+- [x] Task 6: Add first-pass navigation-aware ambient wander behavior using `CreatureNavigationComponent` and behavior tuning from `CreatureData`.
+  Files: `src/Common/navigation/creature_navigation_component.gd`, `src/Entities/creatures/components/Wander/creature_wander_component.gd`, `src/Entities/creatures/base/creature.tscn`
   Logging (minimal): state-transition warnings/errors only; no per-frame behavior logs.
 
 ### Phase 3: Spawning and World Integration
@@ -58,8 +58,8 @@ Created: 2026-02-15
   Files: `src/World/streaming/chunk_manager.gd`, `src/World/overworld/overworld_creature_spawner.gd`, `src/World/overworld/chunks/chunk.gd`
   Logging (minimal): log chunk-spawn summary counts and errors, skip per-entity spam.
 
-- [x] Task 9: Introduce bounded creature event channel (`CreatureEvents` autoload) and bridge to legacy `EventBus` creature signals for backward compatibility.
-  Files: `src/Core/events/creature_events.gd`, `src/Core/event_bus.gd`, `project.godot`, `src/Entities/creatures/base/creature.gd`
+- [x] Task 9: Introduce bounded creature event channel (`CreatureEvents` autoload) for runtime creature signals.
+  Files: `src/Core/events/creature_events.gd`, `project.godot`, `src/Entities/creatures/base/creature.gd`
   Logging (minimal): only log bridge wiring failures or missing autoload channel.
 
 ### Phase 4: Testing and Validation

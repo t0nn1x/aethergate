@@ -22,7 +22,7 @@ Created: 2026-02-19
 
 ### Phase 1: Input Selection Contract
 - [x] Task 1: Extend bounded creature events with selection/action signals so tap interactions are exposed through the existing event channel.
-  Files: `src/Core/events/creature_events.gd`, `src/Core/event_bus.gd`
+  Files: `src/Core/events/creature_events.gd`
   Logging: none.
 
 - [x] Task 2: Add creature hit-test support to `PlayerInputComponent` (screen-to-world query + creature filtering), including configurable interaction toggles and collision mask defaults for creature layer.
