@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UiPanelStyleProfile" format=3 uid="uid://cu8doxpk7iy0"]
+
+[ext_resource type="Script" uid="uid://5en8f0bofimg" path="res://src/Ui/common/styles/ui_panel_style_profile.gd" id="1_xwup4"]
+
+[resource]
+script = ExtResource("1_xwup4")
+fill_color = Color(0.108, 0.074, 0.045, 0.66)
+border_color = Color(0.83, 0.69, 0.46, 0.6)
+border_width = 2
+corner_radius = 10
+anti_aliasing = false
+anti_aliasing_size = 0.0
+shadow_color = Color(0.085, 0.049, 0.028, 0.5)
+shadow_size = 16
+shadow_offset = Vector2(0, 6)

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cabgolxx6y05q" path="res://src/World/Combat/combat_scene.gd" id="1_scene_script"]
 [ext_resource type="Script" uid="uid://ibb7hicfbjrj" path="res://src/Entities/Systems/Combat/combat_flow_controller.gd" id="2_flow_ctrl"]
 [ext_resource type="Script" uid="uid://b5u288caa83aw" path="res://src/Entities/Systems/Combat/combat_round_resolver.gd" id="3_resolver"]
-[ext_resource type="PackedScene" path="res://src/Ui/Desktop/Combat/desktop_combat_ui.tscn" id="4_combat_ui"]
-[ext_resource type="PackedScene" path="res://src/Ui/Common/CombatResultPanel/combat_result_panel.tscn" id="5_result_panel"]
+[ext_resource type="PackedScene" path="res://src/Ui/desktop/combat/desktop_combat_ui.tscn" id="4_combat_ui"]
+[ext_resource type="PackedScene" path="res://src/Ui/common/combat_result_panel/combat_result_panel.tscn" id="5_result_panel"]
 
 [node name="CombatScene" type="CanvasLayer"]
 layer = 50

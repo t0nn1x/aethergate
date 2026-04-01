@@ -74,7 +74,7 @@ Legacy marker fallback is still supported:
 - Runtime spawned creatures are tappable/clickable from player input.
 - Input selection is emitted through `CreatureEvents.creature_selected`.
 - Tapping/clicking empty world emits `CreatureEvents.creature_deselected`.
-- A contextual `Fight` button is shown through `res://src/Ui/Hud/creature_action_hud.tscn` when a creature is selected.
+- A contextual `Fight` button is shown through `res://src/Ui/hud/creature_action_hud.tscn` when a creature is selected.
 - Pressing `Fight` emits `CreatureEvents.creature_fight_requested` (placeholder action path only; combat is still not implemented here).
 - Creature taps take priority over move requests, so selecting a creature does not queue click-to-move on that same input.
 - Selection is auto-cleared when the selected creature dies, exits tree, despawns with chunk unload, or when inventory is opened.
