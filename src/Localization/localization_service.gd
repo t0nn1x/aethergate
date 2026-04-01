@@ -4,10 +4,14 @@ signal locale_changed(locale: StringName)
 
 const PROFILE_SERVICE_PATH: NodePath = ^"/root/PlayerProfileService"
 const TRANSLATION_FILE_TEMPLATE: String = "ui_%s.tres"
+const DEFAULT_TRANSLATIONS: PackedStringArray = [
+	"res://src/Localization/translations/ui_en.tres",
+	"res://src/Localization/translations/ui_uk.tres",
+]
 
 @export var fallback_locale: StringName = &"en"
 @export var supported_locales: PackedStringArray = ["en", "uk"]
-@export_dir var translations_folder_path: String = "res://src/Localization/Translations"
+@export_dir var translations_folder_path: String = "res://src/Localization/translations"
 
 var _current_locale: StringName = StringName()
 var _profile_service: Node

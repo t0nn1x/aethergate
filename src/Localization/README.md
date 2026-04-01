@@ -6,8 +6,8 @@ This project uses a `LocalizationService` autoload for runtime locale switching.
 
 - Service: `res://src/Localization/localization_service.gd`
 - Translations:
-  - `res://src/Localization/Translations/ui_en.tres`
-  - `res://src/Localization/Translations/ui_uk.tres`
+  - `res://src/Localization/translations/ui_en.tres`
+  - `res://src/Localization/translations/ui_uk.tres`
 - Project config:
   - `project.godot` -> `[autoload]` includes `LocalizationService`
   - `project.godot` -> `[internationalization]` includes translation resources
@@ -56,7 +56,7 @@ Example key pattern:
 
 ## Add a new locale
 
-1. Create a new file in `Translations`, for example:
+1. Create a new file in `translations`, for example:
    - `ui_de.tres`
 2. Set `locale = "de"` inside that file.
 3. Add it to `project.godot`:
