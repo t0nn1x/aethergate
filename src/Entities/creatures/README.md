@@ -67,7 +67,7 @@ Legacy marker fallback is still supported:
 - Creatures use ambient wander only (roam near spawn point), but movement now routes through `res://src/Common/navigation/creature_navigation_component.gd` pathing when available.
 - Wander target picks are resolved through `res://src/Common/navigation/player_move_target_blocker_component.gd`, so blocked `Polygon2D` areas under `NavigationRegion2D` are avoided using the same blocker policies as player click-to-move.
 - Combat AI remains disabled (no chase/attack state logic).
-- Creature events are emitted via `CreatureEvents` autoload with legacy bridge through `EventBus`.
+- Creature events are emitted directly through the `CreatureEvents` autoload.
 
 ## 4.1 Creature Tap Interaction (Overworld)
 

@@ -140,6 +140,7 @@ Created: 2026-02-23
   - `src/World/overworld/overworld.gd`
   - `src/World/overworld/overworld.tscn`
   - `src/Ui/desktop/character_creator/*`
+  - `src/Ui/mobile/character_creator/*`
   - `src/Entities/player/*`
   Logging requirements:
   - No permanent extra logs; temporary debug logs allowed and removed before completion.

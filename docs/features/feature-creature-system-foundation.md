@@ -60,7 +60,7 @@ Created: 2026-02-15
 
 - [x] Task 9: Introduce bounded creature event channel (`CreatureEvents` autoload) for runtime creature signals.
   Files: `src/Core/events/creature_events.gd`, `project.godot`, `src/Entities/creatures/base/creature.gd`
-  Logging (minimal): only log bridge wiring failures or missing autoload channel.
+  Logging (minimal): only log missing autoload wiring or invalid creature signal payloads.
 
 ### Phase 4: Testing and Validation
 - [x] Task 10: Add data validation test script to assert catalog integrity (unique IDs, valid resources, valid 128x32 frame assumptions) and make it runnable headless.
@@ -104,7 +104,7 @@ Created: 2026-02-15
 - Catalog-driven creature lookup works for all generated entries from `*_128x32.png` sources.
 - A single base creature scene + components can represent many creature variants via `CreatureData`.
 - Overworld can spawn/despawn creatures with chunk lifecycle boundaries.
-- Creature events are available via bounded channel with legacy compatibility maintained.
+- Creature events are available through the bounded `CreatureEvents` autoload channel.
 - Headless data validation and runtime smoke tests are runnable and pass.
 
 ## Risks / Notes

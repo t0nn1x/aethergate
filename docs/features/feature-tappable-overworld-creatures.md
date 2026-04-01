@@ -48,7 +48,7 @@ Created: 2026-02-19
 
 ### Phase 3: Lifecycle and UX Hardening
 - [x] Task 7: Handle selection lifecycle edge cases (selected creature dies/despawns/chunk unloads, menu overlays, inventory toggles) and ensure stale references auto-clear.
-  Files: `src/World/overworld/overworld.gd`, `src/World/overworld/overworld_creature_spawner.gd`, `src/Ui/common/inventory_screen.tscn`
+  Files: `src/World/overworld/overworld.gd`, `src/World/overworld/overworld_creature_spawner.gd`, `src/World/overworld/overworld_creature_selection_controller.gd`
   Logging: none.
 
 - [x] Task 8: Update creature workflow docs with interaction authoring/runtime notes and add a manual validation checklist for desktop + mobile tap behavior.
