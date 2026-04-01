@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/creatures/base/creature_data.gd" id="1_p0d6d"]
+[ext_resource type="Script" path="res://src/Entities/skills/Combat/skill_data.gd" id="2_so33d"]
+
+[resource]
+script = ExtResource("1_p0d6d")
+creature_id = "dragons_juvenile_mercury_dragon"
+creature_type = 4
+source_category = "dragons"
+source_sprite_path = "res://src/Entities/creatures/catalog/dragons/juvenile_mercury_dragon/sprites/JuvenileMercuryDragon_128x32.png"

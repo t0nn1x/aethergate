@@ -3,6 +3,8 @@ extends Node
 
 ## Manages creature tap-to-select lifecycle and action HUD.
 
+const Creature = preload("res://src/Entities/creatures/base/creature.gd")
+
 var _selected_creature: Creature = null
 var _creature_action_hud: CreatureActionHud
 var _creature_spawner: OverworldCreatureSpawner

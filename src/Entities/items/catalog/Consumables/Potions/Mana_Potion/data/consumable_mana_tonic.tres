@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Entities/items/item_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://src/Entities/items/catalog/Consumables/Potions/Mana_Potion/sprites/mana_tonic_icon.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+item_id = "consumable_mana_tonic"
+display_name = "Mana Tonic"
+description = "A volatile tonic that restores arcane focus."
+icon = ExtResource("2")
+max_stack = 20
+props = {
+"mana_restore": 20,
+"rarity": "common"
+}

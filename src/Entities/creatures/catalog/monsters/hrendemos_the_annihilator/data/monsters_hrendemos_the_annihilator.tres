@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/Entities/creatures/base/creature_data.gd" id="1_6xfdj"]
+[ext_resource type="Script" path="res://src/Entities/skills/Combat/skill_data.gd" id="2_mnalc"]
+
+[resource]
+script = ExtResource("1_6xfdj")
+creature_id = "monsters_hrendemos_the_annihilator"
+creature_type = 3
+source_category = "monsters"
+source_sprite_path = "res://src/Entities/creatures/catalog/monsters/hrendemos_the_annihilator/sprites/Hrendemos_128x32.png"

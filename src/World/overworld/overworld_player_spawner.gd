@@ -4,12 +4,12 @@ extends Node
 ## Spawns and registers the player instance for the overworld stage.
 
 const DEFAULT_PLAYER_SKIN_CATALOG := preload(
-	"res://src/Entities/Player/Resources/player_skin_catalog.tres"
+	"res://src/Entities/player/resources/player_skin_catalog.tres"
 ) as PlayerSkinCatalog
 
 signal player_spawned(player: Player)
 
-@export var player_scene: PackedScene = preload("res://src/Entities/Player/player.tscn")
+@export var player_scene: PackedScene = preload("res://src/Entities/player/player.tscn")
 @export var world_y_sort_path: NodePath = ^"WorldYSort"
 @export var spawn_point_path: NodePath = ^"SpawnPoints/PlayerSpawnPoint"
 

@@ -3,13 +3,13 @@ extends Node
 ## Persists player profile data (locale, combat progress, setup state) to user://player_profile.cfg.
 
 const PLAYER_APPEARANCE_DATA_SCRIPT := preload(
-	"res://src/Entities/Player/Resources/player_appearance_data.gd"
+	"res://src/Entities/player/resources/player_appearance_data.gd"
 )
 const PLAYER_SKIN_CATALOG_SCRIPT := preload(
-	"res://src/Entities/Player/Resources/player_skin_catalog.tres"
+	"res://src/Entities/player/resources/player_skin_catalog.tres"
 )
 const PLAYER_WEAPON_CATALOG_SCRIPT := preload(
-	"res://src/Entities/Player/Resources/player_cosmetic_catalog.tres"
+	"res://src/Entities/player/resources/player_cosmetic_catalog.tres"
 )
 const PROFILE_SAVE_PATH: String = "user://player_profile.cfg"
 const SETTINGS_SECTION: String = "settings"

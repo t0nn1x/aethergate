@@ -11,7 +11,7 @@ extends Node
 @export var avoidance_enabled: bool = true
 @export var agent_radius: float = 14.0
 @export var max_target_snap_distance: float = 2048.0
-@export var movement_config = preload("res://src/Entities/Player/Config/player_movement_config.tres")
+@export var movement_config = preload("res://src/Entities/player/config/player_movement_config.tres")
 
 var creature: Creature
 var navigation_agent: NavigationAgent2D

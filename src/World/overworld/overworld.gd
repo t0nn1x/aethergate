@@ -1,6 +1,8 @@
 class_name Overworld
 extends Node2D
 
+const Creature = preload("res://src/Entities/creatures/base/creature.gd")
+
 ## Main overworld stage
 ## Holds stage-level node references. Session orchestration is delegated.
 
@@ -345,8 +347,8 @@ func _build_player_snapshot() -> CombatantSnapshot:
 		snap.sprite_idle_fps = 2.0
 		snap.sprite_default_frame = 0
 		for vfx_path: String in [
-			"res://src/Entities/Systems/Combat/Assets/VFX/Hit Horizontal White.png",
-			"res://src/Entities/Systems/Combat/Assets/VFX/Hit Vertical White.png",
+			"res://src/Entities/systems/combat/Assets/VFX/Hit Horizontal White.png",
+			"res://src/Entities/systems/combat/Assets/VFX/Hit Vertical White.png",
 		]:
 			var tex := load(vfx_path) as Texture2D
 			if tex:

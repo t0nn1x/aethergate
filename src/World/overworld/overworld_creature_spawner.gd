@@ -4,6 +4,9 @@ extends Node
 ## Spawns/despawns creatures and binds them to chunk lifecycle.
 ## Supports zone-based runtime spawning with legacy marker fallback.
 
+const Creature = preload("res://src/Entities/creatures/base/creature.gd")
+const CreatureData = preload("res://src/Entities/creatures/base/creature_data.gd")
+
 class ZoneSpawnState:
 	extends RefCounted
 
@@ -15,7 +18,7 @@ class ZoneSpawnState:
 	var initial_remaining: int = 0
 
 
-const CREATURE_FACTORY_SCRIPT: Script = preload("res://src/Entities/Creatures/creature_factory.gd")
+const CREATURE_FACTORY_SCRIPT: Script = preload("res://src/Entities/creatures/base/creature_factory.gd")
 const INVALID_CHUNK_COORD: Vector2i = Vector2i(2147483647, 2147483647)
 
 signal creature_spawned(creature: Creature, chunk_coord: Vector2i)
@@ -24,7 +27,7 @@ signal creature_despawned(creature: Creature, chunk_coord: Vector2i)
 @export var catalog_service_path: NodePath = ^"CreatureCatalogService"
 @export var world_y_sort_path: NodePath = ^"WorldYSort"
 @export var chunk_manager_path: NodePath = ^"ChunkManager"
-@export var creature_scene: PackedScene = preload("res://src/Entities/Creatures/creature.tscn")
+@export var creature_scene: PackedScene = preload("res://src/Entities/creatures/base/creature.tscn")
 
 @export_group("Zone Spawning")
 @export var enable_zone_spawning: bool = true
