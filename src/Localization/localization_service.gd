@@ -157,6 +157,13 @@ func _register_translations_from_files() -> void:
 
 func _build_translation_path(locale_code: String) -> String:
 	var normalized_locale: String = locale_code.strip_edges().to_lower()
+	for default_translation_path in DEFAULT_TRANSLATIONS:
+		var translation_path: String = String(default_translation_path)
+		var file_name: String = translation_path.get_file().trim_suffix(".tres")
+		var locale_suffix: String = file_name.trim_prefix("ui_").to_lower()
+		if locale_suffix == normalized_locale:
+			return translation_path
+
 	var file_name: String = TRANSLATION_FILE_TEMPLATE % normalized_locale
 	return "%s/%s" % [translations_folder_path.trim_suffix("/"), file_name]
 
