@@ -4,7 +4,7 @@ extends Node
 ## Main scene root.
 ## World is rendered directly (no intermediate SubViewport pipeline).
 
-const COMBAT_SCENE_PATH: String = "res://src/World/Combat/combat_scene.tscn"
+const COMBAT_SCENE_PATH: String = "res://src/World/combat/combat_scene.tscn"
 
 @onready var _overworld: Overworld = $Overworld
 
