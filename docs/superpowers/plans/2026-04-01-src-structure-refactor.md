@@ -15,12 +15,12 @@
 ### Shared infrastructure paths
 
 - `project.godot`
-- `src/common/navigation/`
-- `src/common/shaders/`
-- `src/common/state_machine/`
-- `src/core/events/`
-- `src/config/platform/`
-- `src/localization/translations/`
+- `src/common/Navigation/`
+- `src/common/Shaders/`
+- `src/common/StateMachine/`
+- `src/core/Events/`
+- `src/config/Platform/`
+- `src/localization/Translations/`
 - `src/localization/localization_service.gd`
 - `src/localization/README.md`
 
@@ -117,12 +117,12 @@
 
 ### Rename conventions to apply
 
-- `src/common/navigation` -> `src/common/navigation`
-- `src/common/shaders` -> `src/common/shaders`
-- `src/common/state_machine` -> `src/common/state_machine`
-- `src/core/events` -> `src/core/events`
-- `src/config/platform` -> `src/config/platform`
-- `src/localization/translations` -> `src/localization/translations`
+- `src/common/Navigation` -> `src/common/navigation`
+- `src/common/Shaders` -> `src/common/shaders`
+- `src/common/StateMachine` -> `src/common/state_machine`
+- `src/core/Events` -> `src/core/events`
+- `src/config/Platform` -> `src/config/platform`
+- `src/localization/Translations` -> `src/localization/translations`
 - `src/ui/Common` -> `src/ui/common`
 - `src/ui/Desktop` -> `src/ui/desktop`
 - `src/ui/Mobile` -> `src/ui/mobile`
@@ -204,23 +204,23 @@ Use the same pattern for every case-only rename in this plan.
 - Modify: `project.godot`
 - Modify: `src/config/aether_project_config.gd`
 - Modify: `src/config/project_config.tres`
-- Modify: `src/config/platform/desktop_platform_profile.tres`
-- Modify: `src/config/platform/mobile_platform_profile.tres`
+- Modify: `src/config/Platform/desktop_platform_profile.tres`
+- Modify: `src/config/Platform/mobile_platform_profile.tres`
 - Modify: `src/localization/localization_service.gd`
 - Modify: `src/localization/README.md`
 - Modify: `src/entities/Creatures/creature.tscn`
 - Modify: `src/entities/Player/player.tscn`
-- Rename: `src/common/navigation/` -> `src/common/navigation/`
-- Rename: `src/common/shaders/` -> `src/common/shaders/`
-- Rename: `src/common/state_machine/` -> `src/common/state_machine/`
-- Rename: `src/core/events/` -> `src/core/events/`
-- Rename: `src/config/platform/` -> `src/config/platform/`
-- Rename: `src/localization/translations/` -> `src/localization/translations/`
+- Rename: `src/common/Navigation/` -> `src/common/navigation/`
+- Rename: `src/common/Shaders/` -> `src/common/shaders/`
+- Rename: `src/common/StateMachine/` -> `src/common/state_machine/`
+- Rename: `src/core/Events/` -> `src/core/events/`
+- Rename: `src/config/Platform/` -> `src/config/platform/`
+- Rename: `src/localization/Translations/` -> `src/localization/translations/`
 
 - [ ] **Step 1: Record the current reference surface**
 
 ```powershell
-rg -n "src/common/navigation|src/common/shaders|src/common/state_machine|src/core/events|src/config/platform|src/localization/translations" src project.godot
+rg -n "src/common/Navigation|src/common/Shaders|src/common/StateMachine|src/core/Events|src/config/Platform|src/localization/Translations" src project.godot
 ```
 
 Expected: matches in `project.godot`, config resources, localization files, and any scene/script that still references the old directories.
@@ -228,17 +228,17 @@ Expected: matches in `project.godot`, config resources, localization files, and 
 - [ ] **Step 2: Rename the shared folders with Windows-safe temporary names**
 
 ```powershell
-Rename-Item src/common/navigation src/common/__navigation_tmp
+Rename-Item src/common/Navigation src/common/__navigation_tmp
 Rename-Item src/common/__navigation_tmp src/common/navigation
-Rename-Item src/common/shaders src/common/__shaders_tmp
+Rename-Item src/common/Shaders src/common/__shaders_tmp
 Rename-Item src/common/__shaders_tmp src/common/shaders
-Rename-Item src/common/state_machine src/common/__state_machine_tmp
+Rename-Item src/common/StateMachine src/common/__state_machine_tmp
 Rename-Item src/common/__state_machine_tmp src/common/state_machine
-Rename-Item src/core/events src/core/__events_tmp
+Rename-Item src/core/Events src/core/__events_tmp
 Rename-Item src/core/__events_tmp src/core/events
-Rename-Item src/config/platform src/config/__platform_tmp
+Rename-Item src/config/Platform src/config/__platform_tmp
 Rename-Item src/config/__platform_tmp src/config/platform
-Rename-Item src/localization/translations src/localization/__translations_tmp
+Rename-Item src/localization/Translations src/localization/__translations_tmp
 Rename-Item src/localization/__translations_tmp src/localization/translations
 ```
 
@@ -268,7 +268,7 @@ const DEFAULT_TRANSLATIONS: PackedStringArray = [
 - [ ] **Step 4: Update remaining explicit path strings**
 
 ```powershell
-rg -l "src/common/navigation|src/common/shaders|src/common/state_machine|src/core/events|src/config/platform|src/localization/translations" src project.godot |
+rg -l "src/common/Navigation|src/common/Shaders|src/common/StateMachine|src/core/Events|src/config/Platform|src/localization/Translations" src project.godot |
 ForEach-Object { $_ }
 ```
 
@@ -286,7 +286,7 @@ src/localization/translations
 - [ ] **Step 5: Verify the old shared paths are gone**
 
 ```powershell
-rg -n "src/common/navigation|src/common/shaders|src/common/state_machine|src/core/events|src/config/platform|src/localization/translations" src project.godot
+rg -n "src/common/Navigation|src/common/Shaders|src/common/StateMachine|src/core/Events|src/config/Platform|src/localization/Translations" src project.godot
 ```
 
 Expected: no output.
