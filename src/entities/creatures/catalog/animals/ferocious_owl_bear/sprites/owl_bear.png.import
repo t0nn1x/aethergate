@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkjc86pywo6so"
-path="res://.godot/imported/owl_bear.png-68ae268cdece7598f7f67126441b79fe.ctex"
+path="res://.godot/imported/owl_bear.png-e8d1201068e3db2329c11ca7d21fc30d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/ferocious_owl_bear/sprites/owl_bear.png"
-dest_files=["res://.godot/imported/owl_bear.png-68ae268cdece7598f7f67126441b79fe.ctex"]
+dest_files=["res://.godot/imported/owl_bear.png-e8d1201068e3db2329c11ca7d21fc30d.ctex"]
 
 [params]
 

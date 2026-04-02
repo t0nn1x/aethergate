@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhthxfvu7742g"
-path="res://.godot/imported/gnoll_ripper.png-50b3c2ecfbdb75a32e3cf547025e60e4.ctex"
+path="res://.godot/imported/gnoll_ripper.png-03891211c818918d26e42d0263a68532.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/gnoll_ripper/sprites/gnoll_ripper.png"
-dest_files=["res://.godot/imported/gnoll_ripper.png-50b3c2ecfbdb75a32e3cf547025e60e4.ctex"]
+dest_files=["res://.godot/imported/gnoll_ripper.png-03891211c818918d26e42d0263a68532.ctex"]
 
 [params]
 

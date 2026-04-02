@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cykr7v7haml7i"
-path="res://.godot/imported/titus.png-c176e96b509fac4b5053ac95ab20d425.ctex"
+path="res://.godot/imported/titus.png-8f29db7f0f606187803a13ea61e7e754.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/titus_the_griffon/sprites/titus.png"
-dest_files=["res://.godot/imported/titus.png-c176e96b509fac4b5053ac95ab20d425.ctex"]
+dest_files=["res://.godot/imported/titus.png-8f29db7f0f606187803a13ea61e7e754.ctex"]
 
 [params]
 

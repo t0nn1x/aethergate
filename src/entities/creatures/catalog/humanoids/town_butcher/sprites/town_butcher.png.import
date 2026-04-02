@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0e3hn8he0hvw"
-path="res://.godot/imported/town_butcher.png-379a9aad2f706bcd69f691769ef64478.ctex"
+path="res://.godot/imported/town_butcher.png-e9d82f812ec068888b4ce58a891ac83e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/town_butcher/sprites/town_butcher.png"
-dest_files=["res://.godot/imported/town_butcher.png-379a9aad2f706bcd69f691769ef64478.ctex"]
+dest_files=["res://.godot/imported/town_butcher.png-e9d82f812ec068888b4ce58a891ac83e.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8nadd6mvgm64"
-path="res://.godot/imported/voracious_mouse.png-0c77463e42f6c9c6caf2c910c6ec3252.ctex"
+path="res://.godot/imported/voracious_mouse.png-2a012e7d008618ab324ec2aecac896f1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/voracious_mouse/sprites/voracious_mouse.png"
-dest_files=["res://.godot/imported/voracious_mouse.png-0c77463e42f6c9c6caf2c910c6ec3252.ctex"]
+dest_files=["res://.godot/imported/voracious_mouse.png-2a012e7d008618ab324ec2aecac896f1.ctex"]
 
 [params]
 

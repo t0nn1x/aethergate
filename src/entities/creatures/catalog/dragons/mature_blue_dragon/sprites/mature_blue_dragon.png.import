@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cub1yg2fr83na"
-path="res://.godot/imported/mature_blue_dragon.png-b5a5750ce9511aa0ca0ef7feb12fc245.ctex"
+path="res://.godot/imported/mature_blue_dragon.png-5e913f8fd2ab31c17c1903da1c1f6f43.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/mature_blue_dragon/sprites/mature_blue_dragon.png"
-dest_files=["res://.godot/imported/mature_blue_dragon.png-b5a5750ce9511aa0ca0ef7feb12fc245.ctex"]
+dest_files=["res://.godot/imported/mature_blue_dragon.png-5e913f8fd2ab31c17c1903da1c1f6f43.ctex"]
 
 [params]
 

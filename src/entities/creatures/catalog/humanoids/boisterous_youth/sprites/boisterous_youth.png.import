@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7tv2pvpntbex"
-path="res://.godot/imported/boisterous_youth.png-b1af66718f0e19e83bb6d8bf9216a379.ctex"
+path="res://.godot/imported/boisterous_youth.png-c32674a96a3a17dad0651523f54a53c2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/boisterous_youth/sprites/boisterous_youth.png"
-dest_files=["res://.godot/imported/boisterous_youth.png-b1af66718f0e19e83bb6d8bf9216a379.ctex"]
+dest_files=["res://.godot/imported/boisterous_youth.png-c32674a96a3a17dad0651523f54a53c2.ctex"]
 
 [params]
 

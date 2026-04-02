@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkrqjb1u5sxg4"
-path="res://.godot/imported/quacking_duck.png-10156bdc619f2e61a741c9aeed3b45b7.ctex"
+path="res://.godot/imported/quacking_duck.png-e717cf42f48f13951b538e424baf4215.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/quacking_duck/sprites/quacking_duck.png"
-dest_files=["res://.godot/imported/quacking_duck.png-10156bdc619f2e61a741c9aeed3b45b7.ctex"]
+dest_files=["res://.godot/imported/quacking_duck.png-e717cf42f48f13951b538e424baf4215.ctex"]
 
 [params]
 

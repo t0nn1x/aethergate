@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctlvybnfhca4p"
-path="res://.godot/imported/dracyn.png-504789250a4a0dc25ed00299e277f418.ctex"
+path="res://.godot/imported/dracyn.png-1b86206ca318e1b91556ecba314f99fe.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/dracyn_the_high_priest/sprites/dracyn.png"
-dest_files=["res://.godot/imported/dracyn.png-504789250a4a0dc25ed00299e277f418.ctex"]
+dest_files=["res://.godot/imported/dracyn.png-1b86206ca318e1b91556ecba314f99fe.ctex"]
 
 [params]
 

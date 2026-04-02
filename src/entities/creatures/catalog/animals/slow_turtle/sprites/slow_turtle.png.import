@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://hy8hjmtci881"
-path="res://.godot/imported/slow_turtle.png-3cc81c1e7501b7ebde9acf6e99c8c1c5.ctex"
+path="res://.godot/imported/slow_turtle.png-784ee2c296536fde87d66d37fd5422df.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/slow_turtle/sprites/slow_turtle.png"
-dest_files=["res://.godot/imported/slow_turtle.png-3cc81c1e7501b7ebde9acf6e99c8c1c5.ctex"]
+dest_files=["res://.godot/imported/slow_turtle.png-784ee2c296536fde87d66d37fd5422df.ctex"]
 
 [params]
 

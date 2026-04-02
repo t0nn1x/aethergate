@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dawxp87r2ijsp"
-path="res://.godot/imported/bloody_abomination.png-23b3882aa8a5ce08c7dd7ef62b6f870a.ctex"
+path="res://.godot/imported/bloody_abomination.png-710336b7b0c9fd2214f143201b3688ab.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/bloody_abomination/sprites/bloody_abomination.png"
-dest_files=["res://.godot/imported/bloody_abomination.png-23b3882aa8a5ce08c7dd7ef62b6f870a.ctex"]
+dest_files=["res://.godot/imported/bloody_abomination.png-710336b7b0c9fd2214f143201b3688ab.ctex"]
 
 [params]
 

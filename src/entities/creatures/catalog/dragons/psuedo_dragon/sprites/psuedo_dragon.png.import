@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5uo23hplocj"
-path="res://.godot/imported/psuedo_dragon.png-060671767c4adfee51b7d3c82feea686.ctex"
+path="res://.godot/imported/psuedo_dragon.png-001f3f582869cd8f0fa6a091735390a9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/psuedo_dragon/sprites/psuedo_dragon.png"
-dest_files=["res://.godot/imported/psuedo_dragon.png-060671767c4adfee51b7d3c82feea686.ctex"]
+dest_files=["res://.godot/imported/psuedo_dragon.png-001f3f582869cd8f0fa6a091735390a9.ctex"]
 
 [params]
 

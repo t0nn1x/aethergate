@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbkvl534ieieh"
-path="res://.godot/imported/daron.png-23385beeb8812232e2e9476b1e5f685a.ctex"
+path="res://.godot/imported/daron.png-b029b944a062e4e386ae8839ad351320.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/daron_the_halfling_rogue/sprites/daron.png"
-dest_files=["res://.godot/imported/daron.png-23385beeb8812232e2e9476b1e5f685a.ctex"]
+dest_files=["res://.godot/imported/daron.png-b029b944a062e4e386ae8839ad351320.ctex"]
 
 [params]
 

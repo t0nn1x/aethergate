@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck2e2e8iru2xs"
-path="res://.godot/imported/beryl_doppleganger.png-403b65536960d408c142d25f5544a32f.ctex"
+path="res://.godot/imported/beryl_doppleganger.png-e29fa418776adaf27608a03518bc7cc1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/beryl_doppleganger/sprites/beryl_doppleganger.png"
-dest_files=["res://.godot/imported/beryl_doppleganger.png-403b65536960d408c142d25f5544a32f.ctex"]
+dest_files=["res://.godot/imported/beryl_doppleganger.png-e29fa418776adaf27608a03518bc7cc1.ctex"]
 
 [params]
 

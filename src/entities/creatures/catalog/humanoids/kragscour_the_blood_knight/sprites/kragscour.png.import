@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ca083s8nerxaa"
-path="res://.godot/imported/kragscour.png-bfbb5df2342a18c0be09739a6ea29d59.ctex"
+path="res://.godot/imported/kragscour.png-e37861ad87f6ff15903eafbd6d88050d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/kragscour_the_blood_knight/sprites/kragscour.png"
-dest_files=["res://.godot/imported/kragscour.png-bfbb5df2342a18c0be09739a6ea29d59.ctex"]
+dest_files=["res://.godot/imported/kragscour.png-e37861ad87f6ff15903eafbd6d88050d.ctex"]
 
 [params]
 

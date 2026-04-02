@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4bsvc6rity7x"
-path="res://.godot/imported/beastly_impaler_idle_side_128x32.png-80f671ccb08de46f754e207fd642c6d3.ctex"
+path="res://.godot/imported/beastly_impaler_idle_side_128x32.png-73992bb81dc75b22b7f9c68c0ac55afa.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/beastly_impaler/sprites/beastly_impaler_idle_side_128x32.png"
-dest_files=["res://.godot/imported/beastly_impaler_idle_side_128x32.png-80f671ccb08de46f754e207fd642c6d3.ctex"]
+dest_files=["res://.godot/imported/beastly_impaler_idle_side_128x32.png-73992bb81dc75b22b7f9c68c0ac55afa.ctex"]
 
 [params]
 

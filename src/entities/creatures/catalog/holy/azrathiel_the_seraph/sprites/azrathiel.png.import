@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbtvh4beojqol"
-path="res://.godot/imported/azrathiel.png-207ba59c7aa3f1870cf0f89b75add26d.ctex"
+path="res://.godot/imported/azrathiel.png-cd3261e74f774248cb6353cb5d33a358.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/holy/azrathiel_the_seraph/sprites/azrathiel.png"
-dest_files=["res://.godot/imported/azrathiel.png-207ba59c7aa3f1870cf0f89b75add26d.ctex"]
+dest_files=["res://.godot/imported/azrathiel.png-cd3261e74f774248cb6353cb5d33a358.ctex"]
 
 [params]
 

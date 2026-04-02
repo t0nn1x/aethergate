@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgwc4dkoxmul"
-path="res://.godot/imported/beginner_enchanter_128x32.png-21c748f82bfb085b1cd57a6bef2b96db.ctex"
+path="res://.godot/imported/beginner_enchanter_128x32.png-c189495a2a062b2e503c72bc5e98a702.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/beginner_enchanter/sprites/beginner_enchanter_128x32.png"
-dest_files=["res://.godot/imported/beginner_enchanter_128x32.png-21c748f82bfb085b1cd57a6bef2b96db.ctex"]
+dest_files=["res://.godot/imported/beginner_enchanter_128x32.png-c189495a2a062b2e503c72bc5e98a702.ctex"]
 
 [params]
 

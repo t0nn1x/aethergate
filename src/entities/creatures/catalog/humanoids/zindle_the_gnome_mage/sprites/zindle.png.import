@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chbkjes36sepq"
-path="res://.godot/imported/zindle.png-db140ae2db2870bdf62188bb2ae57746.ctex"
+path="res://.godot/imported/zindle.png-ed3316c9930c4bbc211aeda8a9fbc114.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/zindle_the_gnome_mage/sprites/zindle.png"
-dest_files=["res://.godot/imported/zindle.png-db140ae2db2870bdf62188bb2ae57746.ctex"]
+dest_files=["res://.godot/imported/zindle.png-ed3316c9930c4bbc211aeda8a9fbc114.ctex"]
 
 [params]
 

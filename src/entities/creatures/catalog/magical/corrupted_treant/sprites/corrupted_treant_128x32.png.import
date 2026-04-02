@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://muskxs2gxme7"
-path="res://.godot/imported/corrupted_treant_128x32.png-865b3d6f799ba76ba2b490d996c10790.ctex"
+path="res://.godot/imported/corrupted_treant_128x32.png-828909fb70463c7250e3ab74992c3269.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/corrupted_treant/sprites/corrupted_treant_128x32.png"
-dest_files=["res://.godot/imported/corrupted_treant_128x32.png-865b3d6f799ba76ba2b490d996c10790.ctex"]
+dest_files=["res://.godot/imported/corrupted_treant_128x32.png-828909fb70463c7250e3ab74992c3269.ctex"]
 
 [params]
 

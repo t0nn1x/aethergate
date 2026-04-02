@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ba8wu0t3pc1e3"
-path="res://.godot/imported/holy_crusader_128x32.png-6ca59075317f9ac6e4c7ed68e85cab47.ctex"
+path="res://.godot/imported/holy_crusader_128x32.png-44677fe214d328180503b35ac1d9e6a7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/holy/holy_crusader/sprites/holy_crusader_128x32.png"
-dest_files=["res://.godot/imported/holy_crusader_128x32.png-6ca59075317f9ac6e4c7ed68e85cab47.ctex"]
+dest_files=["res://.godot/imported/holy_crusader_128x32.png-44677fe214d328180503b35ac1d9e6a7.ctex"]
 
 [params]
 

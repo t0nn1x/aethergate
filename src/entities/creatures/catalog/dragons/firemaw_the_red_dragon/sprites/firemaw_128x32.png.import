@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blndqubmdkad5"
-path="res://.godot/imported/firemaw_128x32.png-98943b852a8d60d18304e5d9754c0f7d.ctex"
+path="res://.godot/imported/firemaw_128x32.png-9b945c0ee0b031ad9671201944dc3523.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/firemaw_the_red_dragon/sprites/firemaw_128x32.png"
-dest_files=["res://.godot/imported/firemaw_128x32.png-98943b852a8d60d18304e5d9754c0f7d.ctex"]
+dest_files=["res://.godot/imported/firemaw_128x32.png-9b945c0ee0b031ad9671201944dc3523.ctex"]
 
 [params]
 

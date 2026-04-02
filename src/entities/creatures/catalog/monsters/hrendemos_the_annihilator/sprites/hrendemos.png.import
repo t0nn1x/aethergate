@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwdm1ebr7ktcf"
-path="res://.godot/imported/hrendemos.png-0ef14d03772c0c22be54f3d77ce2e648.ctex"
+path="res://.godot/imported/hrendemos.png-28c4f1d99d3ede83e537ddfce59ba588.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/hrendemos_the_annihilator/sprites/hrendemos.png"
-dest_files=["res://.godot/imported/hrendemos.png-0ef14d03772c0c22be54f3d77ce2e648.ctex"]
+dest_files=["res://.godot/imported/hrendemos.png-28c4f1d99d3ede83e537ddfce59ba588.ctex"]
 
 [params]
 

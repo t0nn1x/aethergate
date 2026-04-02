@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck2ec5iihkth1"
-path="res://.godot/imported/glowy_trees.png-b7f6948cbe1afd985e62b75987f6c91d.ctex"
+path="res://.godot/imported/glowy_trees.png-4db961b866488dc55bda5c329f2d5ff7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/objects/glowy_trees.png"
-dest_files=["res://.godot/imported/glowy_trees.png-b7f6948cbe1afd985e62b75987f6c91d.ctex"]
+dest_files=["res://.godot/imported/glowy_trees.png-4db961b866488dc55bda5c329f2d5ff7.ctex"]
 
 [params]
 

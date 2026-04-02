@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6sp5fefkmb47"
-path="res://.godot/imported/dismembered_crawler.png-5d774668fe2432e7e13b34f9ef5e0a89.ctex"
+path="res://.godot/imported/dismembered_crawler.png-288379e7455750b78241907090f5c078.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/dismembered_crawler/sprites/dismembered_crawler.png"
-dest_files=["res://.godot/imported/dismembered_crawler.png-5d774668fe2432e7e13b34f9ef5e0a89.ctex"]
+dest_files=["res://.godot/imported/dismembered_crawler.png-288379e7455750b78241907090f5c078.ctex"]
 
 [params]
 

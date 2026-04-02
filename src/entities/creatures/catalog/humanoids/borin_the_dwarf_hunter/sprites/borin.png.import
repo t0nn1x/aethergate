@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfrvisswl3my1"
-path="res://.godot/imported/borin.png-2cdb25e4898ea8dc4eb8e3961c14a6fd.ctex"
+path="res://.godot/imported/borin.png-903bf066e35e61b09f242678674f9350.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/borin_the_dwarf_hunter/sprites/borin.png"
-dest_files=["res://.godot/imported/borin.png-2cdb25e4898ea8dc4eb8e3961c14a6fd.ctex"]
+dest_files=["res://.godot/imported/borin.png-903bf066e35e61b09f242678674f9350.ctex"]
 
 [params]
 

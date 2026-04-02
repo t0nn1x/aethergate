@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bo2dw84dg08mu"
-path="res://.godot/imported/curious_monkey.png-573f645c92544e66c4d1428b1b03345d.ctex"
+path="res://.godot/imported/curious_monkey.png-a306e80413ba2dd448915898b4d48b51.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/curious_monkey/sprites/curious_monkey.png"
-dest_files=["res://.godot/imported/curious_monkey.png-573f645c92544e66c4d1428b1b03345d.ctex"]
+dest_files=["res://.godot/imported/curious_monkey.png-a306e80413ba2dd448915898b4d48b51.ctex"]
 
 [params]
 

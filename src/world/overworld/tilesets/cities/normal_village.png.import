@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4bjoxigcyjaa"
-path="res://.godot/imported/normal_village.png-f27b8547ed788aa55c3172efa61d303b.ctex"
+path="res://.godot/imported/normal_village.png-2169e950e6e5d50d88579f575a87e5a3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/cities/normal_village.png"
-dest_files=["res://.godot/imported/normal_village.png-f27b8547ed788aa55c3172efa61d303b.ctex"]
+dest_files=["res://.godot/imported/normal_village.png-2169e950e6e5d50d88579f575a87e5a3.ctex"]
 
 [params]
 

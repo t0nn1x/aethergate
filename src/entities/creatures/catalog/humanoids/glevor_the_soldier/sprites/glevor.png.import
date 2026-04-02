@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfr7iqvm62akm"
-path="res://.godot/imported/glevor.png-01952d9941ea326c13233100372cce6b.ctex"
+path="res://.godot/imported/glevor.png-135e17463339c3b9091281143983ec94.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/glevor_the_soldier/sprites/glevor.png"
-dest_files=["res://.godot/imported/glevor.png-01952d9941ea326c13233100372cce6b.ctex"]
+dest_files=["res://.godot/imported/glevor.png-135e17463339c3b9091281143983ec94.ctex"]
 
 [params]
 

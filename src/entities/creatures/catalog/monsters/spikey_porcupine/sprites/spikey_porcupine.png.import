@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbssok706ka72"
-path="res://.godot/imported/spikey_porcupine.png-0cf51a5eae2f27803a2cb4d1453a301a.ctex"
+path="res://.godot/imported/spikey_porcupine.png-96dd32f45bb75e110c49c666f02ce59b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/spikey_porcupine/sprites/spikey_porcupine.png"
-dest_files=["res://.godot/imported/spikey_porcupine.png-0cf51a5eae2f27803a2cb4d1453a301a.ctex"]
+dest_files=["res://.godot/imported/spikey_porcupine.png-96dd32f45bb75e110c49c666f02ce59b.ctex"]
 
 [params]
 

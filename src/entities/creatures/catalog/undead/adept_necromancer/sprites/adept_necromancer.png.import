@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgqxptjpf8fxq"
-path="res://.godot/imported/adept_necromancer.png-5d653910598252adfa8e3c357c2c2ebf.ctex"
+path="res://.godot/imported/adept_necromancer.png-e4444e335cce4465a0311d1855b17162.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/adept_necromancer/sprites/adept_necromancer.png"
-dest_files=["res://.godot/imported/adept_necromancer.png-5d653910598252adfa8e3c357c2c2ebf.ctex"]
+dest_files=["res://.godot/imported/adept_necromancer.png-e4444e335cce4465a0311d1855b17162.ctex"]
 
 [params]
 

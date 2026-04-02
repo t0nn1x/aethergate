@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2q8wodf8h6qa"
-path="res://.godot/imported/powerful_djinn.png-1225f68b16cf85a6961443c657a20d54.ctex"
+path="res://.godot/imported/powerful_djinn.png-5d38bac898a2a22b583d8370e822cf50.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/powerful_djinn/sprites/powerful_djinn.png"
-dest_files=["res://.godot/imported/powerful_djinn.png-1225f68b16cf85a6961443c657a20d54.ctex"]
+dest_files=["res://.godot/imported/powerful_djinn.png-5d38bac898a2a22b583d8370e822cf50.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfkhovaru3iqk"
-path="res://.godot/imported/ambro.png-00e25759087cb9a64446346a2be2e065.ctex"
+path="res://.godot/imported/ambro.png-22497220cc961dbb8dd901333c5fa736.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ambro_the_sasquatch/sprites/ambro.png"
-dest_files=["res://.godot/imported/ambro.png-00e25759087cb9a64446346a2be2e065.ctex"]
+dest_files=["res://.godot/imported/ambro.png-22497220cc961dbb8dd901333c5fa736.ctex"]
 
 [params]
 

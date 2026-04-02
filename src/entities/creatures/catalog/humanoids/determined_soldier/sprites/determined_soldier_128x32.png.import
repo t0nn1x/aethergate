@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://citynf1uct31n"
-path="res://.godot/imported/determined_soldier_128x32.png-3c003b3f822ba6fd6f8a4279e4f3c2dc.ctex"
+path="res://.godot/imported/determined_soldier_128x32.png-208d7978374d6cbdaaa60d4c6f93ec43.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/determined_soldier/sprites/determined_soldier_128x32.png"
-dest_files=["res://.godot/imported/determined_soldier_128x32.png-3c003b3f822ba6fd6f8a4279e4f3c2dc.ctex"]
+dest_files=["res://.godot/imported/determined_soldier_128x32.png-208d7978374d6cbdaaa60d4c6f93ec43.ctex"]
 
 [params]
 

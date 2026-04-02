@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8o5i77axwbrc"
-path="res://.godot/imported/sythran.png-1548314230a2d34d56f8059ae637d2e3.ctex"
+path="res://.godot/imported/sythran.png-fcfd40eaf36a158ed04c92849f265a04.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/holy/sythran_the_paladin/sprites/sythran.png"
-dest_files=["res://.godot/imported/sythran.png-1548314230a2d34d56f8059ae637d2e3.ctex"]
+dest_files=["res://.godot/imported/sythran.png-fcfd40eaf36a158ed04c92849f265a04.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jlcpqk2u6oqc"
-path="res://.godot/imported/umber_hulk_128x32.png-42f51607156d6f37d5b7af6c90f28e35.ctex"
+path="res://.godot/imported/umber_hulk_128x32.png-d6e2ff68e6cd62c53ee55a378aa49384.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/umber_hulk/sprites/umber_hulk_128x32.png"
-dest_files=["res://.godot/imported/umber_hulk_128x32.png-42f51607156d6f37d5b7af6c90f28e35.ctex"]
+dest_files=["res://.godot/imported/umber_hulk_128x32.png-d6e2ff68e6cd62c53ee55a378aa49384.ctex"]
 
 [params]
 

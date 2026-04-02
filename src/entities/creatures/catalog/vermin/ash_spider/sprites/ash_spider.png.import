@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmnh3niwsbxjs"
-path="res://.godot/imported/ash_spider.png-990dc42fa38018b1f38cdb5043371fba.ctex"
+path="res://.godot/imported/ash_spider.png-a303bb44e0dc2d5c4259aa557602ff6c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/vermin/ash_spider/sprites/ash_spider.png"
-dest_files=["res://.godot/imported/ash_spider.png-990dc42fa38018b1f38cdb5043371fba.ctex"]
+dest_files=["res://.godot/imported/ash_spider.png-a303bb44e0dc2d5c4259aa557602ff6c.ctex"]
 
 [params]
 

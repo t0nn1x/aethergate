@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://burkprpubt4x8"
-path="res://.godot/imported/combusting_balrog.png-725ced0b96889e1e8f38b781938a8d8d.ctex"
+path="res://.godot/imported/combusting_balrog.png-242bd729a50bb384c639f7fda84c2551.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/combusting_balrog/sprites/combusting_balrog.png"
-dest_files=["res://.godot/imported/combusting_balrog.png-725ced0b96889e1e8f38b781938a8d8d.ctex"]
+dest_files=["res://.godot/imported/combusting_balrog.png-242bd729a50bb384c639f7fda84c2551.ctex"]
 
 [params]
 

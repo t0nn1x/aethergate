@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfd1y0ojbj7v8"
-path="res://.godot/imported/bugbear_elite_128x32.png-cae4b01f3e375667ac015cf6f23de1f0.ctex"
+path="res://.godot/imported/bugbear_elite_128x32.png-0ba0d125f40522feff86d7d8d8f4443f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/bugbear_elite/sprites/bugbear_elite_128x32.png"
-dest_files=["res://.godot/imported/bugbear_elite_128x32.png-cae4b01f3e375667ac015cf6f23de1f0.ctex"]
+dest_files=["res://.godot/imported/bugbear_elite_128x32.png-0ba0d125f40522feff86d7d8d8f4443f.ctex"]
 
 [params]
 

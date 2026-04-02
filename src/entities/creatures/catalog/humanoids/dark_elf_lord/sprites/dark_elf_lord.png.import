@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyuwfph1j1puu"
-path="res://.godot/imported/dark_elf_lord.png-874f90709cecb7c9b3eefb7f0ca063d9.ctex"
+path="res://.godot/imported/dark_elf_lord.png-5acd5c19135984409981311b42dcc32a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/dark_elf_lord/sprites/dark_elf_lord.png"
-dest_files=["res://.godot/imported/dark_elf_lord.png-874f90709cecb7c9b3eefb7f0ca063d9.ctex"]
+dest_files=["res://.godot/imported/dark_elf_lord.png-5acd5c19135984409981311b42dcc32a.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dyuh66nygfd2n"
-path="res://.godot/imported/hit_vertical_green.png-d399dd22c967801d89af49103d5f4557.ctex"
+path="res://.godot/imported/hit_vertical_green.png-6a2eec93d71b5c2e686a430c8d869583.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/systems/combat/assets/vfx/hit_vertical_green.png"
-dest_files=["res://.godot/imported/hit_vertical_green.png-d399dd22c967801d89af49103d5f4557.ctex"]
+dest_files=["res://.godot/imported/hit_vertical_green.png-6a2eec93d71b5c2e686a430c8d869583.ctex"]
 
 [params]
 

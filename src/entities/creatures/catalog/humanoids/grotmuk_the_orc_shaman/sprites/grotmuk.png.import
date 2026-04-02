@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkymcaxwvtem0"
-path="res://.godot/imported/grotmuk.png-dadfabee88ee8767c442c7a468177c3e.ctex"
+path="res://.godot/imported/grotmuk.png-c36995205684bb9caf3831a552375612.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/grotmuk_the_orc_shaman/sprites/grotmuk.png"
-dest_files=["res://.godot/imported/grotmuk.png-dadfabee88ee8767c442c7a468177c3e.ctex"]
+dest_files=["res://.godot/imported/grotmuk.png-c36995205684bb9caf3831a552375612.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cuu6lt4yrviix"
-path="res://.godot/imported/mindful_chimpanze.png-1ddbd67736211ea8ddd705cb55d2f064.ctex"
+path="res://.godot/imported/mindful_chimpanze.png-d55e3ab9fb9e0ab8bf06450b1a271ce6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/mindful_chimpanzee/sprites/mindful_chimpanze.png"
-dest_files=["res://.godot/imported/mindful_chimpanze.png-1ddbd67736211ea8ddd705cb55d2f064.ctex"]
+dest_files=["res://.godot/imported/mindful_chimpanze.png-d55e3ab9fb9e0ab8bf06450b1a271ce6.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mg6q636jia4b"
-path="res://.godot/imported/bloated_zombie.png-fd78187ec01f96d23a87d31d318e4eb8.ctex"
+path="res://.godot/imported/bloated_zombie.png-6cb7e3b39627284878918d9e3f208243.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/bloated_zombie/sprites/bloated_zombie.png"
-dest_files=["res://.godot/imported/bloated_zombie.png-fd78187ec01f96d23a87d31d318e4eb8.ctex"]
+dest_files=["res://.godot/imported/bloated_zombie.png-6cb7e3b39627284878918d9e3f208243.ctex"]
 
 [params]
 

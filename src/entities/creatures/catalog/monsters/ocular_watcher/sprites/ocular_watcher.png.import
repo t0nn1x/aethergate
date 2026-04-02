@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mqkt3tjxjliv"
-path="res://.godot/imported/ocular_watcher.png-d88ee78a84aa49f6c71704a7394f531a.ctex"
+path="res://.godot/imported/ocular_watcher.png-fef1589a33efd525f5aa2d734339fa01.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ocular_watcher/sprites/ocular_watcher.png"
-dest_files=["res://.godot/imported/ocular_watcher.png-d88ee78a84aa49f6c71704a7394f531a.ctex"]
+dest_files=["res://.godot/imported/ocular_watcher.png-fef1589a33efd525f5aa2d734339fa01.ctex"]
 
 [params]
 

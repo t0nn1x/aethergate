@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ct86pkn4vi0x4"
-path="res://.godot/imported/dessicated_priest.png-e48b37cd51964d814198e87fccd8b2b1.ctex"
+path="res://.godot/imported/dessicated_priest.png-6ad9979b095d766b69a2456eae2c2dcd.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/dessicated_priest/sprites/dessicated_priest.png"
-dest_files=["res://.godot/imported/dessicated_priest.png-e48b37cd51964d814198e87fccd8b2b1.ctex"]
+dest_files=["res://.godot/imported/dessicated_priest.png-6ad9979b095d766b69a2456eae2c2dcd.ctex"]
 
 [params]
 

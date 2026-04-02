@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://iq18my748dfq"
-path="res://.godot/imported/vampire_thrall.png-878268168ca4770d37c3009e97126cba.ctex"
+path="res://.godot/imported/vampire_thrall.png-c1ad75cb1313ad6d3b3f91facdb09fae.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/vampire_thrall/sprites/vampire_thrall.png"
-dest_files=["res://.godot/imported/vampire_thrall.png-878268168ca4770d37c3009e97126cba.ctex"]
+dest_files=["res://.godot/imported/vampire_thrall.png-c1ad75cb1313ad6d3b3f91facdb09fae.ctex"]
 
 [params]
 

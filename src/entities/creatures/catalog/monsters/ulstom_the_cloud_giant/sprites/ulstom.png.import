@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2gl8151og6bs"
-path="res://.godot/imported/ulstom.png-8de869c72b3a5cee63c78b9da05ef785.ctex"
+path="res://.godot/imported/ulstom.png-69c1da8c053bc8dabbc7d7b6bea431c2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ulstom_the_cloud_giant/sprites/ulstom.png"
-dest_files=["res://.godot/imported/ulstom.png-8de869c72b3a5cee63c78b9da05ef785.ctex"]
+dest_files=["res://.godot/imported/ulstom.png-69c1da8c053bc8dabbc7d7b6bea431c2.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cid8vgenc1swh"
-path="res://.godot/imported/merfolk_mystic.png-96d99f32b165d4a423e4b471316f7d93.ctex"
+path="res://.godot/imported/merfolk_mystic.png-dde510e00f379091687a41529dc144e2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/merfolk_mystic/sprites/merfolk_mystic.png"
-dest_files=["res://.godot/imported/merfolk_mystic.png-96d99f32b165d4a423e4b471316f7d93.ctex"]
+dest_files=["res://.godot/imported/merfolk_mystic.png-dde510e00f379091687a41529dc144e2.ctex"]
 
 [params]
 

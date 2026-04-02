@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbrf4ajd2pneq"
-path="res://.godot/imported/regal_hippogriff.png-7df9a5a78d31fdc551a4044ed7756731.ctex"
+path="res://.godot/imported/regal_hippogriff.png-03fdaa99afcf8cb2390015792fb8704b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/regal_hippogriff/sprites/regal_hippogriff.png"
-dest_files=["res://.godot/imported/regal_hippogriff.png-7df9a5a78d31fdc551a4044ed7756731.ctex"]
+dest_files=["res://.godot/imported/regal_hippogriff.png-03fdaa99afcf8cb2390015792fb8704b.ctex"]
 
 [params]
 

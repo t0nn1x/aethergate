@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://byagf3m3cqcii"
-path="res://.godot/imported/bald_eagle.png-6b46ef9052c7bbed0404a5d1fdf21839.ctex"
+path="res://.godot/imported/bald_eagle.png-b1955abd5c94719fe94062666627c2d3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/bald_eagle/sprites/bald_eagle.png"
-dest_files=["res://.godot/imported/bald_eagle.png-6b46ef9052c7bbed0404a5d1fdf21839.ctex"]
+dest_files=["res://.godot/imported/bald_eagle.png-b1955abd5c94719fe94062666627c2d3.ctex"]
 
 [params]
 

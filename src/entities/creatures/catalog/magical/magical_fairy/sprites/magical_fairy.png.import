@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdtc04f54lk1q"
-path="res://.godot/imported/magical_fairy.png-9389760d2398abd93bfec8b1db976b61.ctex"
+path="res://.godot/imported/magical_fairy.png-25589c7ae8f99ac717222919b8f918bf.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/magical_fairy/sprites/magical_fairy.png"
-dest_files=["res://.godot/imported/magical_fairy.png-9389760d2398abd93bfec8b1db976b61.ctex"]
+dest_files=["res://.godot/imported/magical_fairy.png-25589c7ae8f99ac717222919b8f918bf.ctex"]
 
 [params]
 

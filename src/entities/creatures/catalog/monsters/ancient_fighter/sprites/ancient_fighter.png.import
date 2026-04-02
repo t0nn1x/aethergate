@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b38mfr4d5rr1w"
-path="res://.godot/imported/ancient_fighter.png-f78ca09ea078597c1a25685687a776d5.ctex"
+path="res://.godot/imported/ancient_fighter.png-12b0b22b1300512ddabe566ba5cbb07c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ancient_fighter/sprites/ancient_fighter.png"
-dest_files=["res://.godot/imported/ancient_fighter.png-f78ca09ea078597c1a25685687a776d5.ctex"]
+dest_files=["res://.godot/imported/ancient_fighter.png-12b0b22b1300512ddabe566ba5cbb07c.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://betyeqpcn63tj"
-path="res://.godot/imported/reltgaze.png-e76b470604153c1fa5e7ecb69753771f.ctex"
+path="res://.godot/imported/reltgaze.png-ac4f8fe7eea6bd8e1f54392dd07a0c2e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/reltgaze_the_bloodshot_eye/sprites/reltgaze.png"
-dest_files=["res://.godot/imported/reltgaze.png-e76b470604153c1fa5e7ecb69753771f.ctex"]
+dest_files=["res://.godot/imported/reltgaze.png-ac4f8fe7eea6bd8e1f54392dd07a0c2e.ctex"]
 
 [params]
 

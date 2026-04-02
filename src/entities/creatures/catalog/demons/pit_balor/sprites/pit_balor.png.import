@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6uqsv6vit1bv"
-path="res://.godot/imported/pit_balor.png-a8c61ba81f39f2d3b27bc1966e9faeca.ctex"
+path="res://.godot/imported/pit_balor.png-f670cdd64bf64b5625c300e690076bb3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/demons/pit_balor/sprites/pit_balor.png"
-dest_files=["res://.godot/imported/pit_balor.png-a8c61ba81f39f2d3b27bc1966e9faeca.ctex"]
+dest_files=["res://.godot/imported/pit_balor.png-f670cdd64bf64b5625c300e690076bb3.ctex"]
 
 [params]
 

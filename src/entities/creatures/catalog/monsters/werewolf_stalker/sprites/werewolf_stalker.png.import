@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx0k8s5nf2e50"
-path="res://.godot/imported/werewolf_stalker.png-ceaf87fc7165a7ce0938d43db940e2d2.ctex"
+path="res://.godot/imported/werewolf_stalker.png-d34ca97ad1eadc4703f3e441b2581de9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/werewolf_stalker/sprites/werewolf_stalker.png"
-dest_files=["res://.godot/imported/werewolf_stalker.png-ceaf87fc7165a7ce0938d43db940e2d2.ctex"]
+dest_files=["res://.godot/imported/werewolf_stalker.png-d34ca97ad1eadc4703f3e441b2581de9.ctex"]
 
 [params]
 

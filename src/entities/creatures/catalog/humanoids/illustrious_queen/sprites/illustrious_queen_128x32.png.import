@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bb0irgibwoxqy"
-path="res://.godot/imported/illustrious_queen_128x32.png-c9a6e6301a6bc11a1a575453b1656e7b.ctex"
+path="res://.godot/imported/illustrious_queen_128x32.png-5beb53a09f44e662b380933a2fca9dcf.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/illustrious_queen/sprites/illustrious_queen_128x32.png"
-dest_files=["res://.godot/imported/illustrious_queen_128x32.png-c9a6e6301a6bc11a1a575453b1656e7b.ctex"]
+dest_files=["res://.godot/imported/illustrious_queen_128x32.png-5beb53a09f44e662b380933a2fca9dcf.ctex"]
 
 [params]
 

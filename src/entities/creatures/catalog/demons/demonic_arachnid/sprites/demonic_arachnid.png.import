@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://e22rbnkop56d"
-path="res://.godot/imported/demonic_arachnid.png-93520181774b4d33ba29d60253c4208b.ctex"
+path="res://.godot/imported/demonic_arachnid.png-1d4c6c517a1d607f3ec2aa407c34f679.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/demons/demonic_arachnid/sprites/demonic_arachnid.png"
-dest_files=["res://.godot/imported/demonic_arachnid.png-93520181774b4d33ba29d60253c4208b.ctex"]
+dest_files=["res://.godot/imported/demonic_arachnid.png-1d4c6c517a1d607f3ec2aa407c34f679.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k4c1043tchjl"
-path="res://.godot/imported/rummaging_opossum.png-095e8c796935414143bf605182a1a0ae.ctex"
+path="res://.godot/imported/rummaging_opossum.png-7b449e89dc32d89c550a446cefdff3f8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/rummaging_opossum/sprites/rummaging_opossum.png"
-dest_files=["res://.godot/imported/rummaging_opossum.png-095e8c796935414143bf605182a1a0ae.ctex"]
+dest_files=["res://.godot/imported/rummaging_opossum.png-7b449e89dc32d89c550a446cefdff3f8.ctex"]
 
 [params]
 

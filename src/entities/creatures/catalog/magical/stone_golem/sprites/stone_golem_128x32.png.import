@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx5beva3rv6ga"
-path="res://.godot/imported/stone_golem_128x32.png-3fa861e2095c0f1ed3bf9b2ee8ae4f16.ctex"
+path="res://.godot/imported/stone_golem_128x32.png-f1639e8e5c79ec532e7087afb448cf7a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/stone_golem/sprites/stone_golem_128x32.png"
-dest_files=["res://.godot/imported/stone_golem_128x32.png-3fa861e2095c0f1ed3bf9b2ee8ae4f16.ctex"]
+dest_files=["res://.godot/imported/stone_golem_128x32.png-f1639e8e5c79ec532e7087afb448cf7a.ctex"]
 
 [params]
 

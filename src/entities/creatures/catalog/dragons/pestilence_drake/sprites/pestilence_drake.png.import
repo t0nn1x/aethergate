@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddjvgl4f0sil2"
-path="res://.godot/imported/pestilence_drake.png-783ea03d920dfc45fba623fc25a73eb8.ctex"
+path="res://.godot/imported/pestilence_drake.png-1e757737126fd8ea3b0810e38e61e73b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/pestilence_drake/sprites/pestilence_drake.png"
-dest_files=["res://.godot/imported/pestilence_drake.png-783ea03d920dfc45fba623fc25a73eb8.ctex"]
+dest_files=["res://.godot/imported/pestilence_drake.png-1e757737126fd8ea3b0810e38e61e73b.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2bqyyy7ioj43"
-path="res://.godot/imported/proficient_bard.png-60d258fe228f772a22da0cfb4eadbfa2.ctex"
+path="res://.godot/imported/proficient_bard.png-7c6ca3d3ebc543dfdf9d9a1b22b2c4a3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/proficient_bard/sprites/proficient_bard.png"
-dest_files=["res://.godot/imported/proficient_bard.png-60d258fe228f772a22da0cfb4eadbfa2.ctex"]
+dest_files=["res://.godot/imported/proficient_bard.png-7c6ca3d3ebc543dfdf9d9a1b22b2c4a3.ctex"]
 
 [params]
 

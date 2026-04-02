@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3131ie56n4kr"
-path="res://.godot/imported/eager_pug_128x32.png-19497313768c0cf421d1e5716ac4dd0a.ctex"
+path="res://.godot/imported/eager_pug_128x32.png-811dc48339aea4b7895a64ef7860b6a4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/eager_pug/sprites/eager_pug_128x32.png"
-dest_files=["res://.godot/imported/eager_pug_128x32.png-19497313768c0cf421d1e5716ac4dd0a.ctex"]
+dest_files=["res://.godot/imported/eager_pug_128x32.png-811dc48339aea4b7895a64ef7860b6a4.ctex"]
 
 [params]
 

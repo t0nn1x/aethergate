@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5v0d8b47vsi7"
-path="res://.godot/imported/cave_bear.png-9bb47054385b44fc5307f5438b0e34b1.ctex"
+path="res://.godot/imported/cave_bear.png-4f990b2ac531a492af6ae50c5f2fe636.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/cave_bear/sprites/cave_bear.png"
-dest_files=["res://.godot/imported/cave_bear.png-9bb47054385b44fc5307f5438b0e34b1.ctex"]
+dest_files=["res://.godot/imported/cave_bear.png-4f990b2ac531a492af6ae50c5f2fe636.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mjdqbd1t6qar"
-path="res://.godot/imported/acid_ant.png-1f5a195186592aa8734204aa10582f8b.ctex"
+path="res://.godot/imported/acid_ant.png-06fc9be33c3af00efc60174cecfe85f6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/vermin/acid_ant/sprites/acid_ant.png"
-dest_files=["res://.godot/imported/acid_ant.png-1f5a195186592aa8734204aa10582f8b.ctex"]
+dest_files=["res://.godot/imported/acid_ant.png-06fc9be33c3af00efc60174cecfe85f6.ctex"]
 
 [params]
 

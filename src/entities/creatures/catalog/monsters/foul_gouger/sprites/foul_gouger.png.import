@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btobn6w7cbmww"
-path="res://.godot/imported/foul_gouger.png-560a1c6b73597a3b4fcad7639d7b78ea.ctex"
+path="res://.godot/imported/foul_gouger.png-04c512508afea3372b1b65852cf25090.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/foul_gouger/sprites/foul_gouger.png"
-dest_files=["res://.godot/imported/foul_gouger.png-560a1c6b73597a3b4fcad7639d7b78ea.ctex"]
+dest_files=["res://.godot/imported/foul_gouger.png-04c512508afea3372b1b65852cf25090.ctex"]
 
 [params]
 

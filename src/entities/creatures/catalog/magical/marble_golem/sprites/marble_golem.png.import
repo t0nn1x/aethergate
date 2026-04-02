@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dlw30g77fp52t"
-path="res://.godot/imported/marble_golem.png-bfea01fa3b49d2e4af19a5199dc04280.ctex"
+path="res://.godot/imported/marble_golem.png-6661d4c553c9d1647618a7fdcbd89eca.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/marble_golem/sprites/marble_golem.png"
-dest_files=["res://.godot/imported/marble_golem.png-bfea01fa3b49d2e4af19a5199dc04280.ctex"]
+dest_files=["res://.godot/imported/marble_golem.png-6661d4c553c9d1647618a7fdcbd89eca.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3rwss5dapepv"
-path="res://.godot/imported/glowing_wisp_128x32.png-9d14d5d8eb585c0b57f76c45c1e58bf0.ctex"
+path="res://.godot/imported/glowing_wisp_128x32.png-f73407eeceadff49b78678e3f29a5410.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/glowing_wisp/sprites/glowing_wisp_128x32.png"
-dest_files=["res://.godot/imported/glowing_wisp_128x32.png-9d14d5d8eb585c0b57f76c45c1e58bf0.ctex"]
+dest_files=["res://.godot/imported/glowing_wisp_128x32.png-f73407eeceadff49b78678e3f29a5410.ctex"]
 
 [params]
 

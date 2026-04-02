@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck1lhuvhsp2pc"
-path="res://.godot/imported/juvenile_black_dragon.png-ae4157553ec5b39ccd1191681987660b.ctex"
+path="res://.godot/imported/juvenile_black_dragon.png-0b9031235682a56214d63d7d50952d70.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/juvenile_black_dragon/sprites/juvenile_black_dragon.png"
-dest_files=["res://.godot/imported/juvenile_black_dragon.png-ae4157553ec5b39ccd1191681987660b.ctex"]
+dest_files=["res://.godot/imported/juvenile_black_dragon.png-0b9031235682a56214d63d7d50952d70.ctex"]
 
 [params]
 

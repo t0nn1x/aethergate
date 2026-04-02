@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtejor8tk83kl"
-path="res://.godot/imported/drenzoth.png-e8b0062068a343d3081b409aecb1f6bf.ctex"
+path="res://.godot/imported/drenzoth.png-f414913df97d38e2d555f844ef9dd31a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/drenzoth_the_black_dragon/sprites/drenzoth.png"
-dest_files=["res://.godot/imported/drenzoth.png-e8b0062068a343d3081b409aecb1f6bf.ctex"]
+dest_files=["res://.godot/imported/drenzoth.png-f414913df97d38e2d555f844ef9dd31a.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr3murjdv8emt"
-path="res://.godot/imported/elf_sharpshooter_128x32.png-7b791305e1539777085919bb0ebad02f.ctex"
+path="res://.godot/imported/elf_sharpshooter_128x32.png-c03c070077e5cf4be7cc06db19ac1929.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/elf_sharpshooter/sprites/elf_sharpshooter_128x32.png"
-dest_files=["res://.godot/imported/elf_sharpshooter_128x32.png-7b791305e1539777085919bb0ebad02f.ctex"]
+dest_files=["res://.godot/imported/elf_sharpshooter_128x32.png-c03c070077e5cf4be7cc06db19ac1929.ctex"]
 
 [params]
 

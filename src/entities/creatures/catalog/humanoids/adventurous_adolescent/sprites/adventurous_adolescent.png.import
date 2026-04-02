@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://36wqb5c8u0vo"
-path="res://.godot/imported/adventurous_adolescent.png-278ed14ef9501074e1e79eeb2d3c4aa8.ctex"
+path="res://.godot/imported/adventurous_adolescent.png-910ba13d7c6710f70f115cfacd0e7b9c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/adventurous_adolescent/sprites/adventurous_adolescent.png"
-dest_files=["res://.godot/imported/adventurous_adolescent.png-278ed14ef9501074e1e79eeb2d3c4aa8.ctex"]
+dest_files=["res://.godot/imported/adventurous_adolescent.png-910ba13d7c6710f70f115cfacd0e7b9c.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgaxmqpiyflbo"
-path="res://.godot/imported/anointed_high_priest.png-764f4b0bca343c5a07a796f46cae657a.ctex"
+path="res://.godot/imported/anointed_high_priest.png-d5567cb05f8d0bd26f7a1ea5816ec465.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/anointed_high_priest/sprites/anointed_high_priest.png"
-dest_files=["res://.godot/imported/anointed_high_priest.png-764f4b0bca343c5a07a796f46cae657a.ctex"]
+dest_files=["res://.godot/imported/anointed_high_priest.png-d5567cb05f8d0bd26f7a1ea5816ec465.ctex"]
 
 [params]
 

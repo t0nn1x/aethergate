@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cftx18aqpar6q"
-path="res://.godot/imported/dryad_matron_128x32.png-bb507f02890c4aec6f6a1d5f28e3461e.ctex"
+path="res://.godot/imported/dryad_matron_128x32.png-f86538186971c4c8f452ace030776da2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/dryad_matron/sprites/dryad_matron_128x32.png"
-dest_files=["res://.godot/imported/dryad_matron_128x32.png-bb507f02890c4aec6f6a1d5f28e3461e.ctex"]
+dest_files=["res://.godot/imported/dryad_matron_128x32.png-f86538186971c4c8f452ace030776da2.ctex"]
 
 [params]
 

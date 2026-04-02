@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btsit8dx1hwl"
-path="res://.godot/imported/bloated_bedbug.png-91406588920d18f2b3123b5477931b0c.ctex"
+path="res://.godot/imported/bloated_bedbug.png-70a89653b24e0254920c76f937684640.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/vermin/bloated_bedbug/sprites/bloated_bedbug.png"
-dest_files=["res://.godot/imported/bloated_bedbug.png-91406588920d18f2b3123b5477931b0c.ctex"]
+dest_files=["res://.godot/imported/bloated_bedbug.png-70a89653b24e0254920c76f937684640.ctex"]
 
 [params]
 

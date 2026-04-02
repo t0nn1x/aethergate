@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4sc4omjsr5jq"
-path="res://.godot/imported/worldtree.png-470e944b17553e1d82365e2dc11aed21.ctex"
+path="res://.godot/imported/worldtree.png-57d1129cd6f176e5855ff888bc540448.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/objects/worldtree.png"
-dest_files=["res://.godot/imported/worldtree.png-470e944b17553e1d82365e2dc11aed21.ctex"]
+dest_files=["res://.godot/imported/worldtree.png-57d1129cd6f176e5855ff888bc540448.ctex"]
 
 [params]
 

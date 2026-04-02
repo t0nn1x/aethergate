@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bomuaxqm3l8b5"
-path="res://.godot/imported/spiked_ravager.png-6982ec5f64460859808df1972f678dae.ctex"
+path="res://.godot/imported/spiked_ravager.png-ba564322c8edbe8ed742ae8961184ad7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/spiked_ravager/sprites/spiked_ravager.png"
-dest_files=["res://.godot/imported/spiked_ravager.png-6982ec5f64460859808df1972f678dae.ctex"]
+dest_files=["res://.godot/imported/spiked_ravager.png-ba564322c8edbe8ed742ae8961184ad7.ctex"]
 
 [params]
 

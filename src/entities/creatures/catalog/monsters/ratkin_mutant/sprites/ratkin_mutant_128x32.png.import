@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crs5nic7ct2oy"
-path="res://.godot/imported/ratkin_mutant_128x32.png-72d1fe5223f7fe03eaa5e99639346ac2.ctex"
+path="res://.godot/imported/ratkin_mutant_128x32.png-0e144dfcf0554e1921297f866a6d731f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ratkin_mutant/sprites/ratkin_mutant_128x32.png"
-dest_files=["res://.godot/imported/ratkin_mutant_128x32.png-72d1fe5223f7fe03eaa5e99639346ac2.ctex"]
+dest_files=["res://.godot/imported/ratkin_mutant_128x32.png-0e144dfcf0554e1921297f866a6d731f.ctex"]
 
 [params]
 

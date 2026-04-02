@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8tx4p5glttku"
-path="res://.godot/imported/gnoll_brute.png-a832ca31e8136f379332e6e8788d1ef7.ctex"
+path="res://.godot/imported/gnoll_brute.png-326e94fac5893219c22355a41c0a7ee5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/gnoll_brute/sprites/gnoll_brute.png"
-dest_files=["res://.godot/imported/gnoll_brute.png-a832ca31e8136f379332e6e8788d1ef7.ctex"]
+dest_files=["res://.godot/imported/gnoll_brute.png-326e94fac5893219c22355a41c0a7ee5.ctex"]
 
 [params]
 

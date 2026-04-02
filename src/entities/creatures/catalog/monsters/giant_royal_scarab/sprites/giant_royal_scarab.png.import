@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5h0jw81l0rd4"
-path="res://.godot/imported/giant_royal_scarab.png-49cde4a3c24e5f3ac9ad0437d54ac325.ctex"
+path="res://.godot/imported/giant_royal_scarab.png-a875d0d57978045a876db6c0bfdb0e92.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/giant_royal_scarab/sprites/giant_royal_scarab.png"
-dest_files=["res://.godot/imported/giant_royal_scarab.png-49cde4a3c24e5f3ac9ad0437d54ac325.ctex"]
+dest_files=["res://.godot/imported/giant_royal_scarab.png-a875d0d57978045a876db6c0bfdb0e92.ctex"]
 
 [params]
 

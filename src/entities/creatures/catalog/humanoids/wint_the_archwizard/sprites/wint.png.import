@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgcrg3b787abe"
-path="res://.godot/imported/wint.png-25d77cde707708f63ba3e82488780529.ctex"
+path="res://.godot/imported/wint.png-4a7d44a65e694d1ef23f505b0ef25c0b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/wint_the_archwizard/sprites/wint.png"
-dest_files=["res://.godot/imported/wint.png-25d77cde707708f63ba3e82488780529.ctex"]
+dest_files=["res://.godot/imported/wint.png-4a7d44a65e694d1ef23f505b0ef25c0b.ctex"]
 
 [params]
 

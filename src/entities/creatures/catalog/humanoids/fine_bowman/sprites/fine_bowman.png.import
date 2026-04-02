@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0aredf300upa"
-path="res://.godot/imported/fine_bowman.png-e2dad39e2e582006ab1f59c7788ac8b6.ctex"
+path="res://.godot/imported/fine_bowman.png-81ab41f9882146a773f3a0fc53ce2062.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/fine_bowman/sprites/fine_bowman.png"
-dest_files=["res://.godot/imported/fine_bowman.png-e2dad39e2e582006ab1f59c7788ac8b6.ctex"]
+dest_files=["res://.godot/imported/fine_bowman.png-81ab41f9882146a773f3a0fc53ce2062.ctex"]
 
 [params]
 

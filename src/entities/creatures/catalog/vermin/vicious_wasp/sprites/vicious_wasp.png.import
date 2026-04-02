@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6l2y58igr4cf"
-path="res://.godot/imported/vicious_wasp.png-73d84b83f68a454643a8f094c332c8ae.ctex"
+path="res://.godot/imported/vicious_wasp.png-816a99b723410ad6cb3afbada7f22eec.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/vermin/vicious_wasp/sprites/vicious_wasp.png"
-dest_files=["res://.godot/imported/vicious_wasp.png-73d84b83f68a454643a8f094c332c8ae.ctex"]
+dest_files=["res://.godot/imported/vicious_wasp.png-816a99b723410ad6cb3afbada7f22eec.ctex"]
 
 [params]
 

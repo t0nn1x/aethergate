@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bttxb6wakp287"
-path="res://.godot/imported/baby_brass_dragon.png-da1998479a093458cf06e91d1ee59148.ctex"
+path="res://.godot/imported/baby_brass_dragon.png-130130f39cdb82806c758ab39ee50927.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/baby_brass_dragon/sprites/baby_brass_dragon.png"
-dest_files=["res://.godot/imported/baby_brass_dragon.png-da1998479a093458cf06e91d1ee59148.ctex"]
+dest_files=["res://.godot/imported/baby_brass_dragon.png-130130f39cdb82806c758ab39ee50927.ctex"]
 
 [params]
 

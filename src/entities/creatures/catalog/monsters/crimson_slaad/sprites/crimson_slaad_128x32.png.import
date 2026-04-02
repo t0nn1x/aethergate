@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgscfnlygabm6"
-path="res://.godot/imported/crimson_slaad_128x32.png-10b663d98ba10300650bd70c8db39428.ctex"
+path="res://.godot/imported/crimson_slaad_128x32.png-d923102a8e4fbcad28b8630425f61ce4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/crimson_slaad/sprites/crimson_slaad_128x32.png"
-dest_files=["res://.godot/imported/crimson_slaad_128x32.png-10b663d98ba10300650bd70c8db39428.ctex"]
+dest_files=["res://.godot/imported/crimson_slaad_128x32.png-d923102a8e4fbcad28b8630425f61ce4.ctex"]
 
 [params]
 

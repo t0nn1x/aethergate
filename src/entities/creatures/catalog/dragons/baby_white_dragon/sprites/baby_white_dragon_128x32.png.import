@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b851sitnx73mi"
-path="res://.godot/imported/baby_white_dragon_128x32.png-a138d4c6c61fd4d791b1f4b28b88726d.ctex"
+path="res://.godot/imported/baby_white_dragon_128x32.png-48230f1366f1299cc1e9d8e8ae1707b8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/baby_white_dragon/sprites/baby_white_dragon_128x32.png"
-dest_files=["res://.godot/imported/baby_white_dragon_128x32.png-a138d4c6c61fd4d791b1f4b28b88726d.ctex"]
+dest_files=["res://.godot/imported/baby_white_dragon_128x32.png-48230f1366f1299cc1e9d8e8ae1707b8.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bn7job5rfff3v"
-path="res://.godot/imported/merfolk_scout_128x32.png-b6b78f746526f18494efd7cd4744b522.ctex"
+path="res://.godot/imported/merfolk_scout_128x32.png-93770bec4a95f912279962cd6b1f4a1a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/merfolk_scout/sprites/merfolk_scout_128x32.png"
-dest_files=["res://.godot/imported/merfolk_scout_128x32.png-b6b78f746526f18494efd7cd4744b522.ctex"]
+dest_files=["res://.godot/imported/merfolk_scout_128x32.png-93770bec4a95f912279962cd6b1f4a1a.ctex"]
 
 [params]
 

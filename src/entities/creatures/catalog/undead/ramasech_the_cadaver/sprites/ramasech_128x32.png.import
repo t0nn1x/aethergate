@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://db3rsqdthfwur"
-path="res://.godot/imported/ramasech_128x32.png-5741b868c230dd2430f343f15967f524.ctex"
+path="res://.godot/imported/ramasech_128x32.png-78e38b745e06389fbaa27c58f6fb0f69.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/ramasech_the_cadaver/sprites/ramasech_128x32.png"
-dest_files=["res://.godot/imported/ramasech_128x32.png-5741b868c230dd2430f343f15967f524.ctex"]
+dest_files=["res://.godot/imported/ramasech_128x32.png-78e38b745e06389fbaa27c58f6fb0f69.ctex"]
 
 [params]
 

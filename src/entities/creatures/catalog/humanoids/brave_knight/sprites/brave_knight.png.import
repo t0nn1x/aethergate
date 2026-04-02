@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dgdw1kaskqeps"
-path="res://.godot/imported/brave_knight.png-af309a1e6704d01bf6b2f45c0e2b2782.ctex"
+path="res://.godot/imported/brave_knight.png-b597b67b1ac1fbf4444f370ce26700b9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/brave_knight/sprites/brave_knight.png"
-dest_files=["res://.godot/imported/brave_knight.png-af309a1e6704d01bf6b2f45c0e2b2782.ctex"]
+dest_files=["res://.godot/imported/brave_knight.png-b597b67b1ac1fbf4444f370ce26700b9.ctex"]
 
 [params]
 

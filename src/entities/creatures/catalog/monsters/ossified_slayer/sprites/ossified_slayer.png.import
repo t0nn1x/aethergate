@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdg1a1p7lc5c2"
-path="res://.godot/imported/ossified_slayer.png-ffc58a115733b6c4637ce718495c1313.ctex"
+path="res://.godot/imported/ossified_slayer.png-08e2178b442b63729663727a04c83f47.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ossified_slayer/sprites/ossified_slayer.png"
-dest_files=["res://.godot/imported/ossified_slayer.png-ffc58a115733b6c4637ce718495c1313.ctex"]
+dest_files=["res://.godot/imported/ossified_slayer.png-08e2178b442b63729663727a04c83f47.ctex"]
 
 [params]
 

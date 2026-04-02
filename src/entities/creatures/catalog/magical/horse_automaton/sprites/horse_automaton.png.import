@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cc8o2tgk56yjt"
-path="res://.godot/imported/horse_automaton.png-b423d1f63b6e92470145bc114b5ddf57.ctex"
+path="res://.godot/imported/horse_automaton.png-e477d089c5db81b2aaee47507e9cd94d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/horse_automaton/sprites/horse_automaton.png"
-dest_files=["res://.godot/imported/horse_automaton.png-b423d1f63b6e92470145bc114b5ddf57.ctex"]
+dest_files=["res://.godot/imported/horse_automaton.png-e477d089c5db81b2aaee47507e9cd94d.ctex"]
 
 [params]
 

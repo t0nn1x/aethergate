@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnfyaivf3sm62"
-path="res://.godot/imported/tainted_scoundrel.png-b5baf0c0d5c2cfd91b8bf192599a1582.ctex"
+path="res://.godot/imported/tainted_scoundrel.png-215c541d824a898a567690fc444ad5c7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/tainted_scoundrel/sprites/tainted_scoundrel.png"
-dest_files=["res://.godot/imported/tainted_scoundrel.png-b5baf0c0d5c2cfd91b8bf192599a1582.ctex"]
+dest_files=["res://.godot/imported/tainted_scoundrel.png-215c541d824a898a567690fc444ad5c7.ctex"]
 
 [params]
 

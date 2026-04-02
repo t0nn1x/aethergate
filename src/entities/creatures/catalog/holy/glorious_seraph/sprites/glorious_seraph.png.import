@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gi77qim0gqob"
-path="res://.godot/imported/glorious_seraph.png-862b19d40eee562d27afd49b3f0d75a5.ctex"
+path="res://.godot/imported/glorious_seraph.png-5963b03e5e69b896c5b3ae8c13f31795.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/holy/glorious_seraph/sprites/glorious_seraph.png"
-dest_files=["res://.godot/imported/glorious_seraph.png-862b19d40eee562d27afd49b3f0d75a5.ctex"]
+dest_files=["res://.godot/imported/glorious_seraph.png-5963b03e5e69b896c5b3ae8c13f31795.ctex"]
 
 [params]
 

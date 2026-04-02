@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckvqa868nttuo"
-path="res://.godot/imported/noble_king.png-2b2054c86f5b29eee040795cee6528ab.ctex"
+path="res://.godot/imported/noble_king.png-329d3ec700267695968df332c4113d0c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/noble_king/sprites/noble_king.png"
-dest_files=["res://.godot/imported/noble_king.png-2b2054c86f5b29eee040795cee6528ab.ctex"]
+dest_files=["res://.godot/imported/noble_king.png-329d3ec700267695968df332c4113d0c.ctex"]
 
 [params]
 

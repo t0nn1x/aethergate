@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dydcq6iqwmtqw"
-path="res://.godot/imported/floating_cherub_128x32.png-87fa74be9bbb30e6f32e0829bd2e5f87.ctex"
+path="res://.godot/imported/floating_cherub_128x32.png-0c469fc3e4ccbe46a95025eba2122064.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/holy/floating_cherub/sprites/floating_cherub_128x32.png"
-dest_files=["res://.godot/imported/floating_cherub_128x32.png-87fa74be9bbb30e6f32e0829bd2e5f87.ctex"]
+dest_files=["res://.godot/imported/floating_cherub_128x32.png-0c469fc3e4ccbe46a95025eba2122064.ctex"]
 
 [params]
 

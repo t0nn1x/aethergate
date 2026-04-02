@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ditwn3rpq11vt"
-path="res://.godot/imported/gallant_centaur.png-da272a3a1a84c0d2d890e04f5c2ef30c.ctex"
+path="res://.godot/imported/gallant_centaur.png-d3c7ea946bc8771667df1f6c6253c95c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/gallant_centaur/sprites/gallant_centaur.png"
-dest_files=["res://.godot/imported/gallant_centaur.png-da272a3a1a84c0d2d890e04f5c2ef30c.ctex"]
+dest_files=["res://.godot/imported/gallant_centaur.png-d3c7ea946bc8771667df1f6c6253c95c.ctex"]
 
 [params]
 

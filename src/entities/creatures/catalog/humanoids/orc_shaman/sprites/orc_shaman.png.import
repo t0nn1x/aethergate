@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b41ut6gqupli"
-path="res://.godot/imported/orc_shaman.png-349c61d6427fd02cf5e71ce8c0d208dd.ctex"
+path="res://.godot/imported/orc_shaman.png-538f65b577a9dbc998c8b254fe3efde6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/orc_shaman/sprites/orc_shaman.png"
-dest_files=["res://.godot/imported/orc_shaman.png-349c61d6427fd02cf5e71ce8c0d208dd.ctex"]
+dest_files=["res://.godot/imported/orc_shaman.png-538f65b577a9dbc998c8b254fe3efde6.ctex"]
 
 [params]
 

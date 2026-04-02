@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drsvu77nyspjl"
-path="res://.godot/imported/a1_liquids_and_misc.png-53acb1de7becbb84af625c7b028b39cf.ctex"
+path="res://.godot/imported/a1_liquids_and_misc.png-aae74738f0ddb32a4256266acb71bc61.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/terrains/a1_liquids_and_misc.png"
-dest_files=["res://.godot/imported/a1_liquids_and_misc.png-53acb1de7becbb84af625c7b028b39cf.ctex"]
+dest_files=["res://.godot/imported/a1_liquids_and_misc.png-aae74738f0ddb32a4256266acb71bc61.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rcmjvtu1ugq6"
-path="res://.godot/imported/zarquis.png-43e2a55db4c8785d416bd7eef4fa7225.ctex"
+path="res://.godot/imported/zarquis.png-510b66e274288357ed60a945b7db0227.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/zarquis_the_djinn/sprites/zarquis.png"
-dest_files=["res://.godot/imported/zarquis.png-43e2a55db4c8785d416bd7eef4fa7225.ctex"]
+dest_files=["res://.godot/imported/zarquis.png-510b66e274288357ed60a945b7db0227.ctex"]
 
 [params]
 

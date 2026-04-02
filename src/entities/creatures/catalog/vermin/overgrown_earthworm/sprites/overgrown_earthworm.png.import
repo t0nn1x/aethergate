@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b87lx8unxk6j4"
-path="res://.godot/imported/overgrown_earthworm.png-0ec864c1632225e58178cf809c4c8981.ctex"
+path="res://.godot/imported/overgrown_earthworm.png-7c05168f184306afdcc4284e89b5cc65.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/vermin/overgrown_earthworm/sprites/overgrown_earthworm.png"
-dest_files=["res://.godot/imported/overgrown_earthworm.png-0ec864c1632225e58178cf809c4c8981.ctex"]
+dest_files=["res://.godot/imported/overgrown_earthworm.png-7c05168f184306afdcc4284e89b5cc65.ctex"]
 
 [params]
 

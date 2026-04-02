@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmjghiqk2ngop"
-path="res://.godot/imported/necrothor.png-b4cfe6971aedd685f7f942c03f7dec48.ctex"
+path="res://.godot/imported/necrothor.png-74dc954698f47e239f01119daffe6d43.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/necrothor_the_scarab/sprites/necrothor.png"
-dest_files=["res://.godot/imported/necrothor.png-b4cfe6971aedd685f7f942c03f7dec48.ctex"]
+dest_files=["res://.godot/imported/necrothor.png-74dc954698f47e239f01119daffe6d43.ctex"]
 
 [params]
 

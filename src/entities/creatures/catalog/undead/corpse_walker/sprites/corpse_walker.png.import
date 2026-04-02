@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckhy01kblgrxh"
-path="res://.godot/imported/corpse_walker.png-22b02a3b4aa85a33d3addb57b12d03af.ctex"
+path="res://.godot/imported/corpse_walker.png-d69af44b53a964f462077cd1f0c4a0c5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/corpse_walker/sprites/corpse_walker.png"
-dest_files=["res://.godot/imported/corpse_walker.png-22b02a3b4aa85a33d3addb57b12d03af.ctex"]
+dest_files=["res://.godot/imported/corpse_walker.png-d69af44b53a964f462077cd1f0c4a0c5.ctex"]
 
 [params]
 

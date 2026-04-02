@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbwap8jk10u48"
-path="res://.godot/imported/brakgul.png-19bcd5ab12a1fee96c44cc274f1c6155.ctex"
+path="res://.godot/imported/brakgul.png-48a4cf7151a11e2853d502eba2a2050b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/brakgul_the_orc_captain/sprites/brakgul.png"
-dest_files=["res://.godot/imported/brakgul.png-19bcd5ab12a1fee96c44cc274f1c6155.ctex"]
+dest_files=["res://.godot/imported/brakgul.png-48a4cf7151a11e2853d502eba2a2050b.ctex"]
 
 [params]
 

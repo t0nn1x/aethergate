@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0x2yecpg86oc"
-path="res://.godot/imported/grappler_mummy_128x32.png-68be6d61fd8948722627778fe81e64e1.ctex"
+path="res://.godot/imported/grappler_mummy_128x32.png-af9569c05f03a7c94652b92838bb6659.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/grappler_mummy/sprites/grappler_mummy_128x32.png"
-dest_files=["res://.godot/imported/grappler_mummy_128x32.png-68be6d61fd8948722627778fe81e64e1.ctex"]
+dest_files=["res://.godot/imported/grappler_mummy_128x32.png-af9569c05f03a7c94652b92838bb6659.ctex"]
 
 [params]
 

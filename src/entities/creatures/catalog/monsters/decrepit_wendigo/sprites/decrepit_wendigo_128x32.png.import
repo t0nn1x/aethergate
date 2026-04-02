@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2v4ubmqe8m43"
-path="res://.godot/imported/decrepit_wendigo_128x32.png-91416ec7a51e47bc3d8926fe4c53ea72.ctex"
+path="res://.godot/imported/decrepit_wendigo_128x32.png-e0b0c9034ff4be62b3996cf588683ae2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/decrepit_wendigo/sprites/decrepit_wendigo_128x32.png"
-dest_files=["res://.godot/imported/decrepit_wendigo_128x32.png-91416ec7a51e47bc3d8926fe4c53ea72.ctex"]
+dest_files=["res://.godot/imported/decrepit_wendigo_128x32.png-e0b0c9034ff4be62b3996cf588683ae2.ctex"]
 
 [params]
 

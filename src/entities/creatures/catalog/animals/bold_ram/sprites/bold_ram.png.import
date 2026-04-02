@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c46mu0iffuxkg"
-path="res://.godot/imported/bold_ram.png-76a90b7acf25cac07c1637fba5ab24ea.ctex"
+path="res://.godot/imported/bold_ram.png-db7ef229ef5c7758b0854ad8434d594b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/bold_ram/sprites/bold_ram.png"
-dest_files=["res://.godot/imported/bold_ram.png-76a90b7acf25cac07c1637fba5ab24ea.ctex"]
+dest_files=["res://.godot/imported/bold_ram.png-db7ef229ef5c7758b0854ad8434d594b.ctex"]
 
 [params]
 

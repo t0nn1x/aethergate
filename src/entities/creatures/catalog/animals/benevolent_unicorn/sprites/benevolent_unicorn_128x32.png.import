@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://h7v4jatsq5vp"
-path="res://.godot/imported/benevolent_unicorn_128x32.png-a17e67e2bfde33e48852bbb778a69a84.ctex"
+path="res://.godot/imported/benevolent_unicorn_128x32.png-7b75c843cdf1e78971d644a4fb044fc0.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/benevolent_unicorn/sprites/benevolent_unicorn_128x32.png"
-dest_files=["res://.godot/imported/benevolent_unicorn_128x32.png-a17e67e2bfde33e48852bbb778a69a84.ctex"]
+dest_files=["res://.godot/imported/benevolent_unicorn_128x32.png-7b75c843cdf1e78971d644a4fb044fc0.ctex"]
 
 [params]
 

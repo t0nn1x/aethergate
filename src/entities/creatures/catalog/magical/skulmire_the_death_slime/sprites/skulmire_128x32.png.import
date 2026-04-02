@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0n7f2todfbft"
-path="res://.godot/imported/skulmire_128x32.png-bb44d2b53373a62e93cb03a9ab533d8c.ctex"
+path="res://.godot/imported/skulmire_128x32.png-9b813fb4db424f468462ac08c2de4b8b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/skulmire_the_death_slime/sprites/skulmire_128x32.png"
-dest_files=["res://.godot/imported/skulmire_128x32.png-bb44d2b53373a62e93cb03a9ab533d8c.ctex"]
+dest_files=["res://.godot/imported/skulmire_128x32.png-9b813fb4db424f468462ac08c2de4b8b.ctex"]
 
 [params]
 

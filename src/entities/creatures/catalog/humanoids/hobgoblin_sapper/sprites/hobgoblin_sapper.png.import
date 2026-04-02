@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cco1d8hbl5tb4"
-path="res://.godot/imported/hobgoblin_sapper.png-b7742d665387b9f26c31da99c92eee87.ctex"
+path="res://.godot/imported/hobgoblin_sapper.png-e138f2fed82b51b917a86174b4f9036b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/hobgoblin_sapper/sprites/hobgoblin_sapper.png"
-dest_files=["res://.godot/imported/hobgoblin_sapper.png-b7742d665387b9f26c31da99c92eee87.ctex"]
+dest_files=["res://.godot/imported/hobgoblin_sapper.png-e138f2fed82b51b917a86174b4f9036b.ctex"]
 
 [params]
 

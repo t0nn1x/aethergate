@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ce2143jwjtdbs"
-path="res://.godot/imported/shrieker_mushroom.png-254106e58e169e29985af356780d7087.ctex"
+path="res://.godot/imported/shrieker_mushroom.png-fc17f286ed7472917d86b967884bb91a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/shrieker_mushroom/sprites/shrieker_mushroom.png"
-dest_files=["res://.godot/imported/shrieker_mushroom.png-254106e58e169e29985af356780d7087.ctex"]
+dest_files=["res://.godot/imported/shrieker_mushroom.png-fc17f286ed7472917d86b967884bb91a.ctex"]
 
 [params]
 

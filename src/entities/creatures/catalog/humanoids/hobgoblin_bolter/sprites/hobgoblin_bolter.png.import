@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://p02ockno6gh3"
-path="res://.godot/imported/hobgoblin_bolter.png-22e47bcd3cd1a37582cd296f73c61cf3.ctex"
+path="res://.godot/imported/hobgoblin_bolter.png-8d5b386ce885c5bdab454ec35d57b1bb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/hobgoblin_bolter/sprites/hobgoblin_bolter.png"
-dest_files=["res://.godot/imported/hobgoblin_bolter.png-22e47bcd3cd1a37582cd296f73c61cf3.ctex"]
+dest_files=["res://.godot/imported/hobgoblin_bolter.png-8d5b386ce885c5bdab454ec35d57b1bb.ctex"]
 
 [params]
 

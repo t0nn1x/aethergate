@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5trb6bvs6sus"
-path="res://.godot/imported/nefarious_scamp.png-142b7e923672156b85a09dc92a3fd6f0.ctex"
+path="res://.godot/imported/nefarious_scamp.png-f8deba37051bf6be9c9708907d457e57.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/nefarious_scamp/sprites/nefarious_scamp.png"
-dest_files=["res://.godot/imported/nefarious_scamp.png-142b7e923672156b85a09dc92a3fd6f0.ctex"]
+dest_files=["res://.godot/imported/nefarious_scamp.png-f8deba37051bf6be9c9708907d457e57.ctex"]
 
 [params]
 

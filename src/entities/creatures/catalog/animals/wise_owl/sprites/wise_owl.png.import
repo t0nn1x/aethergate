@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmu6mcus6e0lt"
-path="res://.godot/imported/wise_owl.png-2f6475d4c1d8fe6765190929af8e9486.ctex"
+path="res://.godot/imported/wise_owl.png-f332ae72db34be588cc54c19fad741bd.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/wise_owl/sprites/wise_owl.png"
-dest_files=["res://.godot/imported/wise_owl.png-2f6475d4c1d8fe6765190929af8e9486.ctex"]
+dest_files=["res://.godot/imported/wise_owl.png-f332ae72db34be588cc54c19fad741bd.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://durasj2lmcl4r"
-path="res://.godot/imported/bouncing_rabbit.png-d741d49d0208128861188a5ea6c3fd7f.ctex"
+path="res://.godot/imported/bouncing_rabbit.png-8184c53787d348a1bc4bb9fdb4f73277.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/bouncing_rabbit/sprites/bouncing_rabbit.png"
-dest_files=["res://.godot/imported/bouncing_rabbit.png-d741d49d0208128861188a5ea6c3fd7f.ctex"]
+dest_files=["res://.godot/imported/bouncing_rabbit.png-8184c53787d348a1bc4bb9fdb4f73277.ctex"]
 
 [params]
 

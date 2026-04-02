@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2o5wubvpcw5r"
-path="res://.godot/imported/molten_efreeti_128x32.png-fc5a558e33e34233f08560a8ba571f52.ctex"
+path="res://.godot/imported/molten_efreeti_128x32.png-b3a5690c9c62fd3699d0b68d2b5c2b89.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/molten_efreeti/sprites/molten_efreeti_128x32.png"
-dest_files=["res://.godot/imported/molten_efreeti_128x32.png-fc5a558e33e34233f08560a8ba571f52.ctex"]
+dest_files=["res://.godot/imported/molten_efreeti_128x32.png-b3a5690c9c62fd3699d0b68d2b5c2b89.ctex"]
 
 [params]
 

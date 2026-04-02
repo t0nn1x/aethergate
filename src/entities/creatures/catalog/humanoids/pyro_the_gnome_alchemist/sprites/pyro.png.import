@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dnynrtkh7dj70"
-path="res://.godot/imported/pyro.png-f02150f122f2a9e680c71a5fa29c8ff7.ctex"
+path="res://.godot/imported/pyro.png-95a83058e872f5caa83f4a7fcd95a382.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/pyro_the_gnome_alchemist/sprites/pyro.png"
-dest_files=["res://.godot/imported/pyro.png-f02150f122f2a9e680c71a5fa29c8ff7.ctex"]
+dest_files=["res://.godot/imported/pyro.png-95a83058e872f5caa83f4a7fcd95a382.ctex"]
 
 [params]
 

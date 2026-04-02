@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chdj0cfdic3iu"
-path="res://.godot/imported/darkelf_thief.png-8ced95244890a18a6f42e531e82becb6.ctex"
+path="res://.godot/imported/darkelf_thief.png-ab43f282f395a03da47264d1d5cb50fe.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/dark_elf_thief/sprites/darkelf_thief.png"
-dest_files=["res://.godot/imported/darkelf_thief.png-8ced95244890a18a6f42e531e82becb6.ctex"]
+dest_files=["res://.godot/imported/darkelf_thief.png-ab43f282f395a03da47264d1d5cb50fe.ctex"]
 
 [params]
 

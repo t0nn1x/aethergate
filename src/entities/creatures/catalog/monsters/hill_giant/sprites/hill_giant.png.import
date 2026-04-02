@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dk8fhj5mmuggg"
-path="res://.godot/imported/hill_giant.png-2e0b79f335624ee27131390e83c33210.ctex"
+path="res://.godot/imported/hill_giant.png-5c081b89dc65f415c0d7760d1c40144f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/hill_giant/sprites/hill_giant.png"
-dest_files=["res://.godot/imported/hill_giant.png-2e0b79f335624ee27131390e83c33210.ctex"]
+dest_files=["res://.godot/imported/hill_giant.png-5c081b89dc65f415c0d7760d1c40144f.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bd1b8sywb4dgh"
-path="res://.godot/imported/rotwhisker.png-ed0380e1163896320cc7105adc188eeb.ctex"
+path="res://.godot/imported/rotwhisker.png-23c4e60796a1b81522ec723cf9e63f42.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/rotwhisker_the_infected_rat/sprites/rotwhisker.png"
-dest_files=["res://.godot/imported/rotwhisker.png-ed0380e1163896320cc7105adc188eeb.ctex"]
+dest_files=["res://.godot/imported/rotwhisker.png-23c4e60796a1b81522ec723cf9e63f42.ctex"]
 
 [params]
 

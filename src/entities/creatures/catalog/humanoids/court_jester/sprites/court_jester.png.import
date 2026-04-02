@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://iy4vuovtyqqw"
-path="res://.godot/imported/court_jester.png-f2f902d72acf9dd8ac0c93a22575e73b.ctex"
+path="res://.godot/imported/court_jester.png-75d840d53f129c13eb5e0aa280a932fe.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/court_jester/sprites/court_jester.png"
-dest_files=["res://.godot/imported/court_jester.png-f2f902d72acf9dd8ac0c93a22575e73b.ctex"]
+dest_files=["res://.godot/imported/court_jester.png-75d840d53f129c13eb5e0aa280a932fe.ctex"]
 
 [params]
 

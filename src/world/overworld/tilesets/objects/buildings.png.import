@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqjwu1h3x47ny"
-path="res://.godot/imported/buildings.png-2ddf397bcd27e211de31db49a5d1a625.ctex"
+path="res://.godot/imported/buildings.png-031f4dbb2fe14bb2d4b6a649408823cd.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/objects/buildings.png"
-dest_files=["res://.godot/imported/buildings.png-2ddf397bcd27e211de31db49a5d1a625.ctex"]
+dest_files=["res://.godot/imported/buildings.png-031f4dbb2fe14bb2d4b6a649408823cd.ctex"]
 
 [params]
 

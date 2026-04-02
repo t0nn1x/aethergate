@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cos7cwietqe1e"
-path="res://.godot/imported/frosthul.png-ecff4891a0515b04feffb0ba6c694651.ctex"
+path="res://.godot/imported/frosthul.png-8f17362973e0aa9ab38dd00c9b1a7135.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/frosthul_the_ice_golem/sprites/frosthul.png"
-dest_files=["res://.godot/imported/frosthul.png-ecff4891a0515b04feffb0ba6c694651.ctex"]
+dest_files=["res://.godot/imported/frosthul.png-8f17362973e0aa9ab38dd00c9b1a7135.ctex"]
 
 [params]
 

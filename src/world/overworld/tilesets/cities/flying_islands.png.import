@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddp4bcl0247ek"
-path="res://.godot/imported/flying_islands.png-de82d96dbb18fe78a0fa22d78b3b45e1.ctex"
+path="res://.godot/imported/flying_islands.png-36d915433f8ca12f78c35aff4f2e57fc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/cities/flying_islands.png"
-dest_files=["res://.godot/imported/flying_islands.png-de82d96dbb18fe78a0fa22d78b3b45e1.ctex"]
+dest_files=["res://.godot/imported/flying_islands.png-36d915433f8ca12f78c35aff4f2e57fc.ctex"]
 
 [params]
 

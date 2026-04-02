@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://nuvxlkc3gby3"
-path="res://.godot/imported/horned_wyvern.png-575be4fc9cca6fe4a2661781fe0de599.ctex"
+path="res://.godot/imported/horned_wyvern.png-4cdefdc1f1e477a7c9705b1c2bb90491.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/horned_wyvern/sprites/horned_wyvern.png"
-dest_files=["res://.godot/imported/horned_wyvern.png-575be4fc9cca6fe4a2661781fe0de599.ctex"]
+dest_files=["res://.godot/imported/horned_wyvern.png-4cdefdc1f1e477a7c9705b1c2bb90491.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dt04u5i2uo4ww"
-path="res://.godot/imported/ascended_titan.png-d4a5604123dbfd82f45c17d84a9d38f6.ctex"
+path="res://.godot/imported/ascended_titan.png-d5939e2aad11c1e2a04cc3e5c0aecfc5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ascended_titan/sprites/ascended_titan.png"
-dest_files=["res://.godot/imported/ascended_titan.png-d4a5604123dbfd82f45c17d84a9d38f6.ctex"]
+dest_files=["res://.godot/imported/ascended_titan.png-d5939e2aad11c1e2a04cc3e5c0aecfc5.ctex"]
 
 [params]
 

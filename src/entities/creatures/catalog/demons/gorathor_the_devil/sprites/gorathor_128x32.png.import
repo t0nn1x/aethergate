@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://j2w2hp1a5xww"
-path="res://.godot/imported/gorathor_128x32.png-36fc855ff26661a41934d714d4ca8c58.ctex"
+path="res://.godot/imported/gorathor_128x32.png-0b3eb076d26bee2dcac101c093da92cd.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/demons/gorathor_the_devil/sprites/gorathor_128x32.png"
-dest_files=["res://.godot/imported/gorathor_128x32.png-36fc855ff26661a41934d714d4ca8c58.ctex"]
+dest_files=["res://.godot/imported/gorathor_128x32.png-0b3eb076d26bee2dcac101c093da92cd.ctex"]
 
 [params]
 

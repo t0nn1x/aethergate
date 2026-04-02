@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7gspa7nmlk4a"
-path="res://.godot/imported/kragbit.png-0f17f4da18d1e4f25f65c414d11a96cc.ctex"
+path="res://.godot/imported/kragbit.png-79839776044c493d770e53b123313b03.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/kragbit_the_goblin_fanatic/sprites/kragbit.png"
-dest_files=["res://.godot/imported/kragbit.png-0f17f4da18d1e4f25f65c414d11a96cc.ctex"]
+dest_files=["res://.godot/imported/kragbit.png-79839776044c493d770e53b123313b03.ctex"]
 
 [params]
 

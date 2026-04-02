@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wykknhekq81q"
-path="res://.godot/imported/cloud1_dark2_shadow.png-9c55a1c188a5e353c4d540d25fd32cfc.ctex"
+path="res://.godot/imported/cloud1_dark2_shadow.png-a04534a52fbf0f9d21fc7727104e3af3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/clouds/cloud1_dark2_shadow.png"
-dest_files=["res://.godot/imported/cloud1_dark2_shadow.png-9c55a1c188a5e353c4d540d25fd32cfc.ctex"]
+dest_files=["res://.godot/imported/cloud1_dark2_shadow.png-a04534a52fbf0f9d21fc7727104e3af3.ctex"]
 
 [params]
 

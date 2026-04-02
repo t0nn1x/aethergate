@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csqm32oeqaqew"
-path="res://.godot/imported/sphere_automaton.png-f11bd6a177b49872654b52ceacf48821.ctex"
+path="res://.godot/imported/sphere_automaton.png-6ad5fc4f02ad6119c5e8d75c36e38dfc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/sphere_automaton/sprites/sphere_automaton.png"
-dest_files=["res://.godot/imported/sphere_automaton.png-f11bd6a177b49872654b52ceacf48821.ctex"]
+dest_files=["res://.godot/imported/sphere_automaton.png-6ad5fc4f02ad6119c5e8d75c36e38dfc.ctex"]
 
 [params]
 

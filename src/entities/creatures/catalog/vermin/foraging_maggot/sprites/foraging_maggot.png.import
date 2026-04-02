@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpdehqfbnul4h"
-path="res://.godot/imported/foraging_maggot.png-3632249152922513aa43af255e1cdbc1.ctex"
+path="res://.godot/imported/foraging_maggot.png-6c97800e23d4c548db949eb5724c43ab.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/vermin/foraging_maggot/sprites/foraging_maggot.png"
-dest_files=["res://.godot/imported/foraging_maggot.png-3632249152922513aa43af255e1cdbc1.ctex"]
+dest_files=["res://.godot/imported/foraging_maggot.png-6c97800e23d4c548db949eb5724c43ab.ctex"]
 
 [params]
 

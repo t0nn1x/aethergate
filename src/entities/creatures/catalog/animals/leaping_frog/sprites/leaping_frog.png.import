@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ceovj2oadiw5o"
-path="res://.godot/imported/leaping_frog.png-739235e63b316f218b4d5d8e2e6a29fa.ctex"
+path="res://.godot/imported/leaping_frog.png-0fbae81903037a7cdb5138a04805976c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/leaping_frog/sprites/leaping_frog.png"
-dest_files=["res://.godot/imported/leaping_frog.png-739235e63b316f218b4d5d8e2e6a29fa.ctex"]
+dest_files=["res://.godot/imported/leaping_frog.png-0fbae81903037a7cdb5138a04805976c.ctex"]
 
 [params]
 

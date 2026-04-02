@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtxa6kae48uio"
-path="res://.godot/imported/murky_slaad.png-b0f6a97e8bacb8e95a341ddf12ea6ac3.ctex"
+path="res://.godot/imported/murky_slaad.png-bec3d746f6f720ae94a7f49c37dd8071.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/murky_slaad/sprites/murky_slaad.png"
-dest_files=["res://.godot/imported/murky_slaad.png-b0f6a97e8bacb8e95a341ddf12ea6ac3.ctex"]
+dest_files=["res://.godot/imported/murky_slaad.png-bec3d746f6f720ae94a7f49c37dd8071.ctex"]
 
 [params]
 

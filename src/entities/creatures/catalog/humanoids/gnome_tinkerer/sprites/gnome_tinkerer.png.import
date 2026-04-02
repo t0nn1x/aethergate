@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bt8kgoghitw5o"
-path="res://.godot/imported/gnome_tinkerer.png-f4f29e44ec612210769ba8bfdf762bf6.ctex"
+path="res://.godot/imported/gnome_tinkerer.png-6e1b3aaa5a13f06dd8f55c711a0054fe.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/gnome_tinkerer/sprites/gnome_tinkerer.png"
-dest_files=["res://.godot/imported/gnome_tinkerer.png-f4f29e44ec612210769ba8bfdf762bf6.ctex"]
+dest_files=["res://.godot/imported/gnome_tinkerer.png-6e1b3aaa5a13f06dd8f55c711a0054fe.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvr6io7w314tq"
-path="res://.godot/imported/blade_hellion_128x32.png-d97ff85989d6d7d3823a8d9ac2359412.ctex"
+path="res://.godot/imported/blade_hellion_128x32.png-fb995b0b7bd0d6adecea6ca60a23a149.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/demons/blade_hellion/sprites/blade_hellion_128x32.png"
-dest_files=["res://.godot/imported/blade_hellion_128x32.png-d97ff85989d6d7d3823a8d9ac2359412.ctex"]
+dest_files=["res://.godot/imported/blade_hellion_128x32.png-fb995b0b7bd0d6adecea6ca60a23a149.ctex"]
 
 [params]
 

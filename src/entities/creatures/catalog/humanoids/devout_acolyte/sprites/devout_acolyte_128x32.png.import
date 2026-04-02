@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djvydo3w63hee"
-path="res://.godot/imported/devout_acolyte_128x32.png-7deb214fc1c7ad1c8ad3f40e0c37b50a.ctex"
+path="res://.godot/imported/devout_acolyte_128x32.png-42d637e26309271e55118eb3e01896f8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/devout_acolyte/sprites/devout_acolyte_128x32.png"
-dest_files=["res://.godot/imported/devout_acolyte_128x32.png-7deb214fc1c7ad1c8ad3f40e0c37b50a.ctex"]
+dest_files=["res://.godot/imported/devout_acolyte_128x32.png-42d637e26309271e55118eb3e01896f8.ctex"]
 
 [params]
 

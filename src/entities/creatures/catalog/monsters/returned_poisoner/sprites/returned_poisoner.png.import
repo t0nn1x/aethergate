@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dx25lucqpayll"
-path="res://.godot/imported/returned_poisoner.png-9b6fc67f6534bd27b4a982c96252a25f.ctex"
+path="res://.godot/imported/returned_poisoner.png-62de5a1ae1304b0e39d6ccd8b80030ce.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/returned_poisoner/sprites/returned_poisoner.png"
-dest_files=["res://.godot/imported/returned_poisoner.png-9b6fc67f6534bd27b4a982c96252a25f.ctex"]
+dest_files=["res://.godot/imported/returned_poisoner.png-62de5a1ae1304b0e39d6ccd8b80030ce.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6xuf5dlpnich"
-path="res://.godot/imported/timber_wolf_128x32.png-aa00f38d3e76a998ab2b1977f999190a.ctex"
+path="res://.godot/imported/timber_wolf_128x32.png-f42edc6fa55d401fd56dc3a180587779.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/timber_wolf/sprites/timber_wolf_128x32.png"
-dest_files=["res://.godot/imported/timber_wolf_128x32.png-aa00f38d3e76a998ab2b1977f999190a.ctex"]
+dest_files=["res://.godot/imported/timber_wolf_128x32.png-f42edc6fa55d401fd56dc3a180587779.ctex"]
 
 [params]
 

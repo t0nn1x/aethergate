@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cs62n8irupuma"
-path="res://.godot/imported/capable_cryomancer.png-4cac1064ae50292adbc241c0c23b5098.ctex"
+path="res://.godot/imported/capable_cryomancer.png-f0f0533a0b7fa584753b03ed47232185.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/capable_cryomancer/sprites/capable_cryomancer.png"
-dest_files=["res://.godot/imported/capable_cryomancer.png-4cac1064ae50292adbc241c0c23b5098.ctex"]
+dest_files=["res://.godot/imported/capable_cryomancer.png-f0f0533a0b7fa584753b03ed47232185.ctex"]
 
 [params]
 

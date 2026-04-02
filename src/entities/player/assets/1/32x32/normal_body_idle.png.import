@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0l2sspddf8en"
-path="res://.godot/imported/normal_body_idle.png-8e92505b9e1d9a1f5c75b1ff5f216922.ctex"
+path="res://.godot/imported/normal_body_idle.png-ff836c361899299e91e0a2591597661a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/player/assets/1/32x32/normal_body_idle.png"
-dest_files=["res://.godot/imported/normal_body_idle.png-8e92505b9e1d9a1f5c75b1ff5f216922.ctex"]
+dest_files=["res://.godot/imported/normal_body_idle.png-ff836c361899299e91e0a2591597661a.ctex"]
 
 [params]
 

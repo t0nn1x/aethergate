@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxsxrbmr4ukby"
-path="res://.godot/imported/abysgorn.png-f4b999bfc75b2edcdb89b243ba4f982a.ctex"
+path="res://.godot/imported/abysgorn.png-b792f2ff706e84d592b747e0801b64ab.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/abysgorn_the_leviathan/sprites/abysgorn.png"
-dest_files=["res://.godot/imported/abysgorn.png-f4b999bfc75b2edcdb89b243ba4f982a.ctex"]
+dest_files=["res://.godot/imported/abysgorn.png-b792f2ff706e84d592b747e0801b64ab.ctex"]
 
 [params]
 

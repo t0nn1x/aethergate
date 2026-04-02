@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bktglrwlpja52"
-path="res://.godot/imported/lumiel_128x32.png-664942de8b2ac8f6db7167825e84f2b0.ctex"
+path="res://.godot/imported/lumiel_128x32.png-470c6aae3367141618da2a2db316c9a1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/holy/lumiel_the_cherub/sprites/lumiel_128x32.png"
-dest_files=["res://.godot/imported/lumiel_128x32.png-664942de8b2ac8f6db7167825e84f2b0.ctex"]
+dest_files=["res://.godot/imported/lumiel_128x32.png-470c6aae3367141618da2a2db316c9a1.ctex"]
 
 [params]
 

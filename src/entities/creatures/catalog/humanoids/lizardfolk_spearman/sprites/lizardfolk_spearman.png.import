@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccro6jhr04vgk"
-path="res://.godot/imported/lizardfolk_spearman.png-2afc548e2b6b04a3a8f2f27a791c213e.ctex"
+path="res://.godot/imported/lizardfolk_spearman.png-f03c9eb1ebb73f43f0a7564e04ad6ec4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/lizardfolk_spearman/sprites/lizardfolk_spearman.png"
-dest_files=["res://.godot/imported/lizardfolk_spearman.png-2afc548e2b6b04a3a8f2f27a791c213e.ctex"]
+dest_files=["res://.godot/imported/lizardfolk_spearman.png-f03c9eb1ebb73f43f0a7564e04ad6ec4.ctex"]
 
 [params]
 

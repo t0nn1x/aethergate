@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfnf7fje3glqc"
-path="res://.godot/imported/ratkin_poisoner.png-5e1a7d203e4a15521c383296910d5c32.ctex"
+path="res://.godot/imported/ratkin_poisoner.png-114eed5aa72996b12b2cdfed350d07c6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/ratkin_poisoner/sprites/ratkin_poisoner.png"
-dest_files=["res://.godot/imported/ratkin_poisoner.png-5e1a7d203e4a15521c383296910d5c32.ctex"]
+dest_files=["res://.godot/imported/ratkin_poisoner.png-114eed5aa72996b12b2cdfed350d07c6.ctex"]
 
 [params]
 

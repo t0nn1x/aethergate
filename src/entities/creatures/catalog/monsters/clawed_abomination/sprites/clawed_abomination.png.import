@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dugbqhyjcqal1"
-path="res://.godot/imported/clawed_abomination.png-680011754e48c3e19bcfd8db5150bbfc.ctex"
+path="res://.godot/imported/clawed_abomination.png-0bf54a70211787a681bf0d154c6abf46.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/clawed_abomination/sprites/clawed_abomination.png"
-dest_files=["res://.godot/imported/clawed_abomination.png-680011754e48c3e19bcfd8db5150bbfc.ctex"]
+dest_files=["res://.godot/imported/clawed_abomination.png-0bf54a70211787a681bf0d154c6abf46.ctex"]
 
 [params]
 

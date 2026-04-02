@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgdo28nttl2tv"
-path="res://.godot/imported/granite_gargoyle.png-2086a65d02fb8f02e2a8479137353eb3.ctex"
+path="res://.godot/imported/granite_gargoyle.png-dd68905c313bdaadb98daac1ab1c52c8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/granite_gargoyle/sprites/granite_gargoyle.png"
-dest_files=["res://.godot/imported/granite_gargoyle.png-2086a65d02fb8f02e2a8479137353eb3.ctex"]
+dest_files=["res://.godot/imported/granite_gargoyle.png-dd68905c313bdaadb98daac1ab1c52c8.ctex"]
 
 [params]
 

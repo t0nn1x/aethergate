@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4mv4yvt0jrlm"
-path="res://.godot/imported/zombie_warrior_128x32.png-c68f19208ee94b1e74f3b08c642fb9f4.ctex"
+path="res://.godot/imported/zombie_warrior_128x32.png-aa49e42bc3a0fa57907e2c1cbee96b7c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/zombie_warrior/sprites/zombie_warrior_128x32.png"
-dest_files=["res://.godot/imported/zombie_warrior_128x32.png-c68f19208ee94b1e74f3b08c642fb9f4.ctex"]
+dest_files=["res://.godot/imported/zombie_warrior_128x32.png-aa49e42bc3a0fa57907e2c1cbee96b7c.ctex"]
 
 [params]
 

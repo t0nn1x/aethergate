@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4j4cjvhmp1x1"
-path="res://.godot/imported/kaelis.png-4b21b678b37b5e72f4f73ec9775ba485.ctex"
+path="res://.godot/imported/kaelis.png-9cf74b3927c9a7e541c486528f08d6e6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/kaelis_the_cleric/sprites/kaelis.png"
-dest_files=["res://.godot/imported/kaelis.png-4b21b678b37b5e72f4f73ec9775ba485.ctex"]
+dest_files=["res://.godot/imported/kaelis.png-9cf74b3927c9a7e541c486528f08d6e6.ctex"]
 
 [params]
 

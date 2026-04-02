@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://be35pe50k3ld3"
-path="res://.godot/imported/wicked_wretch_128x32.png-b5b5906137eb206c659275e812f19e5e.ctex"
+path="res://.godot/imported/wicked_wretch_128x32.png-a4cc636b23b4ae0eae8bfbeb615aec83.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/wicked_wretch/sprites/wicked_wretch_128x32.png"
-dest_files=["res://.godot/imported/wicked_wretch_128x32.png-b5b5906137eb206c659275e812f19e5e.ctex"]
+dest_files=["res://.godot/imported/wicked_wretch_128x32.png-a4cc636b23b4ae0eae8bfbeb615aec83.ctex"]
 
 [params]
 

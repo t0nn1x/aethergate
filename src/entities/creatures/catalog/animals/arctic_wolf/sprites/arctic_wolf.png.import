@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://df7va0djg1jh0"
-path="res://.godot/imported/arctic_wolf.png-890f2a95655f9717b0fde81282068402.ctex"
+path="res://.godot/imported/arctic_wolf.png-224585b18007c00f48de1ea7a1547120.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/arctic_wolf/sprites/arctic_wolf.png"
-dest_files=["res://.godot/imported/arctic_wolf.png-890f2a95655f9717b0fde81282068402.ctex"]
+dest_files=["res://.godot/imported/arctic_wolf.png-224585b18007c00f48de1ea7a1547120.ctex"]
 
 [params]
 

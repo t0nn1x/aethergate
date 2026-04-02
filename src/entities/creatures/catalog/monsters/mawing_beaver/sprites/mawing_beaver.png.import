@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bn45lpukuh8pb"
-path="res://.godot/imported/mawing_beaver.png-e08ba2a1b086b17d0b517f66fddc5275.ctex"
+path="res://.godot/imported/mawing_beaver.png-455abc49999801923633eeb71374b21b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/mawing_beaver/sprites/mawing_beaver.png"
-dest_files=["res://.godot/imported/mawing_beaver.png-e08ba2a1b086b17d0b517f66fddc5275.ctex"]
+dest_files=["res://.godot/imported/mawing_beaver.png-455abc49999801923633eeb71374b21b.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhnvj1fkmrskl"
-path="res://.godot/imported/sporvox.png-edb72006648a4f33103634bbfc5d24c7.ctex"
+path="res://.godot/imported/sporvox.png-b7aa3f16486c2aaa123a5f1510c52130.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/sporvox_the_green_cap/sprites/sporvox.png"
-dest_files=["res://.godot/imported/sporvox.png-edb72006648a4f33103634bbfc5d24c7.ctex"]
+dest_files=["res://.godot/imported/sporvox.png-b7aa3f16486c2aaa123a5f1510c52130.ctex"]
 
 [params]
 

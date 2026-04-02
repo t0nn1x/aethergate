@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btdyw8vh43ie0"
-path="res://.godot/imported/dragon_turquoise.png-31612bd65e07ffa2386b1e282da750dd.ctex"
+path="res://.godot/imported/dragon_turquoise.png-5ce7bbc71d3264d385477f4b0b2a7ebe.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/objects/dragon_turquoise.png"
-dest_files=["res://.godot/imported/dragon_turquoise.png-31612bd65e07ffa2386b1e282da750dd.ctex"]
+dest_files=["res://.godot/imported/dragon_turquoise.png-5ce7bbc71d3264d385477f4b0b2a7ebe.ctex"]
 
 [params]
 

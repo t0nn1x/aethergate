@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3b4pfgacewic"
-path="res://.godot/imported/luma.png-9a8cc8322c679ee1ed18c611b96a144b.ctex"
+path="res://.godot/imported/luma.png-2243f8f43e54ed9b01d6f724b609dc51.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/luma_the_marble_golem/sprites/luma.png"
-dest_files=["res://.godot/imported/luma.png-9a8cc8322c679ee1ed18c611b96a144b.ctex"]
+dest_files=["res://.godot/imported/luma.png-2243f8f43e54ed9b01d6f724b609dc51.ctex"]
 
 [params]
 

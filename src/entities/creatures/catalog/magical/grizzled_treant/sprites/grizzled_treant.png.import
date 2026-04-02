@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://don33xdj8ipu6"
-path="res://.godot/imported/grizzled_treant.png-b3660d93632feb42aa113843e7175ba5.ctex"
+path="res://.godot/imported/grizzled_treant.png-02144ec11b256da3aeb94e8f5d23efeb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/grizzled_treant/sprites/grizzled_treant.png"
-dest_files=["res://.godot/imported/grizzled_treant.png-b3660d93632feb42aa113843e7175ba5.ctex"]
+dest_files=["res://.godot/imported/grizzled_treant.png-02144ec11b256da3aeb94e8f5d23efeb.ctex"]
 
 [params]
 

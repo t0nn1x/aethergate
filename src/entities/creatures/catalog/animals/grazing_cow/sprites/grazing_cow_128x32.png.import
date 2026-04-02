@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5x4jt3pmb023"
-path="res://.godot/imported/grazing_cow_128x32.png-73bdfe6bb8f5ff66ce2050228c838ac0.ctex"
+path="res://.godot/imported/grazing_cow_128x32.png-bf18cc6ba3be5ca146c5551dfc516c9c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/grazing_cow/sprites/grazing_cow_128x32.png"
-dest_files=["res://.godot/imported/grazing_cow_128x32.png-73bdfe6bb8f5ff66ce2050228c838ac0.ctex"]
+dest_files=["res://.godot/imported/grazing_cow_128x32.png-bf18cc6ba3be5ca146c5551dfc516c9c.ctex"]
 
 [params]
 

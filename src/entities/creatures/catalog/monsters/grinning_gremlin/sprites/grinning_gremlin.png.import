@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfkdibi5s6vbh"
-path="res://.godot/imported/grinning_gremlin.png-920da98d79c4deb16fea6710bc5deb87.ctex"
+path="res://.godot/imported/grinning_gremlin.png-0c8e487cf105746abeda1e813de414e6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/grinning_gremlin/sprites/grinning_gremlin.png"
-dest_files=["res://.godot/imported/grinning_gremlin.png-920da98d79c4deb16fea6710bc5deb87.ctex"]
+dest_files=["res://.godot/imported/grinning_gremlin.png-0c8e487cf105746abeda1e813de414e6.ctex"]
 
 [params]
 

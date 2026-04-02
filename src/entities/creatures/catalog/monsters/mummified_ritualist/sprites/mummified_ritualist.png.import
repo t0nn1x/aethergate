@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds5lg03sw0h8v"
-path="res://.godot/imported/mummified_ritualist.png-5a623127aa3ca0d381a238f5bab42baf.ctex"
+path="res://.godot/imported/mummified_ritualist.png-8ea92f82794ec759eb29bd1f3598f7d4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/mummified_ritualist/sprites/mummified_ritualist.png"
-dest_files=["res://.godot/imported/mummified_ritualist.png-5a623127aa3ca0d381a238f5bab42baf.ctex"]
+dest_files=["res://.godot/imported/mummified_ritualist.png-8ea92f82794ec759eb29bd1f3598f7d4.ctex"]
 
 [params]
 

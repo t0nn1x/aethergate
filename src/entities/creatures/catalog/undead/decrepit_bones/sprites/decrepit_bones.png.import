@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dujcek2sehdgm"
-path="res://.godot/imported/decrepit_bones.png-bc4e0b8f0d8ac1fb14b8f96cf69fc030.ctex"
+path="res://.godot/imported/decrepit_bones.png-e3556400f9bc2f80e6f02467bc3ba089.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/decrepit_bones/sprites/decrepit_bones.png"
-dest_files=["res://.godot/imported/decrepit_bones.png-bc4e0b8f0d8ac1fb14b8f96cf69fc030.ctex"]
+dest_files=["res://.godot/imported/decrepit_bones.png-e3556400f9bc2f80e6f02467bc3ba089.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8eplnbk3dvn2"
-path="res://.godot/imported/gnoll_warlord.png-334e8850a0b6a0b98b8fba23a76b0677.ctex"
+path="res://.godot/imported/gnoll_warlord.png-536faff24db9e21533c3e999dc190cb6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/gnoll_warlord/sprites/gnoll_warlord.png"
-dest_files=["res://.godot/imported/gnoll_warlord.png-334e8850a0b6a0b98b8fba23a76b0677.ctex"]
+dest_files=["res://.godot/imported/gnoll_warlord.png-536faff24db9e21533c3e999dc190cb6.ctex"]
 
 [params]
 

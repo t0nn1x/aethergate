@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q2ktl7xpqx2e"
-path="res://.godot/imported/stone_giant_128x32.png-92e809c232156d5bcdae80384875cf36.ctex"
+path="res://.godot/imported/stone_giant_128x32.png-324f07fd4d20655ad37ba98d98101d85.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/stone_giant/sprites/stone_giant_128x32.png"
-dest_files=["res://.godot/imported/stone_giant_128x32.png-92e809c232156d5bcdae80384875cf36.ctex"]
+dest_files=["res://.godot/imported/stone_giant_128x32.png-324f07fd4d20655ad37ba98d98101d85.ctex"]
 
 [params]
 

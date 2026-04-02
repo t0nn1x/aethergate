@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://itcjtybu5r36"
-path="res://.godot/imported/zolgruk.png-03a50032d53be42088843610857277d7.ctex"
+path="res://.godot/imported/zolgruk.png-32286b0c3486e080cff217b47a82d4fc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/zolgruk_the_stone_troll/sprites/zolgruk.png"
-dest_files=["res://.godot/imported/zolgruk.png-03a50032d53be42088843610857277d7.ctex"]
+dest_files=["res://.godot/imported/zolgruk.png-32286b0c3486e080cff217b47a82d4fc.ctex"]
 
 [params]
 

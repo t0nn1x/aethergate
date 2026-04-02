@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhsjkyh0ov1y5"
-path="res://.godot/imported/stonvar.png-884b9083db7d234fa5af542b7d6d9024.ctex"
+path="res://.godot/imported/stonvar.png-64a0d6dc547334c789c9a50f0a2d641e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/stonvar_the_stone_golem/sprites/stonvar.png"
-dest_files=["res://.godot/imported/stonvar.png-884b9083db7d234fa5af542b7d6d9024.ctex"]
+dest_files=["res://.godot/imported/stonvar.png-64a0d6dc547334c789c9a50f0a2d641e.ctex"]
 
 [params]
 

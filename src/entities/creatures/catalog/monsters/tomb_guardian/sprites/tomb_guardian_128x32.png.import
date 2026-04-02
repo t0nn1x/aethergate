@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://hske8cmu1q25"
-path="res://.godot/imported/tomb_guardian_128x32.png-a38a4a6189fe6570f83671a70d8b4407.ctex"
+path="res://.godot/imported/tomb_guardian_128x32.png-e7503d5c1fbd4944a85d46dd4dd35cb9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/tomb_guardian/sprites/tomb_guardian_128x32.png"
-dest_files=["res://.godot/imported/tomb_guardian_128x32.png-a38a4a6189fe6570f83671a70d8b4407.ctex"]
+dest_files=["res://.godot/imported/tomb_guardian_128x32.png-e7503d5c1fbd4944a85d46dd4dd35cb9.ctex"]
 
 [params]
 

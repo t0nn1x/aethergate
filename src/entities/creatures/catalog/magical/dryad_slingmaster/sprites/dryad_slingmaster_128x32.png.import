@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ditj46aj8vsxa"
-path="res://.godot/imported/dryad_slingmaster_128x32.png-de79c7c8c8d1e83f9347ff11f9426232.ctex"
+path="res://.godot/imported/dryad_slingmaster_128x32.png-4bff92ecb26a5422272dea9576ab61c2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/magical/dryad_slingmaster/sprites/dryad_slingmaster_128x32.png"
-dest_files=["res://.godot/imported/dryad_slingmaster_128x32.png-de79c7c8c8d1e83f9347ff11f9426232.ctex"]
+dest_files=["res://.godot/imported/dryad_slingmaster_128x32.png-4bff92ecb26a5422272dea9576ab61c2.ctex"]
 
 [params]
 

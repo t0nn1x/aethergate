@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8xbv5vm5andu"
-path="res://.godot/imported/morvox.png-4c4977bb4f459214656007b96a6bba6d.ctex"
+path="res://.godot/imported/morvox.png-8a2a3c4beb52295aceb13d31b8c91575.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/morvox_the_juggernaut/sprites/morvox.png"
-dest_files=["res://.godot/imported/morvox.png-4c4977bb4f459214656007b96a6bba6d.ctex"]
+dest_files=["res://.godot/imported/morvox.png-8a2a3c4beb52295aceb13d31b8c91575.ctex"]
 
 [params]
 

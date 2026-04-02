@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mahmg1obxhls"
-path="res://.godot/imported/iceheart_128x32.png-dda4a2e88bf108bee69fab557636d9d5.ctex"
+path="res://.godot/imported/iceheart_128x32.png-c5fd111145dd2a33f826e1928bedd731.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/iceheart_the_blue_dragon/sprites/iceheart_128x32.png"
-dest_files=["res://.godot/imported/iceheart_128x32.png-dda4a2e88bf108bee69fab557636d9d5.ctex"]
+dest_files=["res://.godot/imported/iceheart_128x32.png-c5fd111145dd2a33f826e1928bedd731.ctex"]
 
 [params]
 

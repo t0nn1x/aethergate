@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0uiwjloj2jt1"
-path="res://.godot/imported/scrounging_squirrel.png-2153e17026e2f4fa1f76a4d2d47c3055.ctex"
+path="res://.godot/imported/scrounging_squirrel.png-8dbab146d0b99632f50b4dc8529415cf.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/scrounging_squirrel/sprites/scrounging_squirrel.png"
-dest_files=["res://.godot/imported/scrounging_squirrel.png-2153e17026e2f4fa1f76a4d2d47c3055.ctex"]
+dest_files=["res://.godot/imported/scrounging_squirrel.png-8dbab146d0b99632f50b4dc8529415cf.ctex"]
 
 [params]
 

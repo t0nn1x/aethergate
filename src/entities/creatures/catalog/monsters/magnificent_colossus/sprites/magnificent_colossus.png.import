@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c76najqqd05gq"
-path="res://.godot/imported/magnificent_colossus.png-b244305cc50231283fd0f9ad30a8e00a.ctex"
+path="res://.godot/imported/magnificent_colossus.png-d6e6a6d6824c2d96ab33045c6ad05bfe.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/magnificent_colossus/sprites/magnificent_colossus.png"
-dest_files=["res://.godot/imported/magnificent_colossus.png-b244305cc50231283fd0f9ad30a8e00a.ctex"]
+dest_files=["res://.godot/imported/magnificent_colossus.png-d6e6a6d6824c2d96ab33045c6ad05bfe.ctex"]
 
 [params]
 

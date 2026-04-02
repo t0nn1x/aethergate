@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jtwr73o4gbsy"
-path="res://.godot/imported/snow_fox.png-8e60bf6f1e4769425f037e1471607135.ctex"
+path="res://.godot/imported/snow_fox.png-9a286a6fc5468b320b233e676722c178.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/snow_fox/sprites/snow_fox.png"
-dest_files=["res://.godot/imported/snow_fox.png-8e60bf6f1e4769425f037e1471607135.ctex"]
+dest_files=["res://.godot/imported/snow_fox.png-9a286a6fc5468b320b233e676722c178.ctex"]
 
 [params]
 

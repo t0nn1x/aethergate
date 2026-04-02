@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ha6h66sxk7m8"
-path="res://.godot/imported/young_silver_dragon.png-41694dc08facf5560390cc386898be46.ctex"
+path="res://.godot/imported/young_silver_dragon.png-da607714807514fa0b411bf374200649.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/young_silver_dragon/sprites/young_silver_dragon.png"
-dest_files=["res://.godot/imported/young_silver_dragon.png-41694dc08facf5560390cc386898be46.ctex"]
+dest_files=["res://.godot/imported/young_silver_dragon.png-da607714807514fa0b411bf374200649.ctex"]
 
 [params]
 

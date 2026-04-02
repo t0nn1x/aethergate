@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b37u41a70myn7"
-path="res://.godot/imported/thokrend_128x32.png-c0d8dd43ea61b80f841c78dda4181f41.ctex"
+path="res://.godot/imported/thokrend_128x32.png-338f7dd043302aa95b0836af543f5dc2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/humanoids/thokrend_the_gnoll_warlord/sprites/thokrend_128x32.png"
-dest_files=["res://.godot/imported/thokrend_128x32.png-c0d8dd43ea61b80f841c78dda4181f41.ctex"]
+dest_files=["res://.godot/imported/thokrend_128x32.png-338f7dd043302aa95b0836af543f5dc2.ctex"]
 
 [params]
 

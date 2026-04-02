@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crev4ej6p8d8l"
-path="res://.godot/imported/mazog.png-6ab53497bd65beb8369bbdba81cdece8.ctex"
+path="res://.godot/imported/mazog.png-0a1a38e5d304e00f24e30d97a95ac5b4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/mazog_the_minotaur/sprites/mazog.png"
-dest_files=["res://.godot/imported/mazog.png-6ab53497bd65beb8369bbdba81cdece8.ctex"]
+dest_files=["res://.godot/imported/mazog.png-0a1a38e5d304e00f24e30d97a95ac5b4.ctex"]
 
 [params]
 

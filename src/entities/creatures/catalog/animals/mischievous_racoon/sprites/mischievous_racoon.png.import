@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cg4kptmwsgnpp"
-path="res://.godot/imported/mischievous_racoon.png-60cd75dfc93f5d35cee30045d57abb47.ctex"
+path="res://.godot/imported/mischievous_racoon.png-4dd832f66f9898de5eb6b431b890a46c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/animals/mischievous_racoon/sprites/mischievous_racoon.png"
-dest_files=["res://.godot/imported/mischievous_racoon.png-60cd75dfc93f5d35cee30045d57abb47.ctex"]
+dest_files=["res://.godot/imported/mischievous_racoon.png-4dd832f66f9898de5eb6b431b890a46c.ctex"]
 
 [params]
 

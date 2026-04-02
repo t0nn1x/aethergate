@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgsnto1ugo5ol"
-path="res://.godot/imported/desert_castle.png-99f70b2fed4e5057af1a800d258a8f81.ctex"
+path="res://.godot/imported/desert_castle.png-971aa5a2ea701f2325ff308c227cc2a5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/world/overworld/tilesets/cities/desert_castle.png"
-dest_files=["res://.godot/imported/desert_castle.png-99f70b2fed4e5057af1a800d258a8f81.ctex"]
+dest_files=["res://.godot/imported/desert_castle.png-971aa5a2ea701f2325ff308c227cc2a5.ctex"]
 
 [params]
 

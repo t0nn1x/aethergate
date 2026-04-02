@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgookjsn8r4xq"
-path="res://.godot/imported/mighty_desolator.png-1cb94e9dfb1725f998d3062bb8b39835.ctex"
+path="res://.godot/imported/mighty_desolator.png-edad73b94e5626800bf5f77411fffef6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/mighty_desolator/sprites/mighty_desolator.png"
-dest_files=["res://.godot/imported/mighty_desolator.png-1cb94e9dfb1725f998d3062bb8b39835.ctex"]
+dest_files=["res://.godot/imported/mighty_desolator.png-edad73b94e5626800bf5f77411fffef6.ctex"]
 
 [params]
 

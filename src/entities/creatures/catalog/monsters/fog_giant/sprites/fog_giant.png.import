@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bktajpw6klmqa"
-path="res://.godot/imported/fog_giant.png-4a95440b02d946df9a282dc681d08c1d.ctex"
+path="res://.godot/imported/fog_giant.png-dfed1fff7a95c4fbbc27b263c19d8e00.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/fog_giant/sprites/fog_giant.png"
-dest_files=["res://.godot/imported/fog_giant.png-4a95440b02d946df9a282dc681d08c1d.ctex"]
+dest_files=["res://.godot/imported/fog_giant.png-dfed1fff7a95c4fbbc27b263c19d8e00.ctex"]
 
 [params]
 

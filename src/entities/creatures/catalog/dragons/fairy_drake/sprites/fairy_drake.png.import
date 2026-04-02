@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwxj8iwp3ny5o"
-path="res://.godot/imported/fairy_drake.png-2d00805582c295d14362038150359bb4.ctex"
+path="res://.godot/imported/fairy_drake.png-66f587a12ff57885d425fb51eac2c62a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/dragons/fairy_drake/sprites/fairy_drake.png"
-dest_files=["res://.godot/imported/fairy_drake.png-2d00805582c295d14362038150359bb4.ctex"]
+dest_files=["res://.godot/imported/fairy_drake.png-66f587a12ff57885d425fb51eac2c62a.ctex"]
 
 [params]
 

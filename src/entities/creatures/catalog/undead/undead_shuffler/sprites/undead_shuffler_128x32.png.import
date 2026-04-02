@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://curokbcmivbp3"
-path="res://.godot/imported/undead_shuffler_128x32.png-dc4dd07c36e7c8df4e4f59ff181e08ae.ctex"
+path="res://.godot/imported/undead_shuffler_128x32.png-16c181722ebda7c86fdf743309c33abb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/undead/undead_shuffler/sprites/undead_shuffler_128x32.png"
-dest_files=["res://.godot/imported/undead_shuffler_128x32.png-dc4dd07c36e7c8df4e4f59ff181e08ae.ctex"]
+dest_files=["res://.godot/imported/undead_shuffler_128x32.png-16c181722ebda7c86fdf743309c33abb.ctex"]
 
 [params]
 

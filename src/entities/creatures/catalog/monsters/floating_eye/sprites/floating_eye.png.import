@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dyvful7fjela1"
-path="res://.godot/imported/floating_eye.png-855a4fe4f660da0caac576bf9e2f8647.ctex"
+path="res://.godot/imported/floating_eye.png-97e769c8f9a73131401561b8282fad85.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/floating_eye/sprites/floating_eye.png"
-dest_files=["res://.godot/imported/floating_eye.png-855a4fe4f660da0caac576bf9e2f8647.ctex"]
+dest_files=["res://.godot/imported/floating_eye.png-97e769c8f9a73131401561b8282fad85.ctex"]
 
 [params]
 

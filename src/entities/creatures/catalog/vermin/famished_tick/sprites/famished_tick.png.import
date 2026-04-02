@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://kivsp64m22w2"
-path="res://.godot/imported/famished_tick.png-ebf21591f7f0ca7adfc62c82a7429953.ctex"
+path="res://.godot/imported/famished_tick.png-b2b4b73038894e034a566d2a3983a7df.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/vermin/famished_tick/sprites/famished_tick.png"
-dest_files=["res://.godot/imported/famished_tick.png-ebf21591f7f0ca7adfc62c82a7429953.ctex"]
+dest_files=["res://.godot/imported/famished_tick.png-b2b4b73038894e034a566d2a3983a7df.ctex"]
 
 [params]
 

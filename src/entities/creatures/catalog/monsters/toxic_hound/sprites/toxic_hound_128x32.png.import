@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c177ofnqfxouh"
-path="res://.godot/imported/toxic_hound_128x32.png-0d5e96796edbee9aeff7cfb29417abd4.ctex"
+path="res://.godot/imported/toxic_hound_128x32.png-9f4ea9e1df50fbc71ccb5db3dbf3903e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/toxic_hound/sprites/toxic_hound_128x32.png"
-dest_files=["res://.godot/imported/toxic_hound_128x32.png-0d5e96796edbee9aeff7cfb29417abd4.ctex"]
+dest_files=["res://.godot/imported/toxic_hound_128x32.png-9f4ea9e1df50fbc71ccb5db3dbf3903e.ctex"]
 
 [params]
 

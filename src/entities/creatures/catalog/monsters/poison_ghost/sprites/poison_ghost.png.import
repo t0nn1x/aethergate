@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmefwmln5nesk"
-path="res://.godot/imported/poison_ghost.png-991f508221b662569e64aa0f8384d5ca.ctex"
+path="res://.godot/imported/poison_ghost.png-38b6bf7f6c2344937fd3fe76c1889eaf.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/entities/creatures/catalog/monsters/poison_ghost/sprites/poison_ghost.png"
-dest_files=["res://.godot/imported/poison_ghost.png-991f508221b662569e64aa0f8384d5ca.ctex"]
+dest_files=["res://.godot/imported/poison_ghost.png-38b6bf7f6c2344937fd3fe76c1889eaf.ctex"]
 
 [params]
 
