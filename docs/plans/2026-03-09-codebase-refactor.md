@@ -50,7 +50,7 @@ These files contain hardcoded `res://src/Map/` paths that must be updated:
 | `src/world/main.tscn` | ext_resource path | `res://src/Map/main.gd` | `res://src/world/main.gd` |
 | `src/world/main.tscn` | ext_resource path | `res://src/Map/Overworld/overworld.tscn` | `res://src/world/overworld/overworld.tscn` |
 | `src/ui/common/startup_splash_screen.tscn` | ext_resource path | `res://src/Map/main.tscn` | `res://src/world/main.tscn` |
-| `src/world/streaming/chunk_manager.gd:12` | `@export_dir` default | `res://src/Map/Overworld/Chunks/Midra` | `res://src/world/overworld/chunks/Midra` |
+| `src/world/streaming/chunk_manager.gd:12` | `@export_dir` default | `res://src/Map/Overworld/Chunks/Midra` | `res://src/world/overworld/chunks/midra` |
 | `src/world/streaming/overworld_chunk_water_shader.gd:11` | `load()` path | `res://src/Map/Overworld/Shaders/water.gdshader` | `res://src/world/overworld/shaders/water.gdshader` |
 
 Also search-and-replace `res://src/Map/` → `res://src/world/` across ALL `.tscn` files in `src/world/overworld/` (chunk scenes reference tilesets, chunk script, etc. via `path=` attributes). Godot resolves by `uid://` first, but stale `path=` values cause editor warnings.

@@ -85,11 +85,11 @@ Created: 2026-02-15
   Logging (minimal): chunk/zone spawn summaries and warnings for invalid zone configs.
 
 - [x] Task 15: Add a pilot spawn zone in a live chunk scene and validate mixed operation (zone-based spawning + legacy markers compatibility path).
-  Files: `src/world/overworld/chunks/Midra/chunk_-2_-2.tscn`
+  Files: `src/world/overworld/chunks/midra/chunk_-2_-2.tscn`
   Logging (minimal): no extra runtime logs beyond Task 14.
 
 - [x] Task 16: Surface zone-spawn runtime counters for debugging (active zones, alive creatures, per-chunk zone counts) through existing debug overlay wiring.
-  Files: `src/world/overworld/overworld_creature_spawner.gd`, `src/ui/common/debug/debug_overlay.gd`, `src/ui/common/debug/Providers/chunk_debug_metrics_provider.gd`
+  Files: `src/world/overworld/overworld_creature_spawner.gd`, `src/ui/common/debug/debug_overlay.gd`, `src/ui/common/debug/providers/chunk_debug_metrics_provider.gd`
   Logging (minimal): none; expose metrics as overlay lines.
 
 - [x] Task 17: Add headless validation for spawn-zone helper behavior (polygon sampling and filter normalization) with deterministic pass/fail output.

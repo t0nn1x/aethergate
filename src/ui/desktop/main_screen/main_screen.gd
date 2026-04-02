@@ -11,8 +11,8 @@ const STRIP_ANCHOR_LEFT_MENU: float = 0.0
 const STRIP_ANCHOR_RIGHT_MENU: float = 1.0
 const STRIP_ANCHOR_TOP_MENU: float = 0.42
 const STRIP_ANCHOR_BOTTOM_MENU: float = 0.7
-const ScreenLocalization = preload("res://src/ui/common/ScreenLocalization/screen_localization.gd")
-const UiSoundPlayer = preload("res://src/ui/common/UiSoundPlayer/ui_sound_player.gd")
+const ScreenLocalization = preload("res://src/ui/common/screen_localization/screen_localization.gd")
+const UiSoundPlayer = preload("res://src/ui/common/ui_sound_player/ui_sound_player.gd")
 
 @export var play_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/PlayButton"
 @export var settings_button_path: NodePath = ^"Root/MenuStrip/Center/ButtonRow/SettingsButton"
