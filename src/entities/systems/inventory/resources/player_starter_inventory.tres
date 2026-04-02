@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PlayerInventoryData" format=3 uid="uid://b3lej7xp4lnq1"]
 
-[ext_resource type="Script" uid="uid://do2qx6khrc2yu" path="res://src/entities/systems/inventory/player_inventory_data.gd" id="1"]
-[ext_resource type="Script" uid="uid://dw5rjju2imop1" path="res://src/entities/systems/inventory/inventory_slot_data.gd" id="2"]
+[ext_resource type="Script" uid="uid://c72tegjg4j31s" path="res://src/entities/systems/inventory/player_inventory_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://dctej5xpweym3" path="res://src/entities/systems/inventory/inventory_slot_data.gd" id="2"]
 [ext_resource type="Resource" path="res://src/entities/items/catalog/consumables/potions/health_potion/data/consumable_health_potion.tres" id="3"]
 [ext_resource type="Resource" path="res://src/entities/items/catalog/consumables/potions/mana_potion/data/consumable_mana_tonic.tres" id="4"]
 [ext_resource type="Resource" path="res://src/entities/items/catalog/materials/ore/iron_ore/data/material_iron_ore.tres" id="5"]
