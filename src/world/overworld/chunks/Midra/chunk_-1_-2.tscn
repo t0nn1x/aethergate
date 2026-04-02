@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://esn6a3krtfpw"]
 
 [ext_resource type="Script" uid="uid://citdv614f6uom" path="res://src/world/overworld/Chunks/chunk.gd" id="1"]
-[ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://src/world/overworld/Tilesets/terrain.tres" id="2"]
+[ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://src/world/overworld/tilesets/terrain.tres" id="2"]
 
 [node name="Chunk" type="Node2D" unique_id=1285024557]
 position = Vector2(-2304, 4608)

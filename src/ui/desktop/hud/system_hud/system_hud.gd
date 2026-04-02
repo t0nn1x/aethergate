@@ -12,9 +12,9 @@ const DEFAULT_ACTION_IDS := [
 	"systems"
 ]
 
-@export var slot_texture: Texture2D = preload("res://src/ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png")
-@export var slot_hover_texture: Texture2D = preload("res://src/ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png")
-@export var slot_active_texture: Texture2D = preload("res://src/ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png")
+@export var slot_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png")
+@export var slot_hover_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png")
+@export var slot_active_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png")
 @export var slot_actions: PackedStringArray = PackedStringArray(DEFAULT_ACTION_IDS)
 @export var slot_icons: Array[Texture2D] = []
 @export_range(0.7, 2.0, 0.05) var side_slot_scale: float = 1.0

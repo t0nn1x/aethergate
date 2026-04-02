@@ -25,7 +25,7 @@ Created: 2026-02-11
   Files: `src/ui/desktop/main_screen/main_screen.tscn`
   Logging: log selected ocean set id and loaded layer count at startup; warn if expected layers are missing.
 
-- [x] Task 2: Add `src/ui/desktop/main_screen/background_controller.gd` that enumerates `res://src/ui/Assets/Parallax-Backgrounds`, randomly selects one folder per run, sorts layer files numerically, and applies textures so all layers come from the same folder.
+- [x] Task 2: Add `src/ui/desktop/main_screen/background_controller.gd` that enumerates `res://src/ui/assets/Parallax-Backgrounds`, randomly selects one folder per run, sorts layer files numerically, and applies textures so all layers come from the same folder.
   Files: `src/ui/desktop/main_screen/background_controller.gd`
   Logging: log folder discovery results, chosen folder, and per-layer assignment; emit error logs if folder is unreadable.
 

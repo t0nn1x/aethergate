@@ -4,7 +4,7 @@
 
 **Goal:** Deliver a working 1v1 turn-based combat loop — tap creature → preview card → full-screen combat → simultaneous round resolution → return to overworld.
 
-**Architecture:** Self-contained bounded context under `src/entities/Systems/Combat/` for logic and `src/world/Combat/` for the scene entry point. A stateless `CombatRoundResolver` takes two actions and returns a pure `CombatRoundResult` resource — no side effects. `CombatFlowController` owns the round loop and timer. All combat events route through a new `CombatEvents` autoload.
+**Architecture:** Self-contained bounded context under `src/entities/Systems/Combat/` for logic and `src/world/combat/` for the scene entry point. A stateless `CombatRoundResolver` takes two actions and returns a pure `CombatRoundResult` resource — no side effects. `CombatFlowController` owns the round loop and timer. All combat events route through a new `CombatEvents` autoload.
 
 **Tech Stack:** Godot 4.6, GDScript, existing event singleton pattern, existing `AdaptiveOverlayPanel` base, existing `GameManager` COMBAT state.
 
@@ -30,29 +30,29 @@
 | 9 — CombatFlowController | `src/entities/Systems/Combat/combat_flow_controller.gd` | ✅ scripted |
 | 10 — AI strategies | `src/entities/Systems/Combat/Ai/combat_ai_strategy.gd`, `weighted_random_strategy.gd` | ✅ scripted |
 | 11 — CreatureData combat fields | `src/entities/Creatures/creature_data.gd` | ✅ scripted |
-| 12 — CombatPreviewPanel | `src/ui/Common/CombatPreviewPanel/combat_preview_panel.gd` | ✅ scripted |
-| 13 — CombatScene | `src/world/Combat/combat_scene.gd` | ✅ scripted |
-| 14 — MobileCombatUi | `src/ui/Mobile/Combat/mobile_combat_ui.gd` | ✅ scripted |
-| 15 — Overworld wiring | `src/world/Overworld/overworld.gd`, `src/world/main.gd` | ✅ scripted |
+| 12 — CombatPreviewPanel | `src/ui/common/CombatPreviewPanel/combat_preview_panel.gd` | ✅ scripted |
+| 13 — CombatScene | `src/world/combat/combat_scene.gd` | ✅ scripted |
+| 14 — MobileCombatUi | `src/ui/mobile/Combat/mobile_combat_ui.gd` | ✅ scripted |
+| 15 — Overworld wiring | `src/world/overworld/overworld.gd`, `src/world/main.gd` | ✅ scripted |
 | 16 — PlayerProfileService XP | `src/core/player_profile_service.gd` | ✅ scripted |
 
 ### Pending — editor steps (scenes to build)
 
 1. **Open editor** → let Godot scan + generate uid files for all new scripts
-2. **`src/ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`**
+2. **`src/ui/common/CombatPreviewPanel/combat_preview_panel.tscn`**
    - Root: `CombatPreviewPanel` (script: `combat_preview_panel.gd`, inherits `AdaptiveOverlayPanel`)
    - `Layout` (VBoxContainer) → `EnemyPortrait` (TextureRect, stretch KEEP_ASPECT_CENTERED, min 256×256) → `NameLabel` (Label, center) → `LevelLabel` → `PowerLabel` → `Buttons` (HBoxContainer) → `FleeButton` ("Flee") + `FightButton` ("Fight!")
-3. **`src/world/Combat/combat_scene.tscn`**
+3. **`src/world/combat/combat_scene.tscn`**
    - Root: `CombatScene` (script: `combat_scene.gd`)
    - Child: `CombatFlowController` (script: `combat_flow_controller.gd`) → add to group `combat_flow`
      - Child: `CombatRoundResolver` (script: `combat_round_resolver.gd`)
    - Child: `CombatUi` (Node — placeholder)
-4. **`src/ui/Mobile/Combat/mobile_combat_ui.tscn`**
+4. **`src/ui/mobile/Combat/mobile_combat_ui.tscn`**
    - Root: `MobileCombatUi` (Control, script: `mobile_combat_ui.gd`, anchor full-rect)
    - `EnemyPanel` (VBoxContainer, top 35%) → `NameLabel` + `HpBar` (ProgressBar)
    - `RoundLog` (RichTextLabel, bbcode_enabled: true, scroll_following: true)
    - `PlayerPanel` (VBoxContainer, bottom 40%) → `HpBar` + `EnergyBar` + `SkillBar` (HBoxContainer) + `TimerLabel`
-5. **`src/world/Overworld/overworld.tscn`** — instance `combat_preview_panel.tscn` as a child, name it `CombatPreviewPanel`
+5. **`src/world/overworld/overworld.tscn`** — instance `combat_preview_panel.tscn` as a child, name it `CombatPreviewPanel`
 6. **Wire `CombatUi` in `combat_scene.tscn`** — replace the placeholder `CombatUi` node with an instance of `mobile_combat_ui.tscn`
 7. **Commit** all new files + uid files
 
@@ -83,7 +83,7 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 - `CreatureData` — has `max_health`, `damage`, `armor`, `experience_reward` already
 - `src/entities/Skills/Combat/Fireball/`, `Slash/`, `Heal/` — folders scaffolded, need data resources
 - `src/entities/Systems/Equipment/` — scaffolded, implement here in Task 9
-- `src/ui/Common/AdaptiveOverlayPanel` — base class for all overlay panels
+- `src/ui/common/AdaptiveOverlayPanel` — base class for all overlay panels
 
 ## Testing pattern
 
@@ -846,8 +846,8 @@ git commit -m "feat(combat): extend CreatureData with skill_loadout and ai_strat
 ### Task 12: CombatPreviewPanel overlay
 
 **Files:**
-- Create: `src/ui/Common/CombatPreviewPanel/combat_preview_panel.gd`
-- Create: `src/ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`
+- Create: `src/ui/common/CombatPreviewPanel/combat_preview_panel.gd`
+- Create: `src/ui/common/CombatPreviewPanel/combat_preview_panel.tscn`
 
 **Step 1: Write the script**
 
@@ -927,7 +927,7 @@ CombatPreviewPanel (script: combat_preview_panel.gd, extends AdaptiveOverlayPane
 
 **Step 3: Commit**
 ```bash
-git add src/ui/Common/CombatPreviewPanel/
+git add src/ui/common/CombatPreviewPanel/
 git commit -m "feat(combat): add CombatPreviewPanel overlay"
 ```
 
@@ -938,8 +938,8 @@ git commit -m "feat(combat): add CombatPreviewPanel overlay"
 ### Task 13: Combat scene entry point
 
 **Files:**
-- Create: `src/world/Combat/combat_scene.tscn`
-- Create: `src/world/Combat/combat_scene.gd`
+- Create: `src/world/combat/combat_scene.tscn`
+- Create: `src/world/combat/combat_scene.gd`
 
 **Step 1: Write combat_scene.gd**
 
@@ -992,7 +992,7 @@ CombatScene (script: combat_scene.gd)
 
 **Step 3: Commit**
 ```bash
-git add src/world/Combat/
+git add src/world/combat/
 git commit -m "feat(combat): add combat scene entry point"
 ```
 
@@ -1001,8 +1001,8 @@ git commit -m "feat(combat): add combat scene entry point"
 ### Task 14: Mobile combat UI layout
 
 **Files:**
-- Create: `src/ui/Mobile/Combat/mobile_combat_ui.tscn`
-- Create: `src/ui/Mobile/Combat/mobile_combat_ui.gd`
+- Create: `src/ui/mobile/Combat/mobile_combat_ui.tscn`
+- Create: `src/ui/mobile/Combat/mobile_combat_ui.gd`
 
 **Step 1: Write mobile_combat_ui.gd**
 
@@ -1132,7 +1132,7 @@ MobileCombatUi (Control, script: mobile_combat_ui.gd, anchor: full rect)
 
 **Step 4: Commit**
 ```bash
-git add src/ui/Mobile/Combat/
+git add src/ui/mobile/Combat/
 git commit -m "feat(combat): add mobile combat UI layout"
 ```
 
@@ -1143,14 +1143,14 @@ git commit -m "feat(combat): add mobile combat UI layout"
 ### Task 15: Wire overworld → preview panel → combat
 
 **Files:**
-- Modify: `src/world/Overworld/overworld.gd` (or `overworld.tscn`)
-- Modify: `src/world/Overworld/overworld_creature_selection_controller.gd`
+- Modify: `src/world/overworld/overworld.gd` (or `overworld.tscn`)
+- Modify: `src/world/overworld/overworld_creature_selection_controller.gd`
 
 **Context:** `CreatureEvents.creature_fight_requested` is already emitted when the player taps FIGHT on the creature HUD. Currently nothing listens to it. We intercept it to show the preview panel instead of going directly to combat.
 
 **Step 1: Add CombatPreviewPanel to the overworld scene**
 
-In the Godot editor, open `src/world/Overworld/overworld.tscn`:
+In the Godot editor, open `src/world/overworld/overworld.tscn`:
 - Add `CombatPreviewPanel` node (instance `combat_preview_panel.tscn`) as a child of the root
 - Name it `CombatPreviewPanel`
 
@@ -1217,10 +1217,10 @@ The `GameManager` emits `game_state_changed`. Find where the overworld listens t
 ```gdscript
 func _on_game_state_changed(old_state: GameManager.GameState, new_state: GameManager.GameState) -> void:
 	if new_state == GameManager.GameState.COMBAT:
-		get_tree().change_scene_to_file("res://src/world/Combat/combat_scene.tscn")
+		get_tree().change_scene_to_file("res://src/world/combat/combat_scene.tscn")
 ```
 
-Check `src/world/main.tscn` / `src/world/Overworld/overworld_session_controller.gd` for where scene transitions are already handled and add the COMBAT case there.
+Check `src/world/main.tscn` / `src/world/overworld/overworld_session_controller.gd` for where scene transitions are already handled and add the COMBAT case there.
 
 **Step 4: Manual smoke test**
 
@@ -1233,7 +1233,7 @@ Check `src/world/main.tscn` / `src/world/Overworld/overworld_session_controller.
 
 **Step 5: Commit**
 ```bash
-git add src/world/Overworld/overworld.gd src/world/Overworld/overworld.tscn
+git add src/world/overworld/overworld.gd src/world/overworld/overworld.tscn
 git commit -m "feat(combat): wire overworld → preview panel → combat scene"
 ```
 
@@ -1316,7 +1316,7 @@ func _on_combat_ended(result: CombatRoundResult) -> void:
 
 **Step 4: Commit**
 ```bash
-git add src/core/player_profile_service.gd src/world/Overworld/overworld.gd
+git add src/core/player_profile_service.gd src/world/overworld/overworld.gd
 git commit -m "feat(combat): add XP and level tracking to PlayerProfileService"
 ```
 

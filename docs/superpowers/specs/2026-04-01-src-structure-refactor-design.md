@@ -13,7 +13,7 @@ consistent naming scheme.
 
 - Keep the current top-level roots: `Common`, `Config`, `Core`, `Entities`,
   `Localization`, `Ui`, `World`
-- Keep shared asset roots such as `src/ui/Assets` in place
+- Keep shared asset roots such as `src/ui/assets` in place
 - Prefer structure and naming changes over behavior changes
 - Update all references in the same pass as each move or rename
 - Avoid large one-shot migrations that make breakage hard to isolate
@@ -216,7 +216,7 @@ Each pass must leave the project in a loadable state.
 - redesigning system ownership just because another arrangement could also work
 - changing gameplay behavior, feature boundaries, or scene composition beyond what is
   required for structural moves
-- relocating shared asset roots such as `src/ui/Assets`
+- relocating shared asset roots such as `src/ui/assets`
 
 ## Acceptance Criteria
 

@@ -1,6 +1,6 @@
 [gd_resource type="StyleBoxTexture" format=3 uid="uid://cw3mblgu5tiwh"]
 
-[ext_resource type="Texture2D" uid="uid://cr0a5c66j5er" path="res://src/ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/F_UI_MenuButton_A1.png" id="1_button"]
+[ext_resource type="Texture2D" uid="uid://cr0a5c66j5er" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/F_UI_MenuButton_A1.png" id="1_button"]
 
 [resource]
 content_margin_left = 20.0

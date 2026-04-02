@@ -36,7 +36,7 @@ Restructure folder layout, remove legacy patterns, and decompose god-classes for
 ### Phase 4: UI cleanup
 
 - [x] Task 11: Delete empty platform HUD variants (`system_hud_macos.gd`, `system_hud_mobile.gd`)
-- [x] Task 12: Consolidate debug overlay to `src/ui/Common/Debug/`
+- [x] Task 12: Consolidate debug overlay to `src/ui/common/Debug/`
 
 ### Phase 5: Code quality
 

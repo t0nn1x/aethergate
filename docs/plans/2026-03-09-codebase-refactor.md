@@ -20,11 +20,11 @@
 - `src/Map/main.gd` → `src/world/main.gd`
 - `src/Map/main.gd.uid` → `src/world/main.gd.uid`
 - `src/Map/main.tscn` → `src/world/main.tscn`
-- `src/Map/Overworld/overworld.tscn` → `src/world/Overworld/overworld.tscn`
-- `src/Map/Overworld/Chunks/` → `src/world/Overworld/Chunks/` (entire directory)
-- `src/Map/Overworld/Shaders/` → `src/world/Overworld/Shaders/` (entire directory)
-- `src/Map/Overworld/Tilesets/` → `src/world/Overworld/Tilesets/` (entire directory)
-- `src/Map/Locations/` → `src/world/Locations/` (entire directory)
+- `src/Map/Overworld/overworld.tscn` → `src/world/overworld/overworld.tscn`
+- `src/Map/Overworld/Chunks/` → `src/world/overworld/chunks/` (entire directory)
+- `src/Map/Overworld/Shaders/` → `src/world/overworld/shaders/` (entire directory)
+- `src/Map/Overworld/tilesets/` → `src/world/overworld/tilesets/` (entire directory)
+- `src/Map/Locations/` → `src/world/locations/` (entire directory)
 
 **Step 1: Move all files**
 
@@ -32,11 +32,11 @@
 git mv src/Map/main.gd src/world/main.gd
 git mv src/Map/main.gd.uid src/world/main.gd.uid
 git mv src/Map/main.tscn src/world/main.tscn
-git mv src/Map/Overworld/overworld.tscn src/world/Overworld/overworld.tscn
-git mv src/Map/Overworld/Chunks src/world/Overworld/Chunks
-git mv src/Map/Overworld/Shaders src/world/Overworld/Shaders
-git mv src/Map/Overworld/Tilesets src/world/Overworld/Tilesets
-git mv src/Map/Locations src/world/Locations
+git mv src/Map/Overworld/overworld.tscn src/world/overworld/overworld.tscn
+git mv src/Map/Overworld/Chunks src/world/overworld/chunks
+git mv src/Map/Overworld/Shaders src/world/overworld/shaders
+git mv src/Map/Overworld/Tilesets src/world/overworld/tilesets
+git mv src/Map/Locations src/world/locations
 # Remove the now-empty src/Map/ directory
 ```
 
@@ -48,12 +48,12 @@ These files contain hardcoded `res://src/Map/` paths that must be updated:
 |---|---|---|---|
 | `project.godot` | `run/main_scene` | `res://src/Map/main.tscn` | `res://src/world/main.tscn` |
 | `src/world/main.tscn` | ext_resource path | `res://src/Map/main.gd` | `res://src/world/main.gd` |
-| `src/world/main.tscn` | ext_resource path | `res://src/Map/Overworld/overworld.tscn` | `res://src/world/Overworld/overworld.tscn` |
-| `src/ui/Common/startup_splash_screen.tscn` | ext_resource path | `res://src/Map/main.tscn` | `res://src/world/main.tscn` |
-| `src/world/Streaming/chunk_manager.gd:12` | `@export_dir` default | `res://src/Map/Overworld/Chunks/Midra` | `res://src/world/Overworld/Chunks/Midra` |
-| `src/world/Streaming/overworld_chunk_water_shader.gd:11` | `load()` path | `res://src/Map/Overworld/Shaders/water.gdshader` | `res://src/world/Overworld/Shaders/water.gdshader` |
+| `src/world/main.tscn` | ext_resource path | `res://src/Map/Overworld/overworld.tscn` | `res://src/world/overworld/overworld.tscn` |
+| `src/ui/common/startup_splash_screen.tscn` | ext_resource path | `res://src/Map/main.tscn` | `res://src/world/main.tscn` |
+| `src/world/streaming/chunk_manager.gd:12` | `@export_dir` default | `res://src/Map/Overworld/Chunks/Midra` | `res://src/world/overworld/chunks/Midra` |
+| `src/world/streaming/overworld_chunk_water_shader.gd:11` | `load()` path | `res://src/Map/Overworld/Shaders/water.gdshader` | `res://src/world/overworld/shaders/water.gdshader` |
 
-Also search-and-replace `res://src/Map/` → `res://src/world/` across ALL `.tscn` files in `src/world/Overworld/` (chunk scenes reference tilesets, chunk script, etc. via `path=` attributes). Godot resolves by `uid://` first, but stale `path=` values cause editor warnings.
+Also search-and-replace `res://src/Map/` → `res://src/world/` across ALL `.tscn` files in `src/world/overworld/` (chunk scenes reference tilesets, chunk script, etc. via `path=` attributes). Godot resolves by `uid://` first, but stale `path=` values cause editor warnings.
 
 **Step 3: Update CLAUDE.md and doc references**
 
@@ -239,7 +239,7 @@ func _emit_player_spawned_event() -> void:
 
 **Step 2: Fix `overworld.gd` — remove EventBus fallbacks**
 
-In `src/world/Overworld/overworld.gd`, replace `_get_creature_event_source`:
+In `src/world/overworld/overworld.gd`, replace `_get_creature_event_source`:
 
 ```gdscript
 # Before (lines 230-234):
@@ -309,7 +309,7 @@ git commit -m "refactor(events): remove EventBus legacy shim, use typed singleto
 
 ### Task 8: Extract `OverworldCreatureSelectionController` from `overworld.gd`
 
-**Create:** `src/world/Overworld/overworld_creature_selection_controller.gd`
+**Create:** `src/world/overworld/overworld_creature_selection_controller.gd`
 
 **Step 1: Create the new controller script**
 
@@ -375,7 +375,7 @@ git commit -m "refactor(overworld): extract creature selection into dedicated co
 
 ### Task 9: Extract `OverworldCharacterCreatorController` from `overworld.gd`
 
-**Create:** `src/world/Overworld/overworld_character_creator_controller.gd`
+**Create:** `src/world/overworld/overworld_character_creator_controller.gd`
 
 **Step 1: Create the new controller script**
 
@@ -445,13 +445,13 @@ Search for references to determine if removal is safe or if the `.tscn` files ne
 
 **Step 2: Update `.tscn` files to reference `SystemHud` directly**
 
-Point the MacOS and Mobile system HUD scenes at `src/ui/Windows/Hud/SystemHud/system_hud.gd` (or move `system_hud.gd` to `src/ui/Common/Hud/` first).
+Point the MacOS and Mobile system HUD scenes at `src/ui/Windows/Hud/SystemHud/system_hud.gd` (or move `system_hud.gd` to `src/ui/common/Hud/` first).
 
 **Step 3: Delete empty scripts**
 
 ```bash
 git rm src/ui/MacOS/Hud/SystemHud/system_hud_macos.gd
-git rm src/ui/Mobile/Hud/SystemHud/system_hud_mobile.gd
+git rm src/ui/mobile/hud/system_hud/system_hud_mobile.gd
 ```
 
 **Step 4: Verify and commit**
@@ -470,9 +470,9 @@ git commit -m "refactor(ui): remove empty platform HUD variants, use shared Syst
 **Step 1: Move `debug_overlay.gd` to shared location**
 
 ```bash
-mkdir -p src/ui/Common/Debug
-git mv src/ui/Windows/Debug/debug_overlay.gd src/ui/Common/Debug/debug_overlay.gd
-git mv src/ui/Windows/Debug/debug_overlay.gd.uid src/ui/Common/Debug/debug_overlay.gd.uid
+mkdir -p src/ui/common/Debug
+git mv src/ui/Windows/Debug/debug_overlay.gd src/ui/common/Debug/debug_overlay.gd
+git mv src/ui/Windows/Debug/debug_overlay.gd.uid src/ui/common/Debug/debug_overlay.gd.uid
 ```
 
 **Step 2: Add platform-aware padding to `DebugOverlay`**
@@ -493,14 +493,14 @@ Or make `screen_padding` an `@export` so each `.tscn` scene can set it.
 **Step 4: Move debug providers to shared location**
 
 ```bash
-git mv src/ui/Windows/Debug/Providers src/ui/Common/Debug/Providers
+git mv src/ui/Windows/Debug/Providers src/ui/common/Debug/Providers
 ```
 
 **Step 5: Verify and commit**
 
 ```bash
 git add -A
-git commit -m "refactor(ui): consolidate debug overlay into src/ui/Common/Debug"
+git commit -m "refactor(ui): consolidate debug overlay into src/ui/common/Debug"
 ```
 
 ---

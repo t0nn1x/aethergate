@@ -521,7 +521,7 @@ func _on_settings_vsync_pressed() -> void:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	_update_vsync_button_label()
 	if _music_service:
-		_music_service.play_sfx("res://src/ui/Assets/Sounds/UI_Button_Enable.mp3", -3.0)
+		_music_service.play_sfx("res://src/ui/assets/Sounds/UI_Button_Enable.mp3", -3.0)
 
 
 func _update_vsync_button_label() -> void:
@@ -543,7 +543,7 @@ func _on_volume_changed(value: float) -> void:
 
 func _play_volume_sound() -> void:
 	if _music_service:
-		_music_service.play_sfx("res://src/ui/Assets/Sounds/UI_Keypad_Confirmed .mp3", -3.0)
+		_music_service.play_sfx("res://src/ui/assets/Sounds/UI_Keypad_Confirmed .mp3", -3.0)
 
 
 func _sync_volume_slider() -> void:

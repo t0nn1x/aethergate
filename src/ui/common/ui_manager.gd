@@ -11,7 +11,7 @@ const MAIN_SCREEN_MOBILE_SCENE: PackedScene = preload("res://src/ui/mobile/main_
 const INVENTORY_PANEL_DESKTOP_SCENE: PackedScene = preload("res://src/ui/desktop/inventory/inventory_panel.tscn")
 const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/ui/mobile/inventory/inventory_panel_mobile.tscn")
 const INVENTORY_CLOSE_ICON: Texture2D = preload(
-	"res://src/ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/close_button.png"
+	"res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/close_button.png"
 )
 
 @export var main_screen_path: NodePath = ^"../MainScreen"

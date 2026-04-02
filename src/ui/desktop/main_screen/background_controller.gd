@@ -4,7 +4,7 @@ extends Node
 ## Applies a random cloud variation set at startup.
 ## All layers are loaded from one selected folder (Clouds 1..Clouds N).
 
-@export_dir var backgrounds_root: String = "res://src/ui/Assets/Parallax-Backgrounds"
+@export_dir var backgrounds_root: String = "res://src/ui/assets/Parallax-Backgrounds"
 @export var background_set_prefix: String = "Clouds"
 @export var layers_root_path: NodePath = ^"../Root/BackgroundContainer"
 @export var random_seed_override: int = -1

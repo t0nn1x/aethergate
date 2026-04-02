@@ -14,9 +14,9 @@ const DRAG_DATA_ICON_KEY: StringName = &"icon"
 const DRAG_DATA_AMOUNT_KEY: StringName = &"amount"
 const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 
-@export var slot_texture: Texture2D = preload("res://src/ui/Assets/UI-v1/Panels/Slots/F_U_SlotA2.png")
-@export var circular_slot_texture: Texture2D = preload("res://src/ui/Assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png")
-@export var title_plate_texture: Texture2D = preload("res://src/ui/Assets/UI-v1/Panels/Titles/F_UI_Title B.png")
+@export var slot_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotA2.png")
+@export var circular_slot_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png")
+@export var title_plate_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Panels/Titles/F_UI_Title B.png")
 @export var board_style_profile: UiPanelStyleProfile = preload("res://src/ui/common/styles/profiles/inventory_board_style.tres")
 @export var section_style_profile: UiPanelStyleProfile = preload("res://src/ui/common/styles/profiles/inventory_section_style.tres")
 @export var title_style_profile: UiTextStyleProfile = preload("res://src/ui/common/styles/profiles/inventory_title_style.tres")

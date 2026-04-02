@@ -12,8 +12,8 @@ extends Node
 ##   # wire: _button_group.button_focused.connect(func(_b): _sfx.play_hover())
 
 @export var service_path: NodePath = ^"/root/MusicPlayer"
-@export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/ui/Assets/Sounds/UI_Button_Click_2.mp3"
-@export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/ui/Assets/Sounds/UI_Button_Click_8.mp3"
+@export_file("*.mp3", "*.wav", "*.ogg") var hover_sound_path: String = "res://src/ui/assets/Sounds/UI_Button_Click_2.mp3"
+@export_file("*.mp3", "*.wav", "*.ogg") var click_sound_path: String = "res://src/ui/assets/Sounds/UI_Button_Click_8.mp3"
 @export_range(-40.0, 12.0, 0.1) var hover_volume_db: float = -10.0
 @export_range(-40.0, 12.0, 0.1) var click_volume_db: float = -3.0
 @export var sfx_bus_name: String = "SFX"

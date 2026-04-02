@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://fl2k81kslgin"]
 
-[ext_resource type="Texture2D" uid="uid://v0cfg3pyrb1g" path="res://src/ui/Assets/Gui-Hud/Buttons/Gold Buttons/Gold Btn C_01.png" id="1_ml6wr"]
-[ext_resource type="Texture2D" uid="uid://bk6x0424ctdaa" path="res://src/ui/Assets/Gui-Hud/Panels/Panels/F_UI_Panel_G.png" id="1_oj7jh"]
+[ext_resource type="Texture2D" uid="uid://v0cfg3pyrb1g" path="res://src/ui/assets/Gui-Hud/Buttons/Gold Buttons/Gold Btn C_01.png" id="1_ml6wr"]
+[ext_resource type="Texture2D" uid="uid://bk6x0424ctdaa" path="res://src/ui/assets/Gui-Hud/Panels/Panels/F_UI_Panel_G.png" id="1_oj7jh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj7jh"]
 texture = ExtResource("1_ml6wr")

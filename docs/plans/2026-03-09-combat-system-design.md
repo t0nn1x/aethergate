@@ -19,7 +19,7 @@ Tactical turn-based combat with gear-defined roles (Albion-inspired) and simulta
 | Skills | Hybrid: base skills + gear-granted skills | Base attack/dodge always available; gear adds depth |
 | Progression | Levels + Gear + Gear Mastery (3 axes) | See Progression section |
 | Loss | Soft loss now (respawn, resource penalty) | Zone-based risk designed in, implemented later |
-| Scene location | `src/world/Combat/` entry, `src/entities/Systems/Combat/` logic | Mirrors Overworld pattern |
+| Scene location | `src/world/combat/` entry, `src/entities/Systems/Combat/` logic | Mirrors Overworld pattern |
 
 ---
 
@@ -34,7 +34,7 @@ OVERWORLD
             └─ CreatureEvents.combat_preview_requested(creature_data)
                  └─ CombatPreviewPanel (AdaptiveOverlayPanel, overworld overlay)
                       ├─ [FIGHT] → GameManager.change_state(COMBAT)
-                      │             → loads src/world/Combat/combat_scene.tscn
+                      │             → loads src/world/combat/combat_scene.tscn
                       └─ [X]     → dismiss, overworld resumes
 
 COMBAT SCENE
@@ -58,7 +58,7 @@ COMBAT SCENE
 ### Scene Structure
 
 ```
-src/world/Combat/
+src/world/combat/
   ├─ combat_scene.tscn        ← entry point loaded by GameManager
   └─ combat_scene.gd          ← wires CombatFlowController + UiManager
 
@@ -84,12 +84,12 @@ src/entities/Skills/Combat/
 src/core/events/
   └─ combat_events.gd                   ← new autoload
 
-src/ui/Common/CombatPreviewPanel/
+src/ui/common/CombatPreviewPanel/
   ├─ combat_preview_panel.tscn
   └─ combat_preview_panel.gd
 
 src/ui/Windows/Combat/                  ← desktop UI layout
-src/ui/Mobile/Combat/                   ← mobile UI layout
+src/ui/mobile/Combat/                   ← mobile UI layout
 ```
 
 ---

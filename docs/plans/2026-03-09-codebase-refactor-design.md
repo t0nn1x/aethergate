@@ -13,9 +13,9 @@ Consolidate split directories, co-locate scenes with scripts, fix naming.
 | Before | After | Reason |
 |---|---|---|
 | `src/Map/main.tscn`, `main.gd` | `src/world/main.tscn`, `main.gd` | Co-locate with World scripts |
-| `src/Map/Overworld/Chunks/` | `src/world/Overworld/Chunks/` | Co-locate chunk scenes with chunk scripts |
-| `src/Map/Overworld/Shaders/` | `src/world/Overworld/Shaders/` | Co-locate with World |
-| `src/Map/Locations/` | `src/world/Locations/` | Co-locate with World |
+| `src/Map/Overworld/Chunks/` | `src/world/overworld/chunks/` | Co-locate chunk scenes with chunk scripts |
+| `src/Map/Overworld/Shaders/` | `src/world/overworld/shaders/` | Co-locate with World |
+| `src/Map/Locations/` | `src/world/locations/` | Co-locate with World |
 | `src/Map/` | (deleted) | Fully merged into `src/world/` |
 | `src/common/State_Machine/` | `src/common/state_machine/` | Consistent naming (no underscores in folder names) |
 | `src/Utilities/music_player.gd` | `src/core/music_player.gd` | It's an autoload — lives with other autoloads |
@@ -73,7 +73,7 @@ Currently only 3 Windows panels extend it. MacOS and Mobile variants don't. All 
 
 ### 3b — Platform variant base classes
 
-Extract shared behavior into base scripts in `src/ui/Common/`:
+Extract shared behavior into base scripts in `src/ui/common/`:
 - `BaseInventoryPanel` — open/close, slot binding, toggle signal
 - `BaseSystemHud` — slot input, layout lifecycle
 
@@ -81,7 +81,7 @@ Platform variants inherit and override only platform-specific differences.
 
 ### 3c — Consolidate debug overlay
 
-Merge `debug_overlay.gd` (Windows) and `debug_overlay_macos.gd` into one shared debug overlay at `src/ui/Common/Debug/debug_overlay.gd`.
+Merge `debug_overlay.gd` (Windows) and `debug_overlay_macos.gd` into one shared debug overlay at `src/ui/common/Debug/debug_overlay.gd`.
 
 ## Sequencing
 

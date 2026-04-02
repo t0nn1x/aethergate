@@ -12,7 +12,7 @@ Created: 2026-03-09
 Self-contained bounded context split across two directories:
 
 - `src/entities/Systems/Combat/` — pure logic (resolver, context, flow controller, AI)
-- `src/world/Combat/` — scene entry point
+- `src/world/combat/` — scene entry point
 - `src/ui/` — platform-split combat UI (Windows first, Mobile later)
 
 ### Data flow

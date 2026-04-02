@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://536p3ihsfljg" path="res://src/ui/desktop/character_creator/character_creator_panel.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/ui/desktop/main_screen/main_screen_theme.tres" id="2_theme"]
-[ext_resource type="Texture2D" uid="uid://c7ktrut73mkwd" path="res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_O_2.png" id="3_panel"]
-[ext_resource type="Texture2D" uid="uid://def4a0ahau708" path="res://src/ui/Assets/UI-v2/Frames.png" id="4_frames"]
-[ext_resource type="Texture2D" uid="uid://5iq4g0kymi7a" path="res://src/ui/Assets/Creator-Backgrounds/creator_bg1.png" id="5_creator_bg"]
-[ext_resource type="Texture2D" uid="uid://v7hmijsxd0an" path="res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_H.png" id="6_banner"]
+[ext_resource type="Texture2D" uid="uid://c7ktrut73mkwd" path="res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_O_2.png" id="3_panel"]
+[ext_resource type="Texture2D" uid="uid://def4a0ahau708" path="res://src/ui/assets/UI-v2/Frames.png" id="4_frames"]
+[ext_resource type="Texture2D" uid="uid://5iq4g0kymi7a" path="res://src/ui/assets/Creator-Backgrounds/creator_bg1.png" id="5_creator_bg"]
+[ext_resource type="Texture2D" uid="uid://v7hmijsxd0an" path="res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_H.png" id="6_banner"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_main"]
 texture = ExtResource("3_panel")

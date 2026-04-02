@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://j4heyik5ulas"]
 
 [ext_resource type="Script" uid="uid://citdv614f6uom" path="res://src/world/overworld/Chunks/chunk.gd" id="1_civqt"]
-[ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://src/world/overworld/Tilesets/terrain.tres" id="2_c24rx"]
-[ext_resource type="TileSet" uid="uid://drh67q7act3gk" path="res://src/world/overworld/Tilesets/objects.tres" id="3_wp7ly"]
+[ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://src/world/overworld/tilesets/terrain.tres" id="2_c24rx"]
+[ext_resource type="TileSet" uid="uid://drh67q7act3gk" path="res://src/world/overworld/tilesets/objects.tres" id="3_wp7ly"]
 [ext_resource type="Script" uid="uid://c0dt48itn6h6n" path="res://src/entities/creatures/spawning/creature_spawn_zone.gd" id="4_spawn_zone"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vp8hi"]

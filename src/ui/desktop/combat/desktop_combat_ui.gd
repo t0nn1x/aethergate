@@ -5,7 +5,7 @@ extends Control
 ## Battleback background, animated combatant sprites, Godot-native styled
 ## progress bars (StyleBoxFlat), and gold-themed skill buttons.
 
-const BATTLEBACK_DIR: String = "res://src/ui/Assets/Battlebacks/combined presets/"
+const BATTLEBACK_DIR: String = "res://src/ui/assets/Battlebacks/combined presets/"
 const BATTLEBACK_COUNT: int = 27
 
 @onready var _battleback: TextureRect = $Battleback
@@ -41,7 +41,7 @@ var _pending_enemy_phase: CombatPhaseResult = null
 
 
 func _ready() -> void:
-	var charge := load("res://src/ui/Assets/Gui-Hud/Charge Bars/Charge Bars A_05.png") as Texture2D
+	var charge := load("res://src/ui/assets/Gui-Hud/Charge Bars/Charge Bars A_05.png") as Texture2D
 	_player_hp_frame.texture = charge
 	_player_energy_frame.texture = charge
 	_enemy_hp_frame.texture = charge

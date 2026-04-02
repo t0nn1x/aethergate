@@ -10,48 +10,48 @@ const AWESOME_FONT_PATH := "res://Assets/Fonts/awesome/Awesome 9.ttf"
 
 # 9-slice panel textures
 const PANEL_PATHS: Array[String] = [
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_A.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_B.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_C.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_D.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_E.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_F.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_G.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_H.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_I.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_L.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_M.png",
-	"res://src/ui/Assets/UI-v1/Panels/Panels/F_UI_Panel_N.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_A.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_B.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_C.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_D.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_E.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_F.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_G.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_H.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_I.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_L.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_M.png",
+	"res://src/ui/assets/UI-v1/Panels/Panels/F_UI_Panel_N.png",
 ]
 
 const TITLE_PATHS: Array[String] = [
-	"res://src/ui/Assets/UI-v1/Panels/Titles/F_UI_Title A.png",
-	"res://src/ui/Assets/UI-v1/Panels/Titles/F_UI_Title B.png",
-	"res://src/ui/Assets/UI-v1/Panels/Titles/F_UI_Title C.png",
-	"res://src/ui/Assets/UI-v1/Panels/Titles/F_UI_Title D.png",
-	"res://src/ui/Assets/UI-v1/Panels/Titles/F_UI_Title E.png",
+	"res://src/ui/assets/UI-v1/Panels/Titles/F_UI_Title A.png",
+	"res://src/ui/assets/UI-v1/Panels/Titles/F_UI_Title B.png",
+	"res://src/ui/assets/UI-v1/Panels/Titles/F_UI_Title C.png",
+	"res://src/ui/assets/UI-v1/Panels/Titles/F_UI_Title D.png",
+	"res://src/ui/assets/UI-v1/Panels/Titles/F_UI_Title E.png",
 ]
 
 const FRAME_PATHS: Array[String] = [
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame0.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame1.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame2.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame3.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame4.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame5.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame6.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame7.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame8.png",
-	"res://src/ui/Assets/UI-v1/Panels/Frames/F_U_Frame9.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame0.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame1.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame2.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame3.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame4.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame5.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame6.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame7.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame8.png",
+	"res://src/ui/assets/UI-v1/Panels/Frames/F_U_Frame9.png",
 ]
 
 const SLOT_PATHS: Array[String] = [
-	"res://src/ui/Assets/UI-v1/Panels/Slots/F_U_SlotA1.png",
-	"res://src/ui/Assets/UI-v1/Panels/Slots/F_U_SlotB1.png",
-	"res://src/ui/Assets/UI-v1/Panels/Slots/F_U_SlotC1.png",
-	"res://src/ui/Assets/UI-v1/Panels/Slots/F_U_SlotD1.png",
-	"res://src/ui/Assets/UI-v1/Panels/Slots/F_U_SlotE1.png",
-	"res://src/ui/Assets/UI-v1/Panels/Slots/F_U_SlotF1.png",
+	"res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotA1.png",
+	"res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotB1.png",
+	"res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotC1.png",
+	"res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotD1.png",
+	"res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotE1.png",
+	"res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotF1.png",
 ]
 
 # Sample icons from Assets/Icons (32x32 transparent PNGs)

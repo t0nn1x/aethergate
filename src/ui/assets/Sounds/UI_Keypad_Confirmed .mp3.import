@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://jwuoo5q1euqf"
+path="res://.godot/imported/UI_Keypad_Confirmed .mp3-e6757904bc9854ded8e5824b6a0520a4.mp3str"
+
+[deps]
+
+source_file="res://src/ui/assets/Sounds/UI_Keypad_Confirmed .mp3"
+dest_files=["res://.godot/imported/UI_Keypad_Confirmed .mp3-e6757904bc9854ded8e5824b6a0520a4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
