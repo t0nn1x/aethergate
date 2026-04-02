@@ -10,8 +10,8 @@ Each item lives in its own folder under `catalog/<Category>/.../<ItemName>/`:
 - `sprites/` - item-local icon/art used by that item
 
 Example:
-- `res://src/entities/items/catalog/Consumables/Potions/Health_Potion/data/consumable_health_potion.tres`
-- `res://src/entities/items/catalog/Consumables/Potions/Health_Potion/sprites/health_potion_icon.png`
+- `res://src/entities/items/catalog/consumables/potions/health_potion/data/consumable_health_potion.tres`
+- `res://src/entities/items/catalog/consumables/potions/health_potion/sprites/health_potion_icon.png`
 
 ## Add New Item
 

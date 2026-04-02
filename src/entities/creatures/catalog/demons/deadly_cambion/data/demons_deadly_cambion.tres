@@ -8,4 +8,4 @@ script = ExtResource("1_mv4i1")
 creature_id = "demons_deadly_cambion"
 creature_type = 8
 source_category = "demons"
-source_sprite_path = "res://src/entities/creatures/catalog/demons/deadly_cambion/sprites/DeadlyCambionIdleSide/DeadlyCambion_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/demons/deadly_cambion/sprites/deadly_cambion_idle_side/DeadlyCambion_128x32.png"

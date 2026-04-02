@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drw6ixdqneakl"
-path="res://.godot/imported/BulgingIncubus.png-fe370533b8ed49c42000b7103306fd7f.ctex"
+uid="uid://b43yypne30gnq"
+path="res://.godot/imported/BulgingIncubus_128x32.png-d4d3855f32217b93c69c737805691eda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/entities/creatures/catalog/demons/bulging_incubus/sprites/BulgingIncubusIdleSide/BulgingIncubus.png"
-dest_files=["res://.godot/imported/BulgingIncubus.png-fe370533b8ed49c42000b7103306fd7f.ctex"]
+source_file="res://src/entities/creatures/catalog/demons/bulging_incubus/sprites/bulging_incubus_idle_side/BulgingIncubus_128x32.png"
+dest_files=["res://.godot/imported/BulgingIncubus_128x32.png-d4d3855f32217b93c69c737805691eda.ctex"]
 
 [params]
 

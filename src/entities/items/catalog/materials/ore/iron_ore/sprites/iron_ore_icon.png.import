@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkldfrbugl8t2"
-path="res://.godot/imported/health_potion_icon.png-08a7c0bb90cb7a2e668632d3acc09d98.ctex"
+uid="uid://cyhna66iywyyy"
+path="res://.godot/imported/iron_ore_icon.png-885aedb364684102356c08e5557db634.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/entities/items/catalog/Consumables/Potions/Health_Potion/sprites/health_potion_icon.png"
-dest_files=["res://.godot/imported/health_potion_icon.png-08a7c0bb90cb7a2e668632d3acc09d98.ctex"]
+source_file="res://src/entities/items/catalog/materials/ore/iron_ore/sprites/iron_ore_icon.png"
+dest_files=["res://.godot/imported/iron_ore_icon.png-885aedb364684102356c08e5557db634.ctex"]
 
 [params]
 

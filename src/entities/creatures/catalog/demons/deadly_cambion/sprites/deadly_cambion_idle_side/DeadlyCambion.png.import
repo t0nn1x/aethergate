@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf5wyd5xkopfw"
-path="res://.godot/imported/mana_tonic_icon.png-73aa4b86885143b1df06ec5b3a95f8da.ctex"
+uid="uid://c2phh1two5xwi"
+path="res://.godot/imported/DeadlyCambion.png-a700bcc1980f0bcb8ba4e7123cb5563f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/entities/items/catalog/Consumables/Potions/Mana_Potion/sprites/mana_tonic_icon.png"
-dest_files=["res://.godot/imported/mana_tonic_icon.png-73aa4b86885143b1df06ec5b3a95f8da.ctex"]
+source_file="res://src/entities/creatures/catalog/demons/deadly_cambion/sprites/deadly_cambion_idle_side/DeadlyCambion.png"
+dest_files=["res://.godot/imported/DeadlyCambion.png-a700bcc1980f0bcb8ba4e7123cb5563f.ctex"]
 
 [params]
 

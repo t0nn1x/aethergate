@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b43yypne30gnq"
-path="res://.godot/imported/BulgingIncubus_128x32.png-d4d3855f32217b93c69c737805691eda.ctex"
+uid="uid://cf5wyd5xkopfw"
+path="res://.godot/imported/mana_tonic_icon.png-73aa4b86885143b1df06ec5b3a95f8da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/entities/creatures/catalog/demons/bulging_incubus/sprites/BulgingIncubusIdleSide/BulgingIncubus_128x32.png"
-dest_files=["res://.godot/imported/BulgingIncubus_128x32.png-d4d3855f32217b93c69c737805691eda.ctex"]
+source_file="res://src/entities/items/catalog/consumables/potions/mana_potion/sprites/mana_tonic_icon.png"
+dest_files=["res://.godot/imported/mana_tonic_icon.png-73aa4b86885143b1df06ec5b3a95f8da.ctex"]
 
 [params]
 
