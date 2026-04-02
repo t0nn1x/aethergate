@@ -56,8 +56,8 @@ Append a path to the array in `overworld.gd → _build_player_snapshot()`:
 
 ```gdscript
 for vfx_path: String in [
-    "res://src/entities/systems/combat/assets/VFX/Hit Horizontal White.png",
-    "res://src/entities/systems/combat/assets/VFX/Hit Vertical White.png",
+    "res://src/entities/systems/combat/assets/vfx/Hit Horizontal White.png",
+    "res://src/entities/systems/combat/assets/vfx/Hit Vertical White.png",
     # add new paths here
 ]:
 ```
@@ -68,7 +68,7 @@ Set the six `vfx_*` fields on the `SkillData` resource in the Godot editor. For 
 
 ## Assets
 
-VFX sprite sheets live in `src/entities/systems/combat/assets/VFX/`. All are 5-frame horizontal strips (single row).
+VFX sprite sheets live in `src/entities/systems/combat/assets/vfx/`. All are 5-frame horizontal strips (single row).
 
 | File | Used for |
 |---|---|

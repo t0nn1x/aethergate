@@ -5,7 +5,7 @@ extends Node
 ## No combat AI/state-machine logic lives here.
 
 const Creature = preload("res://src/entities/creatures/base/creature.gd")
-const CreatureMovementComponent = preload("res://src/entities/creatures/components/Movement/creature_movement_component.gd")
+const CreatureMovementComponent = preload("res://src/entities/creatures/components/movement/creature_movement_component.gd")
 const CreatureNavigationComponent = preload("res://src/common/navigation/creature_navigation_component.gd")
 const CreatureData = preload("res://src/entities/creatures/base/creature_data.gd")
 const PlayerMoveTargetBlockerComponent = preload("res://src/common/navigation/player_move_target_blocker_component.gd")

@@ -1,9 +1,9 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature.gd" id="1"]
-[ext_resource type="Script" path="res://src/entities/creatures/components/Visual/creature_visual_component.gd" id="2_vis"]
-[ext_resource type="Script" path="res://src/entities/creatures/components/Movement/creature_movement_component.gd" id="3_move"]
-[ext_resource type="Script" path="res://src/entities/creatures/components/Wander/creature_wander_component.gd" id="4_wander"]
+[ext_resource type="Script" path="res://src/entities/creatures/components/visual/creature_visual_component.gd" id="2_vis"]
+[ext_resource type="Script" path="res://src/entities/creatures/components/movement/creature_movement_component.gd" id="3_move"]
+[ext_resource type="Script" path="res://src/entities/creatures/components/wander/creature_wander_component.gd" id="4_wander"]
 [ext_resource type="Script" path="res://src/common/navigation/player_move_target_blocker_component.gd" id="5_blocker"]
 [ext_resource type="Script" path="res://src/common/navigation/creature_navigation_component.gd" id="11_nav"]
 [ext_resource type="Shader" path="res://src/common/shaders/silhouette.gdshader" id="7"]

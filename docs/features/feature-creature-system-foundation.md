@@ -42,11 +42,11 @@ Created: 2026-02-15
   Logging (minimal): only warnings when required nodes/resources are missing or invalid.
 
 - [x] Task 5: Add reusable creature runtime components (`CreatureVisualComponent`, `CreatureMovementComponent`) modeled after player component style, with typed references and no repeated `get_node()` in hot paths.
-  Files: `src/entities/creatures/components/Visual/creature_visual_component.gd`, `src/entities/creatures/components/Movement/creature_movement_component.gd`, `src/entities/creatures/base/creature.tscn`
+  Files: `src/entities/creatures/components/visual/creature_visual_component.gd`, `src/entities/creatures/components/movement/creature_movement_component.gd`, `src/entities/creatures/base/creature.tscn`
   Logging (minimal): one warning per missing dependency node; suppress frame-level logs.
 
 - [x] Task 6: Add first-pass navigation-aware ambient wander behavior using `CreatureNavigationComponent` and behavior tuning from `CreatureData`.
-  Files: `src/common/navigation/creature_navigation_component.gd`, `src/entities/creatures/components/Wander/creature_wander_component.gd`, `src/entities/creatures/base/creature.tscn`
+  Files: `src/common/navigation/creature_navigation_component.gd`, `src/entities/creatures/components/wander/creature_wander_component.gd`, `src/entities/creatures/base/creature.tscn`
   Logging (minimal): state-transition warnings/errors only; no per-frame behavior logs.
 
 ### Phase 3: Spawning and World Integration

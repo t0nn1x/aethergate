@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://src/entities/systems/combat/assets/VFX/Hit Vertical Green.png"
+source_file="res://src/entities/systems/combat/assets/vfx/Hit Vertical Green.png"
 dest_files=["res://.godot/imported/Hit Vertical Green.png-d399dd22c967801d89af49103d5f4557.ctex"]
 
 [params]

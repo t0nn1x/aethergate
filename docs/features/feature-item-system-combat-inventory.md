@@ -29,7 +29,7 @@ Created: 2026-02-17
   Notes: Expose slots in Inspector so items can be assigned directly in editor.
 
 - [x] Task 3: Wire inventory data into player runtime via a lightweight component.
-  Files: `src/entities/systems/inventory/player_inventory_component.gd`, `src/entities/player/player.tscn`, `src/entities/player/components/Core/player_context.gd`
+  Files: `src/entities/systems/inventory/player_inventory_component.gd`, `src/entities/player/player.tscn`, `src/entities/player/components/core/player_context.gd`
   Notes: Component only provides read access for UI in this MVP.
 
 ### Phase 2: Inventory UI Grid

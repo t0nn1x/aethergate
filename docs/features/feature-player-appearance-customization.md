@@ -55,7 +55,7 @@ Created: 2026-02-23
   - Apply appearance data to textures, keep frame/flip/bob synchronized across all layers.
   - Add APIs for runtime updates: `apply_appearance(...)` and `set_weapon_visual(...)`.
   Files:
-  - `src/entities/player/components/Visual/player_visual_component.gd`
+  - `src/entities/player/components/visual/player_visual_component.gd`
   Logging requirements:
   - Minimal warnings for missing nodes/resources; avoid frame-by-frame logging.
   Depends on: Task 3
@@ -120,7 +120,7 @@ Created: 2026-02-23
   - Add a temporary update hook so weapon visuals can be switched dynamically at runtime.
   - Keep this decoupled from full equipment logic to enable later integration.
   Files:
-  - `src/entities/player/components/Visual/player_visual_component.gd`
+  - `src/entities/player/components/visual/player_visual_component.gd`
   - `src/entities/player/resources/player_cosmetic_catalog.gd`
   - `src/entities/items/item_data.gd` (optional prop key convention)
   Logging requirements:

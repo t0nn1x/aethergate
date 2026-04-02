@@ -1,7 +1,7 @@
 class_name SkillData
 extends Resource
 
-const CombatVfxConfig = preload("res://src/entities/systems/combat/Data/combat_vfx_config.gd")
+const CombatVfxConfig = preload("res://src/entities/systems/combat/data/combat_vfx_config.gd")
 
 ## Data resource defining a single combat skill.
 ## Assign .tres instances to creature skill_loadout arrays or player gear slots.

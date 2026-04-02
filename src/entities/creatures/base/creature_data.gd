@@ -116,7 +116,7 @@ func get_skill_loadout() -> Array[SkillData]:
 func get_ai_strategy() -> Resource:
 	if ai_strategy:
 		return ai_strategy
-	return load("res://src/entities/systems/combat/Ai/weighted_random_strategy.gd").new()
+	return load("res://src/entities/systems/combat/ai/weighted_random_strategy.gd").new()
 
 
 func validate_for_runtime(log_context: String = "") -> bool:

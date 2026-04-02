@@ -24,11 +24,11 @@ Created: 2026-02-15
   Logging (verbose): log once per spawned creature when blocker registry wiring succeeds/fails in debug builds (`[CreatureSpawner]` prefix).
 
 - [x] Task 2: Refactor `CreatureWanderComponent` to use `CreatureNavigationComponent` for path-following movement and use blocker target resolution before setting wander targets.
-  Files: `src/entities/creatures/components/Wander/creature_wander_component.gd`
+  Files: `src/entities/creatures/components/wander/creature_wander_component.gd`
   Logging (verbose): add debug-level traces for target pick attempts/rejections (blocked target, nav rejection reason, fallback path) and warnings for missing dependencies.
 
 - [x] Task 3: Preserve robust fallback behavior when nav/blocker dependencies are unavailable (direct movement fallback + existing timers) while still honoring spawn-radius enforcement.
-  Files: `src/entities/creatures/components/Wander/creature_wander_component.gd`
+  Files: `src/entities/creatures/components/wander/creature_wander_component.gd`
   Logging (verbose): emit one-time fallback mode notices and per-failure retry reasons in debug builds.
 
 ### Phase 2: Validation and Docs
