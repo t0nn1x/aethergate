@@ -41,7 +41,7 @@ var _pending_enemy_phase: CombatPhaseResult = null
 
 
 func _ready() -> void:
-	var charge := load("res://src/ui/assets/Gui-Hud/Charge Bars/Charge Bars A_05.png") as Texture2D
+	var charge := load("res://src/ui/assets/UI-v1/Charge Bars/Charge Bars A_05.png") as Texture2D
 	_player_hp_frame.texture = charge
 	_player_energy_frame.texture = charge
 	_enemy_hp_frame.texture = charge

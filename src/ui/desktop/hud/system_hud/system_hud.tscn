@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://de8fug3xtq2cf" path="res://src/ui/desktop/hud/system_hud/system_hud.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://fem1fwl8q3qu" path="res://Assets/Icons/Dwarf loot pack/PNG/Transperent/Icon3.png" id="3_5hucw"]
-[ext_resource type="Texture2D" uid="uid://duafcy84sgphq" path="res://src/ui/assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot.png" id="3_pc3km"]
-[ext_resource type="Texture2D" uid="uid://bgho2uf8uy2ol" path="res://src/ui/assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/skill_tree.png" id="4_set5a"]
-[ext_resource type="Texture2D" uid="uid://dimjevkxvqn26" path="res://src/ui/assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/Icon13.png" id="5_gg1e6"]
-[ext_resource type="Texture2D" uid="uid://cfyfrr7vlf3r0" path="res://src/ui/assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png" id="5_nuyrh"]
-[ext_resource type="Texture2D" uid="uid://vhylixe6p7vk" path="res://src/ui/assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/burger_menu.png" id="6_nuyrh"]
+[ext_resource type="Texture2D" uid="uid://duafcy84sgphq" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png" id="3_pc3km"]
+[ext_resource type="Texture2D" uid="uid://bgho2uf8uy2ol" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/skill_tree.png" id="4_set5a"]
+[ext_resource type="Texture2D" uid="uid://dimjevkxvqn26" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/Icon13.png" id="5_gg1e6"]
+[ext_resource type="Texture2D" uid="uid://cfyfrr7vlf3r0" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png" id="5_nuyrh"]
+[ext_resource type="Texture2D" uid="uid://vhylixe6p7vk" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/burger_menu.png" id="6_nuyrh"]
 
 [node name="SystemHud" type="CanvasLayer" unique_id=2010540959]
 layer = 26

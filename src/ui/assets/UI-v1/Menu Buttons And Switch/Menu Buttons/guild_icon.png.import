@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://src/ui/assets/Gui-Hud/Menu Buttons And Switch/Menu Buttons/guild_icon.png"
+source_file="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/guild_icon.png"
 dest_files=["res://.godot/imported/guild_icon.png-556c3d474069366bc0b4682aa4315b81.ctex"]
 
 [params]

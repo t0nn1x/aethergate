@@ -21,12 +21,12 @@ signal closed()
 @export var page_selector_button_size: Vector2 = Vector2(32, 32)
 
 @export_group(\"Book Art\")
-@export var book_frame_1: Texture2D = preload(\"res://src/ui/assets/Gui-Hud/Inventory Book/InventoryBook_01.png\")
-@export var book_frame_2: Texture2D = preload(\"res://src/ui/assets/Gui-Hud/Inventory Book/InventoryBook_02.png\")
-@export var book_frame_3: Texture2D = preload(\"res://src/ui/assets/Gui-Hud/Inventory Book/InventoryBook_03.png\")
-@export var book_frame_4: Texture2D = preload(\"res://src/ui/assets/Gui-Hud/Inventory Book/InventoryBook_04.png\")
-@export var page_selector_off_texture: Texture2D = preload(\"res://src/ui/assets/Gui-Hud/Inventory Book/InventoryChapter_Off.png\")
-@export var page_selector_on_texture: Texture2D = preload(\"res://src/ui/assets/Gui-Hud/Inventory Book/InventoryChapter_On.png\")
+@export var book_frame_1: Texture2D = preload(\"res://src/ui/assets/UI-v1/Inventory Book/InventoryBook_01.png\")
+@export var book_frame_2: Texture2D = preload(\"res://src/ui/assets/UI-v1/Inventory Book/InventoryBook_02.png\")
+@export var book_frame_3: Texture2D = preload(\"res://src/ui/assets/UI-v1/Inventory Book/InventoryBook_03.png\")
+@export var book_frame_4: Texture2D = preload(\"res://src/ui/assets/UI-v1/Inventory Book/InventoryBook_04.png\")
+@export var page_selector_off_texture: Texture2D = preload(\"res://src/ui/assets/UI-v1/Inventory Book/InventoryChapter_Off.png\")
+@export var page_selector_on_texture: Texture2D = preload(\"res://src/ui/assets/UI-v1/Inventory Book/InventoryChapter_On.png\")
 
 var _inventory_component: Node
 var _book_frames: Array[Texture2D] = []
