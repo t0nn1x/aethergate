@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="PlayerInputConfig" format=3 uid="uid://3mph4wvilglg"]
+
+[ext_resource type="Script" uid="uid://bc8laf3yyct6u" path="res://src/entities/player/config/player_input_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")

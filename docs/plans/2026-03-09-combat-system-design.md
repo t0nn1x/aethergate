@@ -19,7 +19,7 @@ Tactical turn-based combat with gear-defined roles (Albion-inspired) and simulta
 | Skills | Hybrid: base skills + gear-granted skills | Base attack/dodge always available; gear adds depth |
 | Progression | Levels + Gear + Gear Mastery (3 axes) | See Progression section |
 | Loss | Soft loss now (respawn, resource penalty) | Zone-based risk designed in, implemented later |
-| Scene location | `src/World/Combat/` entry, `src/Entities/Systems/Combat/` logic | Mirrors Overworld pattern |
+| Scene location | `src/world/Combat/` entry, `src/entities/Systems/Combat/` logic | Mirrors Overworld pattern |
 
 ---
 
@@ -34,7 +34,7 @@ OVERWORLD
             └─ CreatureEvents.combat_preview_requested(creature_data)
                  └─ CombatPreviewPanel (AdaptiveOverlayPanel, overworld overlay)
                       ├─ [FIGHT] → GameManager.change_state(COMBAT)
-                      │             → loads src/World/Combat/combat_scene.tscn
+                      │             → loads src/world/Combat/combat_scene.tscn
                       └─ [X]     → dismiss, overworld resumes
 
 COMBAT SCENE
@@ -58,11 +58,11 @@ COMBAT SCENE
 ### Scene Structure
 
 ```
-src/World/Combat/
+src/world/Combat/
   ├─ combat_scene.tscn        ← entry point loaded by GameManager
   └─ combat_scene.gd          ← wires CombatFlowController + UiManager
 
-src/Entities/Systems/Combat/
+src/entities/Systems/Combat/
   ├─ Data/
   │    ├─ combat_stats.gd
   │    ├─ combatant_snapshot.gd
@@ -75,21 +75,21 @@ src/Entities/Systems/Combat/
   ├─ combat_round_resolver.gd
   └─ combat_flow_controller.gd
 
-src/Entities/Skills/Combat/
+src/entities/Skills/Combat/
   ├─ skill_data.gd                      ← base Resource (already scaffolded)
   ├─ Fireball/
   ├─ Slash/
   └─ Heal/
 
-src/Core/Events/
+src/core/Events/
   └─ combat_events.gd                   ← new autoload
 
-src/Ui/Common/CombatPreviewPanel/
+src/ui/Common/CombatPreviewPanel/
   ├─ combat_preview_panel.tscn
   └─ combat_preview_panel.gd
 
-src/Ui/Windows/Combat/                  ← desktop UI layout
-src/Ui/Mobile/Combat/                   ← mobile UI layout
+src/ui/Windows/Combat/                  ← desktop UI layout
+src/ui/Mobile/Combat/                   ← mobile UI layout
 ```
 
 ---
@@ -155,7 +155,7 @@ Three independent axes:
 - 6 equipment slots: WEAPON, OFFHAND, HELM, CHEST, BOOTS, ACCESSORY
 - Each slot contributes stat bonuses + one skill to the skill bar
 - Swapping gear changes role instantly — no respec cost
-- Implemented in `src/Entities/Systems/Equipment/` (already scaffolded)
+- Implemented in `src/entities/Systems/Equipment/` (already scaffolded)
 
 ### Gear Mastery (depth / specialization)
 - Each GearData tracks `mastery_level` (0–10) per player
@@ -207,8 +207,8 @@ Buttons: **[FIGHT]** and **[X / Flee]**
 | `PlayerProfileService` | Add: `player_level`, `player_xp`, `gear_mastery` dict |
 | `OverworldCreatureSelectionController` | Extend: tap emits `combat_preview_requested` |
 | `CreatureData` | Extend: add `base_combat_stats`, `ai_strategy`, `skill_loadout` |
-| `src/Entities/Systems/Equipment/` | Implement: resolve `skill_loadout` from equipped gear |
-| `src/Entities/Skills/Combat/` | Add: `skill_data.gd` base resource + per-skill `.tres` files |
+| `src/entities/Systems/Equipment/` | Implement: resolve `skill_loadout` from equipped gear |
+| `src/entities/Skills/Combat/` | Add: `skill_data.gd` base resource + per-skill `.tres` files |
 
 ---
 

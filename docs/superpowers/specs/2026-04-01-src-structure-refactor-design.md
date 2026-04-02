@@ -13,7 +13,7 @@ consistent naming scheme.
 
 - Keep the current top-level roots: `Common`, `Config`, `Core`, `Entities`,
   `Localization`, `Ui`, `World`
-- Keep shared asset roots such as `src/Ui/Assets` in place
+- Keep shared asset roots such as `src/ui/Assets` in place
 - Prefer structure and naming changes over behavior changes
 - Update all references in the same pass as each move or rename
 - Avoid large one-shot migrations that make breakage hard to isolate
@@ -36,13 +36,13 @@ consistent naming scheme.
 Keep the existing top-level domains because they already provide a workable mental
 model:
 
-- `src/Common` for reusable runtime building blocks
-- `src/Config` for configuration data and loaders
-- `src/Core` for application-level services, autoloads, and global events
-- `src/Entities` for player-facing gameplay actors and gameplay systems
-- `src/Localization` for localization data and services
-- `src/Ui` for runtime UI and shared UI assets
-- `src/World` for world scenes, location content, streaming, and map-level controllers
+- `src/common` for reusable runtime building blocks
+- `src/config` for configuration data and loaders
+- `src/core` for application-level services, autoloads, and global events
+- `src/entities` for player-facing gameplay actors and gameplay systems
+- `src/localization` for localization data and services
+- `src/ui` for runtime UI and shared UI assets
+- `src/world` for world scenes, location content, streaming, and map-level controllers
 
 The refactor focuses on making the structure inside these roots predictable.
 
@@ -63,7 +63,7 @@ Rules:
 This applies aggressively in the structure pass, including currently inconsistent names
 such as creature entries, world locations, and UI subfeatures.
 
-### `src/Entities`
+### `src/entities`
 
 Keep the main feature domains:
 
@@ -115,7 +115,7 @@ Keep these domains in place, but apply the same naming and subfolder rules. The 
 to make `combat`, `inventory`, `equipment`, `loot`, and similar systems easy to locate
 without also moving their ownership model in this refactor.
 
-### `src/Ui`
+### `src/ui`
 
 Keep `assets/` as the shared asset root.
 
@@ -147,7 +147,7 @@ Shared reusable runtime pieces stay in `common/` under clear subfeatures such as
 - `screen_localization/`
 - `ui_sound_player/`
 
-### `src/World`
+### `src/world`
 
 Keep the existing domain split:
 
@@ -165,7 +165,7 @@ such as:
 - `goblin_cave`
 - `house_interior`
 
-Keep the world entry scene and script at the root of `src/World`, since they are the
+Keep the world entry scene and script at the root of `src/world`, since they are the
 composition root for this domain.
 
 Within `overworld/`, retain the current controller and spawner decomposition while
@@ -175,7 +175,7 @@ normalizing folder names:
 - `tilesets/`
 - `shaders/`
 
-### `src/Common`, `src/Core`, `src/Config`
+### `src/common`, `src/core`, `src/config`
 
 Keep these roots, but enforce stricter boundaries:
 
@@ -216,7 +216,7 @@ Each pass must leave the project in a loadable state.
 - redesigning system ownership just because another arrangement could also work
 - changing gameplay behavior, feature boundaries, or scene composition beyond what is
   required for structural moves
-- relocating shared asset roots such as `src/Ui/Assets`
+- relocating shared asset roots such as `src/ui/Assets`
 
 ## Acceptance Criteria
 

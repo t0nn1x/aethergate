@@ -14,9 +14,9 @@
 
 | File | Change |
 |------|--------|
-| `src/Entities/Creatures/creature_data.gd` | Add `OVERWORLD_FRAME_SIZE` const; add `overworld_sprite_sheet: Texture2D`; change `non_boss_world_scale` default to `Vector2(1.0, 1.0)` |
-| `src/Entities/Creatures/Tools/creature_catalog_builder.gd` | Derive and set `overworld_sprite_sheet` and `non_boss_world_scale` in `_apply_entry_to_data()` |
-| `src/Entities/Creatures/creature.gd` | `_apply_visual_data()` uses `overworld_sprite_sheet` when set |
+| `src/entities/Creatures/creature_data.gd` | Add `OVERWORLD_FRAME_SIZE` const; add `overworld_sprite_sheet: Texture2D`; change `non_boss_world_scale` default to `Vector2(1.0, 1.0)` |
+| `src/entities/Creatures/Tools/creature_catalog_builder.gd` | Derive and set `overworld_sprite_sheet` and `non_boss_world_scale` in `_apply_entry_to_data()` |
+| `src/entities/Creatures/creature.gd` | `_apply_visual_data()` uses `overworld_sprite_sheet` when set |
 
 No combat files change. No combat snapshot changes.
 
@@ -25,7 +25,7 @@ No combat files change. No combat snapshot changes.
 ### Task 1: Update `CreatureData` — new constant, new field, corrected scale default
 
 **Files:**
-- Modify: `src/Entities/Creatures/creature_data.gd`
+- Modify: `src/entities/Creatures/creature_data.gd`
 
 - [ ] **Step 1: Add `OVERWORLD_FRAME_SIZE` constant**
 
@@ -81,7 +81,7 @@ Replace with:
 - [ ] **Step 4: Commit**
 
 ```bash
-git add src/Entities/Creatures/creature_data.gd
+git add src/entities/Creatures/creature_data.gd
 git commit -m "feat(creatures): add overworld_sprite_sheet field and OVERWORLD_FRAME_SIZE to CreatureData"
 ```
 
@@ -90,7 +90,7 @@ git commit -m "feat(creatures): add overworld_sprite_sheet field and OVERWORLD_F
 ### Task 2: Update catalog builder to populate `overworld_sprite_sheet`
 
 **Files:**
-- Modify: `src/Entities/Creatures/Tools/creature_catalog_builder.gd`
+- Modify: `src/entities/Creatures/Tools/creature_catalog_builder.gd`
 
 The builder currently ends `_apply_entry_to_data()` with a `validate_for_runtime` call. We add two lines before it: derive the overworld path from the battle path, load it, and set it on the resource. Also explicitly set `non_boss_world_scale` so all rebuilt `.tres` files carry the value regardless of the code default.
 
@@ -114,7 +114,7 @@ Replace with:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add src/Entities/Creatures/Tools/creature_catalog_builder.gd
+git add src/entities/Creatures/Tools/creature_catalog_builder.gd
 git commit -m "feat(creatures): catalog builder populates overworld_sprite_sheet from 16px asset"
 ```
 
@@ -123,7 +123,7 @@ git commit -m "feat(creatures): catalog builder populates overworld_sprite_sheet
 ### Task 3: Use `overworld_sprite_sheet` in `creature.gd`
 
 **Files:**
-- Modify: `src/Entities/Creatures/creature.gd:124-152`
+- Modify: `src/entities/Creatures/creature.gd:124-152`
 
 - [ ] **Step 1: Replace `_apply_visual_data()` to prefer overworld sprite**
 
@@ -171,7 +171,7 @@ func _apply_visual_data(data: CreatureData) -> void:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add src/Entities/Creatures/creature.gd
+git add src/entities/Creatures/creature.gd
 git commit -m "feat(creatures): overworld rendering uses native 16px sprite sheet"
 ```
 
@@ -180,12 +180,12 @@ git commit -m "feat(creatures): overworld rendering uses native 16px sprite shee
 ### Task 4: Rebuild catalog and validate
 
 **Files:**
-- Rebuilt by tool: `src/Entities/Creatures/Resources/creature_catalog.tres` and all `Types/*/Data/*.tres`
+- Rebuilt by tool: `src/entities/Creatures/Resources/creature_catalog.tres` and all `Types/*/Data/*.tres`
 
 - [ ] **Step 1: Run the headless catalog builder**
 
 ```bash
-godot4 --headless --path . --scene res://src/Entities/Creatures/Tools/creature_catalog_builder_runner.tscn --quit
+godot4 --headless --path . --scene res://src/entities/Creatures/Tools/creature_catalog_builder_runner.tscn --quit
 ```
 
 Expected last line:
@@ -198,7 +198,7 @@ If `errors > 0`, read the warnings above it — typically a missing `.png` file 
 - [ ] **Step 2: Spot-check one `.tres` to confirm `overworld_sprite_sheet` was set**
 
 ```bash
-grep "overworld_sprite_sheet\|AdventurousAdolescent.png" "src/Entities/Creatures/Types/Humanoids/Adventurous Adolescent/Data/humanoids_adventurous_adolescent.tres"
+grep "overworld_sprite_sheet\|AdventurousAdolescent.png" "src/entities/Creatures/Types/Humanoids/Adventurous Adolescent/Data/humanoids_adventurous_adolescent.tres"
 ```
 
 Expected: a line referencing `AdventurousAdolescent.png` (the 16px file, **not** `_128x32.png`).
@@ -206,7 +206,7 @@ Expected: a line referencing `AdventurousAdolescent.png` (the 16px file, **not**
 - [ ] **Step 3: Run catalog validation**
 
 ```bash
-godot4 --headless --path . --script res://src/Entities/Creatures/Tests/run_creature_catalog_validation.gd
+godot4 --headless --path . --script res://src/entities/Creatures/Tests/run_creature_catalog_validation.gd
 ```
 
 Expected: no `ERROR:` lines in output.
@@ -214,7 +214,7 @@ Expected: no `ERROR:` lines in output.
 - [ ] **Step 4: Run the runtime smoke test**
 
 ```bash
-godot4 --headless --path . --scene res://src/Entities/Creatures/Tests/creature_runtime_smoke_test.tscn --quit-after 200
+godot4 --headless --path . --scene res://src/entities/Creatures/Tests/creature_runtime_smoke_test.tscn --quit-after 200
 ```
 
 Expected: exits cleanly with no `ERROR:` lines.
@@ -222,7 +222,7 @@ Expected: exits cleanly with no `ERROR:` lines.
 - [ ] **Step 5: Commit rebuilt resources**
 
 ```bash
-git add src/Entities/Creatures/Resources/creature_catalog.tres
-git add src/Entities/Creatures/Types/
+git add src/entities/Creatures/Resources/creature_catalog.tres
+git add src/entities/Creatures/Types/
 git commit -m "chore(creatures): rebuild catalog — overworld_sprite_sheet populated for all creatures"
 ```

@@ -13,12 +13,12 @@ Data-driven sprite-sheet VFX system for combat attacks. Each attack plays an ani
 
 | File | Role |
 |---|---|
-| `src/Entities/Systems/Combat/Data/combat_vfx_config.gd` | Value object — 5 fields describing one VFX effect |
-| `src/Ui/Common/Combat/combat_vfx_player.gd` | Control node — drives frame animation via Timer, emits `impact_hit` / `finished` |
-| `src/Entities/Skills/Combat/skill_data.gd` | `@export_group("VFX")` fields for skill-specific VFX |
-| `src/Entities/Systems/Combat/Data/combatant_snapshot.gd` | `default_attack_vfx_pool` + fallback single-config fields for auto-attacks |
-| `src/Ui/Windows/Combat/windows_combat_ui.gd` | Wires VFX players, defers HP bar / log update to `impact_hit` |
-| `src/World/Overworld/overworld.gd` | Populates player snapshot's VFX pool in `_build_player_snapshot()` |
+| `src/entities/Systems/Combat/Data/combat_vfx_config.gd` | Value object — 5 fields describing one VFX effect |
+| `src/ui/Common/Combat/combat_vfx_player.gd` | Control node — drives frame animation via Timer, emits `impact_hit` / `finished` |
+| `src/entities/Skills/Combat/skill_data.gd` | `@export_group("VFX")` fields for skill-specific VFX |
+| `src/entities/Systems/Combat/Data/combatant_snapshot.gd` | `default_attack_vfx_pool` + fallback single-config fields for auto-attacks |
+| `src/ui/Windows/Combat/windows_combat_ui.gd` | Wires VFX players, defers HP bar / log update to `impact_hit` |
+| `src/world/Overworld/overworld.gd` | Populates player snapshot's VFX pool in `_build_player_snapshot()` |
 
 ### VFX config fields
 
@@ -56,8 +56,8 @@ Append a path to the array in `overworld.gd → _build_player_snapshot()`:
 
 ```gdscript
 for vfx_path: String in [
-    "res://src/Entities/Systems/Combat/Assets/VFX/Hit Horizontal White.png",
-    "res://src/Entities/Systems/Combat/Assets/VFX/Hit Vertical White.png",
+    "res://src/entities/Systems/Combat/Assets/VFX/Hit Horizontal White.png",
+    "res://src/entities/Systems/Combat/Assets/VFX/Hit Vertical White.png",
     # add new paths here
 ]:
 ```
@@ -68,7 +68,7 @@ Set the six `vfx_*` fields on the `SkillData` resource in the Godot editor. For 
 
 ## Assets
 
-VFX sprite sheets live in `src/Entities/Systems/Combat/Assets/VFX/`. All are 5-frame horizontal strips (single row).
+VFX sprite sheets live in `src/entities/Systems/Combat/Assets/VFX/`. All are 5-frame horizontal strips (single row).
 
 | File | Used for |
 |---|---|

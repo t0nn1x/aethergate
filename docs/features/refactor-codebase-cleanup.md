@@ -16,13 +16,13 @@ Restructure folder layout, remove legacy patterns, and decompose god-classes for
 
 ### Phase 1: Folder consolidation
 
-- [x] Task 1: Merge `src/Map/` into `src/World/` — all scenes, chunks, tilesets, shaders now live under `src/World/`
-- [x] Task 2: Rename `src/Common/State_Machine/` to `src/Common/StateMachine/`
-- [x] Task 3: Move `src/Utilities/music_player.gd` to `src/Core/music_player.gd`
+- [x] Task 1: Merge `src/Map/` into `src/world/` — all scenes, chunks, tilesets, shaders now live under `src/world/`
+- [x] Task 2: Rename `src/common/State_Machine/` to `src/common/StateMachine/`
+- [x] Task 3: Move `src/Utilities/music_player.gd` to `src/core/music_player.gd`
 - [x] Task 4: Move `src/Utilities/icon_preview/` to `tools/icon_preview/`
 - [x] Task 5: Remove `src/Utilities/` directory
-- [x] Task 6: Move `src/Entities/Systems/Navigation/` to `src/Common/Navigation/`
-- [x] Task 7: Remove `src/Common/Time/` (was empty)
+- [x] Task 6: Move `src/entities/Systems/Navigation/` to `src/common/Navigation/`
+- [x] Task 7: Remove `src/common/Time/` (was empty)
 
 ### Phase 2: Legacy pattern removal
 
@@ -36,7 +36,7 @@ Restructure folder layout, remove legacy patterns, and decompose god-classes for
 ### Phase 4: UI cleanup
 
 - [x] Task 11: Delete empty platform HUD variants (`system_hud_macos.gd`, `system_hud_mobile.gd`)
-- [x] Task 12: Consolidate debug overlay to `src/Ui/Common/Debug/`
+- [x] Task 12: Consolidate debug overlay to `src/ui/Common/Debug/`
 
 ### Phase 5: Code quality
 

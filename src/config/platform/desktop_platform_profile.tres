@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="GamePlatformProfile" format=3 uid="uid://bmfcicxf23m4l"]
+
+[ext_resource type="Script" uid="uid://c0b1kgaj0sobo" path="res://src/config/platform/game_platform_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")

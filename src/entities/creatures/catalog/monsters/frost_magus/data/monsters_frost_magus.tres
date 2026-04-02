@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_lfv8t"]
+[ext_resource type="Script" path="res://src/entities/skills/Combat/skill_data.gd" id="2_lw6dl"]
+
+[resource]
+script = ExtResource("1_lfv8t")
+creature_id = "monsters_frost_magus"
+creature_type = 3
+source_category = "monsters"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/frost_magus/sprites/FrostMagus_128x32.png"

@@ -14,29 +14,29 @@
 
 ## Phase 1: Folder Structure
 
-### Task 1: Merge `src/Map/` into `src/World/`
+### Task 1: Merge `src/Map/` into `src/world/`
 
 **Files to move (use `git mv`):**
-- `src/Map/main.gd` → `src/World/main.gd`
-- `src/Map/main.gd.uid` → `src/World/main.gd.uid`
-- `src/Map/main.tscn` → `src/World/main.tscn`
-- `src/Map/Overworld/overworld.tscn` → `src/World/Overworld/overworld.tscn`
-- `src/Map/Overworld/Chunks/` → `src/World/Overworld/Chunks/` (entire directory)
-- `src/Map/Overworld/Shaders/` → `src/World/Overworld/Shaders/` (entire directory)
-- `src/Map/Overworld/Tilesets/` → `src/World/Overworld/Tilesets/` (entire directory)
-- `src/Map/Locations/` → `src/World/Locations/` (entire directory)
+- `src/Map/main.gd` → `src/world/main.gd`
+- `src/Map/main.gd.uid` → `src/world/main.gd.uid`
+- `src/Map/main.tscn` → `src/world/main.tscn`
+- `src/Map/Overworld/overworld.tscn` → `src/world/Overworld/overworld.tscn`
+- `src/Map/Overworld/Chunks/` → `src/world/Overworld/Chunks/` (entire directory)
+- `src/Map/Overworld/Shaders/` → `src/world/Overworld/Shaders/` (entire directory)
+- `src/Map/Overworld/Tilesets/` → `src/world/Overworld/Tilesets/` (entire directory)
+- `src/Map/Locations/` → `src/world/Locations/` (entire directory)
 
 **Step 1: Move all files**
 
 ```bash
-git mv src/Map/main.gd src/World/main.gd
-git mv src/Map/main.gd.uid src/World/main.gd.uid
-git mv src/Map/main.tscn src/World/main.tscn
-git mv src/Map/Overworld/overworld.tscn src/World/Overworld/overworld.tscn
-git mv src/Map/Overworld/Chunks src/World/Overworld/Chunks
-git mv src/Map/Overworld/Shaders src/World/Overworld/Shaders
-git mv src/Map/Overworld/Tilesets src/World/Overworld/Tilesets
-git mv src/Map/Locations src/World/Locations
+git mv src/Map/main.gd src/world/main.gd
+git mv src/Map/main.gd.uid src/world/main.gd.uid
+git mv src/Map/main.tscn src/world/main.tscn
+git mv src/Map/Overworld/overworld.tscn src/world/Overworld/overworld.tscn
+git mv src/Map/Overworld/Chunks src/world/Overworld/Chunks
+git mv src/Map/Overworld/Shaders src/world/Overworld/Shaders
+git mv src/Map/Overworld/Tilesets src/world/Overworld/Tilesets
+git mv src/Map/Locations src/world/Locations
 # Remove the now-empty src/Map/ directory
 ```
 
@@ -46,14 +46,14 @@ These files contain hardcoded `res://src/Map/` paths that must be updated:
 
 | File | Line | Old | New |
 |---|---|---|---|
-| `project.godot` | `run/main_scene` | `res://src/Map/main.tscn` | `res://src/World/main.tscn` |
-| `src/World/main.tscn` | ext_resource path | `res://src/Map/main.gd` | `res://src/World/main.gd` |
-| `src/World/main.tscn` | ext_resource path | `res://src/Map/Overworld/overworld.tscn` | `res://src/World/Overworld/overworld.tscn` |
-| `src/Ui/Common/startup_splash_screen.tscn` | ext_resource path | `res://src/Map/main.tscn` | `res://src/World/main.tscn` |
-| `src/World/Streaming/chunk_manager.gd:12` | `@export_dir` default | `res://src/Map/Overworld/Chunks/Midra` | `res://src/World/Overworld/Chunks/Midra` |
-| `src/World/Streaming/overworld_chunk_water_shader.gd:11` | `load()` path | `res://src/Map/Overworld/Shaders/water.gdshader` | `res://src/World/Overworld/Shaders/water.gdshader` |
+| `project.godot` | `run/main_scene` | `res://src/Map/main.tscn` | `res://src/world/main.tscn` |
+| `src/world/main.tscn` | ext_resource path | `res://src/Map/main.gd` | `res://src/world/main.gd` |
+| `src/world/main.tscn` | ext_resource path | `res://src/Map/Overworld/overworld.tscn` | `res://src/world/Overworld/overworld.tscn` |
+| `src/ui/Common/startup_splash_screen.tscn` | ext_resource path | `res://src/Map/main.tscn` | `res://src/world/main.tscn` |
+| `src/world/Streaming/chunk_manager.gd:12` | `@export_dir` default | `res://src/Map/Overworld/Chunks/Midra` | `res://src/world/Overworld/Chunks/Midra` |
+| `src/world/Streaming/overworld_chunk_water_shader.gd:11` | `load()` path | `res://src/Map/Overworld/Shaders/water.gdshader` | `res://src/world/Overworld/Shaders/water.gdshader` |
 
-Also search-and-replace `res://src/Map/` → `res://src/World/` across ALL `.tscn` files in `src/World/Overworld/` (chunk scenes reference tilesets, chunk script, etc. via `path=` attributes). Godot resolves by `uid://` first, but stale `path=` values cause editor warnings.
+Also search-and-replace `res://src/Map/` → `res://src/world/` across ALL `.tscn` files in `src/world/Overworld/` (chunk scenes reference tilesets, chunk script, etc. via `path=` attributes). Godot resolves by `uid://` first, but stale `path=` values cause editor warnings.
 
 **Step 3: Update CLAUDE.md and doc references**
 
@@ -65,7 +65,7 @@ Update paths in `.claude/CLAUDE.md` and `doc/plans/2026-03-09-codebase-refactor-
 # Verify no stale references remain
 grep -r "src/Map/" src/ project.godot .claude/ --include="*.gd" --include="*.tscn" --include="*.godot" --include="*.md"
 git add -A
-git commit -m "refactor(structure): merge src/Map into src/World"
+git commit -m "refactor(structure): merge src/Map into src/world"
 ```
 
 ---
@@ -73,26 +73,26 @@ git commit -m "refactor(structure): merge src/Map into src/World"
 ### Task 2: Rename `State_Machine` → `StateMachine`
 
 **Files to move:**
-- `src/Common/State_Machine/state.gd` → `src/Common/StateMachine/state.gd`
-- `src/Common/State_Machine/state.gd.uid` → `src/Common/StateMachine/state.gd.uid`
-- `src/Common/State_Machine/state_machine.gd` → `src/Common/StateMachine/state_machine.gd`
-- `src/Common/State_Machine/state_machine.gd.uid` → `src/Common/StateMachine/state_machine.gd.uid`
+- `src/common/State_Machine/state.gd` → `src/common/StateMachine/state.gd`
+- `src/common/State_Machine/state.gd.uid` → `src/common/StateMachine/state.gd.uid`
+- `src/common/State_Machine/state_machine.gd` → `src/common/StateMachine/state_machine.gd`
+- `src/common/State_Machine/state_machine.gd.uid` → `src/common/StateMachine/state_machine.gd.uid`
 
 **Step 1: Move files**
 
 ```bash
-mkdir -p src/Common/StateMachine
-git mv "src/Common/State_Machine/state.gd" src/Common/StateMachine/state.gd
-git mv "src/Common/State_Machine/state.gd.uid" src/Common/StateMachine/state.gd.uid
-git mv "src/Common/State_Machine/state_machine.gd" src/Common/StateMachine/state_machine.gd
-git mv "src/Common/State_Machine/state_machine.gd.uid" src/Common/StateMachine/state_machine.gd.uid
+mkdir -p src/common/StateMachine
+git mv "src/common/State_Machine/state.gd" src/common/StateMachine/state.gd
+git mv "src/common/State_Machine/state.gd.uid" src/common/StateMachine/state.gd.uid
+git mv "src/common/State_Machine/state_machine.gd" src/common/StateMachine/state_machine.gd
+git mv "src/common/State_Machine/state_machine.gd.uid" src/common/StateMachine/state_machine.gd.uid
 ```
 
 **Step 2: Update `res://` references**
 
 | File | Old | New |
 |---|---|---|
-| `src/Entities/Player/player.tscn:13` | `res://src/Common/State_Machine/state_machine.gd` | `res://src/Common/StateMachine/state_machine.gd` |
+| `src/entities/Player/player.tscn:13` | `res://src/common/State_Machine/state_machine.gd` | `res://src/common/StateMachine/state_machine.gd` |
 
 Search all `.tscn` files for `State_Machine` references and update them.
 
@@ -110,17 +110,17 @@ git commit -m "refactor(structure): rename State_Machine to StateMachine"
 
 ---
 
-### Task 3: Relocate `music_player.gd` to `src/Core/`
+### Task 3: Relocate `music_player.gd` to `src/core/`
 
 **Files to move:**
-- `src/Utilities/music_player.gd` → `src/Core/music_player.gd`
-- `src/Utilities/music_player.gd.uid` → `src/Core/music_player.gd.uid`
+- `src/Utilities/music_player.gd` → `src/core/music_player.gd`
+- `src/Utilities/music_player.gd.uid` → `src/core/music_player.gd.uid`
 
 **Step 1: Move files**
 
 ```bash
-git mv src/Utilities/music_player.gd src/Core/music_player.gd
-git mv src/Utilities/music_player.gd.uid src/Core/music_player.gd.uid
+git mv src/Utilities/music_player.gd src/core/music_player.gd
+git mv src/Utilities/music_player.gd.uid src/core/music_player.gd.uid
 ```
 
 **Step 2: Update `project.godot` autoload**
@@ -131,7 +131,7 @@ MusicPlayer="*res://src/Utilities/music_player.gd"
 ```
 To:
 ```
-MusicPlayer="*res://src/Core/music_player.gd"
+MusicPlayer="*res://src/core/music_player.gd"
 ```
 
 **Step 3: Verify and commit**
@@ -139,7 +139,7 @@ MusicPlayer="*res://src/Core/music_player.gd"
 ```bash
 grep -r "music_player" project.godot src/ --include="*.gd" --include="*.tscn" --include="*.godot"
 git add -A
-git commit -m "refactor(structure): move music_player autoload to src/Core"
+git commit -m "refactor(structure): move music_player autoload to src/core"
 ```
 
 ---
@@ -170,24 +170,24 @@ git commit -m "refactor(structure): move icon_preview to tools/"
 
 ---
 
-### Task 5: Relocate `src/Entities/Systems/Navigation/` to `src/Common/Navigation/`
+### Task 5: Relocate `src/entities/Systems/Navigation/` to `src/common/Navigation/`
 
 **Files to move:**
-- `src/Entities/Systems/Navigation/creature_navigation_component.gd` (+ `.uid`)
-- `src/Entities/Systems/Navigation/player_move_target_blocker_component.gd` (+ `.uid`)
-- `src/Entities/Systems/Navigation/Policies/move_target_reject_inside_polygon_policy.gd` (+ `.uid`)
-- `src/Entities/Systems/Navigation/Policies/move_target_snap_to_boundary_policy.gd` (+ `.uid`)
-- `src/Entities/Systems/Navigation/Policies/move_target_snap_to_nav_map_policy.gd` (+ `.uid`)
+- `src/entities/Systems/Navigation/creature_navigation_component.gd` (+ `.uid`)
+- `src/entities/Systems/Navigation/player_move_target_blocker_component.gd` (+ `.uid`)
+- `src/entities/Systems/Navigation/Policies/move_target_reject_inside_polygon_policy.gd` (+ `.uid`)
+- `src/entities/Systems/Navigation/Policies/move_target_snap_to_boundary_policy.gd` (+ `.uid`)
+- `src/entities/Systems/Navigation/Policies/move_target_snap_to_nav_map_policy.gd` (+ `.uid`)
 
 **Step 1: Move files**
 
 ```bash
-mkdir -p src/Common/Navigation/Policies
-git mv src/Entities/Systems/Navigation/creature_navigation_component.gd src/Common/Navigation/
-git mv src/Entities/Systems/Navigation/creature_navigation_component.gd.uid src/Common/Navigation/
-git mv src/Entities/Systems/Navigation/player_move_target_blocker_component.gd src/Common/Navigation/
-git mv src/Entities/Systems/Navigation/player_move_target_blocker_component.gd.uid src/Common/Navigation/
-git mv src/Entities/Systems/Navigation/Policies/* src/Common/Navigation/Policies/
+mkdir -p src/common/Navigation/Policies
+git mv src/entities/Systems/Navigation/creature_navigation_component.gd src/common/Navigation/
+git mv src/entities/Systems/Navigation/creature_navigation_component.gd.uid src/common/Navigation/
+git mv src/entities/Systems/Navigation/player_move_target_blocker_component.gd src/common/Navigation/
+git mv src/entities/Systems/Navigation/player_move_target_blocker_component.gd.uid src/common/Navigation/
+git mv src/entities/Systems/Navigation/Policies/* src/common/Navigation/Policies/
 ```
 
 **Step 2: Update any `res://` references**
@@ -199,16 +199,16 @@ Search for `Entities/Systems/Navigation` in all `.gd` and `.tscn` files and upda
 ```bash
 grep -r "Entities/Systems/Navigation" src/ --include="*.gd" --include="*.tscn"
 git add -A
-git commit -m "refactor(structure): move Navigation to src/Common (cross-cutting concern)"
+git commit -m "refactor(structure): move Navigation to src/common (cross-cutting concern)"
 ```
 
 ---
 
-### Task 6: Remove empty `src/Common/Time/`
+### Task 6: Remove empty `src/common/Time/`
 
 ```bash
-rm src/Common/Time/.gitkeep
-rmdir src/Common/Time
+rm src/common/Time/.gitkeep
+rmdir src/common/Time
 git add -A
 git commit -m "refactor(structure): remove empty Common/Time placeholder"
 ```
@@ -221,7 +221,7 @@ git commit -m "refactor(structure): remove empty Common/Time placeholder"
 
 **Step 1: Fix `player.gd` — use `PlayerEvents` directly**
 
-In `src/Entities/Player/player.gd`, replace the `_emit_player_spawned_event` method:
+In `src/entities/Player/player.gd`, replace the `_emit_player_spawned_event` method:
 
 ```gdscript
 # Before (lines 37-42):
@@ -239,7 +239,7 @@ func _emit_player_spawned_event() -> void:
 
 **Step 2: Fix `overworld.gd` — remove EventBus fallbacks**
 
-In `src/World/Overworld/overworld.gd`, replace `_get_creature_event_source`:
+In `src/world/Overworld/overworld.gd`, replace `_get_creature_event_source`:
 
 ```gdscript
 # Before (lines 230-234):
@@ -284,13 +284,13 @@ Fix any remaining references.
 
 Delete this line from `project.godot`:
 ```
-EventBus="*res://src/Core/event_bus.gd"
+EventBus="*res://src/core/event_bus.gd"
 ```
 
 **Step 5: Delete `event_bus.gd`**
 
 ```bash
-git rm src/Core/event_bus.gd src/Core/event_bus.gd.uid
+git rm src/core/event_bus.gd src/core/event_bus.gd.uid
 ```
 
 **Step 6: Update CLAUDE.md**
@@ -309,7 +309,7 @@ git commit -m "refactor(events): remove EventBus legacy shim, use typed singleto
 
 ### Task 8: Extract `OverworldCreatureSelectionController` from `overworld.gd`
 
-**Create:** `src/World/Overworld/overworld_creature_selection_controller.gd`
+**Create:** `src/world/Overworld/overworld_creature_selection_controller.gd`
 
 **Step 1: Create the new controller script**
 
@@ -375,7 +375,7 @@ git commit -m "refactor(overworld): extract creature selection into dedicated co
 
 ### Task 9: Extract `OverworldCharacterCreatorController` from `overworld.gd`
 
-**Create:** `src/World/Overworld/overworld_character_creator_controller.gd`
+**Create:** `src/world/Overworld/overworld_character_creator_controller.gd`
 
 **Step 1: Create the new controller script**
 
@@ -409,7 +409,7 @@ git commit -m "refactor(overworld): extract character creator flow into dedicate
 
 **Step 1: Replace `get_node_or_null` calls with typed `@onready` vars**
 
-In `src/Entities/Player/player.gd`:
+In `src/entities/Player/player.gd`:
 
 ```gdscript
 # Add at top of class:
@@ -445,13 +445,13 @@ Search for references to determine if removal is safe or if the `.tscn` files ne
 
 **Step 2: Update `.tscn` files to reference `SystemHud` directly**
 
-Point the MacOS and Mobile system HUD scenes at `src/Ui/Windows/Hud/SystemHud/system_hud.gd` (or move `system_hud.gd` to `src/Ui/Common/Hud/` first).
+Point the MacOS and Mobile system HUD scenes at `src/ui/Windows/Hud/SystemHud/system_hud.gd` (or move `system_hud.gd` to `src/ui/Common/Hud/` first).
 
 **Step 3: Delete empty scripts**
 
 ```bash
-git rm src/Ui/MacOS/Hud/SystemHud/system_hud_macos.gd
-git rm src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.gd
+git rm src/ui/MacOS/Hud/SystemHud/system_hud_macos.gd
+git rm src/ui/Mobile/Hud/SystemHud/system_hud_mobile.gd
 ```
 
 **Step 4: Verify and commit**
@@ -470,9 +470,9 @@ git commit -m "refactor(ui): remove empty platform HUD variants, use shared Syst
 **Step 1: Move `debug_overlay.gd` to shared location**
 
 ```bash
-mkdir -p src/Ui/Common/Debug
-git mv src/Ui/Windows/Debug/debug_overlay.gd src/Ui/Common/Debug/debug_overlay.gd
-git mv src/Ui/Windows/Debug/debug_overlay.gd.uid src/Ui/Common/Debug/debug_overlay.gd.uid
+mkdir -p src/ui/Common/Debug
+git mv src/ui/Windows/Debug/debug_overlay.gd src/ui/Common/Debug/debug_overlay.gd
+git mv src/ui/Windows/Debug/debug_overlay.gd.uid src/ui/Common/Debug/debug_overlay.gd.uid
 ```
 
 **Step 2: Add platform-aware padding to `DebugOverlay`**
@@ -493,14 +493,14 @@ Or make `screen_padding` an `@export` so each `.tscn` scene can set it.
 **Step 4: Move debug providers to shared location**
 
 ```bash
-git mv src/Ui/Windows/Debug/Providers src/Ui/Common/Debug/Providers
+git mv src/ui/Windows/Debug/Providers src/ui/Common/Debug/Providers
 ```
 
 **Step 5: Verify and commit**
 
 ```bash
 git add -A
-git commit -m "refactor(ui): consolidate debug overlay into src/Ui/Common/Debug"
+git commit -m "refactor(ui): consolidate debug overlay into src/ui/Common/Debug"
 ```
 
 ---
@@ -536,5 +536,5 @@ After all tasks, verify:
 - [ ] `grep -r "Utilities/music_player" src/ project.godot` returns no hits
 - [ ] `grep -r "Entities/Systems/Navigation" src/` returns no hits
 - [ ] Game launches and reaches overworld without errors
-- [ ] Creature catalog validation test passes: `godot4 --headless --path . --script res://src/Entities/Creatures/Tests/run_creature_catalog_validation.gd`
-- [ ] Creature spawn zone test passes: `godot4 --headless --path . --script res://src/Entities/Creatures/Tests/run_creature_spawn_zone_test.gd`
+- [ ] Creature catalog validation test passes: `godot4 --headless --path . --script res://src/entities/Creatures/Tests/run_creature_catalog_validation.gd`
+- [ ] Creature spawn zone test passes: `godot4 --headless --path . --script res://src/entities/Creatures/Tests/run_creature_spawn_zone_test.gd`

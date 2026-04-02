@@ -1,0 +1,16 @@
+src/entities/player/assets/1/16x16:
+- normal_body_idle.png
+- normal_body_idle_sword.png
+- normal_body_idle_bow
+- normal_body_idle_staff
+
+src/entities/player/assets/1/32x32:
+- normal_body_idle.png
+- normal_body_idle_sword.png
+- normal_body_idle_bow
+- normal_body_idle_staff
+- normal_body_attack_sword.png -> тут думаю можна буде додати якусь простеньку анімацію атаки з кожним
+з видів зброї, але це можна буде зробити пізніше і лише для 32х32 спрайта, оскільки 16х16 не буде відображатись
+у битві
+- normal_body_attack_bow.png
+- normal_body_attack_staff.png

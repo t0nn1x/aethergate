@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Reorganize `src/` into a predictable feature-first layout with normalized `snake_case` runtime paths while preserving behavior and keeping shared asset roots such as `src/Ui/Assets` in place.
+**Goal:** Reorganize `src/` into a predictable feature-first layout with normalized `snake_case` runtime paths while preserving behavior and keeping shared asset roots such as `src/ui/Assets` in place.
 
 **Architecture:** Execute the refactor as a sequence of small rename-and-reference-update passes. Each pass updates moved paths atomically across scripts, scenes, resources, docs, and generated catalogs, then verifies both stale-path removal and project loadability before moving on. Because this repository is on Windows, case-only renames must use temporary intermediate folder names instead of direct `PascalCase` to `snake_case` renames.
 
@@ -15,95 +15,95 @@
 ### Shared infrastructure paths
 
 - `project.godot`
-- `src/Common/Navigation/`
-- `src/Common/Shaders/`
-- `src/Common/StateMachine/`
-- `src/Core/Events/`
-- `src/Config/Platform/`
-- `src/Localization/Translations/`
-- `src/Localization/localization_service.gd`
-- `src/Localization/README.md`
+- `src/common/Navigation/`
+- `src/common/Shaders/`
+- `src/common/StateMachine/`
+- `src/core/Events/`
+- `src/config/Platform/`
+- `src/localization/Translations/`
+- `src/localization/localization_service.gd`
+- `src/localization/README.md`
 
 ### UI runtime paths
 
-- `src/Ui/Common/ui_manager.gd`
-- `src/Ui/Common/startup_splash_screen.tscn`
-- `src/Ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`
-- `src/Ui/Common/CombatResultPanel/combat_result_panel.tscn`
-- `src/Ui/Common/Debug/debug_panel.gd`
-- `src/Ui/Common/Styles/Profiles/*.tres`
-- `src/Ui/Common/inventory_screen.tscn`
-- `src/Ui/Desktop/Gui/MainScreen/main_screen.gd`
-- `src/Ui/Desktop/Gui/MainScreen/main_screen.tscn`
-- `src/Ui/Desktop/Gui/MainScreen/main_screen_desktop.gd`
-- `src/Ui/Desktop/Gui/MainScreen/background_controller.gd`
-- `src/Ui/Desktop/Gui/MainScreen/main_screen_theme.tres`
-- `src/Ui/Desktop/CharacterCreator/character_creator_panel.tscn`
-- `src/Ui/Desktop/Combat/desktop_combat_ui.tscn`
-- `src/Ui/Desktop/Debug/debug_overlay.tscn`
-- `src/Ui/Desktop/Hud/SystemHud/system_hud.tscn`
-- `src/Ui/Desktop/Inventory/inventory_panel.gd`
-- `src/Ui/Desktop/Inventory/inventory_panel.tscn`
-- `src/Ui/Desktop/Inventory/inventory_screen.tscn`
-- `src/Ui/Mobile/Gui/MainScreen/main_screen_mobile.gd`
-- `src/Ui/Mobile/Gui/MainScreen/main_screen_mobile.tscn`
-- `src/Ui/Mobile/CharacterCreator/character_creator_panel_mobile.tscn`
-- `src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn`
-- `src/Ui/Mobile/Inventory/inventory_panel_mobile.tscn`
-- `src/Ui/Hud/creature_action_hud.tscn`
+- `src/ui/Common/ui_manager.gd`
+- `src/ui/Common/startup_splash_screen.tscn`
+- `src/ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`
+- `src/ui/Common/CombatResultPanel/combat_result_panel.tscn`
+- `src/ui/Common/Debug/debug_panel.gd`
+- `src/ui/Common/Styles/Profiles/*.tres`
+- `src/ui/Common/inventory_screen.tscn`
+- `src/ui/Desktop/Gui/MainScreen/main_screen.gd`
+- `src/ui/Desktop/Gui/MainScreen/main_screen.tscn`
+- `src/ui/Desktop/Gui/MainScreen/main_screen_desktop.gd`
+- `src/ui/Desktop/Gui/MainScreen/background_controller.gd`
+- `src/ui/Desktop/Gui/MainScreen/main_screen_theme.tres`
+- `src/ui/Desktop/CharacterCreator/character_creator_panel.tscn`
+- `src/ui/Desktop/Combat/desktop_combat_ui.tscn`
+- `src/ui/Desktop/Debug/debug_overlay.tscn`
+- `src/ui/Desktop/Hud/SystemHud/system_hud.tscn`
+- `src/ui/Desktop/Inventory/inventory_panel.gd`
+- `src/ui/Desktop/Inventory/inventory_panel.tscn`
+- `src/ui/Desktop/Inventory/inventory_screen.tscn`
+- `src/ui/Mobile/Gui/MainScreen/main_screen_mobile.gd`
+- `src/ui/Mobile/Gui/MainScreen/main_screen_mobile.tscn`
+- `src/ui/Mobile/CharacterCreator/character_creator_panel_mobile.tscn`
+- `src/ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn`
+- `src/ui/Mobile/Inventory/inventory_panel_mobile.tscn`
+- `src/ui/Hud/creature_action_hud.tscn`
 
 ### World runtime paths
 
-- `src/World/main.gd`
-- `src/World/main.tscn`
-- `src/World/Combat/combat_scene.tscn`
-- `src/World/Overworld/overworld.gd`
-- `src/World/Overworld/overworld.tscn`
-- `src/World/Overworld/overworld_player_spawner.gd`
-- `src/World/Overworld/overworld_creature_spawner.gd`
-- `src/World/Overworld/overworld_character_creator_controller.gd`
-- `src/World/Overworld/overworld_creature_selection_controller.gd`
-- `src/World/Overworld/overworld_session_controller.gd`
-- `src/World/Overworld/navigation_blocker_registry.gd`
-- `src/World/Overworld/Chunks/chunk.gd`
-- `src/World/Streaming/chunk_manager.gd`
-- `src/World/Streaming/overworld_chunk_water_shader.gd`
-- `src/World/Locations/Dungeons/Ancient_Ruins/`
-- `src/World/Locations/Dungeons/Goblin_Cave/`
-- `src/World/Locations/Dungeons/Goblin_Cave/Encounters/`
-- `src/World/Locations/Interiors/House_Interior/`
-- `src/World/Locations/Interiors/Shop_Interior/`
-- `src/World/Locations/Towns/Capital_City/`
-- `src/World/Locations/Towns/Starting_Village/`
-- `src/World/Locations/Towns/Starting_Village/Npcs/`
+- `src/world/main.gd`
+- `src/world/main.tscn`
+- `src/world/Combat/combat_scene.tscn`
+- `src/world/Overworld/overworld.gd`
+- `src/world/Overworld/overworld.tscn`
+- `src/world/Overworld/overworld_player_spawner.gd`
+- `src/world/Overworld/overworld_creature_spawner.gd`
+- `src/world/Overworld/overworld_character_creator_controller.gd`
+- `src/world/Overworld/overworld_creature_selection_controller.gd`
+- `src/world/Overworld/overworld_session_controller.gd`
+- `src/world/Overworld/navigation_blocker_registry.gd`
+- `src/world/Overworld/Chunks/chunk.gd`
+- `src/world/Streaming/chunk_manager.gd`
+- `src/world/Streaming/overworld_chunk_water_shader.gd`
+- `src/world/Locations/Dungeons/Ancient_Ruins/`
+- `src/world/Locations/Dungeons/Goblin_Cave/`
+- `src/world/Locations/Dungeons/Goblin_Cave/Encounters/`
+- `src/world/Locations/Interiors/House_Interior/`
+- `src/world/Locations/Interiors/Shop_Interior/`
+- `src/world/Locations/Towns/Capital_City/`
+- `src/world/Locations/Towns/Starting_Village/`
+- `src/world/Locations/Towns/Starting_Village/Npcs/`
 
 ### Entities runtime and generated content
 
-- `src/Entities/Creatures/creature.gd`
-- `src/Entities/Creatures/creature.tscn`
-- `src/Entities/Creatures/creature_catalog.gd`
-- `src/Entities/Creatures/creature_catalog_service.gd`
-- `src/Entities/Creatures/creature_data.gd`
-- `src/Entities/Creatures/creature_factory.gd`
-- `src/Entities/Creatures/README.md`
-- `src/Entities/Creatures/Tools/creature_catalog_builder.gd`
-- `src/Entities/Creatures/Tools/creature_catalog_builder_runner.gd`
-- `src/Entities/Creatures/Tools/creature_catalog_builder_runner.tscn`
-- `src/Entities/Creatures/Resources/creature_catalog.tres`
-- `src/Entities/Creatures/Types/*/*/Data/*.tres` via catalog regeneration
-- `src/Entities/Items/item_data.gd`
-- `src/Entities/Items/README.md`
-- `src/Entities/Items/Types/*/*/*/Data/*.tres`
-- `src/Entities/Player/player.gd`
-- `src/Entities/Player/player.tscn`
-- `src/Entities/Player/Config/player_input_config.tres`
-- `src/Entities/Player/Config/player_movement_config.tres`
-- `src/Entities/Player/Tools/player_cosmetic_catalog_builder.gd`
-- `src/Entities/Player/Tools/player_cosmetic_catalog_builder_runner.gd`
-- `src/Entities/Player/Tools/player_cosmetic_catalog_builder_runner.tscn`
-- `src/Entities/Player/Tools/README.md`
-- `src/Entities/Systems/Inventory/Resources/player_starter_inventory.tres`
-- `src/Entities/Systems/Combat/Tests/run_combat_tests.gd`
+- `src/entities/Creatures/creature.gd`
+- `src/entities/Creatures/creature.tscn`
+- `src/entities/Creatures/creature_catalog.gd`
+- `src/entities/Creatures/creature_catalog_service.gd`
+- `src/entities/Creatures/creature_data.gd`
+- `src/entities/Creatures/creature_factory.gd`
+- `src/entities/Creatures/README.md`
+- `src/entities/Creatures/Tools/creature_catalog_builder.gd`
+- `src/entities/Creatures/Tools/creature_catalog_builder_runner.gd`
+- `src/entities/Creatures/Tools/creature_catalog_builder_runner.tscn`
+- `src/entities/Creatures/Resources/creature_catalog.tres`
+- `src/entities/Creatures/Types/*/*/Data/*.tres` via catalog regeneration
+- `src/entities/Items/item_data.gd`
+- `src/entities/Items/README.md`
+- `src/entities/Items/Types/*/*/*/Data/*.tres`
+- `src/entities/Player/player.gd`
+- `src/entities/Player/player.tscn`
+- `src/entities/Player/Config/player_input_config.tres`
+- `src/entities/Player/Config/player_movement_config.tres`
+- `src/entities/Player/Tools/player_cosmetic_catalog_builder.gd`
+- `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.gd`
+- `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.tscn`
+- `src/entities/Player/Tools/README.md`
+- `src/entities/Systems/Inventory/Resources/player_starter_inventory.tres`
+- `src/entities/Systems/Combat/Tests/run_combat_tests.gd`
 
 ### Documentation paths
 
@@ -117,83 +117,83 @@
 
 ### Rename conventions to apply
 
-- `src/Common/Navigation` -> `src/Common/navigation`
-- `src/Common/Shaders` -> `src/Common/shaders`
-- `src/Common/StateMachine` -> `src/Common/state_machine`
-- `src/Core/Events` -> `src/Core/events`
-- `src/Config/Platform` -> `src/Config/platform`
-- `src/Localization/Translations` -> `src/Localization/translations`
-- `src/Ui/Common` -> `src/Ui/common`
-- `src/Ui/Desktop` -> `src/Ui/desktop`
-- `src/Ui/Mobile` -> `src/Ui/mobile`
-- `src/Ui/common/CombatPreviewPanel` -> `src/Ui/common/combat_preview_panel`
-- `src/Ui/common/CombatResultPanel` -> `src/Ui/common/combat_result_panel`
-- `src/Ui/common/Debug` -> `src/Ui/common/debug`
-- `src/Ui/common/Styles` -> `src/Ui/common/styles`
-- `src/Ui/common/Styles/Profiles` -> `src/Ui/common/styles/profiles`
-- `src/Ui/Desktop/Gui/MainScreen` -> `src/Ui/desktop/main_screen`
-- `src/Ui/Mobile/Gui/MainScreen` -> `src/Ui/mobile/main_screen`
-- `src/Ui/desktop/CharacterCreator` -> `src/Ui/desktop/character_creator`
-- `src/Ui/desktop/Combat` -> `src/Ui/desktop/combat`
-- `src/Ui/desktop/Debug` -> `src/Ui/desktop/debug`
-- `src/Ui/desktop/Hud` -> `src/Ui/desktop/hud`
-- `src/Ui/desktop/Hud/SystemHud` -> `src/Ui/desktop/hud/system_hud`
-- `src/Ui/desktop/Inventory` -> `src/Ui/desktop/inventory`
-- `src/Ui/mobile/CharacterCreator` -> `src/Ui/mobile/character_creator`
-- `src/Ui/mobile/Combat` -> `src/Ui/mobile/combat`
-- `src/Ui/mobile/Hud` -> `src/Ui/mobile/hud`
-- `src/Ui/mobile/Hud/SystemHud` -> `src/Ui/mobile/hud/system_hud`
-- `src/Ui/mobile/Inventory` -> `src/Ui/mobile/inventory`
-- `src/Ui/Hud` -> `src/Ui/hud`
-- `src/World/Combat` -> `src/World/combat`
-- `src/World/Locations` -> `src/World/locations`
-- `src/World/Overworld` -> `src/World/overworld`
-- `src/World/Streaming` -> `src/World/streaming`
-- `src/World/locations/Arenas` -> `src/World/locations/arenas`
-- `src/World/locations/Dungeons` -> `src/World/locations/dungeons`
-- `src/World/locations/Interiors` -> `src/World/locations/interiors`
-- `src/World/locations/Towns` -> `src/World/locations/towns`
-- `src/World/Overworld/Chunks` -> `src/World/overworld/chunks`
-- `src/World/Overworld/Shaders` -> `src/World/overworld/shaders`
-- `src/World/Overworld/Tilesets` -> `src/World/overworld/tilesets`
-- `src/Entities/Creatures` -> `src/Entities/creatures`
-- `src/Entities/Creatures/Types` -> `src/Entities/creatures/catalog`
-- `src/Entities/creatures/Components` -> `src/Entities/creatures/components`
-- `src/Entities/creatures/Effects` -> `src/Entities/creatures/effects`
-- `src/Entities/creatures/Resources` -> `src/Entities/creatures/resources`
-- `src/Entities/creatures/Spawning` -> `src/Entities/creatures/spawning`
-- `src/Entities/creatures/Tests` -> `src/Entities/creatures/tests`
-- `src/Entities/creatures/Tools` -> `src/Entities/creatures/tools`
-- `src/Entities/creatures/catalog/*/*/Data` -> `src/Entities/creatures/catalog/*/*/data`
-- `src/Entities/creatures/catalog/*/*/Sprites` -> `src/Entities/creatures/catalog/*/*/sprites`
-- `src/Entities/Player` -> `src/Entities/player`
-- `src/Entities/player/Assets` -> `src/Entities/player/assets`
-- `src/Entities/player/Components` -> `src/Entities/player/components`
-- `src/Entities/player/Config` -> `src/Entities/player/config`
-- `src/Entities/player/Input` -> `src/Entities/player/input`
-- `src/Entities/player/Resources` -> `src/Entities/player/resources`
-- `src/Entities/player/Services` -> `src/Entities/player/services`
-- `src/Entities/player/Sounds` -> `src/Entities/player/sounds`
-- `src/Entities/player/States` -> `src/Entities/player/states`
-- `src/Entities/player/Tests` -> `src/Entities/player/tests`
-- `src/Entities/player/Tools` -> `src/Entities/player/tools`
-- `src/Entities/Items` -> `src/Entities/items`
-- `src/Entities/Items/Types` -> `src/Entities/items/catalog`
-- `src/Entities/items/catalog/*/*/*/Data` -> `src/Entities/items/catalog/*/*/*/data`
-- `src/Entities/items/catalog/*/*/*/Sprites` -> `src/Entities/items/catalog/*/*/*/sprites`
-- `src/Entities/Interactables` -> `src/Entities/interactables`
-- `src/Entities/Skills` -> `src/Entities/skills`
-- `src/Entities/Systems` -> `src/Entities/systems`
-- `src/Entities/systems/Combat` -> `src/Entities/systems/combat`
-- `src/Entities/systems/Inventory` -> `src/Entities/systems/inventory`
+- `src/common/Navigation` -> `src/common/navigation`
+- `src/common/Shaders` -> `src/common/shaders`
+- `src/common/StateMachine` -> `src/common/state_machine`
+- `src/core/Events` -> `src/core/events`
+- `src/config/Platform` -> `src/config/platform`
+- `src/localization/Translations` -> `src/localization/translations`
+- `src/ui/Common` -> `src/ui/common`
+- `src/ui/Desktop` -> `src/ui/desktop`
+- `src/ui/Mobile` -> `src/ui/mobile`
+- `src/ui/common/CombatPreviewPanel` -> `src/ui/common/combat_preview_panel`
+- `src/ui/common/CombatResultPanel` -> `src/ui/common/combat_result_panel`
+- `src/ui/common/Debug` -> `src/ui/common/debug`
+- `src/ui/common/Styles` -> `src/ui/common/styles`
+- `src/ui/common/Styles/Profiles` -> `src/ui/common/styles/profiles`
+- `src/ui/Desktop/Gui/MainScreen` -> `src/ui/desktop/main_screen`
+- `src/ui/Mobile/Gui/MainScreen` -> `src/ui/mobile/main_screen`
+- `src/ui/desktop/CharacterCreator` -> `src/ui/desktop/character_creator`
+- `src/ui/desktop/Combat` -> `src/ui/desktop/combat`
+- `src/ui/desktop/Debug` -> `src/ui/desktop/debug`
+- `src/ui/desktop/Hud` -> `src/ui/desktop/hud`
+- `src/ui/desktop/Hud/SystemHud` -> `src/ui/desktop/hud/system_hud`
+- `src/ui/desktop/Inventory` -> `src/ui/desktop/inventory`
+- `src/ui/mobile/CharacterCreator` -> `src/ui/mobile/character_creator`
+- `src/ui/mobile/Combat` -> `src/ui/mobile/combat`
+- `src/ui/mobile/Hud` -> `src/ui/mobile/hud`
+- `src/ui/mobile/Hud/SystemHud` -> `src/ui/mobile/hud/system_hud`
+- `src/ui/mobile/Inventory` -> `src/ui/mobile/inventory`
+- `src/ui/Hud` -> `src/ui/hud`
+- `src/world/Combat` -> `src/world/combat`
+- `src/world/Locations` -> `src/world/locations`
+- `src/world/Overworld` -> `src/world/overworld`
+- `src/world/Streaming` -> `src/world/streaming`
+- `src/world/locations/Arenas` -> `src/world/locations/arenas`
+- `src/world/locations/Dungeons` -> `src/world/locations/dungeons`
+- `src/world/locations/Interiors` -> `src/world/locations/interiors`
+- `src/world/locations/Towns` -> `src/world/locations/towns`
+- `src/world/Overworld/Chunks` -> `src/world/overworld/chunks`
+- `src/world/Overworld/Shaders` -> `src/world/overworld/shaders`
+- `src/world/Overworld/Tilesets` -> `src/world/overworld/tilesets`
+- `src/entities/Creatures` -> `src/entities/creatures`
+- `src/entities/Creatures/Types` -> `src/entities/creatures/catalog`
+- `src/entities/creatures/Components` -> `src/entities/creatures/components`
+- `src/entities/creatures/Effects` -> `src/entities/creatures/effects`
+- `src/entities/creatures/Resources` -> `src/entities/creatures/resources`
+- `src/entities/creatures/Spawning` -> `src/entities/creatures/spawning`
+- `src/entities/creatures/Tests` -> `src/entities/creatures/tests`
+- `src/entities/creatures/Tools` -> `src/entities/creatures/tools`
+- `src/entities/creatures/catalog/*/*/Data` -> `src/entities/creatures/catalog/*/*/data`
+- `src/entities/creatures/catalog/*/*/Sprites` -> `src/entities/creatures/catalog/*/*/sprites`
+- `src/entities/Player` -> `src/entities/player`
+- `src/entities/player/Assets` -> `src/entities/player/assets`
+- `src/entities/player/Components` -> `src/entities/player/components`
+- `src/entities/player/Config` -> `src/entities/player/config`
+- `src/entities/player/Input` -> `src/entities/player/input`
+- `src/entities/player/Resources` -> `src/entities/player/resources`
+- `src/entities/player/Services` -> `src/entities/player/services`
+- `src/entities/player/Sounds` -> `src/entities/player/sounds`
+- `src/entities/player/States` -> `src/entities/player/states`
+- `src/entities/player/Tests` -> `src/entities/player/tests`
+- `src/entities/player/Tools` -> `src/entities/player/tools`
+- `src/entities/Items` -> `src/entities/items`
+- `src/entities/Items/Types` -> `src/entities/items/catalog`
+- `src/entities/items/catalog/*/*/*/Data` -> `src/entities/items/catalog/*/*/*/data`
+- `src/entities/items/catalog/*/*/*/Sprites` -> `src/entities/items/catalog/*/*/*/sprites`
+- `src/entities/Interactables` -> `src/entities/interactables`
+- `src/entities/Skills` -> `src/entities/skills`
+- `src/entities/Systems` -> `src/entities/systems`
+- `src/entities/systems/Combat` -> `src/entities/systems/combat`
+- `src/entities/systems/Inventory` -> `src/entities/systems/inventory`
 
 ### Windows rename note
 
 Use temporary names for case-only renames:
 
 ```powershell
-Rename-Item src/Ui/Desktop src/Ui/__desktop_tmp
-Rename-Item src/Ui/__desktop_tmp src/Ui/desktop
+Rename-Item src/ui/Desktop src/ui/__desktop_tmp
+Rename-Item src/ui/__desktop_tmp src/ui/desktop
 ```
 
 Use the same pattern for every case-only rename in this plan.
@@ -202,25 +202,25 @@ Use the same pattern for every case-only rename in this plan.
 
 **Files:**
 - Modify: `project.godot`
-- Modify: `src/Config/aether_project_config.gd`
-- Modify: `src/Config/project_config.tres`
-- Modify: `src/Config/Platform/desktop_platform_profile.tres`
-- Modify: `src/Config/Platform/mobile_platform_profile.tres`
-- Modify: `src/Localization/localization_service.gd`
-- Modify: `src/Localization/README.md`
-- Modify: `src/Entities/Creatures/creature.tscn`
-- Modify: `src/Entities/Player/player.tscn`
-- Rename: `src/Common/Navigation/` -> `src/Common/navigation/`
-- Rename: `src/Common/Shaders/` -> `src/Common/shaders/`
-- Rename: `src/Common/StateMachine/` -> `src/Common/state_machine/`
-- Rename: `src/Core/Events/` -> `src/Core/events/`
-- Rename: `src/Config/Platform/` -> `src/Config/platform/`
-- Rename: `src/Localization/Translations/` -> `src/Localization/translations/`
+- Modify: `src/config/aether_project_config.gd`
+- Modify: `src/config/project_config.tres`
+- Modify: `src/config/Platform/desktop_platform_profile.tres`
+- Modify: `src/config/Platform/mobile_platform_profile.tres`
+- Modify: `src/localization/localization_service.gd`
+- Modify: `src/localization/README.md`
+- Modify: `src/entities/Creatures/creature.tscn`
+- Modify: `src/entities/Player/player.tscn`
+- Rename: `src/common/Navigation/` -> `src/common/navigation/`
+- Rename: `src/common/Shaders/` -> `src/common/shaders/`
+- Rename: `src/common/StateMachine/` -> `src/common/state_machine/`
+- Rename: `src/core/Events/` -> `src/core/events/`
+- Rename: `src/config/Platform/` -> `src/config/platform/`
+- Rename: `src/localization/Translations/` -> `src/localization/translations/`
 
 - [ ] **Step 1: Record the current reference surface**
 
 ```powershell
-rg -n "src/Common/Navigation|src/Common/Shaders|src/Common/StateMachine|src/Core/Events|src/Config/Platform|src/Localization/Translations" src project.godot
+rg -n "src/common/Navigation|src/common/Shaders|src/common/StateMachine|src/core/Events|src/config/Platform|src/localization/Translations" src project.godot
 ```
 
 Expected: matches in `project.godot`, config resources, localization files, and any scene/script that still references the old directories.
@@ -228,65 +228,65 @@ Expected: matches in `project.godot`, config resources, localization files, and 
 - [ ] **Step 2: Rename the shared folders with Windows-safe temporary names**
 
 ```powershell
-Rename-Item src/Common/Navigation src/Common/__navigation_tmp
-Rename-Item src/Common/__navigation_tmp src/Common/navigation
-Rename-Item src/Common/Shaders src/Common/__shaders_tmp
-Rename-Item src/Common/__shaders_tmp src/Common/shaders
-Rename-Item src/Common/StateMachine src/Common/__state_machine_tmp
-Rename-Item src/Common/__state_machine_tmp src/Common/state_machine
-Rename-Item src/Core/Events src/Core/__events_tmp
-Rename-Item src/Core/__events_tmp src/Core/events
-Rename-Item src/Config/Platform src/Config/__platform_tmp
-Rename-Item src/Config/__platform_tmp src/Config/platform
-Rename-Item src/Localization/Translations src/Localization/__translations_tmp
-Rename-Item src/Localization/__translations_tmp src/Localization/translations
+Rename-Item src/common/Navigation src/common/__navigation_tmp
+Rename-Item src/common/__navigation_tmp src/common/navigation
+Rename-Item src/common/Shaders src/common/__shaders_tmp
+Rename-Item src/common/__shaders_tmp src/common/shaders
+Rename-Item src/common/StateMachine src/common/__state_machine_tmp
+Rename-Item src/common/__state_machine_tmp src/common/state_machine
+Rename-Item src/core/Events src/core/__events_tmp
+Rename-Item src/core/__events_tmp src/core/events
+Rename-Item src/config/Platform src/config/__platform_tmp
+Rename-Item src/config/__platform_tmp src/config/platform
+Rename-Item src/localization/Translations src/localization/__translations_tmp
+Rename-Item src/localization/__translations_tmp src/localization/translations
 ```
 
 - [ ] **Step 3: Update autoload, config, and localization references**
 
 ```ini
 ; project.godot
-run/main_scene="res://src/Ui/common/startup_splash_screen.tscn"
-ProjectConfig="*res://src/Config/project_config_service.gd"
-LocalizationService="*res://src/Localization/localization_service.gd"
-PlayerEvents="*res://src/Core/events/player_events.gd"
-WorldEvents="*res://src/Core/events/world_events.gd"
-UIEvents="*res://src/Core/events/ui_events.gd"
-CreatureEvents="*res://src/Core/events/creature_events.gd"
-CombatEvents="*res://src/Core/events/combat_events.gd"
-locale/translations=PackedStringArray("res://src/Localization/translations/ui_en.tres", "res://src/Localization/translations/ui_uk.tres")
+run/main_scene="res://src/ui/common/startup_splash_screen.tscn"
+ProjectConfig="*res://src/config/project_config_service.gd"
+LocalizationService="*res://src/localization/localization_service.gd"
+PlayerEvents="*res://src/core/events/player_events.gd"
+WorldEvents="*res://src/core/events/world_events.gd"
+UIEvents="*res://src/core/events/ui_events.gd"
+CreatureEvents="*res://src/core/events/creature_events.gd"
+CombatEvents="*res://src/core/events/combat_events.gd"
+locale/translations=PackedStringArray("res://src/localization/translations/ui_en.tres", "res://src/localization/translations/ui_uk.tres")
 ```
 
 ```gdscript
-# src/Localization/localization_service.gd
+# src/localization/localization_service.gd
 const DEFAULT_TRANSLATIONS: PackedStringArray = [
-	"res://src/Localization/translations/ui_en.tres",
-	"res://src/Localization/translations/ui_uk.tres",
+	"res://src/localization/translations/ui_en.tres",
+	"res://src/localization/translations/ui_uk.tres",
 ]
 ```
 
 - [ ] **Step 4: Update remaining explicit path strings**
 
 ```powershell
-rg -l "src/Common/Navigation|src/Common/Shaders|src/Common/StateMachine|src/Core/Events|src/Config/Platform|src/Localization/Translations" src project.godot |
+rg -l "src/common/Navigation|src/common/Shaders|src/common/StateMachine|src/core/Events|src/config/Platform|src/localization/Translations" src project.godot |
 ForEach-Object { $_ }
 ```
 
 Then update every returned file so the old path fragments become:
 
 ```text
-src/Common/navigation
-src/Common/shaders
-src/Common/state_machine
-src/Core/events
-src/Config/platform
-src/Localization/translations
+src/common/navigation
+src/common/shaders
+src/common/state_machine
+src/core/events
+src/config/platform
+src/localization/translations
 ```
 
 - [ ] **Step 5: Verify the old shared paths are gone**
 
 ```powershell
-rg -n "src/Common/Navigation|src/Common/Shaders|src/Common/StateMachine|src/Core/Events|src/Config/Platform|src/Localization/Translations" src project.godot
+rg -n "src/common/Navigation|src/common/Shaders|src/common/StateMachine|src/core/Events|src/config/Platform|src/localization/Translations" src project.godot
 ```
 
 Expected: no output.
@@ -294,7 +294,7 @@ Expected: no output.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add project.godot src/Common src/Core src/Config src/Localization src/Entities/Creatures/creature.tscn src/Entities/Player/player.tscn
+git add project.godot src/common src/core src/config src/localization src/entities/Creatures/creature.tscn src/entities/Player/player.tscn
 git commit -m "refactor: normalize shared runtime folder names"
 ```
 
@@ -302,62 +302,62 @@ git commit -m "refactor: normalize shared runtime folder names"
 
 **Files:**
 - Modify: `project.godot`
-- Modify: `src/Ui/Common/ui_manager.gd`
-- Modify: `src/Ui/Common/startup_splash_screen.tscn`
-- Modify: `src/Ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`
-- Modify: `src/Ui/Common/CombatResultPanel/combat_result_panel.tscn`
-- Modify: `src/Ui/Common/Debug/debug_panel.gd`
-- Modify: `src/Ui/Common/Styles/Profiles/inventory_board_style.tres`
-- Modify: `src/Ui/Common/Styles/Profiles/inventory_section_style.tres`
-- Modify: `src/Ui/Common/Styles/Profiles/inventory_title_style.tres`
-- Modify: `src/Ui/Common/inventory_screen.tscn`
-- Modify: `src/Ui/Desktop/Gui/MainScreen/main_screen.gd`
-- Modify: `src/Ui/Desktop/Gui/MainScreen/main_screen.tscn`
-- Modify: `src/Ui/Desktop/Gui/MainScreen/main_screen_desktop.gd`
-- Modify: `src/Ui/Desktop/Gui/MainScreen/background_controller.gd`
-- Modify: `src/Ui/Desktop/Gui/MainScreen/main_screen_theme.tres`
-- Modify: `src/Ui/Desktop/CharacterCreator/character_creator_panel.tscn`
-- Modify: `src/Ui/Desktop/Combat/desktop_combat_ui.tscn`
-- Modify: `src/Ui/Desktop/Debug/debug_overlay.tscn`
-- Modify: `src/Ui/Desktop/Hud/SystemHud/system_hud.tscn`
-- Modify: `src/Ui/Desktop/Inventory/inventory_panel.gd`
-- Modify: `src/Ui/Desktop/Inventory/inventory_panel.tscn`
-- Modify: `src/Ui/Desktop/Inventory/inventory_screen.tscn`
-- Modify: `src/Ui/Mobile/Gui/MainScreen/main_screen_mobile.gd`
-- Modify: `src/Ui/Mobile/Gui/MainScreen/main_screen_mobile.tscn`
-- Modify: `src/Ui/Mobile/CharacterCreator/character_creator_panel_mobile.tscn`
-- Modify: `src/Ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn`
-- Modify: `src/Ui/Mobile/Inventory/inventory_panel_mobile.tscn`
-- Modify: `src/Ui/Hud/creature_action_hud.tscn`
-- Modify: `src/World/Overworld/overworld.tscn`
-- Modify: `src/World/Combat/combat_scene.tscn`
-- Rename: `src/Ui/Common/` -> `src/Ui/common/`
-- Rename: `src/Ui/Desktop/` -> `src/Ui/desktop/`
-- Rename: `src/Ui/Mobile/` -> `src/Ui/mobile/`
-- Rename: `src/Ui/Hud/` -> `src/Ui/hud/`
-- Rename: `src/Ui/common/CombatPreviewPanel/` -> `src/Ui/common/combat_preview_panel/`
-- Rename: `src/Ui/common/CombatResultPanel/` -> `src/Ui/common/combat_result_panel/`
-- Rename: `src/Ui/common/Debug/` -> `src/Ui/common/debug/`
-- Rename: `src/Ui/common/Styles/` -> `src/Ui/common/styles/`
-- Rename: `src/Ui/common/styles/Profiles/` -> `src/Ui/common/styles/profiles/`
-- Rename: `src/Ui/desktop/CharacterCreator/` -> `src/Ui/desktop/character_creator/`
-- Rename: `src/Ui/desktop/Combat/` -> `src/Ui/desktop/combat/`
-- Rename: `src/Ui/desktop/Debug/` -> `src/Ui/desktop/debug/`
-- Rename: `src/Ui/desktop/Hud/` -> `src/Ui/desktop/hud/`
-- Rename: `src/Ui/desktop/hud/SystemHud/` -> `src/Ui/desktop/hud/system_hud/`
-- Rename: `src/Ui/desktop/Inventory/` -> `src/Ui/desktop/inventory/`
-- Rename: `src/Ui/mobile/CharacterCreator/` -> `src/Ui/mobile/character_creator/`
-- Rename: `src/Ui/mobile/Combat/` -> `src/Ui/mobile/combat/`
-- Rename: `src/Ui/mobile/Hud/` -> `src/Ui/mobile/hud/`
-- Rename: `src/Ui/mobile/hud/SystemHud/` -> `src/Ui/mobile/hud/system_hud/`
-- Rename: `src/Ui/mobile/Inventory/` -> `src/Ui/mobile/inventory/`
-- Move: `src/Ui/desktop/Gui/MainScreen/` -> `src/Ui/desktop/main_screen/`
-- Move: `src/Ui/mobile/Gui/MainScreen/` -> `src/Ui/mobile/main_screen/`
+- Modify: `src/ui/Common/ui_manager.gd`
+- Modify: `src/ui/Common/startup_splash_screen.tscn`
+- Modify: `src/ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`
+- Modify: `src/ui/Common/CombatResultPanel/combat_result_panel.tscn`
+- Modify: `src/ui/Common/Debug/debug_panel.gd`
+- Modify: `src/ui/Common/Styles/Profiles/inventory_board_style.tres`
+- Modify: `src/ui/Common/Styles/Profiles/inventory_section_style.tres`
+- Modify: `src/ui/Common/Styles/Profiles/inventory_title_style.tres`
+- Modify: `src/ui/Common/inventory_screen.tscn`
+- Modify: `src/ui/Desktop/Gui/MainScreen/main_screen.gd`
+- Modify: `src/ui/Desktop/Gui/MainScreen/main_screen.tscn`
+- Modify: `src/ui/Desktop/Gui/MainScreen/main_screen_desktop.gd`
+- Modify: `src/ui/Desktop/Gui/MainScreen/background_controller.gd`
+- Modify: `src/ui/Desktop/Gui/MainScreen/main_screen_theme.tres`
+- Modify: `src/ui/Desktop/CharacterCreator/character_creator_panel.tscn`
+- Modify: `src/ui/Desktop/Combat/desktop_combat_ui.tscn`
+- Modify: `src/ui/Desktop/Debug/debug_overlay.tscn`
+- Modify: `src/ui/Desktop/Hud/SystemHud/system_hud.tscn`
+- Modify: `src/ui/Desktop/Inventory/inventory_panel.gd`
+- Modify: `src/ui/Desktop/Inventory/inventory_panel.tscn`
+- Modify: `src/ui/Desktop/Inventory/inventory_screen.tscn`
+- Modify: `src/ui/Mobile/Gui/MainScreen/main_screen_mobile.gd`
+- Modify: `src/ui/Mobile/Gui/MainScreen/main_screen_mobile.tscn`
+- Modify: `src/ui/Mobile/CharacterCreator/character_creator_panel_mobile.tscn`
+- Modify: `src/ui/Mobile/Hud/SystemHud/system_hud_mobile.tscn`
+- Modify: `src/ui/Mobile/Inventory/inventory_panel_mobile.tscn`
+- Modify: `src/ui/Hud/creature_action_hud.tscn`
+- Modify: `src/world/Overworld/overworld.tscn`
+- Modify: `src/world/Combat/combat_scene.tscn`
+- Rename: `src/ui/Common/` -> `src/ui/common/`
+- Rename: `src/ui/Desktop/` -> `src/ui/desktop/`
+- Rename: `src/ui/Mobile/` -> `src/ui/mobile/`
+- Rename: `src/ui/Hud/` -> `src/ui/hud/`
+- Rename: `src/ui/common/CombatPreviewPanel/` -> `src/ui/common/combat_preview_panel/`
+- Rename: `src/ui/common/CombatResultPanel/` -> `src/ui/common/combat_result_panel/`
+- Rename: `src/ui/common/Debug/` -> `src/ui/common/debug/`
+- Rename: `src/ui/common/Styles/` -> `src/ui/common/styles/`
+- Rename: `src/ui/common/styles/Profiles/` -> `src/ui/common/styles/profiles/`
+- Rename: `src/ui/desktop/CharacterCreator/` -> `src/ui/desktop/character_creator/`
+- Rename: `src/ui/desktop/Combat/` -> `src/ui/desktop/combat/`
+- Rename: `src/ui/desktop/Debug/` -> `src/ui/desktop/debug/`
+- Rename: `src/ui/desktop/Hud/` -> `src/ui/desktop/hud/`
+- Rename: `src/ui/desktop/hud/SystemHud/` -> `src/ui/desktop/hud/system_hud/`
+- Rename: `src/ui/desktop/Inventory/` -> `src/ui/desktop/inventory/`
+- Rename: `src/ui/mobile/CharacterCreator/` -> `src/ui/mobile/character_creator/`
+- Rename: `src/ui/mobile/Combat/` -> `src/ui/mobile/combat/`
+- Rename: `src/ui/mobile/Hud/` -> `src/ui/mobile/hud/`
+- Rename: `src/ui/mobile/hud/SystemHud/` -> `src/ui/mobile/hud/system_hud/`
+- Rename: `src/ui/mobile/Inventory/` -> `src/ui/mobile/inventory/`
+- Move: `src/ui/desktop/Gui/MainScreen/` -> `src/ui/desktop/main_screen/`
+- Move: `src/ui/mobile/Gui/MainScreen/` -> `src/ui/mobile/main_screen/`
 
 - [ ] **Step 1: Capture the UI stale-path baseline**
 
 ```powershell
-rg -n "src/Ui/Common|src/Ui/Desktop|src/Ui/Mobile|src/Ui/Hud|src/Ui/Desktop/Gui/MainScreen|src/Ui/Mobile/Gui/MainScreen" src project.godot
+rg -n "src/ui/Common|src/ui/Desktop|src/ui/Mobile|src/ui/Hud|src/ui/Desktop/Gui/MainScreen|src/ui/Mobile/Gui/MainScreen" src project.godot
 ```
 
 Expected: matches in `ui_manager.gd`, the main screen scenes, `overworld.tscn`, inventory scenes, combat scenes, and the startup splash scene.
@@ -365,67 +365,67 @@ Expected: matches in `ui_manager.gd`, the main screen scenes, `overworld.tscn`, 
 - [ ] **Step 2: Rename the main UI folders**
 
 ```powershell
-Rename-Item src/Ui/Common src/Ui/__common_tmp
-Rename-Item src/Ui/__common_tmp src/Ui/common
-Rename-Item src/Ui/Desktop src/Ui/__desktop_tmp
-Rename-Item src/Ui/__desktop_tmp src/Ui/desktop
-Rename-Item src/Ui/Mobile src/Ui/__mobile_tmp
-Rename-Item src/Ui/__mobile_tmp src/Ui/mobile
-Rename-Item src/Ui/Hud src/Ui/__hud_tmp
-Rename-Item src/Ui/__hud_tmp src/Ui/hud
-Rename-Item src/Ui/common/CombatPreviewPanel src/Ui/common/combat_preview_panel
-Rename-Item src/Ui/common/CombatResultPanel src/Ui/common/combat_result_panel
-Rename-Item src/Ui/common/Debug src/Ui/common/debug
-Rename-Item src/Ui/common/Styles src/Ui/common/styles
-Rename-Item src/Ui/common/styles/Profiles src/Ui/common/styles/profiles
-Rename-Item src/Ui/desktop/CharacterCreator src/Ui/desktop/character_creator
-Rename-Item src/Ui/desktop/Combat src/Ui/desktop/combat
-Rename-Item src/Ui/desktop/Debug src/Ui/desktop/debug
-Rename-Item src/Ui/desktop/Hud src/Ui/desktop/hud
-Rename-Item src/Ui/desktop/hud/SystemHud src/Ui/desktop/hud/system_hud
-Rename-Item src/Ui/desktop/Inventory src/Ui/desktop/inventory
-Rename-Item src/Ui/mobile/CharacterCreator src/Ui/mobile/character_creator
-Rename-Item src/Ui/mobile/Combat src/Ui/mobile/combat
-Rename-Item src/Ui/mobile/Hud src/Ui/mobile/hud
-Rename-Item src/Ui/mobile/hud/SystemHud src/Ui/mobile/hud/system_hud
-Rename-Item src/Ui/mobile/Inventory src/Ui/mobile/inventory
+Rename-Item src/ui/Common src/ui/__common_tmp
+Rename-Item src/ui/__common_tmp src/ui/common
+Rename-Item src/ui/Desktop src/ui/__desktop_tmp
+Rename-Item src/ui/__desktop_tmp src/ui/desktop
+Rename-Item src/ui/Mobile src/ui/__mobile_tmp
+Rename-Item src/ui/__mobile_tmp src/ui/mobile
+Rename-Item src/ui/Hud src/ui/__hud_tmp
+Rename-Item src/ui/__hud_tmp src/ui/hud
+Rename-Item src/ui/common/CombatPreviewPanel src/ui/common/combat_preview_panel
+Rename-Item src/ui/common/CombatResultPanel src/ui/common/combat_result_panel
+Rename-Item src/ui/common/Debug src/ui/common/debug
+Rename-Item src/ui/common/Styles src/ui/common/styles
+Rename-Item src/ui/common/styles/Profiles src/ui/common/styles/profiles
+Rename-Item src/ui/desktop/CharacterCreator src/ui/desktop/character_creator
+Rename-Item src/ui/desktop/Combat src/ui/desktop/combat
+Rename-Item src/ui/desktop/Debug src/ui/desktop/debug
+Rename-Item src/ui/desktop/Hud src/ui/desktop/hud
+Rename-Item src/ui/desktop/hud/SystemHud src/ui/desktop/hud/system_hud
+Rename-Item src/ui/desktop/Inventory src/ui/desktop/inventory
+Rename-Item src/ui/mobile/CharacterCreator src/ui/mobile/character_creator
+Rename-Item src/ui/mobile/Combat src/ui/mobile/combat
+Rename-Item src/ui/mobile/Hud src/ui/mobile/hud
+Rename-Item src/ui/mobile/hud/SystemHud src/ui/mobile/hud/system_hud
+Rename-Item src/ui/mobile/Inventory src/ui/mobile/inventory
 ```
 
 - [ ] **Step 3: Flatten the `Gui/MainScreen` feature into `main_screen`**
 
 ```powershell
-New-Item -ItemType Directory -Force -Path src/Ui/desktop/main_screen | Out-Null
-Move-Item src/Ui/desktop/Gui/MainScreen/* src/Ui/desktop/main_screen/
-Remove-Item src/Ui/desktop/Gui/MainScreen -Force
-Remove-Item src/Ui/desktop/Gui -Force
-New-Item -ItemType Directory -Force -Path src/Ui/mobile/main_screen | Out-Null
-Move-Item src/Ui/mobile/Gui/MainScreen/* src/Ui/mobile/main_screen/
-Remove-Item src/Ui/mobile/Gui/MainScreen -Force
-Remove-Item src/Ui/mobile/Gui -Force
+New-Item -ItemType Directory -Force -Path src/ui/desktop/main_screen | Out-Null
+Move-Item src/ui/desktop/Gui/MainScreen/* src/ui/desktop/main_screen/
+Remove-Item src/ui/desktop/Gui/MainScreen -Force
+Remove-Item src/ui/desktop/Gui -Force
+New-Item -ItemType Directory -Force -Path src/ui/mobile/main_screen | Out-Null
+Move-Item src/ui/mobile/Gui/MainScreen/* src/ui/mobile/main_screen/
+Remove-Item src/ui/mobile/Gui/MainScreen -Force
+Remove-Item src/ui/mobile/Gui -Force
 ```
 
 - [ ] **Step 4: Update `UiManager` preload constants to the new runtime layout**
 
 ```gdscript
-const SYSTEM_HUD_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/desktop/hud/system_hud/system_hud.tscn")
-const SYSTEM_HUD_MOBILE_SCENE: PackedScene = preload("res://src/Ui/mobile/hud/system_hud/system_hud_mobile.tscn")
-const DEBUG_OVERLAY_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/desktop/debug/debug_overlay.tscn")
-const MAIN_SCREEN_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/desktop/main_screen/main_screen.tscn")
-const MAIN_SCREEN_MOBILE_SCENE: PackedScene = preload("res://src/Ui/mobile/main_screen/main_screen_mobile.tscn")
-const INVENTORY_PANEL_DESKTOP_SCENE: PackedScene = preload("res://src/Ui/desktop/inventory/inventory_panel.tscn")
-const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/Ui/mobile/inventory/inventory_panel_mobile.tscn")
+const SYSTEM_HUD_DESKTOP_SCENE: PackedScene = preload("res://src/ui/desktop/hud/system_hud/system_hud.tscn")
+const SYSTEM_HUD_MOBILE_SCENE: PackedScene = preload("res://src/ui/mobile/hud/system_hud/system_hud_mobile.tscn")
+const DEBUG_OVERLAY_DESKTOP_SCENE: PackedScene = preload("res://src/ui/desktop/debug/debug_overlay.tscn")
+const MAIN_SCREEN_DESKTOP_SCENE: PackedScene = preload("res://src/ui/desktop/main_screen/main_screen.tscn")
+const MAIN_SCREEN_MOBILE_SCENE: PackedScene = preload("res://src/ui/mobile/main_screen/main_screen_mobile.tscn")
+const INVENTORY_PANEL_DESKTOP_SCENE: PackedScene = preload("res://src/ui/desktop/inventory/inventory_panel.tscn")
+const INVENTORY_PANEL_MOBILE_SCENE: PackedScene = preload("res://src/ui/mobile/inventory/inventory_panel_mobile.tscn")
 ```
 
 - [ ] **Step 5: Update `overworld.tscn` and the UI scenes to the new paths**
 
 ```gdresource
-[ext_resource type="PackedScene" path="res://src/Ui/desktop/debug/debug_overlay.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://src/Ui/desktop/main_screen/main_screen.tscn" id="8_main_screen"]
-[ext_resource type="PackedScene" path="res://src/Ui/desktop/hud/system_hud/system_hud.tscn" id="11_system_hud"]
-[ext_resource type="PackedScene" path="res://src/Ui/desktop/inventory/inventory_panel.tscn" id="12_inventory_panel"]
-[ext_resource type="Script" path="res://src/Ui/common/ui_manager.gd" id="13_ui_manager"]
-[ext_resource type="PackedScene" path="res://src/Ui/hud/creature_action_hud.tscn" id="14_creature_action_hud"]
-[ext_resource type="PackedScene" path="res://src/Ui/common/combat_preview_panel/combat_preview_panel.tscn" id="18_combat_preview"]
+[ext_resource type="PackedScene" path="res://src/ui/desktop/debug/debug_overlay.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://src/ui/desktop/main_screen/main_screen.tscn" id="8_main_screen"]
+[ext_resource type="PackedScene" path="res://src/ui/desktop/hud/system_hud/system_hud.tscn" id="11_system_hud"]
+[ext_resource type="PackedScene" path="res://src/ui/desktop/inventory/inventory_panel.tscn" id="12_inventory_panel"]
+[ext_resource type="Script" path="res://src/ui/common/ui_manager.gd" id="13_ui_manager"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/creature_action_hud.tscn" id="14_creature_action_hud"]
+[ext_resource type="PackedScene" path="res://src/ui/common/combat_preview_panel/combat_preview_panel.tscn" id="18_combat_preview"]
 ```
 
 Also update every `.tscn` / `.tres` listed above so `common`, `desktop`, `mobile`, `hud`, the nested feature folders, and `main_screen` references point at the normalized locations.
@@ -433,7 +433,7 @@ Also update every `.tscn` / `.tres` listed above so `common`, `desktop`, `mobile
 - [ ] **Step 6: Verify UI stale paths are gone**
 
 ```powershell
-rg -n "src/Ui/Common|src/Ui/Desktop|src/Ui/Mobile|src/Ui/Hud|src/Ui/Desktop/Gui/MainScreen|src/Ui/Mobile/Gui/MainScreen" src project.godot
+rg -n "src/ui/Common|src/ui/Desktop|src/ui/Mobile|src/ui/Hud|src/ui/Desktop/Gui/MainScreen|src/ui/Mobile/Gui/MainScreen" src project.godot
 ```
 
 Expected: no output.
@@ -441,7 +441,7 @@ Expected: no output.
 - [ ] **Step 7: Smoke-test the project entry scene**
 
 ```bash
-godot4 --headless --path . --scene res://src/World/main.tscn --quit-after 10
+godot4 --headless --path . --scene res://src/world/main.tscn --quit-after 10
 ```
 
 Expected: exit code `0` with no missing-resource errors for `Ui` paths.
@@ -449,111 +449,111 @@ Expected: exit code `0` with no missing-resource errors for `Ui` paths.
 - [ ] **Step 8: Commit**
 
 ```bash
-git add project.godot src/Ui src/World/Overworld/overworld.tscn src/World/Combat/combat_scene.tscn
+git add project.godot src/ui src/world/Overworld/overworld.tscn src/world/Combat/combat_scene.tscn
 git commit -m "refactor: normalize ui runtime layout"
 ```
 
 ### Task 3: Normalize World Runtime Layout And Location Names
 
 **Files:**
-- Modify: `src/World/main.gd`
-- Modify: `src/World/main.tscn`
-- Modify: `src/World/Combat/combat_scene.tscn`
-- Modify: `src/World/Overworld/overworld.gd`
-- Modify: `src/World/Overworld/overworld.tscn`
-- Modify: `src/World/Overworld/overworld_player_spawner.gd`
-- Modify: `src/World/Overworld/overworld_creature_spawner.gd`
-- Modify: `src/World/Overworld/overworld_character_creator_controller.gd`
-- Modify: `src/World/Overworld/overworld_creature_selection_controller.gd`
-- Modify: `src/World/Overworld/overworld_session_controller.gd`
-- Modify: `src/World/Overworld/navigation_blocker_registry.gd`
-- Modify: `src/World/Overworld/Chunks/chunk.gd`
-- Modify: `src/World/Streaming/chunk_manager.gd`
-- Modify: `src/World/Streaming/overworld_chunk_water_shader.gd`
-- Modify: `src/World/Locations/Towns/Starting_Village/Npcs/.gitkeep`
-- Rename: `src/World/Combat/` -> `src/World/combat/`
-- Rename: `src/World/Locations/` -> `src/World/locations/`
-- Rename: `src/World/Overworld/` -> `src/World/overworld/`
-- Rename: `src/World/Streaming/` -> `src/World/streaming/`
-- Rename: `src/World/locations/Arenas/` -> `src/World/locations/arenas/`
-- Rename: `src/World/locations/Dungeons/` -> `src/World/locations/dungeons/`
-- Rename: `src/World/locations/Interiors/` -> `src/World/locations/interiors/`
-- Rename: `src/World/locations/Towns/` -> `src/World/locations/towns/`
-- Rename: `src/World/overworld/Chunks/` -> `src/World/overworld/chunks/`
-- Rename: `src/World/overworld/Shaders/` -> `src/World/overworld/shaders/`
-- Rename: `src/World/overworld/Tilesets/` -> `src/World/overworld/tilesets/`
-- Rename: `src/World/locations/dungeons/Ancient_Ruins/` -> `src/World/locations/dungeons/ancient_ruins/`
-- Rename: `src/World/locations/dungeons/Goblin_Cave/` -> `src/World/locations/dungeons/goblin_cave/`
-- Rename: `src/World/locations/dungeons/goblin_cave/Encounters/` -> `src/World/locations/dungeons/goblin_cave/encounters/`
-- Rename: `src/World/locations/interiors/House_Interior/` -> `src/World/locations/interiors/house_interior/`
-- Rename: `src/World/locations/interiors/Shop_Interior/` -> `src/World/locations/interiors/shop_interior/`
-- Rename: `src/World/locations/towns/Capital_City/` -> `src/World/locations/towns/capital_city/`
-- Rename: `src/World/locations/towns/Starting_Village/` -> `src/World/locations/towns/starting_village/`
-- Rename: `src/World/locations/towns/starting_village/Npcs/` -> `src/World/locations/towns/starting_village/npcs/`
+- Modify: `src/world/main.gd`
+- Modify: `src/world/main.tscn`
+- Modify: `src/world/Combat/combat_scene.tscn`
+- Modify: `src/world/Overworld/overworld.gd`
+- Modify: `src/world/Overworld/overworld.tscn`
+- Modify: `src/world/Overworld/overworld_player_spawner.gd`
+- Modify: `src/world/Overworld/overworld_creature_spawner.gd`
+- Modify: `src/world/Overworld/overworld_character_creator_controller.gd`
+- Modify: `src/world/Overworld/overworld_creature_selection_controller.gd`
+- Modify: `src/world/Overworld/overworld_session_controller.gd`
+- Modify: `src/world/Overworld/navigation_blocker_registry.gd`
+- Modify: `src/world/Overworld/Chunks/chunk.gd`
+- Modify: `src/world/Streaming/chunk_manager.gd`
+- Modify: `src/world/Streaming/overworld_chunk_water_shader.gd`
+- Modify: `src/world/Locations/Towns/Starting_Village/Npcs/.gitkeep`
+- Rename: `src/world/Combat/` -> `src/world/combat/`
+- Rename: `src/world/Locations/` -> `src/world/locations/`
+- Rename: `src/world/Overworld/` -> `src/world/overworld/`
+- Rename: `src/world/Streaming/` -> `src/world/streaming/`
+- Rename: `src/world/locations/Arenas/` -> `src/world/locations/arenas/`
+- Rename: `src/world/locations/Dungeons/` -> `src/world/locations/dungeons/`
+- Rename: `src/world/locations/Interiors/` -> `src/world/locations/interiors/`
+- Rename: `src/world/locations/Towns/` -> `src/world/locations/towns/`
+- Rename: `src/world/overworld/Chunks/` -> `src/world/overworld/chunks/`
+- Rename: `src/world/overworld/Shaders/` -> `src/world/overworld/shaders/`
+- Rename: `src/world/overworld/Tilesets/` -> `src/world/overworld/tilesets/`
+- Rename: `src/world/locations/dungeons/Ancient_Ruins/` -> `src/world/locations/dungeons/ancient_ruins/`
+- Rename: `src/world/locations/dungeons/Goblin_Cave/` -> `src/world/locations/dungeons/goblin_cave/`
+- Rename: `src/world/locations/dungeons/goblin_cave/Encounters/` -> `src/world/locations/dungeons/goblin_cave/encounters/`
+- Rename: `src/world/locations/interiors/House_Interior/` -> `src/world/locations/interiors/house_interior/`
+- Rename: `src/world/locations/interiors/Shop_Interior/` -> `src/world/locations/interiors/shop_interior/`
+- Rename: `src/world/locations/towns/Capital_City/` -> `src/world/locations/towns/capital_city/`
+- Rename: `src/world/locations/towns/Starting_Village/` -> `src/world/locations/towns/starting_village/`
+- Rename: `src/world/locations/towns/starting_village/Npcs/` -> `src/world/locations/towns/starting_village/npcs/`
 
 - [ ] **Step 1: Capture the current world path surface**
 
 ```powershell
-rg -n "src/World/Combat|src/World/Overworld|src/World/Streaming|Ancient_Ruins|Goblin_Cave|House_Interior|Shop_Interior|Capital_City|Starting_Village|/Npcs/" src docs project.godot
+rg -n "src/world/Combat|src/world/Overworld|src/world/Streaming|Ancient_Ruins|Goblin_Cave|House_Interior|Shop_Interior|Capital_City|Starting_Village|/Npcs/" src docs project.godot
 ```
 
-Expected: matches in `src/World` scenes/scripts plus documentation files that mention location paths.
+Expected: matches in `src/world` scenes/scripts plus documentation files that mention location paths.
 
 - [ ] **Step 2: Rename the world runtime folders**
 
 ```powershell
-Rename-Item src/World/Combat src/World/__combat_tmp
-Rename-Item src/World/__combat_tmp src/World/combat
-Rename-Item src/World/Locations src/World/__locations_tmp
-Rename-Item src/World/__locations_tmp src/World/locations
-Rename-Item src/World/Overworld src/World/__overworld_tmp
-Rename-Item src/World/__overworld_tmp src/World/overworld
-Rename-Item src/World/Streaming src/World/__streaming_tmp
-Rename-Item src/World/__streaming_tmp src/World/streaming
-Rename-Item src/World/locations/Arenas src/World/locations/arenas
-Rename-Item src/World/locations/Dungeons src/World/locations/dungeons
-Rename-Item src/World/locations/Interiors src/World/locations/interiors
-Rename-Item src/World/locations/Towns src/World/locations/towns
-Rename-Item src/World/overworld/Chunks src/World/overworld/__chunks_tmp
-Rename-Item src/World/overworld/__chunks_tmp src/World/overworld/chunks
-Rename-Item src/World/overworld/Shaders src/World/overworld/__shaders_tmp
-Rename-Item src/World/overworld/__shaders_tmp src/World/overworld/shaders
-Rename-Item src/World/overworld/Tilesets src/World/overworld/__tilesets_tmp
-Rename-Item src/World/overworld/__tilesets_tmp src/World/overworld/tilesets
+Rename-Item src/world/Combat src/world/__combat_tmp
+Rename-Item src/world/__combat_tmp src/world/combat
+Rename-Item src/world/Locations src/world/__locations_tmp
+Rename-Item src/world/__locations_tmp src/world/locations
+Rename-Item src/world/Overworld src/world/__overworld_tmp
+Rename-Item src/world/__overworld_tmp src/world/overworld
+Rename-Item src/world/Streaming src/world/__streaming_tmp
+Rename-Item src/world/__streaming_tmp src/world/streaming
+Rename-Item src/world/locations/Arenas src/world/locations/arenas
+Rename-Item src/world/locations/Dungeons src/world/locations/dungeons
+Rename-Item src/world/locations/Interiors src/world/locations/interiors
+Rename-Item src/world/locations/Towns src/world/locations/towns
+Rename-Item src/world/overworld/Chunks src/world/overworld/__chunks_tmp
+Rename-Item src/world/overworld/__chunks_tmp src/world/overworld/chunks
+Rename-Item src/world/overworld/Shaders src/world/overworld/__shaders_tmp
+Rename-Item src/world/overworld/__shaders_tmp src/world/overworld/shaders
+Rename-Item src/world/overworld/Tilesets src/world/overworld/__tilesets_tmp
+Rename-Item src/world/overworld/__tilesets_tmp src/world/overworld/tilesets
 ```
 
 - [ ] **Step 3: Rename location folders to `snake_case`**
 
 ```powershell
-Rename-Item 'src/World/locations/dungeons/Ancient_Ruins' 'ancient_ruins'
-Rename-Item 'src/World/locations/dungeons/Goblin_Cave' 'goblin_cave'
-Rename-Item 'src/World/locations/dungeons/goblin_cave/Encounters' 'encounters'
-Rename-Item 'src/World/locations/interiors/House_Interior' 'house_interior'
-Rename-Item 'src/World/locations/interiors/Shop_Interior' 'shop_interior'
-Rename-Item 'src/World/locations/towns/Capital_City' 'capital_city'
-Rename-Item 'src/World/locations/towns/Starting_Village' 'starting_village'
-Rename-Item 'src/World/locations/towns/starting_village/Npcs' 'npcs'
+Rename-Item 'src/world/locations/dungeons/Ancient_Ruins' 'ancient_ruins'
+Rename-Item 'src/world/locations/dungeons/Goblin_Cave' 'goblin_cave'
+Rename-Item 'src/world/locations/dungeons/goblin_cave/Encounters' 'encounters'
+Rename-Item 'src/world/locations/interiors/House_Interior' 'house_interior'
+Rename-Item 'src/world/locations/interiors/Shop_Interior' 'shop_interior'
+Rename-Item 'src/world/locations/towns/Capital_City' 'capital_city'
+Rename-Item 'src/world/locations/towns/Starting_Village' 'starting_village'
+Rename-Item 'src/world/locations/towns/starting_village/Npcs' 'npcs'
 ```
 
 - [ ] **Step 4: Update world scene and script references**
 
 ```gdresource
-[ext_resource type="Script" path="res://src/World/overworld/overworld.gd" id="1"]
-[ext_resource type="Script" path="res://src/World/streaming/chunk_manager.gd" id="3"]
-[ext_resource type="Script" path="res://src/World/overworld/overworld_player_spawner.gd" id="5_spawner"]
-[ext_resource type="Script" path="res://src/World/overworld/overworld_session_controller.gd" id="6_session"]
-[ext_resource type="Script" path="res://src/World/overworld/navigation_blocker_registry.gd" id="7_registry"]
-[ext_resource type="Script" path="res://src/World/overworld/overworld_creature_spawner.gd" id="10_creature_spawner"]
-[ext_resource type="Script" path="res://src/World/overworld/overworld_creature_selection_controller.gd" id="16_creature_selection_ctrl"]
-[ext_resource type="Script" path="res://src/World/overworld/overworld_character_creator_controller.gd" id="17_character_creator_ctrl"]
+[ext_resource type="Script" path="res://src/world/overworld/overworld.gd" id="1"]
+[ext_resource type="Script" path="res://src/world/streaming/chunk_manager.gd" id="3"]
+[ext_resource type="Script" path="res://src/world/overworld/overworld_player_spawner.gd" id="5_spawner"]
+[ext_resource type="Script" path="res://src/world/overworld/overworld_session_controller.gd" id="6_session"]
+[ext_resource type="Script" path="res://src/world/overworld/navigation_blocker_registry.gd" id="7_registry"]
+[ext_resource type="Script" path="res://src/world/overworld/overworld_creature_spawner.gd" id="10_creature_spawner"]
+[ext_resource type="Script" path="res://src/world/overworld/overworld_creature_selection_controller.gd" id="16_creature_selection_ctrl"]
+[ext_resource type="Script" path="res://src/world/overworld/overworld_character_creator_controller.gd" id="17_character_creator_ctrl"]
 ```
 
-Update `src/World/main.tscn`, `src/World/main.gd`, `src/World/combat/combat_scene.tscn`, `src/World/streaming/chunk_manager.gd`, and any world chunk scenes so they reference the normalized paths.
+Update `src/world/main.tscn`, `src/world/main.gd`, `src/world/combat/combat_scene.tscn`, `src/world/streaming/chunk_manager.gd`, and any world chunk scenes so they reference the normalized paths.
 
 - [ ] **Step 5: Verify the old world paths are gone**
 
 ```powershell
-rg -n "src/World/Combat|src/World/Overworld|src/World/Streaming|Ancient_Ruins|Goblin_Cave|House_Interior|Shop_Interior|Capital_City|Starting_Village|/Npcs/" src docs project.godot
+rg -n "src/world/Combat|src/world/Overworld|src/world/Streaming|Ancient_Ruins|Goblin_Cave|House_Interior|Shop_Interior|Capital_City|Starting_Village|/Npcs/" src docs project.godot
 ```
 
 Expected: no output in `src/`; only historical docs are allowed if they are intentionally left unchanged.
@@ -561,7 +561,7 @@ Expected: no output in `src/`; only historical docs are allowed if they are inte
 - [ ] **Step 6: Load the main world scene**
 
 ```bash
-godot4 --headless --path . --scene res://src/World/main.tscn --quit-after 10
+godot4 --headless --path . --scene res://src/world/main.tscn --quit-after 10
 ```
 
 Expected: exit code `0` with no missing-resource errors for `World` paths.
@@ -569,73 +569,73 @@ Expected: exit code `0` with no missing-resource errors for `World` paths.
 - [ ] **Step 7: Commit**
 
 ```bash
-git add src/World docs
+git add src/world docs
 git commit -m "refactor: normalize world runtime folders"
 ```
 
 ### Task 4: Normalize Entity Runtime Layout, Creature Catalog, And Item Catalog Paths
 
 **Files:**
-- Modify: `src/Entities/Creatures/creature.gd`
-- Modify: `src/Entities/Creatures/creature.tscn`
-- Modify: `src/Entities/Creatures/creature_catalog.gd`
-- Modify: `src/Entities/Creatures/creature_catalog_service.gd`
-- Modify: `src/Entities/Creatures/creature_data.gd`
-- Modify: `src/Entities/Creatures/creature_factory.gd`
-- Modify: `src/Entities/Creatures/README.md`
-- Modify: `src/Entities/Creatures/Tools/creature_catalog_builder.gd`
-- Modify: `src/Entities/Creatures/Tools/creature_catalog_builder_runner.gd`
-- Modify: `src/Entities/Creatures/Tools/creature_catalog_builder_runner.tscn`
-- Modify: `src/Entities/Items/item_data.gd`
-- Modify: `src/Entities/Items/README.md`
-- Modify: `src/Entities/Player/player.gd`
-- Modify: `src/Entities/Player/player.tscn`
-- Modify: `src/Entities/Player/Config/player_input_config.tres`
-- Modify: `src/Entities/Player/Config/player_movement_config.tres`
-- Modify: `src/Entities/Player/Tools/player_cosmetic_catalog_builder.gd`
-- Modify: `src/Entities/Player/Tools/player_cosmetic_catalog_builder_runner.gd`
-- Modify: `src/Entities/Player/Tools/player_cosmetic_catalog_builder_runner.tscn`
-- Modify: `src/Entities/Player/Tools/README.md`
-- Modify: `src/Entities/Systems/Inventory/Resources/player_starter_inventory.tres`
-- Modify: `src/Entities/Systems/Combat/Tests/run_combat_tests.gd`
-- Modify: `src/World/overworld/overworld.tscn`
-- Rename: `src/Entities/Creatures/` -> `src/Entities/creatures/`
-- Move: `src/Entities/creatures/creature.gd` -> `src/Entities/creatures/base/creature.gd`
-- Move: `src/Entities/creatures/creature.tscn` -> `src/Entities/creatures/base/creature.tscn`
-- Move: `src/Entities/creatures/creature_catalog.gd` -> `src/Entities/creatures/base/creature_catalog.gd`
-- Move: `src/Entities/creatures/creature_catalog_service.gd` -> `src/Entities/creatures/base/creature_catalog_service.gd`
-- Move: `src/Entities/creatures/creature_data.gd` -> `src/Entities/creatures/base/creature_data.gd`
-- Move: `src/Entities/creatures/creature_factory.gd` -> `src/Entities/creatures/base/creature_factory.gd`
-- Rename: `src/Entities/creatures/Types/` -> `src/Entities/creatures/catalog/`
-- Rename: `src/Entities/Player/` -> `src/Entities/player/`
-- Rename: `src/Entities/creatures/Components/` -> `src/Entities/creatures/components/`
-- Rename: `src/Entities/creatures/Effects/` -> `src/Entities/creatures/effects/`
-- Rename: `src/Entities/creatures/Resources/` -> `src/Entities/creatures/resources/`
-- Rename: `src/Entities/creatures/Spawning/` -> `src/Entities/creatures/spawning/`
-- Rename: `src/Entities/creatures/Tests/` -> `src/Entities/creatures/tests/`
-- Rename: `src/Entities/creatures/Tools/` -> `src/Entities/creatures/tools/`
-- Rename: `src/Entities/Items/` -> `src/Entities/items/`
-- Rename: `src/Entities/items/Types/` -> `src/Entities/items/catalog/`
-- Rename: `src/Entities/player/Assets/` -> `src/Entities/player/assets/`
-- Rename: `src/Entities/player/Components/` -> `src/Entities/player/components/`
-- Rename: `src/Entities/player/Config/` -> `src/Entities/player/config/`
-- Rename: `src/Entities/player/Input/` -> `src/Entities/player/input/`
-- Rename: `src/Entities/player/Resources/` -> `src/Entities/player/resources/`
-- Rename: `src/Entities/player/Services/` -> `src/Entities/player/services/`
-- Rename: `src/Entities/player/Sounds/` -> `src/Entities/player/sounds/`
-- Rename: `src/Entities/player/States/` -> `src/Entities/player/states/`
-- Rename: `src/Entities/player/Tests/` -> `src/Entities/player/tests/`
-- Rename: `src/Entities/player/Tools/` -> `src/Entities/player/tools/`
-- Rename: `src/Entities/Interactables/` -> `src/Entities/interactables/`
-- Rename: `src/Entities/Skills/` -> `src/Entities/skills/`
-- Rename: `src/Entities/Systems/` -> `src/Entities/systems/`
-- Rename: `src/Entities/systems/Combat/` -> `src/Entities/systems/combat/`
-- Rename: `src/Entities/systems/Inventory/` -> `src/Entities/systems/inventory/`
+- Modify: `src/entities/Creatures/creature.gd`
+- Modify: `src/entities/Creatures/creature.tscn`
+- Modify: `src/entities/Creatures/creature_catalog.gd`
+- Modify: `src/entities/Creatures/creature_catalog_service.gd`
+- Modify: `src/entities/Creatures/creature_data.gd`
+- Modify: `src/entities/Creatures/creature_factory.gd`
+- Modify: `src/entities/Creatures/README.md`
+- Modify: `src/entities/Creatures/Tools/creature_catalog_builder.gd`
+- Modify: `src/entities/Creatures/Tools/creature_catalog_builder_runner.gd`
+- Modify: `src/entities/Creatures/Tools/creature_catalog_builder_runner.tscn`
+- Modify: `src/entities/Items/item_data.gd`
+- Modify: `src/entities/Items/README.md`
+- Modify: `src/entities/Player/player.gd`
+- Modify: `src/entities/Player/player.tscn`
+- Modify: `src/entities/Player/Config/player_input_config.tres`
+- Modify: `src/entities/Player/Config/player_movement_config.tres`
+- Modify: `src/entities/Player/Tools/player_cosmetic_catalog_builder.gd`
+- Modify: `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.gd`
+- Modify: `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.tscn`
+- Modify: `src/entities/Player/Tools/README.md`
+- Modify: `src/entities/Systems/Inventory/Resources/player_starter_inventory.tres`
+- Modify: `src/entities/Systems/Combat/Tests/run_combat_tests.gd`
+- Modify: `src/world/overworld/overworld.tscn`
+- Rename: `src/entities/Creatures/` -> `src/entities/creatures/`
+- Move: `src/entities/creatures/creature.gd` -> `src/entities/creatures/base/creature.gd`
+- Move: `src/entities/creatures/creature.tscn` -> `src/entities/creatures/base/creature.tscn`
+- Move: `src/entities/creatures/creature_catalog.gd` -> `src/entities/creatures/base/creature_catalog.gd`
+- Move: `src/entities/creatures/creature_catalog_service.gd` -> `src/entities/creatures/base/creature_catalog_service.gd`
+- Move: `src/entities/creatures/creature_data.gd` -> `src/entities/creatures/base/creature_data.gd`
+- Move: `src/entities/creatures/creature_factory.gd` -> `src/entities/creatures/base/creature_factory.gd`
+- Rename: `src/entities/creatures/Types/` -> `src/entities/creatures/catalog/`
+- Rename: `src/entities/Player/` -> `src/entities/player/`
+- Rename: `src/entities/creatures/Components/` -> `src/entities/creatures/components/`
+- Rename: `src/entities/creatures/Effects/` -> `src/entities/creatures/effects/`
+- Rename: `src/entities/creatures/Resources/` -> `src/entities/creatures/resources/`
+- Rename: `src/entities/creatures/Spawning/` -> `src/entities/creatures/spawning/`
+- Rename: `src/entities/creatures/Tests/` -> `src/entities/creatures/tests/`
+- Rename: `src/entities/creatures/Tools/` -> `src/entities/creatures/tools/`
+- Rename: `src/entities/Items/` -> `src/entities/items/`
+- Rename: `src/entities/items/Types/` -> `src/entities/items/catalog/`
+- Rename: `src/entities/player/Assets/` -> `src/entities/player/assets/`
+- Rename: `src/entities/player/Components/` -> `src/entities/player/components/`
+- Rename: `src/entities/player/Config/` -> `src/entities/player/config/`
+- Rename: `src/entities/player/Input/` -> `src/entities/player/input/`
+- Rename: `src/entities/player/Resources/` -> `src/entities/player/resources/`
+- Rename: `src/entities/player/Services/` -> `src/entities/player/services/`
+- Rename: `src/entities/player/Sounds/` -> `src/entities/player/sounds/`
+- Rename: `src/entities/player/States/` -> `src/entities/player/states/`
+- Rename: `src/entities/player/Tests/` -> `src/entities/player/tests/`
+- Rename: `src/entities/player/Tools/` -> `src/entities/player/tools/`
+- Rename: `src/entities/Interactables/` -> `src/entities/interactables/`
+- Rename: `src/entities/Skills/` -> `src/entities/skills/`
+- Rename: `src/entities/Systems/` -> `src/entities/systems/`
+- Rename: `src/entities/systems/Combat/` -> `src/entities/systems/combat/`
+- Rename: `src/entities/systems/Inventory/` -> `src/entities/systems/inventory/`
 
 - [ ] **Step 1: Capture entity path hot spots before moving anything**
 
 ```powershell
-rg -n "src/Entities/Creatures|src/Entities/Creatures/Types|src/Entities/Items|src/Entities/Items/Types|src/Entities/Player|src/Entities/Interactables|src/Entities/Skills|src/Entities/Systems" src docs project.godot
+rg -n "src/entities/Creatures|src/entities/Creatures/Types|src/entities/Items|src/entities/Items/Types|src/entities/Player|src/entities/Interactables|src/entities/Skills|src/entities/Systems" src docs project.godot
 ```
 
 Expected: many matches, especially in the creature builder, creature catalog resources, item inventory resources, player tools, and docs.
@@ -643,62 +643,62 @@ Expected: many matches, especially in the creature builder, creature catalog res
 - [ ] **Step 2: Rename the entity root folders**
 
 ```powershell
-Rename-Item src/Entities/Creatures src/Entities/__creatures_tmp
-Rename-Item src/Entities/__creatures_tmp src/Entities/creatures
-Rename-Item src/Entities/Player src/Entities/__player_tmp
-Rename-Item src/Entities/__player_tmp src/Entities/player
-Rename-Item src/Entities/Items src/Entities/__items_tmp
-Rename-Item src/Entities/__items_tmp src/Entities/items
-Rename-Item src/Entities/Interactables src/Entities/__interactables_tmp
-Rename-Item src/Entities/__interactables_tmp src/Entities/interactables
-Rename-Item src/Entities/Skills src/Entities/__skills_tmp
-Rename-Item src/Entities/__skills_tmp src/Entities/skills
-Rename-Item src/Entities/Systems src/Entities/__systems_tmp
-Rename-Item src/Entities/__systems_tmp src/Entities/systems
-Rename-Item src/Entities/creatures/Components src/Entities/creatures/components
-Rename-Item src/Entities/creatures/Effects src/Entities/creatures/effects
-Rename-Item src/Entities/creatures/Resources src/Entities/creatures/resources
-Rename-Item src/Entities/creatures/Spawning src/Entities/creatures/spawning
-Rename-Item src/Entities/creatures/Tests src/Entities/creatures/tests
-Rename-Item src/Entities/creatures/Tools src/Entities/creatures/tools
-Rename-Item src/Entities/player/Assets src/Entities/player/assets
-Rename-Item src/Entities/player/Components src/Entities/player/components
-Rename-Item src/Entities/player/Config src/Entities/player/config
-Rename-Item src/Entities/player/Input src/Entities/player/input
-Rename-Item src/Entities/player/Resources src/Entities/player/resources
-Rename-Item src/Entities/player/Services src/Entities/player/services
-Rename-Item src/Entities/player/Sounds src/Entities/player/sounds
-Rename-Item src/Entities/player/States src/Entities/player/states
-Rename-Item src/Entities/player/Tests src/Entities/player/tests
-Rename-Item src/Entities/player/Tools src/Entities/player/tools
-Rename-Item src/Entities/systems/Combat src/Entities/systems/combat
-Rename-Item src/Entities/systems/Inventory src/Entities/systems/inventory
+Rename-Item src/entities/Creatures src/entities/__creatures_tmp
+Rename-Item src/entities/__creatures_tmp src/entities/creatures
+Rename-Item src/entities/Player src/entities/__player_tmp
+Rename-Item src/entities/__player_tmp src/entities/player
+Rename-Item src/entities/Items src/entities/__items_tmp
+Rename-Item src/entities/__items_tmp src/entities/items
+Rename-Item src/entities/Interactables src/entities/__interactables_tmp
+Rename-Item src/entities/__interactables_tmp src/entities/interactables
+Rename-Item src/entities/Skills src/entities/__skills_tmp
+Rename-Item src/entities/__skills_tmp src/entities/skills
+Rename-Item src/entities/Systems src/entities/__systems_tmp
+Rename-Item src/entities/__systems_tmp src/entities/systems
+Rename-Item src/entities/creatures/Components src/entities/creatures/components
+Rename-Item src/entities/creatures/Effects src/entities/creatures/effects
+Rename-Item src/entities/creatures/Resources src/entities/creatures/resources
+Rename-Item src/entities/creatures/Spawning src/entities/creatures/spawning
+Rename-Item src/entities/creatures/Tests src/entities/creatures/tests
+Rename-Item src/entities/creatures/Tools src/entities/creatures/tools
+Rename-Item src/entities/player/Assets src/entities/player/assets
+Rename-Item src/entities/player/Components src/entities/player/components
+Rename-Item src/entities/player/Config src/entities/player/config
+Rename-Item src/entities/player/Input src/entities/player/input
+Rename-Item src/entities/player/Resources src/entities/player/resources
+Rename-Item src/entities/player/Services src/entities/player/services
+Rename-Item src/entities/player/Sounds src/entities/player/sounds
+Rename-Item src/entities/player/States src/entities/player/states
+Rename-Item src/entities/player/Tests src/entities/player/tests
+Rename-Item src/entities/player/Tools src/entities/player/tools
+Rename-Item src/entities/systems/Combat src/entities/systems/combat
+Rename-Item src/entities/systems/Inventory src/entities/systems/inventory
 ```
 
 - [ ] **Step 3: Create `base/` and `catalog/` inside creatures and move the root runtime files**
 
 ```powershell
-New-Item -ItemType Directory -Force -Path src/Entities/creatures/base | Out-Null
-Move-Item src/Entities/creatures/creature.gd src/Entities/creatures/base/creature.gd
-Move-Item src/Entities/creatures/creature.tscn src/Entities/creatures/base/creature.tscn
-Move-Item src/Entities/creatures/creature_catalog.gd src/Entities/creatures/base/creature_catalog.gd
-Move-Item src/Entities/creatures/creature_catalog_service.gd src/Entities/creatures/base/creature_catalog_service.gd
-Move-Item src/Entities/creatures/creature_data.gd src/Entities/creatures/base/creature_data.gd
-Move-Item src/Entities/creatures/creature_factory.gd src/Entities/creatures/base/creature_factory.gd
-Rename-Item src/Entities/creatures/Types catalog
-Rename-Item src/Entities/items/Types catalog
+New-Item -ItemType Directory -Force -Path src/entities/creatures/base | Out-Null
+Move-Item src/entities/creatures/creature.gd src/entities/creatures/base/creature.gd
+Move-Item src/entities/creatures/creature.tscn src/entities/creatures/base/creature.tscn
+Move-Item src/entities/creatures/creature_catalog.gd src/entities/creatures/base/creature_catalog.gd
+Move-Item src/entities/creatures/creature_catalog_service.gd src/entities/creatures/base/creature_catalog_service.gd
+Move-Item src/entities/creatures/creature_data.gd src/entities/creatures/base/creature_data.gd
+Move-Item src/entities/creatures/creature_factory.gd src/entities/creatures/base/creature_factory.gd
+Rename-Item src/entities/creatures/Types catalog
+Rename-Item src/entities/items/Types catalog
 ```
 
 - [ ] **Step 4: Update the creature builder to write into `catalog/` and `base/`**
 
 ```gdscript
-const TYPES_ROOT: String = "res://src/Entities/creatures/catalog"
-const CATALOG_PATH: String = "res://src/Entities/creatures/resources/creature_catalog.tres"
-const CREATURE_CATALOG_SCRIPT: Script = preload("res://src/Entities/creatures/base/creature_catalog.gd")
+const TYPES_ROOT: String = "res://src/entities/creatures/catalog"
+const CATALOG_PATH: String = "res://src/entities/creatures/resources/creature_catalog.tres"
+const CREATURE_CATALOG_SCRIPT: Script = preload("res://src/entities/creatures/base/creature_catalog.gd")
 ```
 
 ```gdscript
-# src/Entities/creatures/base/creature_data.gd
+# src/entities/creatures/base/creature_data.gd
 ## Top-level folder under catalog (humanoids, animals, ...).
 ```
 
@@ -711,20 +711,20 @@ if parts[2].to_lower() != "sprites":
 return TYPES_ROOT.path_join("%s/%s/data/%s.tres" % [category, creature_folder, String(entry["creature_id"])])
 ```
 
-Update all explicit `res://src/Entities/Creatures/...` and `res://src/Entities/Items/Types/...` strings in the listed files so they point to the normalized runtime layout.
+Update all explicit `res://src/entities/Creatures/...` and `res://src/entities/Items/Types/...` strings in the listed files so they point to the normalized runtime layout.
 
 - [ ] **Step 5: Rename creature category folders and then normalize creature entry folder names in one scripted sweep**
 
 ```powershell
-Rename-Item src/Entities/creatures/catalog/Animals animals
-Rename-Item src/Entities/creatures/catalog/Demons demons
-Rename-Item src/Entities/creatures/catalog/Dragons dragons
-Rename-Item src/Entities/creatures/catalog/Holy holy
-Rename-Item src/Entities/creatures/catalog/Humanoids humanoids
-Rename-Item src/Entities/creatures/catalog/Magical magical
-Rename-Item src/Entities/creatures/catalog/Monsters monsters
-Rename-Item src/Entities/creatures/catalog/Undead undead
-Rename-Item src/Entities/creatures/catalog/Vermin vermin
+Rename-Item src/entities/creatures/catalog/Animals animals
+Rename-Item src/entities/creatures/catalog/Demons demons
+Rename-Item src/entities/creatures/catalog/Dragons dragons
+Rename-Item src/entities/creatures/catalog/Holy holy
+Rename-Item src/entities/creatures/catalog/Humanoids humanoids
+Rename-Item src/entities/creatures/catalog/Magical magical
+Rename-Item src/entities/creatures/catalog/Monsters monsters
+Rename-Item src/entities/creatures/catalog/Undead undead
+Rename-Item src/entities/creatures/catalog/Vermin vermin
 ```
 
 ```powershell
@@ -733,7 +733,7 @@ function To-SnakeCase([string]$Name) {
   return ($Name.ToLower() -replace "[^a-z0-9]+", "_").Trim("_")
 }
 
-Get-ChildItem src/Entities/creatures/catalog -Directory | ForEach-Object {
+Get-ChildItem src/entities/creatures/catalog -Directory | ForEach-Object {
   Get-ChildItem $_.FullName -Directory | ForEach-Object {
     $target = Join-Path $_.Parent.FullName (To-SnakeCase $_.Name)
     if ($_.FullName -ne $target) { Rename-Item $_.FullName $target }
@@ -750,14 +750,14 @@ This step is intentionally narrow: rename creature entry folders only after the 
 - [ ] **Step 5a: Rename per-entry `Data` and `Sprites` folders in creatures and items**
 
 ```powershell
-Get-ChildItem src/Entities/creatures/catalog -Directory | ForEach-Object {
+Get-ChildItem src/entities/creatures/catalog -Directory | ForEach-Object {
   Get-ChildItem $_.FullName -Directory | ForEach-Object {
     if (Test-Path (Join-Path $_.FullName 'Data')) { Rename-Item (Join-Path $_.FullName 'Data') 'data' }
     if (Test-Path (Join-Path $_.FullName 'Sprites')) { Rename-Item (Join-Path $_.FullName 'Sprites') 'sprites' }
   }
 }
 
-Get-ChildItem src/Entities/items/catalog -Directory | ForEach-Object {
+Get-ChildItem src/entities/items/catalog -Directory | ForEach-Object {
   Get-ChildItem $_.FullName -Directory | ForEach-Object {
     Get-ChildItem $_.FullName -Directory | ForEach-Object {
       if (Test-Path (Join-Path $_.FullName 'Data')) { Rename-Item (Join-Path $_.FullName 'Data') 'data' }
@@ -770,7 +770,7 @@ Get-ChildItem src/Entities/items/catalog -Directory | ForEach-Object {
 - [ ] **Step 6: Regenerate creature data and catalog resources**
 
 ```bash
-godot4 --headless --path . --scene res://src/Entities/creatures/tools/creature_catalog_builder_runner.tscn --quit
+godot4 --headless --path . --scene res://src/entities/creatures/tools/creature_catalog_builder_runner.tscn --quit
 ```
 
 Expected:
@@ -783,9 +783,9 @@ CreatureCatalogBuilder runner completed line contains `"errors": 0`
 - [ ] **Step 7: Verify the creature and item catalogs still validate**
 
 ```bash
-godot4 --headless --path . --script res://src/Entities/creatures/tests/run_creature_catalog_validation.gd
-godot4 --headless --path . --scene res://src/Entities/creatures/tests/creature_runtime_smoke_test.tscn --quit-after 200
-godot4 --headless --path . --script res://src/Entities/systems/combat/tests/run_combat_tests.gd
+godot4 --headless --path . --script res://src/entities/creatures/tests/run_creature_catalog_validation.gd
+godot4 --headless --path . --scene res://src/entities/creatures/tests/creature_runtime_smoke_test.tscn --quit-after 200
+godot4 --headless --path . --script res://src/entities/systems/combat/tests/run_combat_tests.gd
 ```
 
 Expected: all commands exit `0`, and the creature runtime smoke test reports no missing script/resource paths.
@@ -793,7 +793,7 @@ Expected: all commands exit `0`, and the creature runtime smoke test reports no 
 - [ ] **Step 8: Verify stale entity paths are gone**
 
 ```powershell
-rg -n "src/Entities/Creatures|src/Entities/Creatures/Types|src/Entities/Items/Types|src/Entities/Player|src/Entities/Interactables|src/Entities/Skills|src/Entities/Systems" src project.godot
+rg -n "src/entities/Creatures|src/entities/Creatures/Types|src/entities/Items/Types|src/entities/Player|src/entities/Interactables|src/entities/Skills|src/entities/Systems" src project.godot
 ```
 
 Expected: no output in `src/`; documentation can be updated in the next task if historical notes still mention old paths.
@@ -801,7 +801,7 @@ Expected: no output in `src/`; documentation can be updated in the next task if 
 - [ ] **Step 9: Commit**
 
 ```bash
-git add src/Entities src/World/overworld/overworld.tscn
+git add src/entities src/world/overworld/overworld.tscn
 git commit -m "refactor: normalize entity runtime folders"
 ```
 
@@ -815,14 +815,14 @@ git commit -m "refactor: normalize entity runtime folders"
 - Modify: `docs/features/feature-main-screen-ui.md`
 - Modify: `docs/features/feature-player-appearance-customization.md`
 - Modify: `docs/features/feature-tappable-overworld-creatures.md`
-- Modify: `src/Entities/Creatures/README.md`
-- Modify: `src/Entities/Items/README.md`
-- Modify: `src/Entities/Player/Tools/README.md`
+- Modify: `src/entities/Creatures/README.md`
+- Modify: `src/entities/Items/README.md`
+- Modify: `src/entities/Player/Tools/README.md`
 
 - [ ] **Step 1: Sweep docs and README files for stale paths**
 
 ```powershell
-rg -n "src/Ui/Common|src/Ui/Desktop|src/Ui/Mobile|src/Ui/Hud|src/World/Overworld|src/World/Streaming|src/World/Combat|src/Entities/Creatures|src/Entities/Items/Types|src/Entities/Player|src/Entities/Systems|src/Entities/Interactables|src/Entities/Skills" docs src/Entities/*/README.md src/Localization/README.md
+rg -n "src/ui/Common|src/ui/Desktop|src/ui/Mobile|src/ui/Hud|src/world/Overworld|src/world/Streaming|src/world/Combat|src/entities/Creatures|src/entities/Items/Types|src/entities/Player|src/entities/Systems|src/entities/Interactables|src/entities/Skills" docs src/entities/*/README.md src/localization/README.md
 ```
 
 Expected: matches only in docs and README files at this point.
@@ -830,10 +830,10 @@ Expected: matches only in docs and README files at this point.
 - [ ] **Step 2: Update the creature, item, player, and project docs**
 
 ```markdown
-- `res://src/Entities/creatures/catalog/animals/agitated_orangutan/sprites/AgitatedOrangutan_128x32.png`
-- `res://src/Entities/items/catalog/consumables/potions/health_potion/data/consumable_health_potion.tres`
-- `res://src/Ui/desktop/main_screen/main_screen.tscn`
-- `res://src/World/overworld/overworld.tscn`
+- `res://src/entities/creatures/catalog/animals/agitated_orangutan/sprites/AgitatedOrangutan_128x32.png`
+- `res://src/entities/items/catalog/consumables/potions/health_potion/data/consumable_health_potion.tres`
+- `res://src/ui/desktop/main_screen/main_screen.tscn`
+- `res://src/world/overworld/overworld.tscn`
 ```
 
 Replace every old runtime path example in the listed docs with the normalized path that now exists in `src/`.
@@ -841,7 +841,7 @@ Replace every old runtime path example in the listed docs with the normalized pa
 - [ ] **Step 3: Run the final stale-path audit**
 
 ```powershell
-rg -n "src/Ui/Common|src/Ui/Desktop|src/Ui/Mobile|src/Ui/Hud|src/World/Overworld|src/World/Streaming|src/World/Combat|src/Entities/Creatures|src/Entities/Items/Types|src/Entities/Player|src/Entities/Systems|src/Entities/Interactables|src/Entities/Skills|Ancient_Ruins|Goblin_Cave|House_Interior|Shop_Interior|Capital_City|Starting_Village|/Npcs/" src project.godot
+rg -n "src/ui/Common|src/ui/Desktop|src/ui/Mobile|src/ui/Hud|src/world/Overworld|src/world/Streaming|src/world/Combat|src/entities/Creatures|src/entities/Items/Types|src/entities/Player|src/entities/Systems|src/entities/Interactables|src/entities/Skills|Ancient_Ruins|Goblin_Cave|House_Interior|Shop_Interior|Capital_City|Starting_Village|/Npcs/" src project.godot
 ```
 
 Expected: no output.
@@ -849,10 +849,10 @@ Expected: no output.
 - [ ] **Step 4: Run final project verification**
 
 ```bash
-godot4 --headless --path . --scene res://src/World/main.tscn --quit-after 10
-godot4 --headless --path . --script res://src/Entities/creatures/tests/run_creature_catalog_validation.gd
-godot4 --headless --path . --scene res://src/Entities/creatures/tests/creature_runtime_smoke_test.tscn --quit-after 200
-godot4 --headless --path . --script res://src/Entities/systems/combat/tests/run_combat_tests.gd
+godot4 --headless --path . --scene res://src/world/main.tscn --quit-after 10
+godot4 --headless --path . --script res://src/entities/creatures/tests/run_creature_catalog_validation.gd
+godot4 --headless --path . --scene res://src/entities/creatures/tests/creature_runtime_smoke_test.tscn --quit-after 200
+godot4 --headless --path . --script res://src/entities/systems/combat/tests/run_combat_tests.gd
 ```
 
 Expected: all commands exit `0`.

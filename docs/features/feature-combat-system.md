@@ -11,9 +11,9 @@ Created: 2026-03-09
 
 Self-contained bounded context split across two directories:
 
-- `src/Entities/Systems/Combat/` — pure logic (resolver, context, flow controller, AI)
-- `src/World/Combat/` — scene entry point
-- `src/Ui/` — platform-split combat UI (Windows first, Mobile later)
+- `src/entities/Systems/Combat/` — pure logic (resolver, context, flow controller, AI)
+- `src/world/Combat/` — scene entry point
+- `src/ui/` — platform-split combat UI (Windows first, Mobile later)
 
 ### Data flow
 
@@ -59,7 +59,7 @@ Overworld tap → CreatureEvents.creature_fight_requested
 ## Testing
 
 ```bash
-godot4 --headless --path . --script res://src/Entities/Systems/Combat/Tests/run_combat_tests.gd
+godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
 ```
 
 11 headless tests covering: auto-attack damage, defense reduction, combat end conditions, winner detection, simultaneous kills, heal skills.

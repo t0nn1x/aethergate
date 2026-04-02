@@ -1,0 +1,196 @@
+[gd_scene format=3 uid="uid://crpggtwu5kpag"]
+
+[ext_resource type="Script" uid="uid://dc68q7ilmyt5c" path="res://src/ui/desktop/main_screen/main_screen_desktop.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://dj5a4rijdcd2x" path="res://src/ui/desktop/main_screen/background_controller.gd" id="2_background"]
+[ext_resource type="Theme" uid="uid://cd8w252dooysr" path="res://src/ui/desktop/main_screen/main_screen_theme.tres" id="3_theme"]
+[ext_resource type="Texture2D" uid="uid://co4yko63mhret" path="res://Assets/Logo/title_logo.png" id="4_logo"]
+[ext_resource type="PackedScene" uid="uid://c7u2dmo8qv0mm" path="res://src/ui/desktop/character_creator/character_creator_panel.tscn" id="5_creator"]
+
+[node name="MainScreen" type="CanvasLayer" unique_id=1676380853]
+layer = 30
+script = ExtResource("1_main")
+menu_music_folder_path = "res://src/ui/Assets/Music"
+
+[node name="Root" type="Control" parent="." unique_id=1118522623]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="BackgroundContainer" type="Control" parent="Root" unique_id=1265768281]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer01" type="TextureRect" parent="Root/BackgroundContainer" unique_id=1475902756]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer02" type="TextureRect" parent="Root/BackgroundContainer" unique_id=700097335]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer03" type="TextureRect" parent="Root/BackgroundContainer" unique_id=872801338]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer04" type="TextureRect" parent="Root/BackgroundContainer" unique_id=1040244218]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer05" type="TextureRect" parent="Root/BackgroundContainer" unique_id=759921968]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer06" type="TextureRect" parent="Root/BackgroundContainer" unique_id=175458174]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackgroundDimmer" type="ColorRect" parent="Root" unique_id=1151735034]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.18)
+
+[node name="MenuStrip" type="Panel" parent="Root" unique_id=1234567890]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.42
+anchor_right = 1.0
+anchor_bottom = 0.7
+mouse_filter = 1
+
+[node name="Center" type="CenterContainer" parent="Root/MenuStrip" unique_id=1234567891]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonRow" type="VBoxContainer" parent="Root/MenuStrip/Center" unique_id=1234567892]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PlayButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567893]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567894]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="Root/MenuStrip/Center/ButtonRow" unique_id=1234567895]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+text = "Quit"
+
+[node name="SettingsPanel" type="VBoxContainer" parent="Root/MenuStrip/Center" unique_id=2000000001]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LanguageButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000003]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Language"
+
+[node name="VolumeRow" type="HBoxContainer" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000009]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="VolumeLabel" type="Label" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000010]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000011]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="VolumePctLabel" type="Label" parent="Root/MenuStrip/Center/SettingsPanel/VolumeRow" unique_id=2000000012]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="VsyncButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000008]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "VSync: On"
+
+[node name="BackButton" type="Button" parent="Root/MenuStrip/Center/SettingsPanel" unique_id=2000000007]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[node name="CharacterCreatorPanel" parent="Root/MenuStrip" instance=ExtResource("5_creator")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="TitleLogo" type="TextureRect" parent="Root" unique_id=1715069417]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.03
+anchor_right = 0.9
+anchor_bottom = 0.46
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BackgroundController" type="Node" parent="." unique_id=174224736]
+script = ExtResource("2_background")
+layer_scroll_speed_multipliers = PackedFloat32Array(0.08, 0.12, 0.18, 0.26, 0.36, 0.5)

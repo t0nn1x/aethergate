@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AetherProjectConfig" format=3 uid="uid://fua4tsenj17s"]
+
+[ext_resource type="Script" uid="uid://bpgapee8tdlhr" path="res://src/config/aether_project_config.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bmfcicxf23m4l" path="res://src/config/platform/desktop_platform_profile.tres" id="2"]
+[ext_resource type="Resource" uid="uid://0vm3lqq7fxj2" path="res://src/config/platform/mobile_platform_profile.tres" id="3"]
+[ext_resource type="Resource" uid="uid://3mph4wvilglg" path="res://src/entities/player/config/player_input_config.tres" id="4"]
+[ext_resource type="Resource" uid="uid://bxmr58vbhdvv6" path="res://src/entities/player/config/player_movement_config.tres" id="5"]
+
+[resource]
+script = ExtResource("1")

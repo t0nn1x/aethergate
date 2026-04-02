@@ -1,6 +1,0 @@
-[gd_scene format=3]
-
-[ext_resource type="Script" path="res://src/Entities/player/tools/player_cosmetic_catalog_builder_runner.gd" id="1"]
-
-[node name="PlayerCosmeticCatalogBuilderRunner" type="Node"]
-script = ExtResource("1")

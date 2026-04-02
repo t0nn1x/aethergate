@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Aethergate"
-run/main_scene="res://src/Ui/common/startup_splash_screen.tscn"
+run/main_scene="res://src/ui/common/startup_splash_screen.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -27,17 +27,17 @@ general/ios_background_audio=true
 
 [autoload]
 
-ProjectConfig="*res://src/Config/project_config_service.gd"
-PlayerProfileService="*res://src/Core/player_profile_service.gd"
-LocalizationService="*res://src/Localization/localization_service.gd"
-PlatformDisplaySettings="*res://src/Core/platform_display_settings.gd"
-PlayerEvents="*res://src/Core/events/player_events.gd"
-WorldEvents="*res://src/Core/events/world_events.gd"
-UIEvents="*res://src/Core/events/ui_events.gd"
-CreatureEvents="*res://src/Core/events/creature_events.gd"
-CombatEvents="*res://src/Core/events/combat_events.gd"
-GameManager="*res://src/Core/game_manager.gd"
-MusicPlayer="*res://src/Core/music_player.gd"
+ProjectConfig="*res://src/config/project_config_service.gd"
+PlayerProfileService="*res://src/core/player_profile_service.gd"
+LocalizationService="*res://src/localization/localization_service.gd"
+PlatformDisplaySettings="*res://src/core/platform_display_settings.gd"
+PlayerEvents="*res://src/core/events/player_events.gd"
+WorldEvents="*res://src/core/events/world_events.gd"
+UIEvents="*res://src/core/events/ui_events.gd"
+CreatureEvents="*res://src/core/events/creature_events.gd"
+CombatEvents="*res://src/core/events/combat_events.gd"
+GameManager="*res://src/core/game_manager.gd"
+MusicPlayer="*res://src/core/music_player.gd"
 
 [debug]
 
@@ -117,7 +117,7 @@ debug_speed_down={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://src/Localization/translations/ui_en.tres", "res://src/Localization/translations/ui_uk.tres")
+locale/translations=PackedStringArray("res://src/localization/translations/ui_en.tres", "res://src/localization/translations/ui_uk.tres")
 
 [layer_names]
 

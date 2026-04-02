@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3]
+
+[ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_va5d6"]
+[ext_resource type="Script" path="res://src/entities/skills/Combat/skill_data.gd" id="2_4p5e4"]
+
+[resource]
+script = ExtResource("1_va5d6")
+creature_id = "magical_ice_golem"
+creature_type = 6
+source_category = "magical"
+source_sprite_path = "res://src/entities/creatures/catalog/magical/ice_golem/sprites/IceGolem_128x32.png"

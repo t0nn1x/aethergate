@@ -4,7 +4,7 @@
 
 **Goal:** Deliver a working 1v1 turn-based combat loop — tap creature → preview card → full-screen combat → simultaneous round resolution → return to overworld.
 
-**Architecture:** Self-contained bounded context under `src/Entities/Systems/Combat/` for logic and `src/World/Combat/` for the scene entry point. A stateless `CombatRoundResolver` takes two actions and returns a pure `CombatRoundResult` resource — no side effects. `CombatFlowController` owns the round loop and timer. All combat events route through a new `CombatEvents` autoload.
+**Architecture:** Self-contained bounded context under `src/entities/Systems/Combat/` for logic and `src/world/Combat/` for the scene entry point. A stateless `CombatRoundResolver` takes two actions and returns a pure `CombatRoundResult` resource — no side effects. `CombatFlowController` owns the round loop and timer. All combat events route through a new `CombatEvents` autoload.
 
 **Tech Stack:** Godot 4.6, GDScript, existing event singleton pattern, existing `AdaptiveOverlayPanel` base, existing `GameManager` COMBAT state.
 
@@ -19,40 +19,40 @@
 
 | Task | File | Status |
 | --- | --- | --- |
-| 1 — CombatStats | `src/Entities/Systems/Combat/Data/combat_stats.gd` | ✅ committed |
-| 2 — SkillData | `src/Entities/Skills/Combat/skill_data.gd` | ✅ committed |
-| 3 — CombatAction + CombatantSnapshot | `src/Entities/Systems/Combat/Data/combat_action.gd`, `combatant_snapshot.gd` | ✅ committed |
-| 4 — CombatRoundResult | `src/Entities/Systems/Combat/Data/combat_round_result.gd` | ✅ committed |
-| 5 — CombatEvents autoload | `src/Core/Events/combat_events.gd` | ✅ committed |
-| 6 — CombatRoundResolver | `src/Entities/Systems/Combat/combat_round_resolver.gd` | ✅ committed |
-| 7 — Headless tests | `src/Entities/Systems/Combat/Tests/` | ✅ committed, 11/11 passing |
-| 8 — CombatContext | `src/Entities/Systems/Combat/combat_context.gd` | ✅ scripted |
-| 9 — CombatFlowController | `src/Entities/Systems/Combat/combat_flow_controller.gd` | ✅ scripted |
-| 10 — AI strategies | `src/Entities/Systems/Combat/Ai/combat_ai_strategy.gd`, `weighted_random_strategy.gd` | ✅ scripted |
-| 11 — CreatureData combat fields | `src/Entities/Creatures/creature_data.gd` | ✅ scripted |
-| 12 — CombatPreviewPanel | `src/Ui/Common/CombatPreviewPanel/combat_preview_panel.gd` | ✅ scripted |
-| 13 — CombatScene | `src/World/Combat/combat_scene.gd` | ✅ scripted |
-| 14 — MobileCombatUi | `src/Ui/Mobile/Combat/mobile_combat_ui.gd` | ✅ scripted |
-| 15 — Overworld wiring | `src/World/Overworld/overworld.gd`, `src/World/main.gd` | ✅ scripted |
-| 16 — PlayerProfileService XP | `src/Core/player_profile_service.gd` | ✅ scripted |
+| 1 — CombatStats | `src/entities/Systems/Combat/Data/combat_stats.gd` | ✅ committed |
+| 2 — SkillData | `src/entities/Skills/Combat/skill_data.gd` | ✅ committed |
+| 3 — CombatAction + CombatantSnapshot | `src/entities/Systems/Combat/Data/combat_action.gd`, `combatant_snapshot.gd` | ✅ committed |
+| 4 — CombatRoundResult | `src/entities/Systems/Combat/Data/combat_round_result.gd` | ✅ committed |
+| 5 — CombatEvents autoload | `src/core/Events/combat_events.gd` | ✅ committed |
+| 6 — CombatRoundResolver | `src/entities/Systems/Combat/combat_round_resolver.gd` | ✅ committed |
+| 7 — Headless tests | `src/entities/Systems/Combat/Tests/` | ✅ committed, 11/11 passing |
+| 8 — CombatContext | `src/entities/Systems/Combat/combat_context.gd` | ✅ scripted |
+| 9 — CombatFlowController | `src/entities/Systems/Combat/combat_flow_controller.gd` | ✅ scripted |
+| 10 — AI strategies | `src/entities/Systems/Combat/Ai/combat_ai_strategy.gd`, `weighted_random_strategy.gd` | ✅ scripted |
+| 11 — CreatureData combat fields | `src/entities/Creatures/creature_data.gd` | ✅ scripted |
+| 12 — CombatPreviewPanel | `src/ui/Common/CombatPreviewPanel/combat_preview_panel.gd` | ✅ scripted |
+| 13 — CombatScene | `src/world/Combat/combat_scene.gd` | ✅ scripted |
+| 14 — MobileCombatUi | `src/ui/Mobile/Combat/mobile_combat_ui.gd` | ✅ scripted |
+| 15 — Overworld wiring | `src/world/Overworld/overworld.gd`, `src/world/main.gd` | ✅ scripted |
+| 16 — PlayerProfileService XP | `src/core/player_profile_service.gd` | ✅ scripted |
 
 ### Pending — editor steps (scenes to build)
 
 1. **Open editor** → let Godot scan + generate uid files for all new scripts
-2. **`src/Ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`**
+2. **`src/ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`**
    - Root: `CombatPreviewPanel` (script: `combat_preview_panel.gd`, inherits `AdaptiveOverlayPanel`)
    - `Layout` (VBoxContainer) → `EnemyPortrait` (TextureRect, stretch KEEP_ASPECT_CENTERED, min 256×256) → `NameLabel` (Label, center) → `LevelLabel` → `PowerLabel` → `Buttons` (HBoxContainer) → `FleeButton` ("Flee") + `FightButton` ("Fight!")
-3. **`src/World/Combat/combat_scene.tscn`**
+3. **`src/world/Combat/combat_scene.tscn`**
    - Root: `CombatScene` (script: `combat_scene.gd`)
    - Child: `CombatFlowController` (script: `combat_flow_controller.gd`) → add to group `combat_flow`
      - Child: `CombatRoundResolver` (script: `combat_round_resolver.gd`)
    - Child: `CombatUi` (Node — placeholder)
-4. **`src/Ui/Mobile/Combat/mobile_combat_ui.tscn`**
+4. **`src/ui/Mobile/Combat/mobile_combat_ui.tscn`**
    - Root: `MobileCombatUi` (Control, script: `mobile_combat_ui.gd`, anchor full-rect)
    - `EnemyPanel` (VBoxContainer, top 35%) → `NameLabel` + `HpBar` (ProgressBar)
    - `RoundLog` (RichTextLabel, bbcode_enabled: true, scroll_following: true)
    - `PlayerPanel` (VBoxContainer, bottom 40%) → `HpBar` + `EnergyBar` + `SkillBar` (HBoxContainer) + `TimerLabel`
-5. **`src/World/Overworld/overworld.tscn`** — instance `combat_preview_panel.tscn` as a child, name it `CombatPreviewPanel`
+5. **`src/world/Overworld/overworld.tscn`** — instance `combat_preview_panel.tscn` as a child, name it `CombatPreviewPanel`
 6. **Wire `CombatUi` in `combat_scene.tscn`** — replace the placeholder `CombatUi` node with an instance of `mobile_combat_ui.tscn`
 7. **Commit** all new files + uid files
 
@@ -67,7 +67,7 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 ## Run tests
 
 ```bash
-"C:/Users/Anton.Khrobust/projects/Godot_v4.6-stable_win64.exe/Godot_v4.6-stable_win64.exe" --headless --path . --script res://src/Entities/Systems/Combat/Tests/run_combat_tests.gd
+"C:/Users/Anton.Khrobust/projects/Godot_v4.6-stable_win64.exe/Godot_v4.6-stable_win64.exe" --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
 ```
 
 ---
@@ -81,15 +81,15 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 - `GameManager.GameState.COMBAT` — state and transitions already registered
 - `CreatureEvents.creature_fight_requested` — signal already declared and emitted by `OverworldCreatureSelectionController._on_creature_action_hud_fight_pressed`
 - `CreatureData` — has `max_health`, `damage`, `armor`, `experience_reward` already
-- `src/Entities/Skills/Combat/Fireball/`, `Slash/`, `Heal/` — folders scaffolded, need data resources
-- `src/Entities/Systems/Equipment/` — scaffolded, implement here in Task 9
-- `src/Ui/Common/AdaptiveOverlayPanel` — base class for all overlay panels
+- `src/entities/Skills/Combat/Fireball/`, `Slash/`, `Heal/` — folders scaffolded, need data resources
+- `src/entities/Systems/Equipment/` — scaffolded, implement here in Task 9
+- `src/ui/Common/AdaptiveOverlayPanel` — base class for all overlay panels
 
 ## Testing pattern
 
 Tests are headless GDScript files that extend `SceneTree`. Run with:
 ```bash
-godot4 --headless --path . --script res://src/Entities/Systems/Combat/Tests/run_combat_tests.gd
+godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
 ```
 Exit code 0 = all pass, 1 = any failure. Print `[PASS]` / `[FAIL]` per assertion.
 
@@ -100,7 +100,7 @@ Exit code 0 = all pass, 1 = any failure. Print `[PASS]` / `[FAIL]` per assertion
 ### Task 1: CombatStats resource
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/Data/combat_stats.gd`
+- Create: `src/entities/Systems/Combat/Data/combat_stats.gd`
 
 **Step 1: Write the file**
 
@@ -126,7 +126,7 @@ func duplicate_stats() -> CombatStats:
 
 **Step 3: Commit**
 ```bash
-git add src/Entities/Systems/Combat/Data/combat_stats.gd
+git add src/entities/Systems/Combat/Data/combat_stats.gd
 git commit -m "feat(combat): add CombatStats resource"
 ```
 
@@ -135,7 +135,7 @@ git commit -m "feat(combat): add CombatStats resource"
 ### Task 2: SkillData resource
 
 **Files:**
-- Create: `src/Entities/Skills/Combat/skill_data.gd`
+- Create: `src/entities/Skills/Combat/skill_data.gd`
 
 **Step 1: Write the file**
 
@@ -162,7 +162,7 @@ enum SkillType { ATTACK, DEFEND, HEAL, BUFF, DEBUFF }
 
 **Step 3: Commit**
 ```bash
-git add src/Entities/Skills/Combat/skill_data.gd
+git add src/entities/Skills/Combat/skill_data.gd
 git commit -m "feat(combat): add SkillData resource"
 ```
 
@@ -171,8 +171,8 @@ git commit -m "feat(combat): add SkillData resource"
 ### Task 3: CombatAction and CombatantSnapshot resources
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/Data/combat_action.gd`
-- Create: `src/Entities/Systems/Combat/Data/combatant_snapshot.gd`
+- Create: `src/entities/Systems/Combat/Data/combat_action.gd`
+- Create: `src/entities/Systems/Combat/Data/combatant_snapshot.gd`
 
 **Step 1: Write CombatAction**
 
@@ -231,8 +231,8 @@ static func from_creature(creature_data: CreatureData) -> CombatantSnapshot:
 
 **Step 3: Commit**
 ```bash
-git add src/Entities/Systems/Combat/Data/combat_action.gd \
-        src/Entities/Systems/Combat/Data/combatant_snapshot.gd
+git add src/entities/Systems/Combat/Data/combat_action.gd \
+        src/entities/Systems/Combat/Data/combatant_snapshot.gd
 git commit -m "feat(combat): add CombatAction and CombatantSnapshot resources"
 ```
 
@@ -241,7 +241,7 @@ git commit -m "feat(combat): add CombatAction and CombatantSnapshot resources"
 ### Task 4: CombatRoundResult resource
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/Data/combat_round_result.gd`
+- Create: `src/entities/Systems/Combat/Data/combat_round_result.gd`
 
 **Step 1: Write the file**
 
@@ -263,7 +263,7 @@ var winner_id: StringName = &""
 
 **Step 2: Commit**
 ```bash
-git add src/Entities/Systems/Combat/Data/combat_round_result.gd
+git add src/entities/Systems/Combat/Data/combat_round_result.gd
 git commit -m "feat(combat): add CombatRoundResult resource"
 ```
 
@@ -274,7 +274,7 @@ git commit -m "feat(combat): add CombatRoundResult resource"
 ### Task 5: CombatEvents singleton
 
 **Files:**
-- Create: `src/Core/Events/combat_events.gd`
+- Create: `src/core/Events/combat_events.gd`
 - Modify: `project.godot` — add autoload entry
 
 **Step 1: Write combat_events.gd**
@@ -298,7 +298,7 @@ signal combat_confirmed(player_snapshot: CombatantSnapshot, enemy_snapshot: Comb
 
 Open `project.godot` and add under `[autoload]`:
 ```ini
-CombatEvents="*res://src/Core/Events/combat_events.gd"
+CombatEvents="*res://src/core/Events/combat_events.gd"
 ```
 Add it after `CreatureEvents` to keep the load order consistent with the other event singletons.
 
@@ -306,7 +306,7 @@ Add it after `CreatureEvents` to keep the load order consistent with the other e
 
 **Step 4: Commit**
 ```bash
-git add src/Core/Events/combat_events.gd project.godot
+git add src/core/Events/combat_events.gd project.godot
 git commit -m "feat(combat): add CombatEvents autoload"
 ```
 
@@ -317,7 +317,7 @@ git commit -m "feat(combat): add CombatEvents autoload"
 ### Task 6: Write the resolver
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/combat_round_resolver.gd`
+- Create: `src/entities/Systems/Combat/combat_round_resolver.gd`
 
 **Step 1: Write the resolver**
 
@@ -413,7 +413,7 @@ func _is_heal(action: CombatAction) -> bool:
 
 **Step 2: Commit**
 ```bash
-git add src/Entities/Systems/Combat/combat_round_resolver.gd
+git add src/entities/Systems/Combat/combat_round_resolver.gd
 git commit -m "feat(combat): add CombatRoundResolver"
 ```
 
@@ -422,8 +422,8 @@ git commit -m "feat(combat): add CombatRoundResolver"
 ### Task 7: Write headless resolver tests
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/Tests/combat_resolver_test.gd`
-- Create: `src/Entities/Systems/Combat/Tests/run_combat_tests.gd`
+- Create: `src/entities/Systems/Combat/Tests/combat_resolver_test.gd`
+- Create: `src/entities/Systems/Combat/Tests/run_combat_tests.gd`
 
 **Step 1: Write the test helper**
 
@@ -432,7 +432,7 @@ git commit -m "feat(combat): add CombatRoundResolver"
 ## Headless unit tests for CombatRoundResolver.
 
 const CombatRoundResolverScript = preload(
-	"res://src/Entities/Systems/Combat/combat_round_resolver.gd"
+	"res://src/entities/Systems/Combat/combat_round_resolver.gd"
 )
 
 var _pass_count: int = 0
@@ -546,10 +546,10 @@ extends SceneTree
 
 ## Headless runner for combat system tests.
 ## Usage:
-##   godot4 --headless --path . --script res://src/Entities/Systems/Combat/Tests/run_combat_tests.gd
+##   godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
 
 const TEST_SCRIPT = preload(
-	"res://src/Entities/Systems/Combat/Tests/combat_resolver_test.gd"
+	"res://src/entities/Systems/Combat/Tests/combat_resolver_test.gd"
 )
 
 
@@ -561,13 +561,13 @@ func _initialize() -> void:
 
 **Step 3: Run tests**
 ```bash
-godot4 --headless --path . --script res://src/Entities/Systems/Combat/Tests/run_combat_tests.gd
+godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
 ```
 Expected: all `[PASS]`, exit code 0.
 
 **Step 4: Commit**
 ```bash
-git add src/Entities/Systems/Combat/Tests/
+git add src/entities/Systems/Combat/Tests/
 git commit -m "test(combat): add headless resolver tests"
 ```
 
@@ -578,7 +578,7 @@ git commit -m "test(combat): add headless resolver tests"
 ### Task 8: CombatContext (live state)
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/combat_context.gd`
+- Create: `src/entities/Systems/Combat/combat_context.gd`
 
 **Step 1: Write the file**
 
@@ -635,7 +635,7 @@ func apply_result(result: CombatRoundResult) -> void:
 
 **Step 2: Commit**
 ```bash
-git add src/Entities/Systems/Combat/combat_context.gd
+git add src/entities/Systems/Combat/combat_context.gd
 git commit -m "feat(combat): add CombatContext"
 ```
 
@@ -644,7 +644,7 @@ git commit -m "feat(combat): add CombatContext"
 ### Task 9: CombatFlowController (round loop + timer)
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/combat_flow_controller.gd`
+- Create: `src/entities/Systems/Combat/combat_flow_controller.gd`
 
 **Step 1: Write the file**
 
@@ -734,7 +734,7 @@ func _resolve_round() -> void:
 
 **Step 2: Commit**
 ```bash
-git add src/Entities/Systems/Combat/combat_flow_controller.gd
+git add src/entities/Systems/Combat/combat_flow_controller.gd
 git commit -m "feat(combat): add CombatFlowController"
 ```
 
@@ -745,8 +745,8 @@ git commit -m "feat(combat): add CombatFlowController"
 ### Task 10: CombatAiStrategy base + weighted random implementation
 
 **Files:**
-- Create: `src/Entities/Systems/Combat/Ai/combat_ai_strategy.gd`
-- Create: `src/Entities/Systems/Combat/Ai/weighted_random_strategy.gd`
+- Create: `src/entities/Systems/Combat/Ai/combat_ai_strategy.gd`
+- Create: `src/entities/Systems/Combat/Ai/weighted_random_strategy.gd`
 
 **Step 1: Write the base resource**
 
@@ -795,7 +795,7 @@ func choose_action(
 
 **Step 3: Commit**
 ```bash
-git add src/Entities/Systems/Combat/Ai/
+git add src/entities/Systems/Combat/Ai/
 git commit -m "feat(combat): add CombatAiStrategy and WeightedRandomStrategy"
 ```
 
@@ -806,7 +806,7 @@ git commit -m "feat(combat): add CombatAiStrategy and WeightedRandomStrategy"
 ### Task 11: Add combat fields to CreatureData
 
 **Files:**
-- Modify: `src/Entities/Creatures/creature_data.gd`
+- Modify: `src/entities/Creatures/creature_data.gd`
 
 **Step 1: Add a new export group at the end of the file** (before the closing `func` block)
 
@@ -835,7 +835,7 @@ func get_ai_strategy() -> CombatAiStrategy:
 
 **Step 4: Commit**
 ```bash
-git add src/Entities/Creatures/creature_data.gd
+git add src/entities/Creatures/creature_data.gd
 git commit -m "feat(combat): extend CreatureData with skill_loadout and ai_strategy"
 ```
 
@@ -846,8 +846,8 @@ git commit -m "feat(combat): extend CreatureData with skill_loadout and ai_strat
 ### Task 12: CombatPreviewPanel overlay
 
 **Files:**
-- Create: `src/Ui/Common/CombatPreviewPanel/combat_preview_panel.gd`
-- Create: `src/Ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`
+- Create: `src/ui/Common/CombatPreviewPanel/combat_preview_panel.gd`
+- Create: `src/ui/Common/CombatPreviewPanel/combat_preview_panel.tscn`
 
 **Step 1: Write the script**
 
@@ -927,7 +927,7 @@ CombatPreviewPanel (script: combat_preview_panel.gd, extends AdaptiveOverlayPane
 
 **Step 3: Commit**
 ```bash
-git add src/Ui/Common/CombatPreviewPanel/
+git add src/ui/Common/CombatPreviewPanel/
 git commit -m "feat(combat): add CombatPreviewPanel overlay"
 ```
 
@@ -938,8 +938,8 @@ git commit -m "feat(combat): add CombatPreviewPanel overlay"
 ### Task 13: Combat scene entry point
 
 **Files:**
-- Create: `src/World/Combat/combat_scene.tscn`
-- Create: `src/World/Combat/combat_scene.gd`
+- Create: `src/world/Combat/combat_scene.tscn`
+- Create: `src/world/Combat/combat_scene.gd`
 
 **Step 1: Write combat_scene.gd**
 
@@ -992,7 +992,7 @@ CombatScene (script: combat_scene.gd)
 
 **Step 3: Commit**
 ```bash
-git add src/World/Combat/
+git add src/world/Combat/
 git commit -m "feat(combat): add combat scene entry point"
 ```
 
@@ -1001,8 +1001,8 @@ git commit -m "feat(combat): add combat scene entry point"
 ### Task 14: Mobile combat UI layout
 
 **Files:**
-- Create: `src/Ui/Mobile/Combat/mobile_combat_ui.tscn`
-- Create: `src/Ui/Mobile/Combat/mobile_combat_ui.gd`
+- Create: `src/ui/Mobile/Combat/mobile_combat_ui.tscn`
+- Create: `src/ui/Mobile/Combat/mobile_combat_ui.gd`
 
 **Step 1: Write mobile_combat_ui.gd**
 
@@ -1132,7 +1132,7 @@ MobileCombatUi (Control, script: mobile_combat_ui.gd, anchor: full rect)
 
 **Step 4: Commit**
 ```bash
-git add src/Ui/Mobile/Combat/
+git add src/ui/Mobile/Combat/
 git commit -m "feat(combat): add mobile combat UI layout"
 ```
 
@@ -1143,14 +1143,14 @@ git commit -m "feat(combat): add mobile combat UI layout"
 ### Task 15: Wire overworld → preview panel → combat
 
 **Files:**
-- Modify: `src/World/Overworld/overworld.gd` (or `overworld.tscn`)
-- Modify: `src/World/Overworld/overworld_creature_selection_controller.gd`
+- Modify: `src/world/Overworld/overworld.gd` (or `overworld.tscn`)
+- Modify: `src/world/Overworld/overworld_creature_selection_controller.gd`
 
 **Context:** `CreatureEvents.creature_fight_requested` is already emitted when the player taps FIGHT on the creature HUD. Currently nothing listens to it. We intercept it to show the preview panel instead of going directly to combat.
 
 **Step 1: Add CombatPreviewPanel to the overworld scene**
 
-In the Godot editor, open `src/World/Overworld/overworld.tscn`:
+In the Godot editor, open `src/world/Overworld/overworld.tscn`:
 - Add `CombatPreviewPanel` node (instance `combat_preview_panel.tscn`) as a child of the root
 - Name it `CombatPreviewPanel`
 
@@ -1217,10 +1217,10 @@ The `GameManager` emits `game_state_changed`. Find where the overworld listens t
 ```gdscript
 func _on_game_state_changed(old_state: GameManager.GameState, new_state: GameManager.GameState) -> void:
 	if new_state == GameManager.GameState.COMBAT:
-		get_tree().change_scene_to_file("res://src/World/Combat/combat_scene.tscn")
+		get_tree().change_scene_to_file("res://src/world/Combat/combat_scene.tscn")
 ```
 
-Check `src/World/main.tscn` / `src/World/Overworld/overworld_session_controller.gd` for where scene transitions are already handled and add the COMBAT case there.
+Check `src/world/main.tscn` / `src/world/Overworld/overworld_session_controller.gd` for where scene transitions are already handled and add the COMBAT case there.
 
 **Step 4: Manual smoke test**
 
@@ -1233,7 +1233,7 @@ Check `src/World/main.tscn` / `src/World/Overworld/overworld_session_controller.
 
 **Step 5: Commit**
 ```bash
-git add src/World/Overworld/overworld.gd src/World/Overworld/overworld.tscn
+git add src/world/Overworld/overworld.gd src/world/Overworld/overworld.tscn
 git commit -m "feat(combat): wire overworld → preview panel → combat scene"
 ```
 
@@ -1244,7 +1244,7 @@ git commit -m "feat(combat): wire overworld → preview panel → combat scene"
 ### Task 16: Extend PlayerProfileService with XP and level
 
 **Files:**
-- Modify: `src/Core/player_profile_service.gd`
+- Modify: `src/core/player_profile_service.gd`
 
 **Step 1: Add constants and vars**
 
@@ -1316,7 +1316,7 @@ func _on_combat_ended(result: CombatRoundResult) -> void:
 
 **Step 4: Commit**
 ```bash
-git add src/Core/player_profile_service.gd src/World/Overworld/overworld.gd
+git add src/core/player_profile_service.gd src/world/Overworld/overworld.gd
 git commit -m "feat(combat): add XP and level tracking to PlayerProfileService"
 ```
 
@@ -1346,5 +1346,5 @@ git commit -m "feat(combat): add XP and level tracking to PlayerProfileService"
 - Group / party combat
 - Status effects
 - Combat animations and VFX
-- Desktop UI variant (`src/Ui/Windows/Combat/`)
+- Desktop UI variant (`src/ui/Windows/Combat/`)
 - Player combat stats driven by level (currently hardcoded to 100 HP / 12 ATK)
