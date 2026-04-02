@@ -73,26 +73,26 @@ git commit -m "refactor(structure): merge src/Map into src/world"
 ### Task 2: Rename `State_Machine` → `StateMachine`
 
 **Files to move:**
-- `src/common/State_Machine/state.gd` → `src/common/StateMachine/state.gd`
-- `src/common/State_Machine/state.gd.uid` → `src/common/StateMachine/state.gd.uid`
-- `src/common/State_Machine/state_machine.gd` → `src/common/StateMachine/state_machine.gd`
-- `src/common/State_Machine/state_machine.gd.uid` → `src/common/StateMachine/state_machine.gd.uid`
+- `src/common/State_Machine/state.gd` → `src/common/state_machine/state.gd`
+- `src/common/State_Machine/state.gd.uid` → `src/common/state_machine/state.gd.uid`
+- `src/common/State_Machine/state_machine.gd` → `src/common/state_machine/state_machine.gd`
+- `src/common/State_Machine/state_machine.gd.uid` → `src/common/state_machine/state_machine.gd.uid`
 
 **Step 1: Move files**
 
 ```bash
-mkdir -p src/common/StateMachine
-git mv "src/common/State_Machine/state.gd" src/common/StateMachine/state.gd
-git mv "src/common/State_Machine/state.gd.uid" src/common/StateMachine/state.gd.uid
-git mv "src/common/State_Machine/state_machine.gd" src/common/StateMachine/state_machine.gd
-git mv "src/common/State_Machine/state_machine.gd.uid" src/common/StateMachine/state_machine.gd.uid
+mkdir -p src/common/state_machine
+git mv "src/common/State_Machine/state.gd" src/common/state_machine/state.gd
+git mv "src/common/State_Machine/state.gd.uid" src/common/state_machine/state.gd.uid
+git mv "src/common/State_Machine/state_machine.gd" src/common/state_machine/state_machine.gd
+git mv "src/common/State_Machine/state_machine.gd.uid" src/common/state_machine/state_machine.gd.uid
 ```
 
 **Step 2: Update `res://` references**
 
 | File | Old | New |
 |---|---|---|
-| `src/entities/Player/player.tscn:13` | `res://src/common/State_Machine/state_machine.gd` | `res://src/common/StateMachine/state_machine.gd` |
+| `src/entities/Player/player.tscn:13` | `res://src/common/State_Machine/state_machine.gd` | `res://src/common/state_machine/state_machine.gd` |
 
 Search all `.tscn` files for `State_Machine` references and update them.
 
@@ -170,7 +170,7 @@ git commit -m "refactor(structure): move icon_preview to tools/"
 
 ---
 
-### Task 5: Relocate `src/entities/Systems/Navigation/` to `src/common/Navigation/`
+### Task 5: Relocate `src/entities/Systems/Navigation/` to `src/common/navigation/`
 
 **Files to move:**
 - `src/entities/Systems/Navigation/creature_navigation_component.gd` (+ `.uid`)
@@ -182,12 +182,12 @@ git commit -m "refactor(structure): move icon_preview to tools/"
 **Step 1: Move files**
 
 ```bash
-mkdir -p src/common/Navigation/Policies
-git mv src/entities/Systems/Navigation/creature_navigation_component.gd src/common/Navigation/
-git mv src/entities/Systems/Navigation/creature_navigation_component.gd.uid src/common/Navigation/
-git mv src/entities/Systems/Navigation/player_move_target_blocker_component.gd src/common/Navigation/
-git mv src/entities/Systems/Navigation/player_move_target_blocker_component.gd.uid src/common/Navigation/
-git mv src/entities/Systems/Navigation/Policies/* src/common/Navigation/Policies/
+mkdir -p src/common/navigation/policies
+git mv src/entities/Systems/Navigation/creature_navigation_component.gd src/common/navigation/
+git mv src/entities/Systems/Navigation/creature_navigation_component.gd.uid src/common/navigation/
+git mv src/entities/Systems/Navigation/player_move_target_blocker_component.gd src/common/navigation/
+git mv src/entities/Systems/Navigation/player_move_target_blocker_component.gd.uid src/common/navigation/
+git mv src/entities/Systems/Navigation/Policies/* src/common/navigation/policies/
 ```
 
 **Step 2: Update any `res://` references**

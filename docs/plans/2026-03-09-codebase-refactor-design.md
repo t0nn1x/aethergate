@@ -17,9 +17,9 @@ Consolidate split directories, co-locate scenes with scripts, fix naming.
 | `src/Map/Overworld/Shaders/` | `src/world/Overworld/Shaders/` | Co-locate with World |
 | `src/Map/Locations/` | `src/world/Locations/` | Co-locate with World |
 | `src/Map/` | (deleted) | Fully merged into `src/world/` |
-| `src/common/State_Machine/` | `src/common/StateMachine/` | Consistent naming (no underscores in folder names) |
+| `src/common/State_Machine/` | `src/common/state_machine/` | Consistent naming (no underscores in folder names) |
 | `src/Utilities/music_player.gd` | `src/core/music_player.gd` | It's an autoload — lives with other autoloads |
-| `src/entities/Systems/Navigation/` | `src/common/Navigation/` | Cross-cutting concern used by Player and Creatures |
+| `src/entities/Systems/Navigation/` | `src/common/navigation/` | Cross-cutting concern used by Player and Creatures |
 | `src/Utilities/icon_preview/` | `tools/icon_preview/` | Dev tool, not game source |
 
 ### What stays

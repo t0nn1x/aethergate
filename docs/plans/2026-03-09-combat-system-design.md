@@ -81,7 +81,7 @@ src/entities/Skills/Combat/
   ├─ Slash/
   └─ Heal/
 
-src/core/Events/
+src/core/events/
   └─ combat_events.gd                   ← new autoload
 
 src/ui/Common/CombatPreviewPanel/

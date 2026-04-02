@@ -23,7 +23,7 @@
 | 2 — SkillData | `src/entities/Skills/Combat/skill_data.gd` | ✅ committed |
 | 3 — CombatAction + CombatantSnapshot | `src/entities/Systems/Combat/Data/combat_action.gd`, `combatant_snapshot.gd` | ✅ committed |
 | 4 — CombatRoundResult | `src/entities/Systems/Combat/Data/combat_round_result.gd` | ✅ committed |
-| 5 — CombatEvents autoload | `src/core/Events/combat_events.gd` | ✅ committed |
+| 5 — CombatEvents autoload | `src/core/events/combat_events.gd` | ✅ committed |
 | 6 — CombatRoundResolver | `src/entities/Systems/Combat/combat_round_resolver.gd` | ✅ committed |
 | 7 — Headless tests | `src/entities/Systems/Combat/Tests/` | ✅ committed, 11/11 passing |
 | 8 — CombatContext | `src/entities/Systems/Combat/combat_context.gd` | ✅ scripted |
@@ -274,7 +274,7 @@ git commit -m "feat(combat): add CombatRoundResult resource"
 ### Task 5: CombatEvents singleton
 
 **Files:**
-- Create: `src/core/Events/combat_events.gd`
+- Create: `src/core/events/combat_events.gd`
 - Modify: `project.godot` — add autoload entry
 
 **Step 1: Write combat_events.gd**
@@ -298,7 +298,7 @@ signal combat_confirmed(player_snapshot: CombatantSnapshot, enemy_snapshot: Comb
 
 Open `project.godot` and add under `[autoload]`:
 ```ini
-CombatEvents="*res://src/core/Events/combat_events.gd"
+CombatEvents="*res://src/core/events/combat_events.gd"
 ```
 Add it after `CreatureEvents` to keep the load order consistent with the other event singletons.
 
@@ -306,7 +306,7 @@ Add it after `CreatureEvents` to keep the load order consistent with the other e
 
 **Step 4: Commit**
 ```bash
-git add src/core/Events/combat_events.gd project.godot
+git add src/core/events/combat_events.gd project.godot
 git commit -m "feat(combat): add CombatEvents autoload"
 ```
 
