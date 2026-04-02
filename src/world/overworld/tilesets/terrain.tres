@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" format=3 uid="uid://cg4xcim03imgm"]
 
-[ext_resource type="Texture2D" uid="uid://drsvu77nyspjl" path="res://src/world/overworld/tilesets/terrains/A1 - Liquids And Misc.png" id="1_1p4hw"]
-[ext_resource type="Texture2D" uid="uid://dm8a34xxand7h" path="res://src/world/overworld/tilesets/terrains/A2 - Terrain and Misc.png" id="2_qqsuo"]
-[ext_resource type="Texture2D" uid="uid://cd2856o5051k0" path="res://src/world/overworld/tilesets/terrains/Fantasy_World_B.png" id="3_f8lxj"]
+[ext_resource type="Texture2D" uid="uid://drsvu77nyspjl" path="res://src/world/overworld/tilesets/terrains/a1_liquids_and_misc.png" id="1_1p4hw"]
+[ext_resource type="Texture2D" uid="uid://dm8a34xxand7h" path="res://src/world/overworld/tilesets/terrains/a2_terrain_and_misc.png" id="2_qqsuo"]
+[ext_resource type="Texture2D" uid="uid://cd2856o5051k0" path="res://src/world/overworld/tilesets/terrains/fantasy_world_b.png" id="3_f8lxj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uwli1"]
 texture = ExtResource("1_1p4hw")
