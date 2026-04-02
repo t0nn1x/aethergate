@@ -26,7 +26,7 @@ Created: 2026-02-19
   Logging: none.
 
 - [x] Task 2: Add creature hit-test support to `PlayerInputComponent` (screen-to-world query + creature filtering), including configurable interaction toggles and collision mask defaults for creature layer.
-  Files: `src/entities/player/components/Input/player_input_component.gd`, `src/entities/player/config/player_input_config.gd`, `src/entities/player/config/player_input_config.tres`
+  Files: `src/entities/player/components/input/player_input_component.gd`, `src/entities/player/config/player_input_config.gd`, `src/entities/player/config/player_input_config.tres`
   Logging: none.
 
 - [x] Task 3: Update mouse/touch adapters to prioritize creature selection over move-target queueing, so tapping a creature emits selection and does not issue a move command.

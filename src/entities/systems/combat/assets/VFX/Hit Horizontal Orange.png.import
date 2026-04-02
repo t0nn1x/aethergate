@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da6frfmjd3oqg"
-path="res://.godot/imported/Hit Vertical Orange.png-649f9fe3480d01a512a4960b0786ff25.ctex"
+uid="uid://claofjyba5f86"
+path="res://.godot/imported/Hit Horizontal Orange.png-2da19d2f873d7ce233c6a8bd57632e9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/entities/systems/combat/Assets/VFX/Hit Vertical Orange.png"
-dest_files=["res://.godot/imported/Hit Vertical Orange.png-649f9fe3480d01a512a4960b0786ff25.ctex"]
+source_file="res://src/entities/systems/combat/assets/VFX/Hit Horizontal Orange.png"
+dest_files=["res://.godot/imported/Hit Horizontal Orange.png-2da19d2f873d7ce233c6a8bd57632e9d.ctex"]
 
 [params]
 

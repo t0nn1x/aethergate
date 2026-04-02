@@ -102,8 +102,8 @@
 - `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.gd`
 - `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.tscn`
 - `src/entities/Player/Tools/README.md`
-- `src/entities/Systems/Inventory/Resources/player_starter_inventory.tres`
-- `src/entities/Systems/Combat/Tests/run_combat_tests.gd`
+- `src/entities/systems/inventory/resources/player_starter_inventory.tres`
+- `src/entities/systems/combat/tests/run_combat_tests.gd`
 
 ### Documentation paths
 
@@ -596,8 +596,8 @@ git commit -m "refactor: normalize world runtime folders"
 - Modify: `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.gd`
 - Modify: `src/entities/Player/Tools/player_cosmetic_catalog_builder_runner.tscn`
 - Modify: `src/entities/Player/Tools/README.md`
-- Modify: `src/entities/Systems/Inventory/Resources/player_starter_inventory.tres`
-- Modify: `src/entities/Systems/Combat/Tests/run_combat_tests.gd`
+- Modify: `src/entities/systems/inventory/resources/player_starter_inventory.tres`
+- Modify: `src/entities/systems/combat/tests/run_combat_tests.gd`
 - Modify: `src/world/overworld/overworld.tscn`
 - Rename: `src/entities/Creatures/` -> `src/entities/creatures/`
 - Move: `src/entities/creatures/creature.gd` -> `src/entities/creatures/base/creature.gd`

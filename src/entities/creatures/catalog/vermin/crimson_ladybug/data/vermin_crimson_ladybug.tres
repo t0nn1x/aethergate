@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_bvbte"]
-[ext_resource type="Script" path="res://src/entities/skills/Combat/skill_data.gd" id="2_3cchi"]
+[ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_3cchi"]
 
 [resource]
 script = ExtResource("1_bvbte")

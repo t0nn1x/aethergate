@@ -75,7 +75,7 @@ src/entities/Systems/Combat/
   ├─ combat_round_resolver.gd
   └─ combat_flow_controller.gd
 
-src/entities/Skills/Combat/
+src/entities/skills/combat/
   ├─ skill_data.gd                      ← base Resource (already scaffolded)
   ├─ Fireball/
   ├─ Slash/
@@ -208,7 +208,7 @@ Buttons: **[FIGHT]** and **[X / Flee]**
 | `OverworldCreatureSelectionController` | Extend: tap emits `combat_preview_requested` |
 | `CreatureData` | Extend: add `base_combat_stats`, `ai_strategy`, `skill_loadout` |
 | `src/entities/Systems/Equipment/` | Implement: resolve `skill_loadout` from equipped gear |
-| `src/entities/Skills/Combat/` | Add: `skill_data.gd` base resource + per-skill `.tres` files |
+| `src/entities/skills/combat/` | Add: `skill_data.gd` base resource + per-skill `.tres` files |
 
 ---
 

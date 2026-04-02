@@ -1,7 +1,7 @@
 class_name CreatureData
 extends Resource
 
-const SkillData = preload("res://src/entities/skills/Combat/skill_data.gd")
+const SkillData = preload("res://src/entities/skills/combat/skill_data.gd")
 
 ## Data resource defining a creature's type, stats, sprite, and behavior.
 ## Create .tres instances for each creature variant (wolf, skeleton, etc.)

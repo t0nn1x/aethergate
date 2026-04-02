@@ -347,8 +347,8 @@ func _build_player_snapshot() -> CombatantSnapshot:
 		snap.sprite_idle_fps = 2.0
 		snap.sprite_default_frame = 0
 		for vfx_path: String in [
-			"res://src/entities/systems/combat/Assets/VFX/Hit Horizontal White.png",
-			"res://src/entities/systems/combat/Assets/VFX/Hit Vertical White.png",
+			"res://src/entities/systems/combat/assets/VFX/Hit Horizontal White.png",
+			"res://src/entities/systems/combat/assets/VFX/Hit Vertical White.png",
 		]:
 			var tex := load(vfx_path) as Texture2D
 			if tex:

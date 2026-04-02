@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyuh66nygfd2n"
-path="res://.godot/imported/Hit Vertical Green.png-d399dd22c967801d89af49103d5f4557.ctex"
+uid="uid://dewlye2h1o7pa"
+path="res://.godot/imported/Hit Horizontal White.png-c4653f1e2cdfeded7a3ae1366c0187a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/entities/systems/combat/Assets/VFX/Hit Vertical Green.png"
-dest_files=["res://.godot/imported/Hit Vertical Green.png-d399dd22c967801d89af49103d5f4557.ctex"]
+source_file="res://src/entities/systems/combat/assets/VFX/Hit Horizontal White.png"
+dest_files=["res://.godot/imported/Hit Horizontal White.png-c4653f1e2cdfeded7a3ae1366c0187a9.ctex"]
 
 [params]
 

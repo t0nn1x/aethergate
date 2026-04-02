@@ -59,7 +59,7 @@ Overworld tap → CreatureEvents.creature_fight_requested
 ## Testing
 
 ```bash
-godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
+godot4 --headless --path . --script res://src/entities/systems/combat/tests/run_combat_tests.gd
 ```
 
 11 headless tests covering: auto-attack damage, defense reduction, combat end conditions, winner detection, simultaneous kills, heal skills.

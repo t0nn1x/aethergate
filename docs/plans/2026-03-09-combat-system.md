@@ -20,12 +20,12 @@
 | Task | File | Status |
 | --- | --- | --- |
 | 1 — CombatStats | `src/entities/Systems/Combat/Data/combat_stats.gd` | ✅ committed |
-| 2 — SkillData | `src/entities/Skills/Combat/skill_data.gd` | ✅ committed |
+| 2 — SkillData | `src/entities/skills/combat/skill_data.gd` | ✅ committed |
 | 3 — CombatAction + CombatantSnapshot | `src/entities/Systems/Combat/Data/combat_action.gd`, `combatant_snapshot.gd` | ✅ committed |
 | 4 — CombatRoundResult | `src/entities/Systems/Combat/Data/combat_round_result.gd` | ✅ committed |
 | 5 — CombatEvents autoload | `src/core/events/combat_events.gd` | ✅ committed |
 | 6 — CombatRoundResolver | `src/entities/Systems/Combat/combat_round_resolver.gd` | ✅ committed |
-| 7 — Headless tests | `src/entities/Systems/Combat/Tests/` | ✅ committed, 11/11 passing |
+| 7 — Headless tests | `src/entities/systems/combat/tests/` | ✅ committed, 11/11 passing |
 | 8 — CombatContext | `src/entities/Systems/Combat/combat_context.gd` | ✅ scripted |
 | 9 — CombatFlowController | `src/entities/Systems/Combat/combat_flow_controller.gd` | ✅ scripted |
 | 10 — AI strategies | `src/entities/Systems/Combat/Ai/combat_ai_strategy.gd`, `weighted_random_strategy.gd` | ✅ scripted |
@@ -67,7 +67,7 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 ## Run tests
 
 ```bash
-"C:/Users/Anton.Khrobust/projects/Godot_v4.6-stable_win64.exe/Godot_v4.6-stable_win64.exe" --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
+"C:/Users/Anton.Khrobust/projects/Godot_v4.6-stable_win64.exe/Godot_v4.6-stable_win64.exe" --headless --path . --script res://src/entities/systems/combat/tests/run_combat_tests.gd
 ```
 
 ---
@@ -81,7 +81,7 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 - `GameManager.GameState.COMBAT` — state and transitions already registered
 - `CreatureEvents.creature_fight_requested` — signal already declared and emitted by `OverworldCreatureSelectionController._on_creature_action_hud_fight_pressed`
 - `CreatureData` — has `max_health`, `damage`, `armor`, `experience_reward` already
-- `src/entities/Skills/Combat/Fireball/`, `Slash/`, `Heal/` — folders scaffolded, need data resources
+- `src/entities/skills/combat/Fireball/`, `Slash/`, `Heal/` — folders scaffolded, need data resources
 - `src/entities/Systems/Equipment/` — scaffolded, implement here in Task 9
 - `src/ui/common/AdaptiveOverlayPanel` — base class for all overlay panels
 
@@ -89,7 +89,7 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 
 Tests are headless GDScript files that extend `SceneTree`. Run with:
 ```bash
-godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
+godot4 --headless --path . --script res://src/entities/systems/combat/tests/run_combat_tests.gd
 ```
 Exit code 0 = all pass, 1 = any failure. Print `[PASS]` / `[FAIL]` per assertion.
 
@@ -135,7 +135,7 @@ git commit -m "feat(combat): add CombatStats resource"
 ### Task 2: SkillData resource
 
 **Files:**
-- Create: `src/entities/Skills/Combat/skill_data.gd`
+- Create: `src/entities/skills/combat/skill_data.gd`
 
 **Step 1: Write the file**
 
@@ -162,7 +162,7 @@ enum SkillType { ATTACK, DEFEND, HEAL, BUFF, DEBUFF }
 
 **Step 3: Commit**
 ```bash
-git add src/entities/Skills/Combat/skill_data.gd
+git add src/entities/skills/combat/skill_data.gd
 git commit -m "feat(combat): add SkillData resource"
 ```
 
@@ -422,8 +422,8 @@ git commit -m "feat(combat): add CombatRoundResolver"
 ### Task 7: Write headless resolver tests
 
 **Files:**
-- Create: `src/entities/Systems/Combat/Tests/combat_resolver_test.gd`
-- Create: `src/entities/Systems/Combat/Tests/run_combat_tests.gd`
+- Create: `src/entities/systems/combat/tests/combat_resolver_test.gd`
+- Create: `src/entities/systems/combat/tests/run_combat_tests.gd`
 
 **Step 1: Write the test helper**
 
@@ -546,10 +546,10 @@ extends SceneTree
 
 ## Headless runner for combat system tests.
 ## Usage:
-##   godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
+##   godot4 --headless --path . --script res://src/entities/systems/combat/tests/run_combat_tests.gd
 
 const TEST_SCRIPT = preload(
-	"res://src/entities/Systems/Combat/Tests/combat_resolver_test.gd"
+	"res://src/entities/systems/combat/tests/combat_resolver_test.gd"
 )
 
 
@@ -561,13 +561,13 @@ func _initialize() -> void:
 
 **Step 3: Run tests**
 ```bash
-godot4 --headless --path . --script res://src/entities/Systems/Combat/Tests/run_combat_tests.gd
+godot4 --headless --path . --script res://src/entities/systems/combat/tests/run_combat_tests.gd
 ```
 Expected: all `[PASS]`, exit code 0.
 
 **Step 4: Commit**
 ```bash
-git add src/entities/Systems/Combat/Tests/
+git add src/entities/systems/combat/tests/
 git commit -m "test(combat): add headless resolver tests"
 ```
 
