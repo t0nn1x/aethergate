@@ -81,7 +81,7 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 - `GameManager.GameState.COMBAT` — state and transitions already registered
 - `CreatureEvents.creature_fight_requested` — signal already declared and emitted by `OverworldCreatureSelectionController._on_creature_action_hud_fight_pressed`
 - `CreatureData` — has `max_health`, `damage`, `armor`, `experience_reward` already
-- `src/entities/skills/combat/Fireball/`, `Slash/`, `Heal/` — folders scaffolded, need data resources
+- `src/entities/skills/combat/fireball/`, `slash/`, `heal/` — folders scaffolded, need data resources
 - `src/entities/Systems/Equipment/` — scaffolded, implement here in Task 9
 - `src/ui/common/AdaptiveOverlayPanel` — base class for all overlay panels
 
