@@ -17,7 +17,7 @@ Data-driven sprite-sheet VFX system for combat attacks. Each attack plays an ani
 | `src/ui/common/combat/combat_vfx_player.gd` | Control node — drives frame animation via Timer, emits `impact_hit` / `finished` |
 | `src/entities/skills/combat/skill_data.gd` | `@export_group("VFX")` fields for skill-specific VFX |
 | `src/entities/systems/combat/data/combatant_snapshot.gd` | `default_attack_vfx_pool` + fallback single-config fields for auto-attacks |
-| `src/ui/Windows/Combat/windows_combat_ui.gd` | Wires VFX players, defers HP bar / log update to `impact_hit` |
+| `src/ui/desktop/combat/desktop_combat_ui.gd` | Wires VFX players, defers HP bar / log update to `impact_hit` |
 | `src/world/overworld/overworld.gd` | Populates player snapshot's VFX pool in `_build_player_snapshot()` |
 
 ### VFX config fields

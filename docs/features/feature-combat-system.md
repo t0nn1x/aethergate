@@ -33,16 +33,16 @@ Overworld tap → CreatureEvents.creature_fight_requested
 
 | File | Role |
 |---|---|
-| `Data/combat_stats.gd` | Shared stat block (HP, energy, attack, defense) |
-| `Data/combat_action.gd` | Per-round action (actor + skill) |
-| `Data/combatant_snapshot.gd` | Immutable snapshot at combat start |
-| `Data/combat_phase_result.gd` | Pure output of a single phase (attacker/defender, deltas, end flag) |
-| `Data/combat_round_result.gd` | Aggregated output for full turn (player_phase + enemy_phase + winner) |
+| `data/combat_stats.gd` | Shared stat block (HP, energy, attack, defense) |
+| `data/combat_action.gd` | Per-round action (actor + skill) |
+| `data/combatant_snapshot.gd` | Immutable snapshot at combat start |
+| `data/combat_phase_result.gd` | Pure output of a single phase (attacker/defender, deltas, end flag) |
+| `data/combat_round_result.gd` | Aggregated output for full turn (player_phase + enemy_phase + winner) |
 | `combat_context.gd` | Mutable live state (HP, energy, round) with per-phase application |
 | `combat_round_resolver.gd` | Stateless per-phase resolution (`resolve_phase`) |
 | `combat_flow_controller.gd` | Phase state machine, timers, and phase/round event emission |
-| `Ai/combat_ai_strategy.gd` | Base class for creature AI (accepts optional player_phase_result) |
-| `Ai/weighted_random_strategy.gd` | Default: random affordable skill (reactive hook reserved) |
+| `ai/combat_ai_strategy.gd` | Base class for creature AI (accepts optional player_phase_result) |
+| `ai/weighted_random_strategy.gd` | Default: random affordable skill (reactive hook reserved) |
 | `combat_events.gd` | Autoload: player_phase_resolved, enemy_phase_resolved, round_completed, combat_ended |
 
 ### Overworld integration
