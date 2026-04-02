@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_80rsu"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/ebon_astaroth/sprites/ebon_astaroth.png" id="1_t3523"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_66psq"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/ebon_astaroth/sprites/ebon_astaroth_128x32.png" id="4_i58bk"]
 
 [resource]
 script = ExtResource("1_80rsu")
@@ -9,3 +11,5 @@ creature_id = "monsters_ebon_astaroth"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/ebon_astaroth/sprites/ebon_astaroth_128x32.png"
+sprite_sheet = ExtResource("4_i58bk")
+overworld_sprite_sheet = ExtResource("1_t3523")

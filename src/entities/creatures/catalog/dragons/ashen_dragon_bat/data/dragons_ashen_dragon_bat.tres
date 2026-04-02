@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_1dsuv"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/ashen_dragon_bat/sprites/ashen_dragon_bat.png" id="1_b3tnk"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_lrpft"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/ashen_dragon_bat/sprites/ashen_dragon_bat_128x32.png" id="4_xgasr"]
 
 [resource]
 script = ExtResource("1_1dsuv")
@@ -9,3 +11,5 @@ creature_id = "dragons_ashen_dragon_bat"
 creature_type = 4
 source_category = "dragons"
 source_sprite_path = "res://src/entities/creatures/catalog/dragons/ashen_dragon_bat/sprites/ashen_dragon_bat_128x32.png"
+sprite_sheet = ExtResource("4_xgasr")
+overworld_sprite_sheet = ExtResource("1_b3tnk")

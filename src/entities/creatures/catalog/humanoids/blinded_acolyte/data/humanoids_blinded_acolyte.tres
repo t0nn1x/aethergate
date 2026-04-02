@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/blinded_acolyte/sprites/blinded_acolyte.png" id="1_6fula"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_gr8w0"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_iwrfu"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/blinded_acolyte/sprites/blinded_acolyte_128x32.png" id="4_c7074"]
 
 [resource]
 script = ExtResource("1_gr8w0")
@@ -9,3 +11,5 @@ creature_id = "humanoids_blinded_acolyte"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/blinded_acolyte/sprites/blinded_acolyte_128x32.png"
+sprite_sheet = ExtResource("4_c7074")
+overworld_sprite_sheet = ExtResource("1_6fula")

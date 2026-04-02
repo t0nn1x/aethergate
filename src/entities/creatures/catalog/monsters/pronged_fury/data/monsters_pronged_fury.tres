@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_ibif5"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/pronged_fury/sprites/pronged_fury.png" id="1_oinjk"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_d50lx"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/pronged_fury/sprites/pronged_fury_128x32.png" id="4_p7w6e"]
 
 [resource]
 script = ExtResource("1_ibif5")
@@ -9,3 +11,5 @@ creature_id = "monsters_pronged_fury"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/pronged_fury/sprites/pronged_fury_128x32.png"
+sprite_sheet = ExtResource("4_p7w6e")
+overworld_sprite_sheet = ExtResource("1_oinjk")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/cheerful_barmaid/sprites/cheerful_barmaid.png" id="1_84ix8"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_xllh1"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_m81ii"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/cheerful_barmaid/sprites/cheerful_barmaid_128x32.png" id="4_1yjp0"]
 
 [resource]
 script = ExtResource("1_xllh1")
@@ -9,3 +11,5 @@ creature_id = "humanoids_cheerful_barmaid"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/cheerful_barmaid/sprites/cheerful_barmaid_128x32.png"
+sprite_sheet = ExtResource("4_1yjp0")
+overworld_sprite_sheet = ExtResource("1_84ix8")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/pyro_the_gnome_alchemist/sprites/pyro.png" id="1_463a4"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_q2ruj"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_co7sp"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/pyro_the_gnome_alchemist/sprites/pyro_128x32.png" id="4_qa3yc"]
 
 [resource]
 script = ExtResource("1_q2ruj")
@@ -9,3 +11,5 @@ creature_id = "humanoids_pyro_the_gnome_alchemist"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/pyro_the_gnome_alchemist/sprites/pyro_128x32.png"
+sprite_sheet = ExtResource("4_qa3yc")
+overworld_sprite_sheet = ExtResource("1_463a4")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/vyrfrost_the_white_dragon/sprites/vyrfrost.png" id="1_83bku"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_rmdh7"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_f6ejc"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/vyrfrost_the_white_dragon/sprites/vyrfrost_128x32.png" id="4_y0jof"]
 
 [resource]
 script = ExtResource("1_rmdh7")
@@ -9,3 +11,5 @@ creature_id = "dragons_vyrfrost_the_white_dragon"
 creature_type = 4
 source_category = "dragons"
 source_sprite_path = "res://src/entities/creatures/catalog/dragons/vyrfrost_the_white_dragon/sprites/vyrfrost_128x32.png"
+sprite_sheet = ExtResource("4_y0jof")
+overworld_sprite_sheet = ExtResource("1_83bku")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_rhs6l"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/orc_reaver/sprites/orc_reaver.png" id="1_xj67r"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_qq5rb"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/orc_reaver/sprites/orc_reaver_128x32.png" id="4_x3vo2"]
 
 [resource]
 script = ExtResource("1_rhs6l")
@@ -9,3 +11,5 @@ creature_id = "humanoids_orc_reaver"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/orc_reaver/sprites/orc_reaver_128x32.png"
+sprite_sheet = ExtResource("4_x3vo2")
+overworld_sprite_sheet = ExtResource("1_xj67r")

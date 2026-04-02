@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_1edul"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/vermin/slithering_snail/sprites/slithering_snail.png" id="1_74gwd"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_f26oy"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/vermin/slithering_snail/sprites/slithering_snail_128x32.png" id="4_vd1i8"]
 
 [resource]
 script = ExtResource("1_1edul")
@@ -9,3 +11,5 @@ creature_id = "vermin_slithering_snail"
 creature_type = 5
 source_category = "vermin"
 source_sprite_path = "res://src/entities/creatures/catalog/vermin/slithering_snail/sprites/slithering_snail_128x32.png"
+sprite_sheet = ExtResource("4_vd1i8")
+overworld_sprite_sheet = ExtResource("1_74gwd")

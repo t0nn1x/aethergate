@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_a8l43"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/emerald_viper/sprites/emerald_viper.png" id="1_f871f"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_pbfqc"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/emerald_viper/sprites/emerald_viper_128x32.png" id="4_4ffqn"]
 
 [resource]
 script = ExtResource("1_a8l43")
@@ -9,3 +11,5 @@ creature_id = "monsters_emerald_viper"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/emerald_viper/sprites/emerald_viper_128x32.png"
+sprite_sheet = ExtResource("4_4ffqn")
+overworld_sprite_sheet = ExtResource("1_f871f")

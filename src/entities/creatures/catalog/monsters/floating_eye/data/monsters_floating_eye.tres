@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/floating_eye/sprites/floating_eye.png" id="1_6gwys"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_joqx4"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_w2ppc"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/floating_eye/sprites/floating_eye_128x32.png" id="4_tefnl"]
 
 [resource]
 script = ExtResource("1_joqx4")
@@ -9,3 +11,5 @@ creature_id = "monsters_floating_eye"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/floating_eye/sprites/floating_eye_128x32.png"
+sprite_sheet = ExtResource("4_tefnl")
+overworld_sprite_sheet = ExtResource("1_6gwys")

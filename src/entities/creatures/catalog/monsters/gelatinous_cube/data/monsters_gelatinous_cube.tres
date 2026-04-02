@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_xbimw"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_eqcn6"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/gelatinous_cube/sprites/gelatinous_cube_128x32.png" id="3_kl3gk"]
 
 [resource]
 script = ExtResource("1_xbimw")
@@ -9,3 +10,4 @@ creature_id = "monsters_gelatinous_cube"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/gelatinous_cube/sprites/gelatinous_cube_128x32.png"
+sprite_sheet = ExtResource("3_kl3gk")

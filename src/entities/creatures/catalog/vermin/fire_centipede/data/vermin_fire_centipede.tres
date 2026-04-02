@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_1nkrx"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/vermin/fire_centipede/sprites/fire_centipede.png" id="1_ff48d"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_i87pe"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/vermin/fire_centipede/sprites/fire_centipede_128x32.png" id="4_33jqc"]
 
 [resource]
 script = ExtResource("1_1nkrx")
@@ -9,3 +11,5 @@ creature_id = "vermin_fire_centipede"
 creature_type = 5
 source_category = "vermin"
 source_sprite_path = "res://src/entities/creatures/catalog/vermin/fire_centipede/sprites/fire_centipede_128x32.png"
+sprite_sheet = ExtResource("4_33jqc")
+overworld_sprite_sheet = ExtResource("1_ff48d")

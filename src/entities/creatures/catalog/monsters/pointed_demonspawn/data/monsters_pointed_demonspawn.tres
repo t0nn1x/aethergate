@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_tu7ra"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/pointed_demonspawn/sprites/pointed_demonspawn.png" id="1_uwkhv"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_7i58i"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/pointed_demonspawn/sprites/pointed_demonspawn_128x32.png" id="4_22uri"]
 
 [resource]
 script = ExtResource("1_tu7ra")
@@ -9,3 +11,5 @@ creature_id = "monsters_pointed_demonspawn"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/pointed_demonspawn/sprites/pointed_demonspawn_128x32.png"
+sprite_sheet = ExtResource("4_22uri")
+overworld_sprite_sheet = ExtResource("1_uwkhv")

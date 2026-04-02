@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/bull_wyvern/sprites/bull_wyvern.png" id="1_jgcvu"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_pxd4g"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_nod5i"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/bull_wyvern/sprites/bull_wyvern_128x32.png" id="4_fjbko"]
 
 [resource]
 script = ExtResource("1_pxd4g")
@@ -9,3 +11,5 @@ creature_id = "dragons_bull_wyvern"
 creature_type = 4
 source_category = "dragons"
 source_sprite_path = "res://src/entities/creatures/catalog/dragons/bull_wyvern/sprites/bull_wyvern_128x32.png"
+sprite_sheet = ExtResource("4_fjbko")
+overworld_sprite_sheet = ExtResource("1_jgcvu")

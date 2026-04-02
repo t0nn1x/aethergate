@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/goblin_wolf_rider/sprites/goblin_wolf_rider.png" id="1_d4oup"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_w6qly"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_pxfas"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/goblin_wolf_rider/sprites/goblin_wolf_rider_128x32.png" id="4_tiftj"]
 
 [resource]
 script = ExtResource("1_w6qly")
@@ -9,3 +11,5 @@ creature_id = "humanoids_goblin_wolf_rider"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/goblin_wolf_rider/sprites/goblin_wolf_rider_128x32.png"
+sprite_sheet = ExtResource("4_tiftj")
+overworld_sprite_sheet = ExtResource("1_d4oup")

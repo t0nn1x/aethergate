@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/hobgoblin_sapper/sprites/hobgoblin_sapper.png" id="1_pi7yw"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_swud1"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_7c3mb"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/hobgoblin_sapper/sprites/hobgoblin_sapper_128x32.png" id="4_6318d"]
 
 [resource]
 script = ExtResource("1_swud1")
@@ -9,3 +11,5 @@ creature_id = "humanoids_hobgoblin_sapper"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/hobgoblin_sapper/sprites/hobgoblin_sapper_128x32.png"
+sprite_sheet = ExtResource("4_6318d")
+overworld_sprite_sheet = ExtResource("1_pi7yw")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/holy/sythran_the_paladin/sprites/sythran.png" id="1_6v72q"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_k40eo"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_bvhgx"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/holy/sythran_the_paladin/sprites/sythran_128x32.png" id="4_hh2g3"]
 
 [resource]
 script = ExtResource("1_k40eo")
@@ -9,3 +11,5 @@ creature_id = "holy_sythran_the_paladin"
 creature_type = 2
 source_category = "holy"
 source_sprite_path = "res://src/entities/creatures/catalog/holy/sythran_the_paladin/sprites/sythran_128x32.png"
+sprite_sheet = ExtResource("4_hh2g3")
+overworld_sprite_sheet = ExtResource("1_6v72q")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_cm5y7"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/poisonous_gorgon/sprites/poisonous_gorgon.png" id="1_tl7ye"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_nwjqp"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/poisonous_gorgon/sprites/poisonous_gorgon_128x32.png" id="4_563y1"]
 
 [resource]
 script = ExtResource("1_cm5y7")
@@ -9,3 +11,5 @@ creature_id = "monsters_poisonous_gorgon"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/poisonous_gorgon/sprites/poisonous_gorgon_128x32.png"
+sprite_sheet = ExtResource("4_563y1")
+overworld_sprite_sheet = ExtResource("1_tl7ye")

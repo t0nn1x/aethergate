@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_nwbna"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/bronthak_the_ape/sprites/bronthak.png" id="1_r5s4j"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_jxa7h"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/bronthak_the_ape/sprites/bronthak_128x32.png" id="4_prych"]
 
 [resource]
 script = ExtResource("1_nwbna")
@@ -9,3 +11,5 @@ creature_id = "monsters_bronthak_the_ape"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/bronthak_the_ape/sprites/bronthak_128x32.png"
+sprite_sheet = ExtResource("4_prych")
+overworld_sprite_sheet = ExtResource("1_r5s4j")

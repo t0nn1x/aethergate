@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_khae2"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/demons/bulging_incubus/sprites/bulging_incubus_idle_side/bulging_incubus.png" id="1_lriea"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_owg3y"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/demons/bulging_incubus/sprites/bulging_incubus_idle_side/bulging_incubus_128x32.png" id="4_0fknc"]
 
 [resource]
 script = ExtResource("1_khae2")
@@ -9,3 +11,5 @@ creature_id = "demons_bulging_incubus"
 creature_type = 8
 source_category = "demons"
 source_sprite_path = "res://src/entities/creatures/catalog/demons/bulging_incubus/sprites/bulging_incubus_idle_side/bulging_incubus_128x32.png"
+sprite_sheet = ExtResource("4_0fknc")
+overworld_sprite_sheet = ExtResource("1_lriea")

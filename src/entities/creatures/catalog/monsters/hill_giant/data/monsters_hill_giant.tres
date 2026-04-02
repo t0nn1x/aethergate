@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_3eh6w"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/hill_giant/sprites/hill_giant.png" id="1_re1uf"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_uyr11"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/hill_giant/sprites/hill_giant_128x32.png" id="4_ah33p"]
 
 [resource]
 script = ExtResource("1_3eh6w")
@@ -9,3 +11,5 @@ creature_id = "monsters_hill_giant"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/hill_giant/sprites/hill_giant_128x32.png"
+sprite_sheet = ExtResource("4_ah33p")
+overworld_sprite_sheet = ExtResource("1_re1uf")

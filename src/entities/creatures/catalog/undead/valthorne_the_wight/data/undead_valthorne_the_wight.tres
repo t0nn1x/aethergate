@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/undead/valthorne_the_wight/sprites/valthorne.png" id="1_4jjho"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_4tb1a"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_g6twy"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/undead/valthorne_the_wight/sprites/valthorne_128x32.png" id="4_q7pn5"]
 
 [resource]
 script = ExtResource("1_4tb1a")
@@ -9,3 +11,5 @@ creature_id = "undead_valthorne_the_wight"
 creature_type = 7
 source_category = "undead"
 source_sprite_path = "res://src/entities/creatures/catalog/undead/valthorne_the_wight/sprites/valthorne_128x32.png"
+sprite_sheet = ExtResource("4_q7pn5")
+overworld_sprite_sheet = ExtResource("1_4jjho")

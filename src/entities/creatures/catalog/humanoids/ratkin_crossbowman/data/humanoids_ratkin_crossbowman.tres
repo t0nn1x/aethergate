@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_1i6d3"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/ratkin_crossbowman/sprites/ratkin_crossbowman.png" id="1_ll7p7"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_vsbxo"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/ratkin_crossbowman/sprites/ratkin_crossbowman_128x32.png" id="4_1ylub"]
 
 [resource]
 script = ExtResource("1_1i6d3")
@@ -9,3 +11,5 @@ creature_id = "humanoids_ratkin_crossbowman"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/ratkin_crossbowman/sprites/ratkin_crossbowman_128x32.png"
+sprite_sheet = ExtResource("4_1ylub")
+overworld_sprite_sheet = ExtResource("1_ll7p7")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_0gx58"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/vermin/vibrant_dragonfly/sprites/vibrant_dragonfly.png" id="1_yr67m"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_hqw5l"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/vermin/vibrant_dragonfly/sprites/vibrant_dragonfly_128x32.png" id="4_x7461"]
 
 [resource]
 script = ExtResource("1_0gx58")
@@ -9,3 +11,5 @@ creature_id = "vermin_vibrant_dragonfly"
 creature_type = 5
 source_category = "vermin"
 source_sprite_path = "res://src/entities/creatures/catalog/vermin/vibrant_dragonfly/sprites/vibrant_dragonfly_128x32.png"
+sprite_sheet = ExtResource("4_x7461")
+overworld_sprite_sheet = ExtResource("1_yr67m")

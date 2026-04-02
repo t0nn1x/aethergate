@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/undead/rotting_archer/sprites/rotting_archer.png" id="1_2vvpk"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_4rn8v"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_bn3x3"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/undead/rotting_archer/sprites/rotting_archer_128x32.png" id="4_i1r1a"]
 
 [resource]
 script = ExtResource("1_4rn8v")
@@ -9,3 +11,5 @@ creature_id = "undead_rotting_archer"
 creature_type = 7
 source_category = "undead"
 source_sprite_path = "res://src/entities/creatures/catalog/undead/rotting_archer/sprites/rotting_archer_128x32.png"
+sprite_sheet = ExtResource("4_i1r1a")
+overworld_sprite_sheet = ExtResource("1_2vvpk")

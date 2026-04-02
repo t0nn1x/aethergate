@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_2n4cx"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_kf3jq"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/serpentine_wyvern/sprites/serpentine_wyvern_128x32.png" id="3_uqm64"]
 
 [resource]
 script = ExtResource("1_2n4cx")
@@ -9,3 +10,4 @@ creature_id = "dragons_serpentine_wyvern"
 creature_type = 4
 source_category = "dragons"
 source_sprite_path = "res://src/entities/creatures/catalog/dragons/serpentine_wyvern/sprites/serpentine_wyvern_128x32.png"
+sprite_sheet = ExtResource("3_uqm64")

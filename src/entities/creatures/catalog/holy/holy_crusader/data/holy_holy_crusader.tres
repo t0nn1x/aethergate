@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/holy/holy_crusader/sprites/holy_crusader.png" id="1_2u6at"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_4jhsv"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_swnmg"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/holy/holy_crusader/sprites/holy_crusader_128x32.png" id="4_ulaga"]
 
 [resource]
 script = ExtResource("1_4jhsv")
@@ -9,3 +11,5 @@ creature_id = "holy_holy_crusader"
 creature_type = 2
 source_category = "holy"
 source_sprite_path = "res://src/entities/creatures/catalog/holy/holy_crusader/sprites/holy_crusader_128x32.png"
+sprite_sheet = ExtResource("4_ulaga")
+overworld_sprite_sheet = ExtResource("1_2u6at")

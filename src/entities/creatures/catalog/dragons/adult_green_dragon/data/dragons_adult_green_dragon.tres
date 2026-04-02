@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_2377i"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/adult_green_dragon/sprites/adult_green_dragon.png" id="1_yiep8"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_5eeut"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/adult_green_dragon/sprites/adult_green_dragon_128x32.png" id="4_1b6ao"]
 
 [resource]
 script = ExtResource("1_2377i")
@@ -9,3 +11,5 @@ creature_id = "dragons_adult_green_dragon"
 creature_type = 4
 source_category = "dragons"
 source_sprite_path = "res://src/entities/creatures/catalog/dragons/adult_green_dragon/sprites/adult_green_dragon_128x32.png"
+sprite_sheet = ExtResource("4_1b6ao")
+overworld_sprite_sheet = ExtResource("1_yiep8")

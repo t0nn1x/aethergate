@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_dde5i"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/thoric_the_dwarf_hammersmith/sprites/thoric.png" id="1_hefw4"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_u7fmi"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/thoric_the_dwarf_hammersmith/sprites/thoric_128x32.png" id="4_2ga21"]
 
 [resource]
 script = ExtResource("1_dde5i")
@@ -9,3 +11,5 @@ creature_id = "humanoids_thoric_the_dwarf_hammersmith"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/thoric_the_dwarf_hammersmith/sprites/thoric_128x32.png"
+sprite_sheet = ExtResource("4_2ga21")
+overworld_sprite_sheet = ExtResource("1_hefw4")

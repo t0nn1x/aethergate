@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/orc_warlock/sprites/orc_warlock.png" id="1_70ag1"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_yg6fd"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_32gmq"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/orc_warlock/sprites/orc_warlock_128x32.png" id="4_fjnlm"]
 
 [resource]
 script = ExtResource("1_yg6fd")
@@ -9,3 +11,5 @@ creature_id = "humanoids_orc_warlock"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/orc_warlock/sprites/orc_warlock_128x32.png"
+sprite_sheet = ExtResource("4_fjnlm")
+overworld_sprite_sheet = ExtResource("1_70ag1")

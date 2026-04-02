@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_8ls6l"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/bestial_lizardfolk/sprites/bestial_lizardfolk_idle_side.png" id="1_xx88d"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_3twr2"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/bestial_lizardfolk/sprites/bestial_lizardfolk_idle_side_128x32.png" id="4_o1fbm"]
 
 [resource]
 script = ExtResource("1_8ls6l")
@@ -9,3 +11,5 @@ creature_id = "humanoids_bestial_lizardfolk"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/bestial_lizardfolk/sprites/bestial_lizardfolk_idle_side_128x32.png"
+sprite_sheet = ExtResource("4_o1fbm")
+overworld_sprite_sheet = ExtResource("1_xx88d")

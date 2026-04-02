@@ -1,10 +1,14 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/animals/tiny_chick/sprites/tiny_chick.png" id="1_34lpp"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_sin3t"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_rsfhv"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/animals/tiny_chick/sprites/tiny_chick_128x32.png" id="4_hlot0"]
 
 [resource]
 script = ExtResource("1_sin3t")
 creature_id = "animals_tiny_chick"
 source_category = "animals"
 source_sprite_path = "res://src/entities/creatures/catalog/animals/tiny_chick/sprites/tiny_chick_128x32.png"
+sprite_sheet = ExtResource("4_hlot0")
+overworld_sprite_sheet = ExtResource("1_34lpp")

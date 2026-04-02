@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_68b84"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/magical/brass_golem/sprites/brass_golem_idle.png" id="1_70ddr"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_5u8tq"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/magical/brass_golem/sprites/brass_golem_idle_128x32.png" id="4_p5hhd"]
 
 [resource]
 script = ExtResource("1_68b84")
@@ -9,3 +11,5 @@ creature_id = "magical_brass_golem"
 creature_type = 6
 source_category = "magical"
 source_sprite_path = "res://src/entities/creatures/catalog/magical/brass_golem/sprites/brass_golem_idle_128x32.png"
+sprite_sheet = ExtResource("4_p5hhd")
+overworld_sprite_sheet = ExtResource("1_70ddr")

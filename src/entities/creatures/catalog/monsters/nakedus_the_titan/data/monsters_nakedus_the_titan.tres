@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_tv7yy"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/nakedus_the_titan/sprites/nakedus.png" id="1_yfs5i"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_p3h2u"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/nakedus_the_titan/sprites/nakedus_128x32.png" id="4_prifg"]
 
 [resource]
 script = ExtResource("1_tv7yy")
@@ -9,3 +11,5 @@ creature_id = "monsters_nakedus_the_titan"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/nakedus_the_titan/sprites/nakedus_128x32.png"
+sprite_sheet = ExtResource("4_prifg")
+overworld_sprite_sheet = ExtResource("1_yfs5i")

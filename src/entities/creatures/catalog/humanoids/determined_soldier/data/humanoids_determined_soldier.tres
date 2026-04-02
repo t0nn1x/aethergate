@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_ufgy8"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/determined_soldier/sprites/determined_soldier.png" id="1_vxgtb"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_x3ulj"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/determined_soldier/sprites/determined_soldier_128x32.png" id="4_26l2f"]
 
 [resource]
 script = ExtResource("1_ufgy8")
@@ -9,3 +11,5 @@ creature_id = "humanoids_determined_soldier"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/determined_soldier/sprites/determined_soldier_128x32.png"
+sprite_sheet = ExtResource("4_26l2f")
+overworld_sprite_sheet = ExtResource("1_vxgtb")

@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/magnificent_colossus/sprites/magnificent_colossus.png" id="1_74005"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_tf4cx"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_pj5eb"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/magnificent_colossus/sprites/magnificent_colossus_128x32.png" id="4_lkm6r"]
 
 [resource]
 script = ExtResource("1_tf4cx")
@@ -9,3 +11,5 @@ creature_id = "monsters_magnificent_colossus"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/magnificent_colossus/sprites/magnificent_colossus_128x32.png"
+sprite_sheet = ExtResource("4_lkm6r")
+overworld_sprite_sheet = ExtResource("1_74005")

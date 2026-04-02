@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/magical/iron_golem/sprites/iron_golem.png" id="1_e50i5"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_ktrh4"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_ly7pp"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/magical/iron_golem/sprites/iron_golem_128x32.png" id="4_xeb4b"]
 
 [resource]
 script = ExtResource("1_ktrh4")
@@ -9,3 +11,5 @@ creature_id = "magical_iron_golem"
 creature_type = 6
 source_category = "magical"
 source_sprite_path = "res://src/entities/creatures/catalog/magical/iron_golem/sprites/iron_golem_128x32.png"
+sprite_sheet = ExtResource("4_xeb4b")
+overworld_sprite_sheet = ExtResource("1_e50i5")

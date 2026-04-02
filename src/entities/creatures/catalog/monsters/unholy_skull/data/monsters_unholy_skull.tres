@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_35pan"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_wc3oa"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/unholy_skull/sprites/unholy_skull_128x32.png" id="3_tiqsm"]
 
 [resource]
 script = ExtResource("1_35pan")
@@ -9,3 +10,4 @@ creature_id = "monsters_unholy_skull"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/unholy_skull/sprites/unholy_skull_128x32.png"
+sprite_sheet = ExtResource("3_tiqsm")

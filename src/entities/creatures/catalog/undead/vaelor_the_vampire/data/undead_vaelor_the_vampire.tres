@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_7nv8c"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/undead/vaelor_the_vampire/sprites/vaelor.png" id="1_k12fx"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_kxn84"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/undead/vaelor_the_vampire/sprites/vaelor_128x32.png" id="4_hylib"]
 
 [resource]
 script = ExtResource("1_7nv8c")
@@ -9,3 +11,5 @@ creature_id = "undead_vaelor_the_vampire"
 creature_type = 7
 source_category = "undead"
 source_sprite_path = "res://src/entities/creatures/catalog/undead/vaelor_the_vampire/sprites/vaelor_128x32.png"
+sprite_sheet = ExtResource("4_hylib")
+overworld_sprite_sheet = ExtResource("1_k12fx")

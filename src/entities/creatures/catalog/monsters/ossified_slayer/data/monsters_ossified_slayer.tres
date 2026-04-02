@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/ossified_slayer/sprites/ossified_slayer.png" id="1_uca72"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_wsq4a"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_o0gnd"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/ossified_slayer/sprites/ossified_slayer_128x32.png" id="4_tmy0x"]
 
 [resource]
 script = ExtResource("1_wsq4a")
@@ -9,3 +11,5 @@ creature_id = "monsters_ossified_slayer"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/ossified_slayer/sprites/ossified_slayer_128x32.png"
+sprite_sheet = ExtResource("4_tmy0x")
+overworld_sprite_sheet = ExtResource("1_uca72")

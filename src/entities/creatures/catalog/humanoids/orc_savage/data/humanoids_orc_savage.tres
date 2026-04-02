@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_e72nq"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/orc_savage/sprites/orc_savage.png" id="1_tcva3"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_ymji3"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/orc_savage/sprites/orc_savage_128x32.png" id="4_6601i"]
 
 [resource]
 script = ExtResource("1_e72nq")
@@ -9,3 +11,5 @@ creature_id = "humanoids_orc_savage"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/orc_savage/sprites/orc_savage_128x32.png"
+sprite_sheet = ExtResource("4_6601i")
+overworld_sprite_sheet = ExtResource("1_tcva3")

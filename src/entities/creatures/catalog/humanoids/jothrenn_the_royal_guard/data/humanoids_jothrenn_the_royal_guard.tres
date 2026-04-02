@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_cywbx"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/jothrenn_the_royal_guard/sprites/jothrenn.png" id="1_ejj1b"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_57ttc"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/jothrenn_the_royal_guard/sprites/jothrenn_128x32.png" id="4_42a5p"]
 
 [resource]
 script = ExtResource("1_cywbx")
@@ -9,3 +11,5 @@ creature_id = "humanoids_jothrenn_the_royal_guard"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/jothrenn_the_royal_guard/sprites/jothrenn_128x32.png"
+sprite_sheet = ExtResource("4_42a5p")
+overworld_sprite_sheet = ExtResource("1_ejj1b")

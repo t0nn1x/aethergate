@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/young_blue_dragon/sprites/young_blue_dragon.png" id="1_3kshw"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_yqvn8"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_13gi7"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/dragons/young_blue_dragon/sprites/young_blue_dragon_128x32.png" id="4_op2nj"]
 
 [resource]
 script = ExtResource("1_yqvn8")
@@ -9,3 +11,5 @@ creature_id = "dragons_young_blue_dragon"
 creature_type = 4
 source_category = "dragons"
 source_sprite_path = "res://src/entities/creatures/catalog/dragons/young_blue_dragon/sprites/young_blue_dragon_128x32.png"
+sprite_sheet = ExtResource("4_op2nj")
+overworld_sprite_sheet = ExtResource("1_3kshw")

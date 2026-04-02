@@ -1,10 +1,14 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/animals/meowing_cat/sprites/meowing_cat.png" id="1_f1jte"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_lutvp"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_ny32d"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/animals/meowing_cat/sprites/meowing_cat_128x32.png" id="4_lxjgd"]
 
 [resource]
 script = ExtResource("1_lutvp")
 creature_id = "animals_meowing_cat"
 source_category = "animals"
 source_sprite_path = "res://src/entities/creatures/catalog/animals/meowing_cat/sprites/meowing_cat_128x32.png"
+sprite_sheet = ExtResource("4_lxjgd")
+overworld_sprite_sheet = ExtResource("1_f1jte")

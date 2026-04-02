@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/gaping_leech/sprites/gaping_leech.png" id="1_id1gw"]
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_jas8u"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_iidia"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/gaping_leech/sprites/gaping_leech_128x32.png" id="4_tb5wq"]
 
 [resource]
 script = ExtResource("1_jas8u")
@@ -9,3 +11,5 @@ creature_id = "monsters_gaping_leech"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/gaping_leech/sprites/gaping_leech_128x32.png"
+sprite_sheet = ExtResource("4_tb5wq")
+overworld_sprite_sheet = ExtResource("1_id1gw")

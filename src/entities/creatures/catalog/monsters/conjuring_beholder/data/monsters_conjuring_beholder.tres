@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_0ntgh"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_td3yn"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/conjuring_beholder/sprites/conjuring_beholder_128x32.png" id="3_d7qyu"]
 
 [resource]
 script = ExtResource("1_0ntgh")
@@ -9,3 +10,4 @@ creature_id = "monsters_conjuring_beholder"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/conjuring_beholder/sprites/conjuring_beholder_128x32.png"
+sprite_sheet = ExtResource("3_d7qyu")

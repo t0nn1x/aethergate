@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_24ven"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/anointed_high_priest/sprites/anointed_high_priest.png" id="1_sg4vt"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_p8oly"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/anointed_high_priest/sprites/anointed_high_priest_128x32.png" id="4_gy6iw"]
 
 [resource]
 script = ExtResource("1_24ven")
@@ -9,3 +11,5 @@ creature_id = "humanoids_anointed_high_priest"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/anointed_high_priest/sprites/anointed_high_priest_128x32.png"
+sprite_sheet = ExtResource("4_gy6iw")
+overworld_sprite_sheet = ExtResource("1_sg4vt")

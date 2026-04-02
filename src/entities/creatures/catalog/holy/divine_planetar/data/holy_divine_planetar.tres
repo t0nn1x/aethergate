@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_40fxv"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_2x0m4"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/holy/divine_planetar/sprites/divine_planetar_128x32.png" id="3_eqjgt"]
 
 [resource]
 script = ExtResource("1_40fxv")
@@ -9,3 +10,4 @@ creature_id = "holy_divine_planetar"
 creature_type = 2
 source_category = "holy"
 source_sprite_path = "res://src/entities/creatures/catalog/holy/divine_planetar/sprites/divine_planetar_128x32.png"
+sprite_sheet = ExtResource("3_eqjgt")

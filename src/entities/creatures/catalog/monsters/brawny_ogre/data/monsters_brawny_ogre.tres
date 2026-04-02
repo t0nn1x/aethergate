@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_nbtax"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/brawny_ogre/sprites/brawny_ogre.png" id="1_wtv2b"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_5etco"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/monsters/brawny_ogre/sprites/brawny_ogre_128x32.png" id="4_lv5bo"]
 
 [resource]
 script = ExtResource("1_nbtax")
@@ -9,3 +11,5 @@ creature_id = "monsters_brawny_ogre"
 creature_type = 3
 source_category = "monsters"
 source_sprite_path = "res://src/entities/creatures/catalog/monsters/brawny_ogre/sprites/brawny_ogre_128x32.png"
+sprite_sheet = ExtResource("4_lv5bo")
+overworld_sprite_sheet = ExtResource("1_wtv2b")

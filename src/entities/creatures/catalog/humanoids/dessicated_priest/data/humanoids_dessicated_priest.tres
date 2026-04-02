@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" format=3]
 
 [ext_resource type="Script" path="res://src/entities/creatures/base/creature_data.gd" id="1_ot7rr"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/dessicated_priest/sprites/dessicated_priest.png" id="1_qh10k"]
 [ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="2_4xohy"]
+[ext_resource type="Texture2D" path="res://src/entities/creatures/catalog/humanoids/dessicated_priest/sprites/dessicated_priest_128x32.png" id="4_uow14"]
 
 [resource]
 script = ExtResource("1_ot7rr")
@@ -9,3 +11,5 @@ creature_id = "humanoids_dessicated_priest"
 creature_type = 0
 source_category = "humanoids"
 source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dessicated_priest/sprites/dessicated_priest_128x32.png"
+sprite_sheet = ExtResource("4_uow14")
+overworld_sprite_sheet = ExtResource("1_qh10k")
