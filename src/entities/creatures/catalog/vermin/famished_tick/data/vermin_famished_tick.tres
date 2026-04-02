@@ -8,4 +8,4 @@ script = ExtResource("1_vsprt")
 creature_id = "vermin_famished_tick"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/famished_tick/sprites/FamishedTick_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/famished_tick/sprites/famished_tick_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_h0tob")
 creature_id = "vermin_foraging_maggot"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/foraging_maggot/sprites/ForagingMaggot_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/foraging_maggot/sprites/foraging_maggot_128x32.png"

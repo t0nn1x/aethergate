@@ -8,4 +8,4 @@ script = ExtResource("1_quhlf")
 creature_id = "dragons_draygor_the_wyvern"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/draygor_the_wyvern/sprites/Draygor_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/draygor_the_wyvern/sprites/draygor_128x32.png"

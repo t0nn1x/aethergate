@@ -8,4 +8,4 @@ script = ExtResource("1_7x5w8")
 creature_id = "dragons_mud_wyvern"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/mud_wyvern/sprites/MudWyvern_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/mud_wyvern/sprites/mud_wyvern_128x32.png"

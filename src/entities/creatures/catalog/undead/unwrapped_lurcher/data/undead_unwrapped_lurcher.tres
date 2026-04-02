@@ -8,4 +8,4 @@ script = ExtResource("1_knvio")
 creature_id = "undead_unwrapped_lurcher"
 creature_type = 7
 source_category = "undead"
-source_sprite_path = "res://src/entities/creatures/catalog/undead/unwrapped_lurcher/sprites/UnwrappedLurcher_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/undead/unwrapped_lurcher/sprites/unwrapped_lurcher_128x32.png"

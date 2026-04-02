@@ -8,4 +8,4 @@ script = ExtResource("1_o2jf3")
 creature_id = "vermin_overgrown_earthworm"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/overgrown_earthworm/sprites/OvergrownEarthworm_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/overgrown_earthworm/sprites/overgrown_earthworm_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_vmoyp")
 creature_id = "undead_adept_necromancer"
 creature_type = 7
 source_category = "undead"
-source_sprite_path = "res://src/entities/creatures/catalog/undead/adept_necromancer/sprites/AdeptNecromancer_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/undead/adept_necromancer/sprites/adept_necromancer_128x32.png"

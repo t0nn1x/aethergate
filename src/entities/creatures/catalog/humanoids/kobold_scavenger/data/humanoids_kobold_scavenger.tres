@@ -8,4 +8,4 @@ script = ExtResource("1_fncnm")
 creature_id = "humanoids_kobold_scavenger"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kobold_scavenger/sprites/KoboldScavenger_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kobold_scavenger/sprites/kobold_scavenger_128x32.png"

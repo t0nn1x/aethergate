@@ -7,4 +7,4 @@
 script = ExtResource("1_lutvp")
 creature_id = "animals_meowing_cat"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/meowing_cat/sprites/MeowingCat_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/meowing_cat/sprites/meowing_cat_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_3icog")
 creature_id = "monsters_ascended_titan"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/ascended_titan/sprites/AscendedTitan_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/ascended_titan/sprites/ascended_titan_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_rydkp")
 creature_id = "humanoids_dracyn_the_high_priest"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dracyn_the_high_priest/sprites/Dracyn_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dracyn_the_high_priest/sprites/dracyn_128x32.png"

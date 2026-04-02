@@ -8,4 +8,4 @@ script = ExtResource("1_8i4qr")
 creature_id = "monsters_ulstom_the_cloud_giant"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/ulstom_the_cloud_giant/sprites/Ulstom_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/ulstom_the_cloud_giant/sprites/ulstom_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_m1tir")
 creature_id = "monsters_carcass_feeder"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/carcass_feeder/sprites/CarcassFeeder_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/carcass_feeder/sprites/carcass_feeder_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_wkp0r")
 creature_id = "humanoids_lizardfolk_spearman"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/lizardfolk_spearman/sprites/LizardfolkSpearman_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/lizardfolk_spearman/sprites/lizardfolk_spearman_128x32.png"

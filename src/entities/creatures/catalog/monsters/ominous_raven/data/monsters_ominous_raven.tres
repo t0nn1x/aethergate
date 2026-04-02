@@ -8,4 +8,4 @@ script = ExtResource("1_vslls")
 creature_id = "monsters_ominous_raven"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/ominous_raven/sprites/OminousRaven_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/ominous_raven/sprites/ominous_raven_128x32.png"

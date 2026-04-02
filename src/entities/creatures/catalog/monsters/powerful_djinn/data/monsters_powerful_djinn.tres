@@ -8,4 +8,4 @@ script = ExtResource("1_gacjb")
 creature_id = "monsters_powerful_djinn"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/powerful_djinn/sprites/PowerfulDjinn_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/powerful_djinn/sprites/powerful_djinn_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_fabhy")
 creature_id = "humanoids_rukbash_the_hobgoblin_grunt"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/rukbash_the_hobgoblin_grunt/sprites/Rukbash_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/rukbash_the_hobgoblin_grunt/sprites/rukbash_128x32.png"

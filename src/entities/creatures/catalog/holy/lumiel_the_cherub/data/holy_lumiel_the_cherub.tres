@@ -8,4 +8,4 @@ script = ExtResource("1_vq8vf")
 creature_id = "holy_lumiel_the_cherub"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/lumiel_the_cherub/sprites/Lumiel_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/lumiel_the_cherub/sprites/lumiel_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_w6qly")
 creature_id = "humanoids_goblin_wolf_rider"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/goblin_wolf_rider/sprites/GoblinWolfRider_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/goblin_wolf_rider/sprites/goblin_wolf_rider_128x32.png"

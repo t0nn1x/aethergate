@@ -8,4 +8,4 @@ script = ExtResource("1_lqlaj")
 creature_id = "monsters_armored_goliath"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/armored_goliath/sprites/ArmoredGoliath_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/armored_goliath/sprites/armored_goliath_128x32.png"

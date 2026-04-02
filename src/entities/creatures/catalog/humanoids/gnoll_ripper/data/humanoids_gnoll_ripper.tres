@@ -8,4 +8,4 @@ script = ExtResource("1_8p1b0")
 creature_id = "humanoids_gnoll_ripper"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnoll_ripper/sprites/GnollRipper_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnoll_ripper/sprites/gnoll_ripper_128x32.png"

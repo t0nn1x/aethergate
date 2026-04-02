@@ -8,4 +8,4 @@ script = ExtResource("1_llglc")
 creature_id = "humanoids_dark_elf_blademaster"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dark_elf_blademaster/sprites/DarkelfBlademaster_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dark_elf_blademaster/sprites/darkelf_blademaster_128x32.png"

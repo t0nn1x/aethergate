@@ -8,4 +8,4 @@ script = ExtResource("1_ndvss")
 creature_id = "humanoids_gnome_alchemist"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnome_alchemist/sprites/GnomeAlchemist_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnome_alchemist/sprites/gnome_alchemist_128x32.png"

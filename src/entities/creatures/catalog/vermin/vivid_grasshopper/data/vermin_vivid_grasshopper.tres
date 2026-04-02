@@ -8,4 +8,4 @@ script = ExtResource("1_c4du7")
 creature_id = "vermin_vivid_grasshopper"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/vivid_grasshopper/sprites/VividGrasshopper_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/vivid_grasshopper/sprites/vivid_grasshopper_128x32.png"

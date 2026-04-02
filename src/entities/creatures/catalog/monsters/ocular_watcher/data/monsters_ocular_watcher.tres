@@ -8,4 +8,4 @@ script = ExtResource("1_u75ok")
 creature_id = "monsters_ocular_watcher"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/ocular_watcher/sprites/OcularWatcher_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/ocular_watcher/sprites/ocular_watcher_128x32.png"

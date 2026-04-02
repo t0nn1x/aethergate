@@ -8,4 +8,4 @@ script = ExtResource("1_i6f6v")
 creature_id = "monsters_combusting_balrog"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/combusting_balrog/sprites/CombustingBalrog_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/combusting_balrog/sprites/combusting_balrog_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_4kacc")
 creature_id = "humanoids_fine_bowman"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/fine_bowman/sprites/FineBowman_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/fine_bowman/sprites/fine_bowman_128x32.png"

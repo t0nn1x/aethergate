@@ -8,4 +8,4 @@ script = ExtResource("1_lr2k6")
 creature_id = "holy_sword_archon"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/sword_archon/sprites/SwordArchon_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/sword_archon/sprites/sword_archon_128x32.png"

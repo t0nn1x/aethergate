@@ -8,4 +8,4 @@ script = ExtResource("1_ia670")
 creature_id = "monsters_morvox_the_juggernaut"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/morvox_the_juggernaut/sprites/Morvox_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/morvox_the_juggernaut/sprites/morvox_128x32.png"

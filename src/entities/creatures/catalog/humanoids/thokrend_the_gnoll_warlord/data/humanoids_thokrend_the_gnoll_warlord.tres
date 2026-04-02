@@ -8,4 +8,4 @@ script = ExtResource("1_fuluc")
 creature_id = "humanoids_thokrend_the_gnoll_warlord"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/thokrend_the_gnoll_warlord/sprites/Thokrend_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/thokrend_the_gnoll_warlord/sprites/thokrend_128x32.png"

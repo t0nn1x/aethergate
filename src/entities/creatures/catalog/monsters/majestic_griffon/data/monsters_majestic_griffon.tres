@@ -8,4 +8,4 @@ script = ExtResource("1_mujp6")
 creature_id = "monsters_majestic_griffon"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/majestic_griffon/sprites/MajesticGriffon_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/majestic_griffon/sprites/majestic_griffon_128x32.png"

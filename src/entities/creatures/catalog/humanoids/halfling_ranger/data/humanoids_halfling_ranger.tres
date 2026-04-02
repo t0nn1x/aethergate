@@ -8,4 +8,4 @@ script = ExtResource("1_0ovrx")
 creature_id = "humanoids_halfling_ranger"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/halfling_ranger/sprites/HalflingRanger_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/halfling_ranger/sprites/halfling_ranger_128x32.png"

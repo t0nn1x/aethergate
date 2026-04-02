@@ -8,4 +8,4 @@ script = ExtResource("1_fmyl0")
 creature_id = "monsters_hungry_mimic"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/hungry_mimic/sprites/HungryMimic_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/hungry_mimic/sprites/hungry_mimic_128x32.png"

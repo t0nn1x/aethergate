@@ -8,4 +8,4 @@ script = ExtResource("1_k40eo")
 creature_id = "holy_sythran_the_paladin"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/sythran_the_paladin/sprites/Sythran_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/sythran_the_paladin/sprites/sythran_128x32.png"

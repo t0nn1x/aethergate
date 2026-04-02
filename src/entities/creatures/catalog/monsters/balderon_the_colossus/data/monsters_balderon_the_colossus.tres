@@ -8,4 +8,4 @@ script = ExtResource("1_43xsr")
 creature_id = "monsters_balderon_the_colossus"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/balderon_the_colossus/sprites/Balderon_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/balderon_the_colossus/sprites/balderon_128x32.png"

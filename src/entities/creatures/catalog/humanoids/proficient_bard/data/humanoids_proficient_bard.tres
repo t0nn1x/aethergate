@@ -8,4 +8,4 @@ script = ExtResource("1_vvafq")
 creature_id = "humanoids_proficient_bard"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/proficient_bard/sprites/ProficientBard_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/proficient_bard/sprites/proficient_bard_128x32.png"

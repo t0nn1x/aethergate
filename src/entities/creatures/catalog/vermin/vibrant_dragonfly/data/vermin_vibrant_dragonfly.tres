@@ -8,4 +8,4 @@ script = ExtResource("1_0gx58")
 creature_id = "vermin_vibrant_dragonfly"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/vibrant_dragonfly/sprites/VibrantDragonfly_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/vibrant_dragonfly/sprites/vibrant_dragonfly_128x32.png"

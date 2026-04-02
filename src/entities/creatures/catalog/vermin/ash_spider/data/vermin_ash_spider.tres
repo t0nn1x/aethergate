@@ -8,4 +8,4 @@ script = ExtResource("1_10dw1")
 creature_id = "vermin_ash_spider"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/ash_spider/sprites/AshSpider_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/ash_spider/sprites/ash_spider_128x32.png"

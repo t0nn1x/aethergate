@@ -8,4 +8,4 @@ script = ExtResource("1_vdajl")
 creature_id = "humanoids_daron_the_halfling_rogue"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/daron_the_halfling_rogue/sprites/Daron_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/daron_the_halfling_rogue/sprites/daron_128x32.png"

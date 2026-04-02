@@ -8,4 +8,4 @@ script = ExtResource("1_cmnxd")
 creature_id = "dragons_firemaw_the_red_dragon"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/firemaw_the_red_dragon/sprites/Firemaw_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/firemaw_the_red_dragon/sprites/firemaw_128x32.png"

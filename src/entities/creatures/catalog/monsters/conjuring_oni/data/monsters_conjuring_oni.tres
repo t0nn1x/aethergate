@@ -8,4 +8,4 @@ script = ExtResource("1_fsaef")
 creature_id = "monsters_conjuring_oni"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/conjuring_oni/sprites/ConjuringOni_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/conjuring_oni/sprites/conjuring_oni_128x32.png"

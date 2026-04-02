@@ -8,4 +8,4 @@ script = ExtResource("1_ntqcf")
 creature_id = "humanoids_hobgoblin_raider"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/hobgoblin_raider/sprites/HobgoblinRaider_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/hobgoblin_raider/sprites/hobgoblin_raider_128x32.png"

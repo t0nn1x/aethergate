@@ -8,4 +8,4 @@ script = ExtResource("1_uh2b4")
 creature_id = "monsters_zolgruk_the_stone_troll"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/zolgruk_the_stone_troll/sprites/Zolgruk_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/zolgruk_the_stone_troll/sprites/zolgruk_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_jwd6l")
 creature_id = "humanoids_elf_sharpshooter"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/elf_sharpshooter/sprites/ElfSharpshooter_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/elf_sharpshooter/sprites/elf_sharpshooter_128x32.png"

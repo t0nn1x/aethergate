@@ -8,4 +8,4 @@ script = ExtResource("1_xbimw")
 creature_id = "monsters_gelatinous_cube"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/gelatinous_cube/sprites/GelatinousCube_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/gelatinous_cube/sprites/gelatinous_cube_128x32.png"

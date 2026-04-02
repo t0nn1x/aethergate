@@ -8,4 +8,4 @@ script = ExtResource("1_3eh6w")
 creature_id = "monsters_hill_giant"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/hill_giant/sprites/HillGiant_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/hill_giant/sprites/hill_giant_128x32.png"

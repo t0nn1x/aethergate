@@ -7,4 +7,4 @@
 script = ExtResource("1_2h05g")
 creature_id = "animals_powerful_yak"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/powerful_yak/sprites/PowerfulYak_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/powerful_yak/sprites/powerful_yak_128x32.png"

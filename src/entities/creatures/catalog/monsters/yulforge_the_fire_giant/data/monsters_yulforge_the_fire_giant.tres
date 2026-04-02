@@ -8,4 +8,4 @@ script = ExtResource("1_n3uag")
 creature_id = "monsters_yulforge_the_fire_giant"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/yulforge_the_fire_giant/sprites/Yulforge_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/yulforge_the_fire_giant/sprites/yulforge_128x32.png"

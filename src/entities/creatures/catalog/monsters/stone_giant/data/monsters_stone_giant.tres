@@ -8,4 +8,4 @@ script = ExtResource("1_lihas")
 creature_id = "monsters_stone_giant"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/stone_giant/sprites/StoneGiant_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/stone_giant/sprites/stone_giant_128x32.png"

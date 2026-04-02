@@ -8,4 +8,4 @@ script = ExtResource("1_0txip")
 creature_id = "humanoids_thoughtful_tinker"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/thoughtful_tinker/sprites/ThoughtfulTinker_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/thoughtful_tinker/sprites/thoughtful_tinker_128x32.png"

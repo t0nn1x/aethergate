@@ -8,4 +8,4 @@ script = ExtResource("1_bjo86")
 creature_id = "monsters_vast_goristro"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/vast_goristro/sprites/VastGoristro_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/vast_goristro/sprites/vast_goristro_128x32.png"

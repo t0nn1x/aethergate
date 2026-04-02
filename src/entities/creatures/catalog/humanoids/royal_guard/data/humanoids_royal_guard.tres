@@ -8,4 +8,4 @@ script = ExtResource("1_e7f6k")
 creature_id = "humanoids_royal_guard"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/royal_guard/sprites/RoyalGuard_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/royal_guard/sprites/royal_guard_128x32.png"

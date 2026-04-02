@@ -8,4 +8,4 @@ script = ExtResource("1_ctfdr")
 creature_id = "monsters_masterful_venomancer"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/masterful_venomancer/sprites/MasterfulVenomancer_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/masterful_venomancer/sprites/masterful_venomancer_128x32.png"

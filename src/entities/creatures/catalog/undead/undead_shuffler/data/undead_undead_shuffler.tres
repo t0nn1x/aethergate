@@ -8,4 +8,4 @@ script = ExtResource("1_i6so0")
 creature_id = "undead_undead_shuffler"
 creature_type = 7
 source_category = "undead"
-source_sprite_path = "res://src/entities/creatures/catalog/undead/undead_shuffler/sprites/UndeadShuffler_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/undead/undead_shuffler/sprites/undead_shuffler_128x32.png"

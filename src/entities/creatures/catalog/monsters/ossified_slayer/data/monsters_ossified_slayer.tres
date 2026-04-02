@@ -8,4 +8,4 @@ script = ExtResource("1_wsq4a")
 creature_id = "monsters_ossified_slayer"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/ossified_slayer/sprites/OssifiedSlayer_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/ossified_slayer/sprites/ossified_slayer_128x32.png"

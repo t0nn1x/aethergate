@@ -8,4 +8,4 @@ script = ExtResource("1_muc6m")
 creature_id = "monsters_unraveling_crawler"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/unraveling_crawler/sprites/UnravelingCrawler_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/unraveling_crawler/sprites/unraveling_crawler_128x32.png"

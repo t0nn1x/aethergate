@@ -8,4 +8,4 @@ script = ExtResource("1_uucar")
 creature_id = "vermin_rhino_beetle"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/rhino_beetle/sprites/RhinoBeetle_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/rhino_beetle/sprites/rhino_beetle_128x32.png"

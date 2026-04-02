@@ -8,4 +8,4 @@ script = ExtResource("1_vymvg")
 creature_id = "holy_righteous_deva"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/righteous_deva/sprites/RighteousDeva_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/righteous_deva/sprites/righteous_deva_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_cxvdq")
 creature_id = "vermin_diseased_fly"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/diseased_fly/sprites/DiseasedFly_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/diseased_fly/sprites/diseased_fly_128x32.png"

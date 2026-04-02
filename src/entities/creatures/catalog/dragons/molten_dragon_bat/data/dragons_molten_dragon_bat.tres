@@ -8,4 +8,4 @@ script = ExtResource("1_5kfoj")
 creature_id = "dragons_molten_dragon_bat"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/molten_dragon_bat/sprites/MoltenDragonBat_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/molten_dragon_bat/sprites/molten_dragon_bat_128x32.png"

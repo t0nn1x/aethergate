@@ -8,4 +8,4 @@ script = ExtResource("1_0ggvk")
 creature_id = "monsters_lustrous_lion"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/lustrous_lion/sprites/LustrousLion_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/lustrous_lion/sprites/lustrous_lion_128x32.png"

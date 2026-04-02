@@ -7,4 +7,4 @@
 script = ExtResource("1_8bxcs")
 creature_id = "animals_chubby_cat"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/chubby_cat/sprites/ChubbyCat_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/chubby_cat/sprites/chubby_cat_128x32.png"

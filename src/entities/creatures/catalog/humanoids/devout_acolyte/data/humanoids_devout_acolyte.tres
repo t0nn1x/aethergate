@@ -8,4 +8,4 @@ script = ExtResource("1_w6s5n")
 creature_id = "humanoids_devout_acolyte"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/devout_acolyte/sprites/DevoutAcolyte_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/devout_acolyte/sprites/devout_acolyte_128x32.png"

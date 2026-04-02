@@ -8,4 +8,4 @@ script = ExtResource("1_p5d63")
 creature_id = "monsters_crag_yeti"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/crag_yeti/sprites/CragYeti_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/crag_yeti/sprites/crag_yeti_128x32.png"

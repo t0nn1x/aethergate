@@ -8,4 +8,4 @@ script = ExtResource("1_sbv1s")
 creature_id = "humanoids_gnome_wanderer"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnome_wanderer/sprites/GnomeWanderer_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnome_wanderer/sprites/gnome_wanderer_128x32.png"

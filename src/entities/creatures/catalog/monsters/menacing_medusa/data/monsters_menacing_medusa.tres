@@ -8,4 +8,4 @@ script = ExtResource("1_67isf")
 creature_id = "monsters_menacing_medusa"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/menacing_medusa/sprites/MenacingMedusa_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/menacing_medusa/sprites/menacing_medusa_128x32.png"

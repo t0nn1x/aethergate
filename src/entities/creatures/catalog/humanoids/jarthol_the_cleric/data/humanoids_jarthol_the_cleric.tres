@@ -8,4 +8,4 @@ script = ExtResource("1_sksmi")
 creature_id = "humanoids_jarthol_the_cleric"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/jarthol_the_cleric/sprites/Jarthol_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/jarthol_the_cleric/sprites/jarthol_128x32.png"

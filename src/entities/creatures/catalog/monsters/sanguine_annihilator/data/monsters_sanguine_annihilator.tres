@@ -8,4 +8,4 @@ script = ExtResource("1_vkc8x")
 creature_id = "monsters_sanguine_annihilator"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/sanguine_annihilator/sprites/SanguineAnnihilator_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/sanguine_annihilator/sprites/sanguine_annihilator_128x32.png"

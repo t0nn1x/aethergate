@@ -8,4 +8,4 @@ script = ExtResource("1_hvho1")
 creature_id = "dragons_pestilence_drake"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/pestilence_drake/sprites/PestilenceDrake_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/pestilence_drake/sprites/pestilence_drake_128x32.png"

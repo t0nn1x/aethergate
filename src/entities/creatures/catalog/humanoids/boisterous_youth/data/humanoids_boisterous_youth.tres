@@ -8,4 +8,4 @@ script = ExtResource("1_djs0t")
 creature_id = "humanoids_boisterous_youth"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/boisterous_youth/sprites/BoisterousYouth_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/boisterous_youth/sprites/boisterous_youth_128x32.png"

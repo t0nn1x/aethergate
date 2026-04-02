@@ -8,4 +8,4 @@ script = ExtResource("1_8me1s")
 creature_id = "holy_glorious_seraph"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/glorious_seraph/sprites/GloriousSeraph_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/glorious_seraph/sprites/glorious_seraph_128x32.png"

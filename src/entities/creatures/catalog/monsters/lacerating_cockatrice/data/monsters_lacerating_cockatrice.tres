@@ -8,4 +8,4 @@ script = ExtResource("1_0j3av")
 creature_id = "monsters_lacerating_cockatrice"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/lacerating_cockatrice/sprites/LaceratingCockatrice_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/lacerating_cockatrice/sprites/lacerating_cockatrice_128x32.png"

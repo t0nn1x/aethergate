@@ -8,4 +8,4 @@ script = ExtResource("1_f757h")
 creature_id = "monsters_ratkin_poisoner"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/ratkin_poisoner/sprites/RatkinPoisoner_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/ratkin_poisoner/sprites/ratkin_poisoner_128x32.png"

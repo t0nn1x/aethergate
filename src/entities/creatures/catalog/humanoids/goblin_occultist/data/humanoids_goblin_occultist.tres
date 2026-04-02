@@ -8,4 +8,4 @@ script = ExtResource("1_x2aut")
 creature_id = "humanoids_goblin_occultist"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/goblin_occultist/sprites/GoblinOccultist_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/goblin_occultist/sprites/goblin_occultist_128x32.png"

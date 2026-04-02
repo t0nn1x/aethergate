@@ -8,4 +8,4 @@ script = ExtResource("1_vxg3o")
 creature_id = "monsters_beryl_doppleganger"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/beryl_doppleganger/sprites/BerylDoppleganger_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/beryl_doppleganger/sprites/beryl_doppleganger_128x32.png"

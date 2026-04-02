@@ -8,4 +8,4 @@ script = ExtResource("1_1bjaa")
 creature_id = "monsters_mawing_beaver"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/mawing_beaver/sprites/MawingBeaver_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/mawing_beaver/sprites/mawing_beaver_128x32.png"

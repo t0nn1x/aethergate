@@ -8,4 +8,4 @@ script = ExtResource("1_yk2lc")
 creature_id = "monsters_yulshax_the_fury"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/yulshax_the_fury/sprites/Yulshax_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/yulshax_the_fury/sprites/yulshax_128x32.png"

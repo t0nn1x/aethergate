@@ -8,4 +8,4 @@ script = ExtResource("1_5pegy")
 creature_id = "humanoids_adventurous_adolescent"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/adventurous_adolescent/sprites/AdventurousAdolescent_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/adventurous_adolescent/sprites/adventurous_adolescent_128x32.png"

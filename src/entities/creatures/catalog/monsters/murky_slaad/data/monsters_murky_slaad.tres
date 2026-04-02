@@ -8,4 +8,4 @@ script = ExtResource("1_pndn6")
 creature_id = "monsters_murky_slaad"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/murky_slaad/sprites/MurkySlaad_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/murky_slaad/sprites/murky_slaad_128x32.png"

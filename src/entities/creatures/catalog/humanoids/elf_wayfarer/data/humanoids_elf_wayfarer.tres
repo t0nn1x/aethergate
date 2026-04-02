@@ -8,4 +8,4 @@ script = ExtResource("1_d14p5")
 creature_id = "humanoids_elf_wayfarer"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/elf_wayfarer/sprites/ElfWayfarer_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/elf_wayfarer/sprites/elf_wayfarer_128x32.png"

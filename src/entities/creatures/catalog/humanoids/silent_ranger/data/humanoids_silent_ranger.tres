@@ -8,4 +8,4 @@ script = ExtResource("1_gnh7d")
 creature_id = "humanoids_silent_ranger"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/silent_ranger/sprites/SilentRangerI_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/silent_ranger/sprites/silent_ranger_i_128x32.png"

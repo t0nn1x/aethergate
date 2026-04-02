@@ -8,4 +8,4 @@ script = ExtResource("1_qct7c")
 creature_id = "humanoids_orc_captain"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/orc_captain/sprites/OrcCaptain_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/orc_captain/sprites/orc_captain_128x32.png"

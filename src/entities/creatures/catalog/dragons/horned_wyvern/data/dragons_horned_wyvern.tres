@@ -8,4 +8,4 @@ script = ExtResource("1_uiuc8")
 creature_id = "dragons_horned_wyvern"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/horned_wyvern/sprites/HornedWyvern_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/horned_wyvern/sprites/horned_wyvern_128x32.png"

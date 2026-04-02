@@ -8,4 +8,4 @@ script = ExtResource("1_p31wl")
 creature_id = "humanoids_fornax_the_dwarf_warrior"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/fornax_the_dwarf_warrior/sprites/Fornax_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/fornax_the_dwarf_warrior/sprites/fornax_128x32.png"

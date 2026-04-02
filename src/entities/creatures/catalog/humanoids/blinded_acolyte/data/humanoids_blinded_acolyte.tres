@@ -8,4 +8,4 @@ script = ExtResource("1_gr8w0")
 creature_id = "humanoids_blinded_acolyte"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/blinded_acolyte/sprites/BlindedAcolyte_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/blinded_acolyte/sprites/blinded_acolyte_128x32.png"

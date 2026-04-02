@@ -8,4 +8,4 @@ script = ExtResource("1_hmen7")
 creature_id = "monsters_swamp_troll"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/swamp_troll/sprites/SwampTroll_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/swamp_troll/sprites/swamp_troll_128x32.png"

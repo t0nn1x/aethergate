@@ -8,4 +8,4 @@ script = ExtResource("1_fefqa")
 creature_id = "monsters_wicked_wretch"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/wicked_wretch/sprites/WickedWretch_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/wicked_wretch/sprites/wicked_wretch_128x32.png"

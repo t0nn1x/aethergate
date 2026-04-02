@@ -8,4 +8,4 @@ script = ExtResource("1_4t1bp")
 creature_id = "humanoids_jovial_friar"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/jovial_friar/sprites/JovialFriar_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/jovial_friar/sprites/jovial_friar_128x32.png"

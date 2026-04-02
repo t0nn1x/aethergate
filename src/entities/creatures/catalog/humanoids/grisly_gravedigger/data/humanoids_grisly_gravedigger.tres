@@ -8,4 +8,4 @@ script = ExtResource("1_4801k")
 creature_id = "humanoids_grisly_gravedigger"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/grisly_gravedigger/sprites/GrislyGravedigger_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/grisly_gravedigger/sprites/grisly_gravedigger_128x32.png"

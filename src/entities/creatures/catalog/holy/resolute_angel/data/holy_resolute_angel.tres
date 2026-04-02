@@ -8,4 +8,4 @@ script = ExtResource("1_ponw0")
 creature_id = "holy_resolute_angel"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/resolute_angel/sprites/ResoluteAngel_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/resolute_angel/sprites/resolute_angel_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_ytupg")
 creature_id = "monsters_scrounging_squirrel"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/scrounging_squirrel/sprites/ScroungingSquirrel_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/scrounging_squirrel/sprites/scrounging_squirrel_128x32.png"

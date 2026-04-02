@@ -7,4 +7,4 @@
 script = ExtResource("1_sin3t")
 creature_id = "animals_tiny_chick"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/tiny_chick/sprites/TinyChick_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/tiny_chick/sprites/tiny_chick_128x32.png"

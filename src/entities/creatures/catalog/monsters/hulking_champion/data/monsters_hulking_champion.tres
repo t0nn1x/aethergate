@@ -8,4 +8,4 @@ script = ExtResource("1_kqif0")
 creature_id = "monsters_hulking_champion"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/hulking_champion/sprites/HulkingChampion_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/hulking_champion/sprites/hulking_champion_128x32.png"

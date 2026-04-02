@@ -8,4 +8,4 @@ script = ExtResource("1_dhaam")
 creature_id = "humanoids_kaelis_the_cleric"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kaelis_the_cleric/sprites/Kaelis_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kaelis_the_cleric/sprites/kaelis_128x32.png"

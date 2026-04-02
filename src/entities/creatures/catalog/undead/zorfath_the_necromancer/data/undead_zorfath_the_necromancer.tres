@@ -8,4 +8,4 @@ script = ExtResource("1_r1sl5")
 creature_id = "undead_zorfath_the_necromancer"
 creature_type = 7
 source_category = "undead"
-source_sprite_path = "res://src/entities/creatures/catalog/undead/zorfath_the_necromancer/sprites/Zorfath_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/undead/zorfath_the_necromancer/sprites/zorfath_128x32.png"

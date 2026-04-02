@@ -7,4 +7,4 @@
 script = ExtResource("1_ukx88")
 creature_id = "animals_arctic_wolf"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/arctic_wolf/sprites/ArcticWolf_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/arctic_wolf/sprites/arctic_wolf_128x32.png"

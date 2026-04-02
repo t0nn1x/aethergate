@@ -8,4 +8,4 @@ script = ExtResource("1_t1u3q")
 creature_id = "monsters_abysgorn_the_leviathan"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/abysgorn_the_leviathan/sprites/Abysgorn_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/abysgorn_the_leviathan/sprites/abysgorn_128x32.png"

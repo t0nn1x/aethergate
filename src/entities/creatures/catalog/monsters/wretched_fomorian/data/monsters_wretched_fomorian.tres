@@ -8,4 +8,4 @@ script = ExtResource("1_h2xmt")
 creature_id = "monsters_wretched_fomorian"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/wretched_fomorian/sprites/WretchedFomorian_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/wretched_fomorian/sprites/wretched_fomorian_128x32.png"

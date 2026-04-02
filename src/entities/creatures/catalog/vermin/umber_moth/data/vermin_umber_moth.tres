@@ -8,4 +8,4 @@ script = ExtResource("1_aqavg")
 creature_id = "vermin_umber_moth"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/umber_moth/sprites/UmberMoth_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/umber_moth/sprites/umber_moth_128x32.png"

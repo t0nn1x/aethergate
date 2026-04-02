@@ -8,4 +8,4 @@ script = ExtResource("1_q2ruj")
 creature_id = "humanoids_pyro_the_gnome_alchemist"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/pyro_the_gnome_alchemist/sprites/Pyro_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/pyro_the_gnome_alchemist/sprites/pyro_128x32.png"

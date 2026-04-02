@@ -8,4 +8,4 @@ script = ExtResource("1_7bl5g")
 creature_id = "humanoids_strapping_lumberjack"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/strapping_lumberjack/sprites/StrappingLumberjack_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/strapping_lumberjack/sprites/strapping_lumberjack_128x32.png"

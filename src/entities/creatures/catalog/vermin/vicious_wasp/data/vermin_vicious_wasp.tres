@@ -8,4 +8,4 @@ script = ExtResource("1_31nok")
 creature_id = "vermin_vicious_wasp"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/vicious_wasp/sprites/ViciousWasp_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/vicious_wasp/sprites/vicious_wasp_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_iahr0")
 creature_id = "monsters_syce_the_merfolk_javelineer"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/syce_the_merfolk_javelineer/sprites/Syce_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/syce_the_merfolk_javelineer/sprites/syce_128x32.png"

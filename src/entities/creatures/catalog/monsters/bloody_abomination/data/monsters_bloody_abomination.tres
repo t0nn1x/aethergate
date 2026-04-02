@@ -8,4 +8,4 @@ script = ExtResource("1_op25s")
 creature_id = "monsters_bloody_abomination"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/bloody_abomination/sprites/BloodyAbomination_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/bloody_abomination/sprites/bloody_abomination_128x32.png"

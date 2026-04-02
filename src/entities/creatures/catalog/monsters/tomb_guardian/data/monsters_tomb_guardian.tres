@@ -8,4 +8,4 @@ script = ExtResource("1_ewexs")
 creature_id = "monsters_tomb_guardian"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/tomb_guardian/sprites/TombGuardian_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/tomb_guardian/sprites/tomb_guardian_128x32.png"

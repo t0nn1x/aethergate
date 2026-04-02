@@ -7,4 +7,4 @@
 script = ExtResource("1_igula")
 creature_id = "animals_bold_ram"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/bold_ram/sprites/BoldRam_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/bold_ram/sprites/bold_ram_128x32.png"

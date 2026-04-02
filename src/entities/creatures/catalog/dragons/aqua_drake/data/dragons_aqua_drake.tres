@@ -8,4 +8,4 @@ script = ExtResource("1_ctac1")
 creature_id = "dragons_aqua_drake"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/aqua_drake/sprites/AquaDrake_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/aqua_drake/sprites/aqua_drake_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_sdnnd")
 creature_id = "dragons_fairy_drake"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/fairy_drake/sprites/FairyDrake_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/fairy_drake/sprites/fairy_drake_128x32.png"

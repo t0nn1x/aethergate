@@ -8,4 +8,4 @@ script = ExtResource("1_88xmn")
 creature_id = "humanoids_kobold_trapper"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kobold_trapper/sprites/KoboldTrapper_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kobold_trapper/sprites/kobold_trapper_128x32.png"

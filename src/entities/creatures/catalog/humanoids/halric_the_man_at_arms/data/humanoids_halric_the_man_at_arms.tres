@@ -8,4 +8,4 @@ script = ExtResource("1_7mwa7")
 creature_id = "humanoids_halric_the_man_at_arms"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/halric_the_man_at_arms/sprites/Halric_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/halric_the_man_at_arms/sprites/halric_128x32.png"

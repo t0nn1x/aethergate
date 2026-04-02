@@ -8,4 +8,4 @@ script = ExtResource("1_dsed8")
 creature_id = "monsters_barbed_manticore"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/barbed_manticore/sprites/BarbedManticore_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/barbed_manticore/sprites/barbed_manticore_128x32.png"

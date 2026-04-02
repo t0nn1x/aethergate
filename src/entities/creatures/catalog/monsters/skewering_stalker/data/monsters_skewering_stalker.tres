@@ -8,4 +8,4 @@ script = ExtResource("1_hrf3w")
 creature_id = "monsters_skewering_stalker"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/skewering_stalker/sprites/SkeweringStalker_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/skewering_stalker/sprites/skewering_stalker_128x32.png"

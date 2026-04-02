@@ -8,4 +8,4 @@ script = ExtResource("1_cysri")
 creature_id = "humanoids_pious_cardinal"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/pious_cardinal/sprites/PiousCardinal_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/pious_cardinal/sprites/pious_cardinal_128x32.png"

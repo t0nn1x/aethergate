@@ -8,4 +8,4 @@ script = ExtResource("1_s0nwd")
 creature_id = "undead_zombie_giant"
 creature_type = 7
 source_category = "undead"
-source_sprite_path = "res://src/entities/creatures/catalog/undead/zombie_giant/sprites/ZombieGiant_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/undead/zombie_giant/sprites/zombie_giant_128x32.png"

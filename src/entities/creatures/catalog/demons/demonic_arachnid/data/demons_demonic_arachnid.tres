@@ -8,4 +8,4 @@ script = ExtResource("1_bl4g8")
 creature_id = "demons_demonic_arachnid"
 creature_type = 8
 source_category = "demons"
-source_sprite_path = "res://src/entities/creatures/catalog/demons/demonic_arachnid/sprites/DemonicArachnid_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/demons/demonic_arachnid/sprites/demonic_arachnid_128x32.png"

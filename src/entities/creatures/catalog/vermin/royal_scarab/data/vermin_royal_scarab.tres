@@ -8,4 +8,4 @@ script = ExtResource("1_cacgf")
 creature_id = "vermin_royal_scarab"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/royal_scarab/sprites/RoyalScarab_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/royal_scarab/sprites/royal_scarab_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_pivy4")
 creature_id = "humanoids_gnome_mage"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnome_mage/sprites/GnomeMage_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/gnome_mage/sprites/gnome_mage_128x32.png"

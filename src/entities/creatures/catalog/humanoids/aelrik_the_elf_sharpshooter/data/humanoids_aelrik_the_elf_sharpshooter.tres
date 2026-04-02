@@ -8,4 +8,4 @@ script = ExtResource("1_dup5s")
 creature_id = "humanoids_aelrik_the_elf_sharpshooter"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/aelrik_the_elf_sharpshooter/sprites/Aelrik_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/aelrik_the_elf_sharpshooter/sprites/aelrik_128x32.png"

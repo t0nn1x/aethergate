@@ -8,4 +8,4 @@ script = ExtResource("1_x63dg")
 creature_id = "magical_frosthul_the_ice_golem"
 creature_type = 6
 source_category = "magical"
-source_sprite_path = "res://src/entities/creatures/catalog/magical/frosthul_the_ice_golem/sprites/Frosthul_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/magical/frosthul_the_ice_golem/sprites/frosthul_128x32.png"

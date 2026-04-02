@@ -8,4 +8,4 @@ script = ExtResource("1_8mkai")
 creature_id = "monsters_foul_gouger"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/foul_gouger/sprites/FoulGouger_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/foul_gouger/sprites/foul_gouger_128x32.png"

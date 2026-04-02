@@ -8,4 +8,4 @@ script = ExtResource("1_40fxv")
 creature_id = "holy_divine_planetar"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/divine_planetar/sprites/DivinePlanetar_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/divine_planetar/sprites/divine_planetar_128x32.png"

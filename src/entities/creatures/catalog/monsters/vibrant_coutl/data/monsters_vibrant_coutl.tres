@@ -8,4 +8,4 @@ script = ExtResource("1_rig4r")
 creature_id = "monsters_vibrant_coutl"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/vibrant_coutl/sprites/VibrantCoutl_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/vibrant_coutl/sprites/vibrant_coutl_128x32.png"

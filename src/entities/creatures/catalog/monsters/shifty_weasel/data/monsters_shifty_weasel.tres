@@ -8,4 +8,4 @@ script = ExtResource("1_j0hgp")
 creature_id = "monsters_shifty_weasel"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/shifty_weasel/sprites/ShiftyWeasel_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/shifty_weasel/sprites/shifty_weasel_128x32.png"

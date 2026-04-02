@@ -8,4 +8,4 @@ script = ExtResource("1_a0eck")
 creature_id = "monsters_sporvox_the_green_cap"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/sporvox_the_green_cap/sprites/Sporvox_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/sporvox_the_green_cap/sprites/sporvox_128x32.png"

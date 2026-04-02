@@ -7,4 +7,4 @@
 script = ExtResource("1_unl4k")
 creature_id = "animals_leaping_frog"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/leaping_frog/sprites/LeapingFrog_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/leaping_frog/sprites/leaping_frog_128x32.png"

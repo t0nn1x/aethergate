@@ -8,4 +8,4 @@ script = ExtResource("1_7u7wh")
 creature_id = "humanoids_dint_the_blacksmith"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dint_the_blacksmith/sprites/Dint_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dint_the_blacksmith/sprites/dint_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_1i6d3")
 creature_id = "humanoids_ratkin_crossbowman"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/ratkin_crossbowman/sprites/RatkinCrossbowman_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/ratkin_crossbowman/sprites/ratkin_crossbowman_128x32.png"

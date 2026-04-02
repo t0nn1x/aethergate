@@ -8,4 +8,4 @@ script = ExtResource("1_31tjo")
 creature_id = "humanoids_lizardfolk_gladiator"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/lizardfolk_gladiator/sprites/LizardfolkGladiator_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/lizardfolk_gladiator/sprites/lizardfolk_gladiator_128x32.png"

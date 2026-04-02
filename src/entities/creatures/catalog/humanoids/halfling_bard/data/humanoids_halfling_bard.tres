@@ -8,4 +8,4 @@ script = ExtResource("1_lqtce")
 creature_id = "humanoids_halfling_bard"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/halfling_bard/sprites/HalflingBard_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/halfling_bard/sprites/halfling_bard_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_mpi1i")
 creature_id = "monsters_granite_gargoyle"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/granite_gargoyle/sprites/GraniteGargoyle_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/granite_gargoyle/sprites/granite_gargoyle_128x32.png"

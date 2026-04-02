@@ -7,4 +7,4 @@
 script = ExtResource("1_4vy12")
 creature_id = "animals_blink_dog"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/blink_dog/sprites/BlinkDog_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/blink_dog/sprites/blink_dog_128x32.png"

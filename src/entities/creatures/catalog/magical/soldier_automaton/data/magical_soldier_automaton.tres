@@ -8,4 +8,4 @@ script = ExtResource("1_1uilc")
 creature_id = "magical_soldier_automaton"
 creature_type = 6
 source_category = "magical"
-source_sprite_path = "res://src/entities/creatures/catalog/magical/soldier_automaton/sprites/SoldierAutomaton_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/magical/soldier_automaton/sprites/soldier_automaton_128x32.png"

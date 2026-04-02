@@ -8,4 +8,4 @@ script = ExtResource("1_cwuvm")
 creature_id = "humanoids_hobgoblin_bolter"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/hobgoblin_bolter/sprites/HobgoblinBolter_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/hobgoblin_bolter/sprites/hobgoblin_bolter_128x32.png"

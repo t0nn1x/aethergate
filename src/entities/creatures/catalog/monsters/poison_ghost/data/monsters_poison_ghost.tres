@@ -8,4 +8,4 @@ script = ExtResource("1_aaut6")
 creature_id = "monsters_poison_ghost"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/poison_ghost/sprites/PoisonGhost_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/poison_ghost/sprites/poison_ghost_128x32.png"

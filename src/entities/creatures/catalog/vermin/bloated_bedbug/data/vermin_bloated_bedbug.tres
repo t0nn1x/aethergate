@@ -8,4 +8,4 @@ script = ExtResource("1_a0ksl")
 creature_id = "vermin_bloated_bedbug"
 creature_type = 5
 source_category = "vermin"
-source_sprite_path = "res://src/entities/creatures/catalog/vermin/bloated_bedbug/sprites/BloatedBedbug_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/vermin/bloated_bedbug/sprites/bloated_bedbug_128x32.png"

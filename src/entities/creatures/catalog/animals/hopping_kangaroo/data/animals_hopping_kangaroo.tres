@@ -7,4 +7,4 @@
 script = ExtResource("1_0nvjn")
 creature_id = "animals_hopping_kangaroo"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/hopping_kangaroo/sprites/HoppingKangaroo_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/hopping_kangaroo/sprites/hopping_kangaroo_128x32.png"

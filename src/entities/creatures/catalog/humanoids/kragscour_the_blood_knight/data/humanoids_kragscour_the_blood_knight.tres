@@ -8,4 +8,4 @@ script = ExtResource("1_h5j1a")
 creature_id = "humanoids_kragscour_the_blood_knight"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kragscour_the_blood_knight/sprites/Kragscour_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/kragscour_the_blood_knight/sprites/kragscour_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_27ysq")
 creature_id = "humanoids_glintskab_the_kobold_trickster"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/glintskab_the_kobold_trickster/sprites/Glintskab_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/glintskab_the_kobold_trickster/sprites/glintskab_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_nvbhb")
 creature_id = "humanoids_bugbear_basher"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/bugbear_basher/sprites/BugbearBasher_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/bugbear_basher/sprites/bugbear_basher_128x32.png"

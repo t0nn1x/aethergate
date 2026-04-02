@@ -8,4 +8,4 @@ script = ExtResource("1_5gfw6")
 creature_id = "humanoids_varkis_the_crossbowman"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/varkis_the_crossbowman/sprites/Varkis_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/varkis_the_crossbowman/sprites/varkis_128x32.png"

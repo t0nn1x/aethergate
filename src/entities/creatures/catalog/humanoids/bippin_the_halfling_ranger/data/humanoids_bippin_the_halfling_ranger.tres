@@ -8,4 +8,4 @@ script = ExtResource("1_h5fle")
 creature_id = "humanoids_bippin_the_halfling_ranger"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/bippin_the_halfling_ranger/sprites/Bippin_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/bippin_the_halfling_ranger/sprites/bippin_128x32.png"

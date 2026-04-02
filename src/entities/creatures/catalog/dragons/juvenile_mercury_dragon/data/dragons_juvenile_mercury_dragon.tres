@@ -8,4 +8,4 @@ script = ExtResource("1_p0d6d")
 creature_id = "dragons_juvenile_mercury_dragon"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/juvenile_mercury_dragon/sprites/JuvenileMercuryDragon_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/juvenile_mercury_dragon/sprites/juvenile_mercury_dragon_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_vcpmc")
 creature_id = "dragons_pygmy_wyvern"
 creature_type = 4
 source_category = "dragons"
-source_sprite_path = "res://src/entities/creatures/catalog/dragons/pygmy_wyvern/sprites/PygmyWyvern_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/dragons/pygmy_wyvern/sprites/pygmy_wyvern_128x32.png"

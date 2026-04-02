@@ -8,4 +8,4 @@ script = ExtResource("1_55jda")
 creature_id = "humanoids_merfolk_mystic"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/merfolk_mystic/sprites/MerfolkMystic_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/merfolk_mystic/sprites/merfolk_mystic_128x32.png"

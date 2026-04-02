@@ -8,4 +8,4 @@ script = ExtResource("1_ec3qa")
 creature_id = "humanoids_capable_cryomancer"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/capable_cryomancer/sprites/CapableCryomancer_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/capable_cryomancer/sprites/capable_cryomancer_128x32.png"

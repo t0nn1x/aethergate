@@ -8,4 +8,4 @@ script = ExtResource("1_bdayf")
 creature_id = "monsters_grinning_gremlin"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/grinning_gremlin/sprites/GrinningGremlin_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/grinning_gremlin/sprites/grinning_gremlin_128x32.png"

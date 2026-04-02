@@ -8,4 +8,4 @@ script = ExtResource("1_cq36s")
 creature_id = "humanoids_overworked_villager"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/overworked_villager/sprites/OverworkedVillager_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/overworked_villager/sprites/overworked_villager_128x32.png"

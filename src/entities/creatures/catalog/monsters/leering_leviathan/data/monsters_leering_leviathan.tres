@@ -8,4 +8,4 @@ script = ExtResource("1_jorlk")
 creature_id = "monsters_leering_leviathan"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/leering_leviathan/sprites/LeeringLevithan_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/leering_leviathan/sprites/leering_levithan_128x32.png"

@@ -8,4 +8,4 @@ script = ExtResource("1_o1aa1")
 creature_id = "humanoids_dwarf_hammersmith"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dwarf_hammersmith/sprites/DwarfHammersmith_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/dwarf_hammersmith/sprites/dwarf_hammersmith_128x32.png"

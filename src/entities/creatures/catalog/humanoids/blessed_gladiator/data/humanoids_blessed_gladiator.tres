@@ -8,4 +8,4 @@ script = ExtResource("1_wbh5g")
 creature_id = "humanoids_blessed_gladiator"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/blessed_gladiator/sprites/BlessedGladiator_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/blessed_gladiator/sprites/blessed_gladiator_128x32.png"

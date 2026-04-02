@@ -8,4 +8,4 @@ script = ExtResource("1_ra1f3")
 creature_id = "holy_radiant_paladin"
 creature_type = 2
 source_category = "holy"
-source_sprite_path = "res://src/entities/creatures/catalog/holy/radiant_paladin/sprites/RadiantPaladin_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/holy/radiant_paladin/sprites/radiant_paladin_128x32.png"

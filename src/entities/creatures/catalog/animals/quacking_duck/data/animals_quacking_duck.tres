@@ -7,4 +7,4 @@
 script = ExtResource("1_fci0b")
 creature_id = "animals_quacking_duck"
 source_category = "animals"
-source_sprite_path = "res://src/entities/creatures/catalog/animals/quacking_duck/sprites/QuackingDuck_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/animals/quacking_duck/sprites/quacking_duck_128x32.png"

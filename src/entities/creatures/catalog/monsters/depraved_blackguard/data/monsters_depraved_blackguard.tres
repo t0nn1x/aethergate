@@ -8,4 +8,4 @@ script = ExtResource("1_23syq")
 creature_id = "monsters_depraved_blackguard"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/depraved_blackguard/sprites/DepravedBlackguard_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/depraved_blackguard/sprites/depraved_blackguard_128x32.png"

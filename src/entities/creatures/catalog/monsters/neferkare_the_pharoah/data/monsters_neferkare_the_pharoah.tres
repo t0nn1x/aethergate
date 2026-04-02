@@ -8,4 +8,4 @@ script = ExtResource("1_e0hr5")
 creature_id = "monsters_neferkare_the_pharoah"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/neferkare_the_pharoah/sprites/Neferkare_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/neferkare_the_pharoah/sprites/neferkare_128x32.png"

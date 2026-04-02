@@ -8,4 +8,4 @@ script = ExtResource("1_tbdgr")
 creature_id = "monsters_gallant_centaur"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/gallant_centaur/sprites/GallantCentaur_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/gallant_centaur/sprites/gallant_centaur_128x32.png"

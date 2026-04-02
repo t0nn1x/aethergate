@@ -8,4 +8,4 @@ script = ExtResource("1_tu7ra")
 creature_id = "monsters_pointed_demonspawn"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/pointed_demonspawn/sprites/PointedDemonspawn_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/pointed_demonspawn/sprites/pointed_demonspawn_128x32.png"

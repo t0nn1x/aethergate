@@ -8,4 +8,4 @@ script = ExtResource("1_gvhmx")
 creature_id = "monsters_gigantic_juggernaut"
 creature_type = 3
 source_category = "monsters"
-source_sprite_path = "res://src/entities/creatures/catalog/monsters/gigantic_juggernaut/sprites/GiganticJuggernaut_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/monsters/gigantic_juggernaut/sprites/gigantic_juggernaut_128x32.png"

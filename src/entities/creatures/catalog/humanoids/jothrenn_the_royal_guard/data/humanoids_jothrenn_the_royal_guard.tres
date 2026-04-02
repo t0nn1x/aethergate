@@ -8,4 +8,4 @@ script = ExtResource("1_cywbx")
 creature_id = "humanoids_jothrenn_the_royal_guard"
 creature_type = 0
 source_category = "humanoids"
-source_sprite_path = "res://src/entities/creatures/catalog/humanoids/jothrenn_the_royal_guard/sprites/Jothrenn_128x32.png"
+source_sprite_path = "res://src/entities/creatures/catalog/humanoids/jothrenn_the_royal_guard/sprites/jothrenn_128x32.png"
