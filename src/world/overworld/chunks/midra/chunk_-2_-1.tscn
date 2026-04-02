@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://naa5xg2p1tu1"]
 
-[ext_resource type="Script" uid="uid://citdv614f6uom" path="res://src/world/overworld/Chunks/chunk.gd" id="1"]
+[ext_resource type="Script" uid="uid://citdv614f6uom" path="res://src/world/overworld/chunks/chunk.gd" id="1"]
 [ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://src/world/overworld/tilesets/terrain.tres" id="2"]
 [ext_resource type="TileSet" uid="uid://drh67q7act3gk" path="res://src/world/overworld/tilesets/objects.tres" id="3_dx1td"]
 

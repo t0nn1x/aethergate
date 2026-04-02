@@ -8,7 +8,7 @@ const DEFAULT_PREVIEW_RADIUS := 2
 @export var chunk_coord: Vector2i = Vector2i.ZERO: set = _set_chunk_coord
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
 @export var tile_size: Vector2i = Vector2i(48, 48): set = _set_tile_size
-@export_dir var chunk_scene_dir: String = "res://src/world/overworld/Chunks/Midra": set = _set_chunk_scene_dir
+@export_dir var chunk_scene_dir: String = "res://src/world/overworld/chunks/midra": set = _set_chunk_scene_dir
 @export var show_bounds: bool = true: set = _set_show_bounds
 @export var bounds_color: Color = Color(0.2, 0.7, 1.0, 0.6): set = _set_bounds_color
 @export var bounds_fill_color: Color = Color(0.2, 0.7, 1.0, 0.08): set = _set_bounds_fill_color

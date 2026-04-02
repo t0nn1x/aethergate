@@ -479,7 +479,7 @@ git commit -m "refactor: normalize ui runtime layout"
 - Rename: `src/world/locations/dungeons/` -> `src/world/locations/dungeons/`
 - Rename: `src/world/locations/interiors/` -> `src/world/locations/interiors/`
 - Rename: `src/world/locations/towns/` -> `src/world/locations/towns/`
-- Rename: `src/world/overworld/Chunks/` -> `src/world/overworld/chunks/`
+- Rename: `src/world/overworld/chunks/` -> `src/world/overworld/chunks/`
 - Rename: `src/world/overworld/Shaders/` -> `src/world/overworld/shaders/`
 - Rename: `src/world/overworld/tilesets/` -> `src/world/overworld/tilesets/`
 - Rename: `src/world/locations/dungeons/ancient_ruins/` -> `src/world/locations/dungeons/ancient_ruins/`
@@ -514,7 +514,7 @@ Rename-Item src/world/locations/Arenas src/world/locations/arenas
 Rename-Item src/world/locations/Dungeons src/world/locations/dungeons
 Rename-Item src/world/locations/Interiors src/world/locations/interiors
 Rename-Item src/world/locations/Towns src/world/locations/towns
-Rename-Item src/world/overworld/Chunks src/world/overworld/__chunks_tmp
+Rename-Item src/world/overworld/chunks src/world/overworld/__chunks_tmp
 Rename-Item src/world/overworld/__chunks_tmp src/world/overworld/chunks
 Rename-Item src/world/overworld/Shaders src/world/overworld/__shaders_tmp
 Rename-Item src/world/overworld/__shaders_tmp src/world/overworld/shaders

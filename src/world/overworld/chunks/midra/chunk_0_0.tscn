@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://ggcsduh6vvb4"]
 
-[ext_resource type="Script" uid="uid://citdv614f6uom" path="res://src/world/overworld/Chunks/chunk.gd" id="1"]
+[ext_resource type="Script" uid="uid://citdv614f6uom" path="res://src/world/overworld/chunks/chunk.gd" id="1"]
 [ext_resource type="TileSet" uid="uid://cg4xcim03imgm" path="res://src/world/overworld/tilesets/terrain.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://knf1njd8g1vq" path="res://src/world/overworld/tilesets/mountains/Big_Mount_Base.png" id="3_0kar7"]
 [ext_resource type="Texture2D" uid="uid://djxdvh0vfi5j7" path="res://src/world/overworld/tilesets/mountains/Mid_Mount_Base.png" id="3_17ubq"]

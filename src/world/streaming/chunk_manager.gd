@@ -9,7 +9,7 @@ signal chunk_unloaded(chunk_coord: Vector2i)
 const CHUNK_SCENE_PREFIX := "chunk_"
 const CHUNK_SCENE_EXT := ".tscn"
 
-@export_dir var chunk_scene_dir: String = "res://src/world/overworld/Chunks/Midra": set = _set_chunk_scene_dir
+@export_dir var chunk_scene_dir: String = "res://src/world/overworld/chunks/midra": set = _set_chunk_scene_dir
 @export var chunk_size_tiles: int = 48: set = _set_chunk_size_tiles
 @export var tile_size: Vector2i = Vector2i(48, 48): set = _set_tile_size
 @export var load_radius: int = 1: set = _set_load_radius
