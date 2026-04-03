@@ -21,7 +21,7 @@ func _ready() -> void:
 	_apply_button_style()
 
 
-func show_result(is_victory: bool, enemy_name: String, xp_gained: int) -> void:
+func show_result(is_victory: bool, enemy_name: String, xp_gained: int, leveled_up: bool = false, new_level: int = 1) -> void:
 	if is_victory:
 		_title_label.text = "✦ Victory! ✦"
 		_title_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.0, 1.0))
