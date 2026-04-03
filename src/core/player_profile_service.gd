@@ -19,7 +19,6 @@ const KEY_PLAYER_LEVEL: String = "player_level"
 const KEY_PLAYER_XP: String = "player_xp"
 const KEY_BONUS_POINTS_AVAILABLE: String = "bonus_points_available"
 const KEY_BONUS_ALLOCATIONS: String = "bonus_allocations"
-const BASE_XP_PER_LEVEL: int = 100  ## XP needed: level * BASE_XP_PER_LEVEL
 const PROFILE_SECTION: String = "profile"
 const KEY_APPEARANCE: String = "appearance"
 const KEY_SETUP_COMPLETED: String = "setup_completed"
