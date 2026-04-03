@@ -9,7 +9,8 @@ signal continue_pressed
 @onready var _panel_container: PanelContainer = $PanelContainer
 @onready var _title_label: Label = $PanelContainer/MarginContainer/VBoxContainer/TitleLabel
 @onready var _subtitle_label: Label = $PanelContainer/MarginContainer/VBoxContainer/SubtitleLabel
-@onready var _xp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/XpLabel
+@antml:parameter name="xp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/XpLabel
+@onready var _level_up_label: Label = $PanelContainer/MarginContainer/VBoxContainer/LevelUpLabel
 @onready var _flavour_label: Label = $PanelContainer/MarginContainer/VBoxContainer/FlavourLabel
 @onready var _action_button: Button = $PanelContainer/MarginContainer/VBoxContainer/ActionButton
 
@@ -27,11 +28,14 @@ func show_result(is_victory: bool, enemy_name: String, xp_gained: int, leveled_u
 		_title_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.0, 1.0))
 		_subtitle_label.text = "You defeated %s" % enemy_name
 		_xp_label.text = "+ %d XP" % xp_gained
+		_level_up_label.text = "⬆ Level %d!" % new_level
+		_level_up_label.visible = leveled_up
 	else:
 		_title_label.text = "✦ Defeated! ✦"
 		_title_label.add_theme_color_override("font_color", Color(1.0, 0.33, 0.33, 1.0))
 		_subtitle_label.text = "Bested by %s" % enemy_name
 		_xp_label.text = ""
+		_level_up_label.visible = false
 	_xp_label.visible = is_victory
 	_flavour_label.visible = not is_victory
 	_action_button.text = "Continue" if is_victory else "Respawn"
