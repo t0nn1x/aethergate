@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dimjevkxvqn26" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/Icon13.png" id="5_gg1e6"]
 [ext_resource type="Texture2D" uid="uid://cfyfrr7vlf3r0" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png" id="5_nuyrh"]
 [ext_resource type="Texture2D" uid="uid://vhylixe6p7vk" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/burger_menu.png" id="6_nuyrh"]
+[ext_resource type="PackedScene" uid="uid://xpindicator" path="res://src/ui/common/xp_indicator/xp_indicator.tscn" id="7_xpind"]
 
 [node name="SystemHud" type="CanvasLayer" unique_id=2010540959]
 layer = 26
@@ -42,6 +43,11 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="XpIndicator" parent="Root/SafeAreaMargin/BottomAlign" instance=ExtResource("7_xpind") unique_id=3012345678]
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_minimum_size = Vector2(0, 40)
 
 [node name="SlotRow" type="HBoxContainer" parent="Root/SafeAreaMargin/BottomAlign" unique_id=1873244620]
 unique_name_in_owner = true
