@@ -8,6 +8,8 @@ var combatant_id: StringName = &""
 var display_name: String = ""
 var portrait: Texture2D = null
 var level: int = 1
+## XP granted to the player on defeating this combatant. Always 0 for the player snapshot.
+var xp_reward: int = 0
 var base_stats: CombatStats = null
 ## Resolved skill loadout: base skills + gear-granted skills combined.
 var skill_loadout: Array[SkillData] = []
@@ -37,6 +39,7 @@ static func from_creature(creature_data: CreatureData) -> CombatantSnapshot:
 	snap.display_name = creature_data.display_name
 	snap.portrait = creature_data.sprite_sheet
 	snap.level = 1
+	snap.xp_reward = creature_data.xp_reward
 
 	var stats := CombatStats.new()
 	stats.max_hp = int(creature_data.max_health)
