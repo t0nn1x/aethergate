@@ -9,7 +9,7 @@ signal continue_pressed
 @onready var _panel_container: PanelContainer = $PanelContainer
 @onready var _title_label: Label = $PanelContainer/MarginContainer/VBoxContainer/TitleLabel
 @onready var _subtitle_label: Label = $PanelContainer/MarginContainer/VBoxContainer/SubtitleLabel
-@antml:parameter name="xp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/XpLabel
+@onready var _xp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/XpLabel
 @onready var _level_up_label: Label = $PanelContainer/MarginContainer/VBoxContainer/LevelUpLabel
 @onready var _flavour_label: Label = $PanelContainer/MarginContainer/VBoxContainer/FlavourLabel
 @onready var _action_button: Button = $PanelContainer/MarginContainer/VBoxContainer/ActionButton
