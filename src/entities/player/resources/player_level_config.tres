@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PlayerLevelConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/entities/player/resources/player_level_config.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+xp_base = 1000
+xp_decay = 0.97
+max_level = 100
+base_max_hp = 80
+base_max_energy = 100
+base_attack = 8.0
+base_defense = 4.0
+hp_growth = 12.0
+energy_growth = 3.0
+attack_growth = 1.5
+defense_growth = 0.8
+bonus_points_per_level = 2
