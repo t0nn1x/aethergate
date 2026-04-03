@@ -317,26 +317,13 @@ func _on_combat_preview_dismissed() -> void:
 
 func _on_combat_ended(result: CombatRoundResult) -> void:
 	if result.winner_id == &"player":
-		PlayerProfileService.add_xp(50)
 		if _creature_in_combat and is_instance_valid(_creature_in_combat):
 			creature_spawner.despawn_creature(_creature_in_combat)
 	_creature_in_combat = null
 
 
 func _build_player_snapshot() -> CombatantSnapshot:
-	var stats := CombatStats.new()
-	stats.max_hp = 100
-	stats.max_energy = 100
-	var snap := CombatantSnapshot.new()
-	snap.combatant_id = &"player"
-	snap.display_name = "Player"
-	snap.level = PlayerProfileService.get_player_level()
-	var weapon_base_damage: float = 0.0  # TODO: replace with equipped weapon base damage
-	stats.attack = 10.0 + snap.level * 2.0 + weapon_base_damage
-	stats.defense = 5.0
-	snap.base_stats = stats
-	## TODO: replace with real player gear loadout once player combat component exists.
-	snap.skill_loadout = []
+	var snap: CombatantSnapshot = PlayerProgressionService.build_player_snapshot()
 	var player_sprite: Texture2D = _resolve_player_battle_sprite()
 	if player_sprite:
 		snap.portrait = player_sprite
