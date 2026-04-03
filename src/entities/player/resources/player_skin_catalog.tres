@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PlayerSkinCatalog" format=3 uid="uid://c785vldyp3g3d"]
 
-[ext_resource type="Script" uid="uid://s1qsa8epxfbn" path="res://src/Entities/Player/resources/player_skin_catalog.gd" id="1_catalog_script"]
-[ext_resource type="Script" uid="uid://jrumt2bes0f7" path="res://src/Entities/Player/resources/player_skin_definition.gd" id="2_definition_script"]
+[ext_resource type="Script" uid="uid://3o2ldlclwwhh" path="res://src/entities/player/resources/player_skin_catalog.gd" id="1_catalog_script"]
+[ext_resource type="Script" uid="uid://gy4p4jwhna11" path="res://src/entities/player/resources/player_skin_definition.gd" id="2_definition_script"]
 [ext_resource type="Texture2D" uid="uid://b8rx3kdnu70pl" path="res://src/entities/player/assets/1/16x16/normal_body_idle.png" id="3_overworld_1"]
 [ext_resource type="Texture2D" uid="uid://dmxcajpx7awd3" path="res://src/entities/player/assets/1/32x32/normal_body_idle.png" id="4_battle_1"]
 [ext_resource type="Texture2D" uid="uid://605whrpmkktc" path="res://src/entities/player/assets/2/16x16/normal_body_idle.png" id="5_overworld_2"]
