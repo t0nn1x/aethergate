@@ -11,6 +11,6 @@ const TEST_SCRIPT: Script = preload(
 
 
 func _initialize() -> void:
-	var test := TEST_SCRIPT.new()
+	var test = TEST_SCRIPT.new()
 	var passed: bool = test.run()
 	quit(0 if passed else 1)
