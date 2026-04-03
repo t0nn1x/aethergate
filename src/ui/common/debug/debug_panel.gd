@@ -199,7 +199,7 @@ func _on_heal_player() -> void:
 
 
 func _on_add_xp(amount: int) -> void:
-	PlayerProfileService.add_xp(amount)
+	PlayerProgressionService.award_xp(amount)
 	_set_status("Added %d XP (Level %d, XP %d)" % [amount, PlayerProfileService.get_player_level(), PlayerProfileService.get_player_xp()])
 
 
