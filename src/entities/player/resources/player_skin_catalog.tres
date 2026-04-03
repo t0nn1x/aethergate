@@ -36,4 +36,4 @@ battle_idle_texture = ExtResource("8_battle_3")
 [resource]
 script = ExtResource("1_catalog_script")
 default_skin_id = &"1"
-skins = [SubResource("Skin_1"), SubResource("Skin_2"), SubResource("Skin_3")]
+skins = Array[ExtResource("2_definition_script")]([SubResource("Skin_1"), SubResource("Skin_2"), SubResource("Skin_3")])
