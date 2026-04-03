@@ -52,11 +52,12 @@ size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="XpIndicator" parent="Root/SafeAreaMargin/BottomAlign" instance=ExtResource("7_xpind") unique_id=3012345678]
-    size_flags_horizontal = 4
-    size_flags_vertical = 0
-    custom_minimum_size = Vector2(0, 40)
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_minimum_size = Vector2(0, 36)
+theme_override_constants/margin_bottom = 16
 
-    [node name="SlotRow" type="HBoxContainer" parent="Root/SafeAreaMargin/BottomAlign" unique_id=1873244620]
+[node name="SlotRow" type="HBoxContainer" parent="Root/SafeAreaMargin/BottomAlign" unique_id=1873244620]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

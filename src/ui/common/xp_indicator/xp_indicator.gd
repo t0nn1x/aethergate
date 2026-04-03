@@ -113,17 +113,17 @@ func _format_xp_text(current_xp: int, xp_needed: int, level: int) -> String:
     if level >= max_level:
         return "MAX LEVEL"
     var denom: int = xp_needed if xp_needed > 0 else 1
-    return "%s / %s" % (_format_number(current_xp), _format_number(denom))
+    return "%s / %s" % [_format_number(current_xp), _format_number(denom)]
 
 func _format_number(n: int) -> String:
     # Smart scaling: show values in 'k' for thousands
     if n >= BIG_K_THRESHOLD:
         # 10k+: round to nearest thousand, no decimal
-        var val := int(round(float(n) / 1000.0))
+        var val: int = int(round(float(n) / 1000.0))
         return "%dk" % val
     elif n >= K_THRESHOLD:
         # 1k - 10k: show one decimal when needed (e.g., 1.2k)
-        var val := round(float(n) / 100.0) / 10.0
+        var val: float = round(float(n) / 100.0) / 10.0
         if is_equal_approx(val, float(int(val))):
             return "%dk" % int(val)
         return ("%sk" % str(val)).strip_edges()
@@ -132,5 +132,5 @@ func _format_number(n: int) -> String:
 
 # Optional helper to allow clicking the control to emit clicked signal
 func _gui_input(event) -> void:
-    if event is InputEventMouseButton and event.pressed and event.button_index == MouseButton.LEFT:
+    if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
         emit_signal("clicked")
