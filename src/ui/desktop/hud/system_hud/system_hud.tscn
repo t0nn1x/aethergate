@@ -48,7 +48,11 @@ mouse_filter = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 custom_minimum_size = Vector2(0, 32)
-theme_override_constants/margin_bottom = 12
+
+[node name="XpSlotSpacer" type="Control" parent="Root/SafeAreaMargin/BottomAlign" unique_id=3333333333]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+mouse_filter = 2
 
 [node name="SlotRow" type="HBoxContainer" parent="Root/SafeAreaMargin/BottomAlign" unique_id=1873244620]
 unique_name_in_owner = true
