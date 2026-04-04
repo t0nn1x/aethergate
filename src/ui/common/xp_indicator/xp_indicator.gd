@@ -34,6 +34,7 @@ func _connect_progression_signals() -> void:
 func _initialize_from_profile() -> void:
 	var level: int = int(PlayerProfileService.get_player_level())
 	var xp: int    = int(PlayerProfileService.get_player_xp())
+	# _config is a public resource field, accessed directly until PlayerProgressionService exposes get_max_level()
 	var max_level: int = int(PlayerProgressionService._config.max_level) \
 		if PlayerProgressionService._config != null else 100
 
@@ -43,32 +44,33 @@ func _initialize_from_profile() -> void:
 		_xp_label.text = "MAX"
 		return
 
-	var needed: int = PlayerProgressionService.xp_needed_for_level(level)
 	_update_level(level)
-	_update_progress(xp, needed)
+	_update_progress(xp)
 
 
-func _on_xp_gained(_amount: int, new_xp: int, xp_needed: int) -> void:
-	_update_progress(new_xp, xp_needed)
+func _on_xp_gained(_amount: int, new_xp: int, _xp_needed: int) -> void:
+	_update_progress(new_xp)
 
 
-func _on_level_up(new_level: int, _new_stats: Variant, _bonus: int) -> void:
+func _on_level_up(new_level: int, _new_stats: CombatStats, _bonus: int) -> void:
 	_update_level(new_level)
-	_update_progress(0, PlayerProgressionService.xp_needed_for_level(new_level))
+	_update_progress(0)  # xp_gained fires immediately after and corrects this
 
 
 func _update_level(level: int) -> void:
 	_level_label.text = "Lv %d" % level
 
 
-func _update_progress(current_xp: int, xp_needed: int) -> void:
+func _update_progress(current_xp: int) -> void:
 	var level: int = int(PlayerProfileService.get_player_level())
+	var xp_needed: int = PlayerProgressionService.xp_needed_for_level(level)
 	var fraction: float = _calculate_progress(current_xp, level)
 	_bar.value = clampf(fraction * 100.0, 0.0, 100.0)
 	_xp_label.text = _format_xp_text(current_xp, xp_needed, level)
 
 
 func _calculate_progress(current_xp: int, level: int) -> float:
+	# _config is a public resource field, accessed directly until PlayerProgressionService exposes get_max_level()
 	var max_level: int = int(PlayerProgressionService._config.max_level) \
 		if PlayerProgressionService._config != null else 100
 	if level >= max_level:
@@ -78,6 +80,7 @@ func _calculate_progress(current_xp: int, level: int) -> float:
 
 
 func _format_xp_text(current_xp: int, xp_needed: int, level: int) -> String:
+	# _config is a public resource field, accessed directly until PlayerProgressionService exposes get_max_level()
 	var max_level: int = int(PlayerProgressionService._config.max_level) \
 		if PlayerProgressionService._config != null else 100
 	if level >= max_level:
