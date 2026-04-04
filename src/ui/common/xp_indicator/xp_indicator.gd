@@ -13,10 +13,10 @@ signal clicked() # example signal if parent wants to listen
 
 const K:   int = 1_000
 const KK:  int = 1_000_000
-const KKK: int = 1_000_000_000
+const KKK: int = 1_000_000_000    # 1 billion — requires 64-bit int throughout XP pipeline
 const BIG_K:   int = 10_000
 const BIG_KK:  int = 10_000_000
-const BIG_KKK: int = 10_000_000_000
+const BIG_KKK: int = 10_000_000_000  # 10 billion — 64-bit only; exceeds 32-bit int range
 
 func _ready() -> void:
     # Connect to PlayerProgressionService signals if available

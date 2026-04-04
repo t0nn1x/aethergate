@@ -60,6 +60,8 @@ func test_number_formatting() -> bool:
 		[999999999,   "999kk"],
 		[1000000000,  "1kkk"],
 		[1500000000,  "1.5kkk"],
+		[10000000000,  "10kkk"],
+		[25000000000,  "25kkk"],
 	]
 
 	for case in test_cases:
