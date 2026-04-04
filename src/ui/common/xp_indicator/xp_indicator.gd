@@ -2,7 +2,7 @@
 # XpIndicator component for showing player level and XP with smart number scaling
 # Follows project conventions: static typing, class_name, signals at top
 
-extends Control
+extends PanelContainer
 class_name XpIndicator
 
 signal clicked()

@@ -67,11 +67,10 @@ func test_node_hierarchy() -> bool:
 
 		# Check required internal nodes
 		var required_paths := [
-			"VBoxContainer",
-			"VBoxContainer/LevelLabel",
-			"VBoxContainer/XpContainer",
-			"VBoxContainer/XpContainer/ProgressBar",
-			"VBoxContainer/XpContainer/XpLabel"
+			"HBoxContainer",
+			"HBoxContainer/LevelLabel",
+			"HBoxContainer/Bar",
+			"HBoxContainer/XpLabel"
 		]
 
 		for path in required_paths:
@@ -83,17 +82,17 @@ func test_node_hierarchy() -> bool:
 				print("✓ PASSED: Found required node: %s" % path)
 
 		# Check node types
-		var level_label := xp_instance.get_node_or_null("VBoxContainer/LevelLabel")
+		var level_label := xp_instance.get_node_or_null("HBoxContainer/LevelLabel")
 		if level_label != null and not level_label is Label:
 			print("✗ FAILED: LevelLabel is not a Label node")
 			passed = false
 
-		var progress_bar := xp_instance.get_node_or_null("VBoxContainer/XpContainer/ProgressBar")
+		var progress_bar := xp_instance.get_node_or_null("HBoxContainer/Bar")
 		if progress_bar != null and not progress_bar is ProgressBar:
-			print("✗ FAILED: ProgressBar is not a ProgressBar node")
+			print("✗ FAILED: Bar is not a ProgressBar node")
 			passed = false
 
-		var xp_label := xp_instance.get_node_or_null("VBoxContainer/XpContainer/XpLabel")
+		var xp_label := xp_instance.get_node_or_null("HBoxContainer/XpLabel")
 		if xp_label != null and not xp_label is Label:
 			print("✗ FAILED: XpLabel is not a Label node")
 			passed = false
