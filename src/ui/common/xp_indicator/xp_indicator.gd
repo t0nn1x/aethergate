@@ -7,9 +7,9 @@ class_name XpIndicator
 
 signal clicked()
 
-@onready var _level_label: Label = $VBoxContainer/LevelLabel
-@onready var _bar: ProgressBar = $VBoxContainer/XpContainer/ProgressBar
-@onready var _xp_label: Label = $VBoxContainer/XpContainer/XpLabel
+@onready var _level_label: Label = $HBoxContainer/LevelLabel
+@onready var _bar: ProgressBar = $HBoxContainer/Bar
+@onready var _xp_label: Label = $HBoxContainer/XpLabel
 
 const K:       int = 1_000
 const KK:      int = 1_000_000
