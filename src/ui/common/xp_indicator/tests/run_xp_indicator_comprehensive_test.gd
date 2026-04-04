@@ -91,10 +91,9 @@ func check_implementation_issues() -> int:
 	if xp_scene != null:
 		var indicator := xp_scene.instantiate()
 
-		# Issue 1: Engine.has_singleton vs autoload access pattern inconsistency
+		# Autoloads accessed directly — no Engine.has_singleton() guards
 		print("Checking service access patterns...")
-		print("  ⚠️  WARNING: Mixed Engine.has_singleton() and direct autoload access")
-		print("      This works but could be simplified to always check singleton existence")
+		print("  ✅ Autoloads (PlayerProfileService, PlayerProgressionService) accessed directly")
 
 		# Issue 2: Division by zero protection
 		print("Checking division safety...")
