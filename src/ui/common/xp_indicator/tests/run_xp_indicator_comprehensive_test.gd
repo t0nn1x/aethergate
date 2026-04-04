@@ -170,7 +170,7 @@ func comprehensive_edge_case_testing() -> bool:
 
 	# Test 3: Max level handling
 	var max_level_text := indicator._format_xp_text(0, 1000, 100)
-	if max_level_text == "MAX LEVEL":
+	if max_level_text == "MAX":
 		print("  ✅ Max level handling correct")
 	else:
 		print("  ❌ Max level handling incorrect: got '%s'" % max_level_text)

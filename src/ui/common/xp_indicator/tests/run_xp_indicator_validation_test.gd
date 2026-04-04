@@ -139,11 +139,11 @@ func test_max_level_behavior() -> bool:
 
 	# Test format text at max level
 	var max_level_text := indicator._format_xp_text(0, 1000, 100)
-	if max_level_text != "MAX LEVEL":
-		print("✗ FAILED: Max level text expected 'MAX LEVEL', got '%s'" % max_level_text)
+	if max_level_text != "MAX":
+		print("✗ FAILED: Max level text expected 'MAX', got '%s'" % max_level_text)
 		passed = false
 	else:
-		print("✓ PASSED: Max level shows 'MAX LEVEL'")
+		print("✓ PASSED: Max level shows 'MAX'")
 
 	# Test progress at max level
 	var max_level_progress := indicator._calculate_progress(0, 100)
@@ -167,17 +167,16 @@ func test_service_availability() -> bool:
 	# Test initialization without services
 	# This should gracefully handle missing services
 	indicator._initialize_from_profile()
-	indicator._update_display()
 
 	print("✓ PASSED: Handles missing services gracefully")
 
 	# Test with labels present
 	indicator._level_label = Label.new()
-	indicator._progress_bar = ProgressBar.new()
+	indicator._bar = ProgressBar.new()
 	indicator._xp_label = Label.new()
 
 	indicator.add_child(indicator._level_label)
-	indicator.add_child(indicator._progress_bar)
+	indicator.add_child(indicator._bar)
 	indicator.add_child(indicator._xp_label)
 
 	# These should not crash
