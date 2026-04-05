@@ -203,6 +203,21 @@ func _on_add_xp(amount: int) -> void:
 	_set_status("Added %d XP (Level %d, XP %d)" % [amount, PlayerProfileService.get_player_level(), PlayerProfileService.get_player_xp()])
 
 
+func _on_set_level(target_level: int) -> void:
+	var max_level: int = int(PlayerProgressionService._config.max_level) \
+		if PlayerProgressionService._config != null else 100
+	target_level = clampi(target_level, 1, max_level)
+	var allocations: Dictionary = PlayerProfileService.get_bonus_allocations()
+	PlayerProfileService.set_xp_and_level(0, target_level)
+	var bonus: int = (target_level - 1) * PlayerProgressionService._config.bonus_points_per_level
+	PlayerProfileService.set_bonus_state(bonus, allocations)
+	var stats := PlayerProgressionService.calculate_stats(target_level, allocations)
+	PlayerProgressionService.level_up.emit(target_level, stats, 0)
+	PlayerProgressionService.xp_gained.emit(0, 0, PlayerProgressionService.xp_needed_for_level(target_level))
+	_set_status("Level forced → %d" % target_level)
+	_refresh_status()
+
+
 func _on_teleport_origin() -> void:
 	var player := _find_player() as Node2D
 	if player:
@@ -374,6 +389,16 @@ func _build_ui() -> void:
 		["+500 XP", _on_add_xp.bind(500)],
 	], 4)
 	xp_content.add_child(xp_row)
+	var lvl_preset_row := _make_button_grid([
+		["Lv 1",  _on_set_level.bind(1)],
+		["Lv 10", _on_set_level.bind(10)],
+		["Lv 25", _on_set_level.bind(25)],
+		["Lv 50", _on_set_level.bind(50)],
+		["Lv 75", _on_set_level.bind(75)],
+		["Lv 100", _on_set_level.bind(100)],
+	], 6)
+	xp_content.add_child(lvl_preset_row)
+	xp_content.add_child(_make_set_level_input_row())
 	vbox.add_child(_make_section_card("XP & LEVEL", xp_content))
 
 	# ── MOVEMENT SPEED section ──
@@ -508,6 +533,35 @@ func _make_button_grid(items: Array, columns: int) -> VBoxContainer:
 		var btn := _make_compact_btn(item[0] as String, item[1] as Callable)
 		current_row.add_child(btn)
 	return container
+
+
+func _make_set_level_input_row() -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+
+	var input := LineEdit.new()
+	input.placeholder_text = "Level (1-100)"
+	input.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	input.custom_minimum_size.y = 38
+	_apply_font(input, 16)
+	input.add_theme_color_override("font_color", LABEL_COLOR)
+	input.add_theme_color_override("font_placeholder_color", DIM_COLOR)
+	input.add_theme_stylebox_override("normal", _make_style(COMPACT_BTN_BG, COMPACT_BTN_BORDER, 1, 8))
+	input.add_theme_stylebox_override("focus", _make_style(COMPACT_BTN_BG, BTN_HOVER_BORDER, 1, 8))
+
+	var btn := _make_compact_btn("Set", func() -> void:
+		var val: int = int(input.text.strip_edges())
+		if val > 0:
+			_on_set_level(val)
+			input.text = ""
+		else:
+			_set_status("Enter a valid level number")
+	)
+	btn.custom_minimum_size.x = 60
+
+	row.add_child(input)
+	row.add_child(btn)
+	return row
 
 
 func _make_info_label(key: String, value: String) -> Label:
