@@ -181,7 +181,7 @@ func test_service_availability() -> bool:
 
 	# These should not crash
 	indicator._update_level(1)
-	indicator._update_progress(0, 1000)
+	indicator._update_progress(0)
 
 	print("✓ PASSED: UI updates work with manual components")
 
