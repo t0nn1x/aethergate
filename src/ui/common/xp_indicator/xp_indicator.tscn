@@ -45,7 +45,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.6)
 theme_override_font_sizes/font_size = 12
 
 [node name="Bar" type="ProgressBar" parent="HBoxContainer" unique_id=300]
-custom_minimum_size = Vector2(0, 5)
+custom_minimum_size = Vector2(80, 8)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
