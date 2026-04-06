@@ -42,6 +42,9 @@ var _setup_status_label: Label
 var _speed_label: Label
 var _font: Font
 var _toggle_btn: Button
+var _collision_btn: Button
+var _paths_btn: Button
+var _navigation_btn: Button
 
 
 func _ready() -> void:
@@ -134,6 +137,7 @@ func _refresh_status() -> void:
 			_speed_label.text = "Speed: %.0f" % player.movement_speed
 		else:
 			_speed_label.text = "Speed: (no player)"
+	_sync_render_debug_buttons()
 
 
 func _set_status(text: String) -> void:
@@ -150,6 +154,33 @@ func _on_toggle_debug_overlay() -> void:
 		_set_status("Debug overlay: %s" % ("ON" if _debug_overlay.enabled else "OFF"))
 	else:
 		_set_status("Debug overlay not found")
+
+
+func _on_toggle_collision_shapes() -> void:
+	get_tree().debug_collisions_hint = not get_tree().debug_collisions_hint
+	_sync_render_debug_buttons()
+	_set_status("Collision shapes: %s" % ("ON" if get_tree().debug_collisions_hint else "OFF"))
+
+
+func _on_toggle_nav_paths() -> void:
+	get_tree().debug_paths_hint = not get_tree().debug_paths_hint
+	_sync_render_debug_buttons()
+	_set_status("Nav paths: %s" % ("ON" if get_tree().debug_paths_hint else "OFF"))
+
+
+func _on_toggle_navigation() -> void:
+	get_tree().debug_navigation_hint = not get_tree().debug_navigation_hint
+	_sync_render_debug_buttons()
+	_set_status("Navigation: %s" % ("ON" if get_tree().debug_navigation_hint else "OFF"))
+
+
+func _sync_render_debug_buttons() -> void:
+	if _collision_btn:
+		_collision_btn.text = "Collision Shapes  %s" % ("[ON]" if get_tree().debug_collisions_hint else "[OFF]")
+	if _paths_btn:
+		_paths_btn.text = "Nav Paths  %s" % ("[ON]" if get_tree().debug_paths_hint else "[OFF]")
+	if _navigation_btn:
+		_navigation_btn.text = "Navigation  %s" % ("[ON]" if get_tree().debug_navigation_hint else "[OFF]")
 
 
 func _on_reset_appearance() -> void:
@@ -363,6 +394,12 @@ func _build_ui() -> void:
 	var display_content := VBoxContainer.new()
 	display_content.add_theme_constant_override("separation", 4)
 	display_content.add_child(_make_btn("Toggle Debug Overlay", _on_toggle_debug_overlay))
+	_collision_btn = _make_btn("Collision Shapes  [OFF]", _on_toggle_collision_shapes)
+	display_content.add_child(_collision_btn)
+	_paths_btn = _make_btn("Nav Paths  [OFF]", _on_toggle_nav_paths)
+	display_content.add_child(_paths_btn)
+	_navigation_btn = _make_btn("Navigation  [OFF]", _on_toggle_navigation)
+	display_content.add_child(_navigation_btn)
 	display_content.add_child(_make_btn("Print Scene Tree", _on_print_tree))
 	display_content.add_child(_make_btn("UI Showcase", _on_open_ui_showcase))
 	vbox.add_child(_make_section_card("DISPLAY", display_content))
