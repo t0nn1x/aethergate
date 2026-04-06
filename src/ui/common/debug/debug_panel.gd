@@ -207,12 +207,9 @@ func _on_set_level(target_level: int) -> void:
 	var max_level: int = int(PlayerProgressionService._config.max_level) \
 		if PlayerProgressionService._config != null else 100
 	target_level = clampi(target_level, 1, max_level)
-	var allocations: Dictionary = PlayerProfileService.get_bonus_allocations()
 	PlayerProfileService.set_xp_and_level(0, target_level)
-	var bonus: int = (target_level - 1) * PlayerProgressionService._config.bonus_points_per_level
-	PlayerProfileService.set_bonus_state(bonus, allocations)
-	var stats := PlayerProgressionService.calculate_stats(target_level, allocations)
-	PlayerProgressionService.level_up.emit(target_level, stats, 0)
+	var stats := PlayerProgressionService.calculate_stats(target_level)
+	PlayerProgressionService.level_up.emit(target_level, stats)
 	PlayerProgressionService.xp_gained.emit(0, 0, PlayerProgressionService.xp_needed_for_level(target_level))
 	_set_status("Level forced → %d" % target_level)
 	_refresh_status()

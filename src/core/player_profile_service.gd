@@ -17,8 +17,6 @@ const SETTINGS_KEY_PREFERRED_LOCALE: String = "preferred_locale"
 const COMBAT_SECTION: String = "combat"
 const KEY_PLAYER_LEVEL: String = "player_level"
 const KEY_PLAYER_XP: String = "player_xp"
-const KEY_BONUS_POINTS_AVAILABLE: String = "bonus_points_available"
-const KEY_BONUS_ALLOCATIONS: String = "bonus_allocations"
 const PROFILE_SECTION: String = "profile"
 const KEY_APPEARANCE: String = "appearance"
 const KEY_SETUP_COMPLETED: String = "setup_completed"
@@ -30,8 +28,6 @@ var _appearance: Resource
 var _preferred_locale: StringName = StringName()
 var _player_level: int = 1
 var _player_xp: int = 0
-var _bonus_points_available: int = 0
-var _bonus_allocations: Dictionary = {}
 var _setup_completed: bool = false
 
 
@@ -193,31 +189,12 @@ func set_xp_and_level(new_xp: int, new_level: int) -> void:
 	_save_combat_profile()
 
 
-func get_bonus_points_available() -> int:
-	return _bonus_points_available
-
-
-func get_bonus_allocations() -> Dictionary:
-	return _bonus_allocations.duplicate()
-
-
-## Called by PlayerProgressionService after awarding or spending bonus points.
-func set_bonus_state(points_available: int, allocations: Dictionary) -> void:
-	_bonus_points_available = points_available
-	_bonus_allocations = allocations.duplicate()
-	_save_combat_profile()
-
-
 func _load_combat_profile() -> void:
 	var profile_data: ConfigFile = ConfigFile.new()
 	if profile_data.load(PROFILE_SAVE_PATH) != OK:
 		return
 	_player_level = int(profile_data.get_value(COMBAT_SECTION, KEY_PLAYER_LEVEL, 1))
 	_player_xp = int(profile_data.get_value(COMBAT_SECTION, KEY_PLAYER_XP, 0))
-	_bonus_points_available = int(profile_data.get_value(
-		COMBAT_SECTION, KEY_BONUS_POINTS_AVAILABLE, 0))
-	_bonus_allocations = profile_data.get_value(
-		COMBAT_SECTION, KEY_BONUS_ALLOCATIONS, {})
 
 
 func _load_setup_completed() -> void:
@@ -274,8 +251,6 @@ func _save_combat_profile() -> void:
 	profile_data.load(PROFILE_SAVE_PATH)
 	profile_data.set_value(COMBAT_SECTION, KEY_PLAYER_LEVEL, _player_level)
 	profile_data.set_value(COMBAT_SECTION, KEY_PLAYER_XP, _player_xp)
-	profile_data.set_value(COMBAT_SECTION, KEY_BONUS_POINTS_AVAILABLE, _bonus_points_available)
-	profile_data.set_value(COMBAT_SECTION, KEY_BONUS_ALLOCATIONS, _bonus_allocations)
 	profile_data.save(PROFILE_SAVE_PATH)
 
 

@@ -38,17 +38,17 @@ Combat victory
 
 ## XP Curve
 
-Formula: `xp_needed_for_level(n) = max(1, int(xp_base × xp_decay^(n-1)))`
+Formula: `xp_needed_for_level(n) = max(1, xp_base + xp_growth × (n - 1))`
 
 Default config (`player_level_config.tres`):
 
 | Parameter | Value | Effect |
 |---|---|---|
-| `xp_base` | 1000 | XP required to level up from Lv 1 |
-| `xp_decay` | 0.97 | Each level needs 3% less XP than the last |
+| `xp_base` | 200 | XP required to level up from Lv 1 |
+| `xp_growth` | 50 | Additional XP required per level |
 | `max_level` | 100 | Cap — bar fills to 100%, label shows "MAX" |
 
-Level 1 → Lv 2 costs 1000 XP. Level 99 → Lv 100 costs ~47 XP. Curve is intentionally front-loaded.
+Level 1 → Lv 2 costs 200 XP. Level 99 → Lv 100 costs 200 + 98×50 = 5,100 XP. Linear — consistently harder each level.
 
 ## Stat Growth
 
@@ -56,12 +56,12 @@ Applied automatically on every level-up. No code needed to tune — edit `player
 
 | Stat | Base (Lv 1) | Growth per level |
 |---|---|---|
-| Max HP | 80 | +12 |
-| Max Energy | 100 | +3 |
-| Attack | 8.0 | +1.5 |
-| Defense | 4.0 | +0.8 |
+| Max HP | 80 | +5 |
+| Max Energy | 100 | +2 |
+| Attack | 8.0 | +0.5 |
+| Defense | 4.0 | +0.25 |
 
-Plus **2 bonus points** per level for manual allocation (HP / Energy / Attack / Defense).
+Stat growth is automatic — no manual allocation. Equipment will be the primary source of build variety (to be implemented).
 
 ## HUD Widget — XpIndicator
 
@@ -131,8 +131,6 @@ Force-setting a level via the debug panel:
 **Listen for level-ups** — connect to `PlayerProgressionService.level_up(new_level: int, new_stats: CombatStats, bonus_points_gained: int)` from any node.
 
 **Listen for XP gains** — connect to `PlayerProgressionService.xp_gained(amount: int, new_xp: int, xp_needed: int)`.
-
-**Allocate bonus points** — call `PlayerProgressionService.allocate_bonus_point(stat_key: StringName)` with `&"max_hp"`, `&"max_energy"`, `&"attack"`, or `&"defense"`.
 
 ## Tests
 
