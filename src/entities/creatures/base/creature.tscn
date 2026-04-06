@@ -46,7 +46,7 @@ script = ExtResource("3_move")
 script = ExtResource("11_nav")
 project_config_service_path = NodePath("")
 avoidance_enabled = false
-agent_radius = 6.0
+agent_radius = 3.0
 movement_config = null
 
 [node name="PlayerMoveTargetBlockerComponent" type="Node" parent="."]
