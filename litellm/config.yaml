@@ -1,0 +1,18 @@
+model_list:
+  - model_name: github_copilot/claude-sonnet-4.6
+    litellm_params:
+      model: github_copilot/claude-sonnet-4.6
+      extra_headers:
+        editor-version: vscode/1.85.1
+        Copilot-Integration-Id: vscode-chat
+  - model_name: github_copilot/gpt-5.4-mini
+    litellm_params:
+      model: github_copilot/gpt-5.4-mini
+      extra_headers:
+        editor-version: vscode/1.85.1
+        Copilot-Integration-Id: vscode-chat
+general_settings:
+  master_key: sk-litellm-static-key
+
+litellm_settings:
+  drop_params: true
