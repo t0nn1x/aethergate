@@ -29,6 +29,7 @@ general/ios_background_audio=true
 
 ProjectConfig="*res://src/config/project_config_service.gd"
 PlayerProfileService="*res://src/core/player_profile_service.gd"
+PlayerProgressionService="*res://src/core/player_progression_service.gd"
 LocalizationService="*res://src/localization/localization_service.gd"
 PlatformDisplaySettings="*res://src/core/platform_display_settings.gd"
 PlayerEvents="*res://src/core/events/player_events.gd"
@@ -55,6 +56,10 @@ window/size/viewport_width.windows=1920
 window/size/viewport_height.windows=1080
 window/size/viewport_width.macos=1920
 window/size/viewport_height.macos=1080
+
+[editor]
+
+scan_filters/exclude=PackedStringArray("res://.worktrees")
 
 [input]
 

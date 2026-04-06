@@ -17,7 +17,6 @@ const SETTINGS_KEY_PREFERRED_LOCALE: String = "preferred_locale"
 const COMBAT_SECTION: String = "combat"
 const KEY_PLAYER_LEVEL: String = "player_level"
 const KEY_PLAYER_XP: String = "player_xp"
-const BASE_XP_PER_LEVEL: int = 100  ## XP needed: level * BASE_XP_PER_LEVEL
 const PROFILE_SECTION: String = "profile"
 const KEY_APPEARANCE: String = "appearance"
 const KEY_SETUP_COMPLETED: String = "setup_completed"
@@ -177,13 +176,16 @@ func get_player_xp() -> int:
 	return _player_xp
 
 
+## Persists XP directly. Level-up logic lives in PlayerProgressionService.
 func add_xp(amount: int) -> void:
 	_player_xp += amount
-	var xp_needed: int = _player_level * BASE_XP_PER_LEVEL
-	while _player_xp >= xp_needed:
-		_player_xp -= xp_needed
-		_player_level += 1
-		xp_needed = _player_level * BASE_XP_PER_LEVEL
+	_save_combat_profile()
+
+
+## Called by PlayerProgressionService after resolving level-ups.
+func set_xp_and_level(new_xp: int, new_level: int) -> void:
+	_player_xp = new_xp
+	_player_level = new_level
 	_save_combat_profile()
 
 

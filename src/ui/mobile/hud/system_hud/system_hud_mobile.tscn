@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://fem1fwl8q3qu" path="res://Assets/Icons/Dwarf loot pack/PNG/Transperent/Icon3.png" id="3_5hucw"]
 [ext_resource type="Texture2D" uid="uid://cfyfrr7vlf3r0" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot_hover_pressed.png" id="3_by3ai"]
 [ext_resource type="Texture2D" uid="uid://duafcy84sgphq" path="res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png" id="3_pc3km"]
+[ext_resource type="PackedScene" uid="uid://xpindicator" path="res://src/ui/common/xp_indicator/xp_indicator.tscn" id="7_xpind"]
 
 [node name="SystemHud" type="CanvasLayer" unique_id=2010540959]
 layer = 20
@@ -49,6 +50,12 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="XpIndicator" parent="Root/SafeAreaMargin/BottomAlign" instance=ExtResource("7_xpind") unique_id=3012345678]
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_minimum_size = Vector2(0, 36)
+theme_override_constants/margin_bottom = 16
 
 [node name="SlotRow" type="HBoxContainer" parent="Root/SafeAreaMargin/BottomAlign" unique_id=1873244620]
 unique_name_in_owner = true

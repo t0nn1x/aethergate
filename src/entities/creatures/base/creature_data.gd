@@ -90,7 +90,7 @@ enum BehaviorProfile {
 @export var silhouette_color: Color = Color(1.0, 1.0, 1.0, 0.4)
 
 @export_group("Loot")
-@export var experience_reward: float = 10.0
+@export var xp_reward: int = 50
 ## Loot table reference — will be typed when loot system is built.
 @export var loot_table: Resource = null
 
