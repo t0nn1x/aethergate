@@ -39,6 +39,7 @@ CreatureEvents="*res://src/core/events/creature_events.gd"
 CombatEvents="*res://src/core/events/combat_events.gd"
 GameManager="*res://src/core/game_manager.gd"
 MusicPlayer="*res://src/core/music_player.gd"
+MasteryService="*res://src/core/mastery_service.gd"
 
 [debug]
 
