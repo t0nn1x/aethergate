@@ -22,8 +22,12 @@ var _mastery_service: Node = null
 func _ready() -> void:
 	if _config == null:
 		_config = load(DEFAULT_CONFIG_PATH) as PlayerLevelConfig
-	if _profile_service == null:
-		_profile_service = Engine.get_singleton(&"PlayerProfileService")
+
+
+func _get_profile_service() -> Node:
+	if _profile_service != null:
+		return _profile_service
+	return PlayerProfileService
 
 
 ## Called by main.gd after the Player scene is added to the scene tree.
@@ -46,8 +50,8 @@ func xp_needed_for_level(level: int) -> int:
 ## Progress through the current level as a value in [0.0, 1.0].
 ## Useful for XP progress bars.
 func xp_progress() -> float:
-	var current_xp: int = int(_profile_service.call("get_player_xp"))
-	var level: int = int(_profile_service.call("get_player_level"))
+	var current_xp: int = int(_get_profile_service().call("get_player_xp"))
+	var level: int = int(_get_profile_service().call("get_player_level"))
 	var needed: int = xp_needed_for_level(level)
 	if needed <= 0:
 		return 1.0
@@ -59,8 +63,8 @@ func xp_progress() -> float:
 func award_xp(amount: int) -> void:
 	if amount <= 0:
 		return
-	var current_xp: int = int(_profile_service.call("get_player_xp"))
-	var current_level: int = int(_profile_service.call("get_player_level"))
+	var current_xp: int = int(_get_profile_service().call("get_player_xp"))
+	var current_level: int = int(_get_profile_service().call("get_player_level"))
 
 	current_xp += amount
 
@@ -72,7 +76,7 @@ func award_xp(amount: int) -> void:
 		current_level += 1
 		level_up.emit(current_level, calculate_stats(current_level))
 
-	_profile_service.call("set_xp_and_level", current_xp, current_level)
+	_get_profile_service().call("set_xp_and_level", current_xp, current_level)
 	xp_gained.emit(amount, current_xp, xp_needed_for_level(current_level))
 
 
@@ -93,7 +97,7 @@ func calculate_stats(level: int) -> CombatStats:
 ## Builds a CombatantSnapshot for the player using current level, base stats, and equipment.
 ## Sprite and VFX data are NOT included — callers augment the snapshot.
 func build_player_snapshot() -> CombatantSnapshot:
-	var level: int = int(_profile_service.call("get_player_level"))
+	var level: int = int(_get_profile_service().call("get_player_level"))
 	var snap := CombatantSnapshot.new()
 	snap.combatant_id = &"player"
 	snap.display_name = "Player"
