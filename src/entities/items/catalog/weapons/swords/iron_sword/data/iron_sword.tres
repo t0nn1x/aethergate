@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://src/entities/items/weapon_data.gd" id="1_weapon"]
+[ext_resource type="Resource" path="res://src/entities/skills/combat/slash/data/slash.tres" id="2_slash"]
 
 [resource]
 script = ExtResource("1_weapon")
@@ -12,4 +13,4 @@ rarity = 0
 required_level = 1
 item_family_id = &"swords"
 weapon_visual_id = &"iron_sword"
-skill_grants = []
+skill_grants = [ExtResource("2_slash")]

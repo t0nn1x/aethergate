@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+skill_id = &"heal"
+display_name = "Heal"
+description = "Restore some of your health."
+skill_type = 2
+element = 0
+energy_cost = 15
+base_power = 20.0
+mastery_variants = []

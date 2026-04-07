@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/entities/skills/combat/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+skill_id = &"fireball"
+display_name = "Fireball"
+description = "Hurls a ball of fire at the enemy."
+skill_type = 0
+element = 1
+energy_cost = 20
+base_power = 25.0
+mastery_variants = []
