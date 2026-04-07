@@ -13,13 +13,28 @@ const DEFAULT_CONFIG_PATH := \
 var _config: PlayerLevelConfig = null
 ## Default: the PlayerProfileService autoload. Tests override this before use.
 var _profile_service: Node = null
+## Injected by main.gd after Player scene is ready. Null = no equipment wired (fallback OK).
+var _equipment_component: PlayerEquipmentComponent = null
+## Injected reference to MasteryService autoload. Settable for tests.
+var _mastery_service: Node = null
 
 
 func _ready() -> void:
 	if _config == null:
 		_config = load(DEFAULT_CONFIG_PATH) as PlayerLevelConfig
 	if _profile_service == null:
-		_profile_service = PlayerProfileService
+		_profile_service = Engine.get_singleton(&"PlayerProfileService")
+
+
+## Called by main.gd after the Player scene is added to the scene tree.
+func set_equipment_component(comp: PlayerEquipmentComponent) -> void:
+	_equipment_component = comp
+
+
+func _get_mastery_service() -> Node:
+	if _mastery_service != null:
+		return _mastery_service
+	return Engine.get_singleton(&"MasteryService")
 
 
 ## XP required to advance from level n to level n+1.
@@ -75,7 +90,7 @@ func calculate_stats(level: int) -> CombatStats:
 	return stats
 
 
-## Builds a CombatantSnapshot for the player using current level and stats.
+## Builds a CombatantSnapshot for the player using current level, base stats, and equipment.
 ## Sprite and VFX data are NOT included — callers augment the snapshot.
 func build_player_snapshot() -> CombatantSnapshot:
 	var level: int = int(_profile_service.call("get_player_level"))
@@ -83,6 +98,32 @@ func build_player_snapshot() -> CombatantSnapshot:
 	snap.combatant_id = &"player"
 	snap.display_name = "Player"
 	snap.level = level
-	snap.base_stats = calculate_stats(level)
-	snap.skill_loadout = []
+
+	# 1. Base stats from level
+	var base: CombatStats = calculate_stats(level)
+
+	# 2. Equipment stat bonuses
+	if _equipment_component != null:
+		var bonus: CombatStats = _equipment_component.get_total_stat_bonuses()
+		base.max_hp     += bonus.max_hp
+		base.max_energy += bonus.max_energy
+		base.attack     += bonus.attack
+		base.defense    += bonus.defense
+
+	snap.base_stats = base
+
+	# 3. Skill grants resolved through mastery
+	if _equipment_component != null:
+		var mastery: Node = _get_mastery_service()
+		var family_id: StringName = _equipment_component.get_weapon_family_id()
+		for skill: SkillData in _equipment_component.get_all_skill_grants():
+			var active: SkillData = mastery.call(
+				"get_active_skill_variant", skill, family_id, level
+			)
+			snap.skill_loadout.append(active)
+		# 4. Passive effect from accessory
+		snap.passive_effect = _equipment_component.get_passive_effect()
+		# 5. Weapon family for post-combat mastery awarding
+		snap.weapon_family_id = family_id
+
 	return snap
