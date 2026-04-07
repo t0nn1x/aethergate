@@ -66,7 +66,7 @@ func _on_combat_ended(result: CombatRoundResult) -> void:
 	)
 
 
-func _on_level_up(new_level: int, _stats: CombatStats, _bonus_pts: int) -> void:
+func _on_level_up(new_level: int, _stats: CombatStats) -> void:
 	_leveled_up = true
 	_new_level = new_level
 
