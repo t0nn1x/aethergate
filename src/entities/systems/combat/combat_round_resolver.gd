@@ -42,6 +42,9 @@ func resolve_phase(
 	if result.defender_hp_after <= 0:
 		result.combat_ended = true
 
+	# Evaluate passive procs after the main phase
+	_apply_passive_procs(result, attacker_snapshot, defender_snapshot)
+
 	return result
 
 
@@ -74,3 +77,41 @@ func _is_defend(action: CombatAction) -> bool:
 func _is_heal(action: CombatAction) -> bool:
 	return action.skill_used != null \
 		and action.skill_used.skill_type == SkillData.SkillType.HEAL
+
+
+func _apply_passive_procs(
+	result: CombatPhaseResult,
+	attacker: CombatantSnapshot,
+	defender: CombatantSnapshot
+) -> void:
+	# Attacker's passive (e.g. POISON_ON_HIT, REGEN_ENERGY, LIFESTEAL)
+	if attacker.passive_effect != null:
+		_apply_attacker_effect(result, attacker.passive_effect)
+	# Defender's passive (e.g. THORNS, REFLECT_DAMAGE)
+	if defender.passive_effect != null:
+		_apply_defender_effect(result, defender.passive_effect)
+
+
+func _apply_attacker_effect(result: CombatPhaseResult, effect: PassiveEffectData) -> void:
+	if effect.effect_type == PassiveEffectData.PassiveEffectType.REGEN_ENERGY:
+		result.passive_attacker_energy_delta += int(effect.value)
+		return
+	if randf() > effect.trigger_chance:
+		return
+	match effect.effect_type:
+		PassiveEffectData.PassiveEffectType.POISON_ON_HIT:
+			result.passive_defender_hp_delta -= int(effect.value)
+		PassiveEffectData.PassiveEffectType.LIFESTEAL:
+			var heal: int = int(absf(float(result.defender_hp_delta)) * effect.value)
+			result.passive_attacker_hp_delta += heal
+
+
+func _apply_defender_effect(result: CombatPhaseResult, effect: PassiveEffectData) -> void:
+	if randf() > effect.trigger_chance:
+		return
+	match effect.effect_type:
+		PassiveEffectData.PassiveEffectType.THORNS:
+			result.passive_attacker_hp_delta -= int(effect.value)
+		PassiveEffectData.PassiveEffectType.REFLECT_DAMAGE:
+			var reflected: int = int(absf(float(result.defender_hp_delta)) * effect.value)
+			result.passive_attacker_hp_delta -= reflected
