@@ -135,8 +135,8 @@ class_name BlueprintData extends Resource
 @export var display_name: String
 @export var result_item: EquipmentData               # what gets crafted
 @export var required_materials: Array[Dictionary]
-# [{ "item": ItemData (resource ref), "amount": int }, ...]
-# Uses resource refs (same as LootTableData) — no ID lookup step needed
+# [{ "item_id": "iron_ore", "amount": int }, ...]
+# item_id matches ItemData.item_id — used directly with PlayerInventoryComponent.get_item_count(item_id)
 ```
 
 ### LootTableData
@@ -315,11 +315,12 @@ Player visits Blacksmith NPC (future scope — NPC/UI not in this iteration)
 - `func remove_item_by_id(item_id: String, amount: int = 1) -> int`
 - `func get_item_count(item_id: String) -> int`
 
-**Access pattern:** `LootService` and `CraftingService` receive a reference to `PlayerInventoryComponent` via a setter call after the Player scene is ready — consistent with the project's `@onready` pattern. `PlayerProgressionService` (which already references the Player) will inject the reference at startup. No `get_node()` in hot paths.
+**Access pattern:** `LootService` and `CraftingService` expose a `func set_inventory(inv: PlayerInventoryComponent) -> void` setter. `PlayerProgressionService._ready()` (which already runs after scene tree is ready) calls these setters with the Player's `$PlayerInventoryComponent` reference. No `get_node()` in service hot paths.
 
 ### ItemData — `src/entities/items/item_data.gd`
+- `@export var item_id: String` — used as the key for inventory lookups
 - Auto-resolves icon from `<item_folder>/Sprites/<name>_icon.png` via `_resolve_icon_from_item_folder()`
-- `EquipmentData extends ItemData` inherits this for free
+- `EquipmentData extends ItemData` inherits both for free
 
 ### CombatStats — `src/entities/systems/combat/data/combat_stats.gd`
 Fields: `max_hp: int`, `max_energy: int`, `attack: float`, `defense: float`
@@ -327,7 +328,8 @@ Fields: `max_hp: int`, `max_energy: int`, `attack: float`, `defense: float`
 ### CombatantSnapshot — `src/entities/systems/combat/data/combatant_snapshot.gd`
 Existing fields: `combatant_id`, `display_name`, `level`, `base_stats: CombatStats`, `skill_loadout: Array[SkillData]`, sprite/VFX fields  
 **New field to add:** `var passive_effect: PassiveEffectData = null`  
-**New field to add:** `var weapon_family_id: StringName = &""` — used by `combat_scene.gd` to award mastery XP post-combat
+**New field to add:** `var weapon_family_id: StringName = &""` — populated in `build_player_snapshot()` from the equipped weapon's `item_family_id`; used by `combat_scene.gd` post-combat to award mastery XP  
+→ Add both to the "Files to Modify → combatant_snapshot.gd" entry
 
 ### SkillData — `src/entities/skills/combat/skill_data.gd`
 Fields: `skill_id: StringName`, `display_name`, `description`, `skill_type: SkillType`, `element: Element`, `energy_cost: int`, `base_power: float`, `icon: Texture2D`, `mastery_variants: Array[Resource]`, VFX fields
@@ -364,9 +366,9 @@ src/entities/items/
        ├─ data/iron_sword.tres          # WeaponData, rarity=COMMON, slot=WEAPON
        └─ sprites/iron_sword_icon.png   # placeholder icon
 
-src/entities/systems/equipment/
-  ├─ player_equipment_data.gd
-  └─ player_equipment_component.gd
+src/entities/player/components/
+  ├─ player_equipment_data.gd      # @tool Resource, 5 slots
+  └─ player_equipment_component.gd # Node, child of Player scene (alongside PlayerVisualComponent)
 
 src/core/
   ├─ loot_service.gd
@@ -408,6 +410,8 @@ src/world/combat/combat_scene.gd
 
 project.godot
   → register LootService, CraftingService, MasteryService, ItemEvents as autoloads
+  #  Autoload names: LootService, CraftingService, MasteryService, ItemEvents
+  #  e.g. ItemEvents="*res://src/core/events/item_events.gd"  (same pattern as CreatureEvents)
 ```
 
 ---
