@@ -45,6 +45,12 @@ func _on_combat_ended(result: CombatRoundResult) -> void:
 	if _is_victory:
 		_xp_awarded = _context.enemy_snapshot.xp_reward
 		PlayerProgressionService.award_xp(_xp_awarded)
+		# Award mastery XP for the weapon family used in this combat
+		var enemy_level: int = _context.enemy_snapshot.level
+		var mastery_xp: int = 10 + enemy_level * 2
+		var family_id: StringName = _context.player_snapshot.weapon_family_id
+		if family_id != &"":
+			MasteryService.award_mastery_xp(family_id, mastery_xp)
 	else:
 		_xp_awarded = 0
 	# Delay result panel so the death animation (float + fade, ~1.2s) plays first.
