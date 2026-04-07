@@ -821,11 +821,13 @@ func _ready() -> void:
 
 
 ## Award mastery XP for using a weapon family. Caps per-fight gain at 100.
+## Emits PlayerEvents.mastery_xp_gained so the CombatResultPanel can show progress.
 func award_mastery_xp(item_family_id: StringName, amount: int) -> void:
 	var capped: int = mini(amount, 100)
 	var current: int = _mastery_xp.get(item_family_id, 0)
 	_mastery_xp[item_family_id] = current + capped
 	_save_mastery_data()
+	PlayerEvents.mastery_xp_gained.emit(item_family_id, capped)
 
 
 ## Returns 0, 1, or 2 based on XP thresholds scaled by player level.
@@ -899,25 +901,33 @@ C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_w
 ```
 Expected: `MasteryServiceTest: PASS` and exit code 0.
 
-- [ ] **Step 5: Register MasteryService as autoload in `project.godot`**
+- [ ] **Step 5: Add `mastery_xp_gained` signal to `player_events.gd`**
+
+Open `src/core/events/player_events.gd` and add this signal alongside the existing ones:
+
+```gdscript
+signal mastery_xp_gained(item_family_id: StringName, amount: int)
+```
+
+- [ ] **Step 6: Register MasteryService as autoload in `project.godot`**
 
 Open `project.godot` and add to the `[autoload]` section:
 ```ini
 MasteryService="*res://src/core/mastery_service.gd"
 ```
 
-- [ ] **Step 6: Verify project still loads**
+- [ ] **Step 7: Verify project still loads**
 
 ```bash
 C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_win64.exe --headless --path C:\Users\Anton.Khrobust\projects\aethergate --quit 2>&1 | findstr /i "error\|mastery"
 ```
 Expected: No errors.
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
-git add src/core/mastery_service.gd src/entities/player/tests/mastery_service_test.gd src/entities/player/tests/run_mastery_service_test.gd project.godot
-git commit -m "feat: add MasteryService with persistence and full test coverage"
+git add src/core/mastery_service.gd src/core/events/player_events.gd src/entities/player/tests/mastery_service_test.gd src/entities/player/tests/run_mastery_service_test.gd project.godot
+git commit -m "feat: add MasteryService with persistence, mastery_xp_gained signal, and full test coverage"
 ```
 
 ---
@@ -972,6 +982,9 @@ const EQUIPMENT_COMPONENT_SCRIPT: Script = preload(
 )
 const WEAPON_DATA_SCRIPT: Script = preload("res://src/entities/items/weapon_data.gd")
 const MASTERY_SCRIPT: Script = preload("res://src/core/mastery_service.gd")
+const SKILL_DATA_SCRIPT_FOR_SNAPSHOT: Script = preload(
+	"res://src/entities/skills/combat/skill_data.gd"
+)
 
 func _test_build_player_snapshot_with_equipment() -> void:
 	var svc: Node = _make_progression_service_with_profile()
@@ -986,7 +999,7 @@ func _test_build_player_snapshot_with_equipment() -> void:
 	sword.item_family_id = &"swords"
 	sword.stat_bonuses = CombatStats.new()
 	sword.stat_bonuses.attack = 10.0
-	var skill: SkillData = SkillData.new()
+	var skill: SkillData = SKILL_DATA_SCRIPT_FOR_SNAPSHOT.new()  # use preloaded script, not class_name
 	skill.skill_id = &"slash"
 	sword.skill_grants = [skill]
 	equipment_comp.call("equip", sword)
@@ -1420,26 +1433,33 @@ grep -rn "build_player_snapshot\|set_equipment_component" C:\Users\Anton.Khrobus
 
 - [ ] **Step 2: Add `PlayerEquipmentComponent` as a child node in `player.tscn`**
 
-First, find the current ext_resource IDs in the file so you can pick the next one:
+First, check what the next ext_resource ID should be:
 
 ```bash
 grep "ext_resource" C:\Users\Anton.Khrobust\projects\aethergate\src\entities\player\player.tscn | tail -5
 ```
 
-Note the highest numeric ID used (e.g. if last is `id="5_something"`, use `6_equip`). Then open `src/entities/player/player.tscn` and:
+Note the highest numeric ID in the output (e.g. `id="7_visual"` → next ID is `8`). Use that number in the edits below.
 
-1. Add an `[ext_resource]` entry near the top (with the other ext_resources):
+Open `src/entities/player/player.tscn` and make two additions:
+
+1. Near the top with the other `[ext_resource]` entries, add (**replace `8` with the actual next ID from grep**):
 ```
-[ext_resource type="Script" path="res://src/entities/player/components/player_equipment_component.gd" id="<N>_equip"]
+[ext_resource type="Script" path="res://src/entities/player/components/player_equipment_component.gd" id="8_equip"]
 ```
 
-2. Add the node entry after the last existing child node of the Player root:
+2. After the last `[node ... parent="."]` child, add:
 ```
 [node name="PlayerEquipmentComponent" type="Node" parent="."]
-script = ExtResource("<N>_equip")
+script = ExtResource("8_equip")
 ```
 
-Replace `<N>` with the actual next available ID from the grep output above.
+Verify the `.tscn` file is still valid after editing:
+
+```bash
+C:\Users\Anton.Khrobust\projects\Godot_v4.6-stable_win64.exe\Godot_v4.6-stable_win64.exe --headless --path C:\Users\Anton.Khrobust\projects\aethergate --quit 2>&1 | findstr /i "error\|player.tscn\|PlayerEquipment"
+```
+Expected: No errors.
 
 - [ ] **Step 3: Add `@onready` reference in `player.gd`**
 
@@ -1483,6 +1503,8 @@ git commit -m "feat: add PlayerEquipmentComponent to Player scene and wire into 
 
 **Files:**
 - Modify: `src/core/player_profile_service.gd`
+
+> Note: The spec also calls for a `[blueprints]` save section in `player_profile_service.gd`. This is deferred to Plan B (Loot + Crafting) where `BlueprintData` and `CraftingService` are implemented.
 
 - [ ] **Step 1: Add equipment persistence constants**
 
