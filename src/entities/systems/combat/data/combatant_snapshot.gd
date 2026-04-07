@@ -13,6 +13,11 @@ var xp_reward: int = 0
 var base_stats: CombatStats = null
 ## Resolved skill loadout: base skills + gear-granted skills combined.
 var skill_loadout: Array[SkillData] = []
+## Passive proc effect from the accessory slot. Null if no accessory equipped.
+var passive_effect: PassiveEffectData = null
+## Item family ID of the equipped weapon. Used to award mastery XP post-combat.
+## Empty StringName if no weapon equipped.
+var weapon_family_id: StringName = &""
 
 ## Sprite animation data for combat UI.
 var sprite_hframes: int = 1
