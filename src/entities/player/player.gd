@@ -15,6 +15,7 @@ extends Creature
 @export var is_local_player: bool = true
 
 @onready var visual_component: PlayerVisualComponent = $PlayerVisualComponent
+@onready var equipment_component: PlayerEquipmentComponent = $PlayerEquipmentComponent
 
 var _primed_spawn_appearance: PlayerAppearanceData
 var _primed_spawn_skin_catalog: PlayerSkinCatalog

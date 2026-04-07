@@ -55,6 +55,7 @@ func spawn_player(player_id: int = 1, is_local_player: bool = true, owner_peer_i
 	world_y_sort.add_child(player_instance)
 	player_instance.global_position = spawn_point.global_position
 	_overworld.register_player(player_instance, player_id, is_local_player)
+	PlayerProgressionService.set_equipment_component(player_instance.equipment_component)
 	player_spawned.emit(player_instance)
 	return player_instance
 

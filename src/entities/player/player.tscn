@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cdvohksafo564" path="res://src/entities/player/services/player_move_request_service.gd" id="15_move_service"]
 [ext_resource type="Script" uid="uid://ca462fs1r8e46" path="res://src/entities/systems/inventory/player_inventory_component.gd" id="16_inventory_component"]
 [ext_resource type="Resource" uid="uid://b3lej7xp4lnq1" path="res://src/entities/systems/inventory/resources/player_starter_inventory.tres" id="17_inventory_data"]
+[ext_resource type="Script" path="res://src/entities/player/components/player_equipment_component.gd" id="18_equip"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sil"]
 shader = ExtResource("3_sil")
@@ -137,3 +138,6 @@ script = ExtResource("11_path")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1504161981]
 libraries/ = SubResource("AnimationLibrary_4wf4l")
+
+[node name="PlayerEquipmentComponent" type="Node" parent="."]
+script = ExtResource("18_equip")
