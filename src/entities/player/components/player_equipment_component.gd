@@ -10,6 +10,21 @@ signal equipment_changed(slot: EquipmentData.EquipmentSlot, item: EquipmentData)
 @export var equipment_data: PlayerEquipmentData = PlayerEquipmentData.new()
 
 
+func _ready() -> void:
+	if equipment_data == null:
+		equipment_data = PlayerEquipmentData.new()
+	# Restore saved equipment from profile on startup
+	var saved: PlayerEquipmentData = PlayerProfileService.load_equipment()
+	if saved != null:
+		equipment_data = saved
+	# Auto-save whenever a slot changes
+	equipment_changed.connect(_on_equipment_changed)
+
+
+func _on_equipment_changed(_slot: EquipmentData.EquipmentSlot, _item: EquipmentData) -> void:
+	PlayerProfileService.save_equipment(equipment_data)
+
+
 ## Equip an item. Replaces whatever is currently in its slot.
 func equip(item: EquipmentData) -> void:
 	if item == null:

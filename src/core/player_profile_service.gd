@@ -20,6 +20,12 @@ const KEY_PLAYER_XP: String = "player_xp"
 const PROFILE_SECTION: String = "profile"
 const KEY_APPEARANCE: String = "appearance"
 const KEY_SETUP_COMPLETED: String = "setup_completed"
+const EQUIPMENT_SECTION: String = "equipment"
+const KEY_WEAPON: String = "weapon_path"
+const KEY_HELMET: String = "helmet_path"
+const KEY_CHEST: String = "chest_path"
+const KEY_BOOTS: String = "boots_path"
+const KEY_ACCESSORY: String = "accessory_path"
 
 @export var skin_catalog: Resource = PLAYER_SKIN_CATALOG_SCRIPT
 @export var weapon_catalog: Resource = PLAYER_WEAPON_CATALOG_SCRIPT
@@ -287,3 +293,49 @@ func _save_locale_preference() -> void:
 	var save_error: Error = profile_data.save(PROFILE_SAVE_PATH)
 	if save_error != OK and OS.is_debug_build():
 		push_warning("PlayerProfileService: failed to save profile config (%d)." % int(save_error))
+
+
+## Load equipment slot resource paths from profile and return a PlayerEquipmentData.
+## Returns empty PlayerEquipmentData if no saved equipment.
+func load_equipment() -> PlayerEquipmentData:
+	var data: PlayerEquipmentData = PlayerEquipmentData.new()
+	var cfg: ConfigFile = ConfigFile.new()
+	if cfg.load(PROFILE_SAVE_PATH) != OK:
+		return data
+	data.weapon    = _load_equipment_item(cfg, KEY_WEAPON)    as WeaponData
+	data.helmet    = _load_equipment_item(cfg, KEY_HELMET)    as ArmorData
+	data.chest     = _load_equipment_item(cfg, KEY_CHEST)     as ArmorData
+	data.boots     = _load_equipment_item(cfg, KEY_BOOTS)     as ArmorData
+	data.accessory = _load_equipment_item(cfg, KEY_ACCESSORY) as AccessoryData
+	return data
+
+
+## Save equipment slot resource paths to profile.
+func save_equipment(equipment_data: PlayerEquipmentData) -> void:
+	var cfg: ConfigFile = ConfigFile.new()
+	cfg.load(PROFILE_SAVE_PATH)
+	_save_equipment_item(cfg, KEY_WEAPON,    equipment_data.weapon)
+	_save_equipment_item(cfg, KEY_HELMET,    equipment_data.helmet)
+	_save_equipment_item(cfg, KEY_CHEST,     equipment_data.chest)
+	_save_equipment_item(cfg, KEY_BOOTS,     equipment_data.boots)
+	_save_equipment_item(cfg, KEY_ACCESSORY, equipment_data.accessory)
+	var err: Error = cfg.save(PROFILE_SAVE_PATH)
+	if err != OK and OS.is_debug_build():
+		push_warning("PlayerProfileService: failed to save equipment (%d)" % int(err))
+
+
+func _load_equipment_item(cfg: ConfigFile, key: String) -> EquipmentData:
+	var path: String = cfg.get_value(EQUIPMENT_SECTION, key, "")
+	if path.is_empty():
+		return null
+	if not ResourceLoader.exists(path):
+		push_warning("PlayerProfileService: equipment path not found: %s" % path)
+		return null
+	return ResourceLoader.load(path) as EquipmentData
+
+
+func _save_equipment_item(cfg: ConfigFile, key: String, item: EquipmentData) -> void:
+	if item == null:
+		cfg.set_value(EQUIPMENT_SECTION, key, "")
+	else:
+		cfg.set_value(EQUIPMENT_SECTION, key, item.resource_path)
