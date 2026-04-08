@@ -123,7 +123,7 @@ layout_mode = 2
 text = "Stats"
 horizontal_alignment = 1
 
-[node name="SkillsContent" type="Control" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection/SkillsMargin/SkillsVBox" unique_id=1777800527]
+[node name="SkillsContent" type="VBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/InventoryBoard/InventoryMargin/InventoryVBox/SkillsSection/SkillsMargin/SkillsVBox" unique_id=1777800527]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
@@ -220,74 +220,3 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="TopRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=1203331734]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="LeftShoulderSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/TopRow" unique_id=2108894079]
-custom_minimum_size = Vector2(50, 76)
-layout_mode = 2
-
-[node name="HeadSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/TopRow" unique_id=1615749002]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-
-[node name="RightShoulderSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/TopRow" unique_id=1861826260]
-custom_minimum_size = Vector2(50, 76)
-layout_mode = 2
-
-[node name="MidRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=2068880572]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="LeftHandSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/MidRow" unique_id=1872130597]
-custom_minimum_size = Vector2(70, 38)
-layout_mode = 2
-
-[node name="TorsoSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/MidRow" unique_id=1260840486]
-custom_minimum_size = Vector2(62, 118)
-layout_mode = 2
-
-[node name="RightHandSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/MidRow" unique_id=12929555]
-custom_minimum_size = Vector2(70, 38)
-layout_mode = 2
-
-[node name="LowerRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=280988686]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="LeftBootSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/LowerRow" unique_id=489591275]
-custom_minimum_size = Vector2(42, 78)
-layout_mode = 2
-
-[node name="LegsSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/LowerRow" unique_id=894678324]
-custom_minimum_size = Vector2(54, 118)
-layout_mode = 2
-
-[node name="RightBootSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/LowerRow" unique_id=353330900]
-custom_minimum_size = Vector2(42, 78)
-layout_mode = 2
-
-[node name="BottomRow" type="HBoxContainer" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots" unique_id=1089145870]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="RingLeftSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/BottomRow" unique_id=1873786711]
-custom_minimum_size = Vector2(34, 70)
-layout_mode = 2
-
-[node name="RingRightSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/BottomRow" unique_id=1915800533]
-custom_minimum_size = Vector2(34, 70)
-layout_mode = 2
-
-[node name="RelicSlot" type="TextureButton" parent="Root/ContentMargin/Center/OverlayVBox/BoardsRow/CharacterBoard/CharacterMargin/CharacterVBox/CharacterSlots/BottomRow" unique_id=1823115339]
-custom_minimum_size = Vector2(56, 74)
-layout_mode = 2
