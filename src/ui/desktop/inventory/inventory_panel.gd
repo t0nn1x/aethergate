@@ -587,12 +587,12 @@ func _apply_responsive_layout() -> void:
 		if eq_btn == null:
 			continue
 		eq_btn.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
-	var row_min_height: float = inventory_slot_size + 12.0
+	var row_min_height: float = inventory_slot_size + 8.0
 	for row_variant in _equipment_slot_rows.values():
-		var row_panel: PanelContainer = row_variant as PanelContainer
-		if row_panel == null:
+		var row_bg: Panel = row_variant as Panel
+		if row_bg == null:
 			continue
-		row_panel.custom_minimum_size = Vector2(0.0, row_min_height)
+		row_bg.custom_minimum_size = Vector2(0.0, row_min_height)
 
 	_sync_windows_merged_board_background()
 	call_deferred("_sync_windows_desktop_merged_layout")
@@ -1117,40 +1117,55 @@ func _setup_character_board() -> void:
 		[EquipmentData.EquipmentSlot.BOOTS,     "Boots",     Color(0.80, 0.65, 0.45)],
 		[EquipmentData.EquipmentSlot.ACCESSORY, "Accessory", Color(0.80, 0.55, 0.85)],
 	]
+	var initial_size: float = _last_inventory_slot_size
 	for entry in slot_defs:
 		var slot: EquipmentData.EquipmentSlot = entry[0]
 		var label_text: String = entry[1] as String
 		var slot_color: Color = entry[2] as Color
 
-		var row_panel: PanelContainer = PanelContainer.new()
-		row_panel.name = label_text + "Row"
+		# Plain HBoxContainer row — no wrapper containers fighting the button size.
+		var row: HBoxContainer = HBoxContainer.new()
+		row.name = label_text + "Row"
+		row.add_theme_constant_override("separation", 8)
+		# Give the row a dark rounded background via a Panel behind it.
+		var row_bg: Panel = Panel.new()
+		row_bg.name = label_text + "RowBg"
+		row_bg.custom_minimum_size = Vector2(0.0, initial_size + 8.0)
 		var row_style: StyleBoxFlat = StyleBoxFlat.new()
 		row_style.bg_color = Color(0.08, 0.08, 0.10, 0.55)
 		row_style.corner_radius_top_left = 4
 		row_style.corner_radius_top_right = 4
 		row_style.corner_radius_bottom_left = 4
 		row_style.corner_radius_bottom_right = 4
-		row_panel.add_theme_stylebox_override("panel", row_style)
-		slot_list.add_child(row_panel)
-		_equipment_slot_rows[int(slot)] = row_panel
+		row_bg.add_theme_stylebox_override("panel", row_style)
+		slot_list.add_child(row_bg)
+		_equipment_slot_rows[int(slot)] = row_bg
 
+		# MarginContainer anchored to fill the Panel.
 		var margin: MarginContainer = MarginContainer.new()
 		margin.add_theme_constant_override("margin_left", 6)
 		margin.add_theme_constant_override("margin_right", 6)
-		margin.add_theme_constant_override("margin_top", 6)
-		margin.add_theme_constant_override("margin_bottom", 6)
-		row_panel.add_child(margin)
-
-		var row: HBoxContainer = HBoxContainer.new()
-		row.add_theme_constant_override("separation", 8)
+		margin.add_theme_constant_override("margin_top", 4)
+		margin.add_theme_constant_override("margin_bottom", 4)
+		margin.anchor_left = 0.0
+		margin.anchor_top = 0.0
+		margin.anchor_right = 1.0
+		margin.anchor_bottom = 1.0
+		margin.offset_left = 0.0
+		margin.offset_top = 0.0
+		margin.offset_right = 0.0
+		margin.offset_bottom = 0.0
+		margin.grow_horizontal = Control.GROW_DIRECTION_BOTH
+		margin.grow_vertical = Control.GROW_DIRECTION_BOTH
+		row_bg.add_child(margin)
 		margin.add_child(row)
 
 		var btn: TextureButton = EQUIPMENT_SLOT_BUTTON_SCRIPT.new() as TextureButton
 		btn.name = label_text + "SlotBtn"
-		# Size is driven by the row panel's minimum height; the button fills its cell.
-		btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		btn.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		btn.texture_normal = slot_texture  # @export Texture2D defined at top of this file
+		btn.custom_minimum_size = Vector2(initial_size, initial_size)
+		btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		btn.texture_normal = slot_texture
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		row.add_child(btn)
 		btn.configure(self, slot)
@@ -1161,11 +1176,13 @@ func _setup_character_board() -> void:
 		var slot_label: Label = Label.new()
 		slot_label.text = label_text
 		slot_label.custom_minimum_size = Vector2(68.0, 0.0)
+		slot_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		slot_label.add_theme_color_override("font_color", slot_color)
 		row.add_child(slot_label)
 
 		var item_label: Label = Label.new()
 		item_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		item_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		item_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		item_label.text = "— Empty —"
 		item_label.add_theme_color_override("font_color", Color(0.45, 0.45, 0.50))
@@ -1174,6 +1191,7 @@ func _setup_character_board() -> void:
 
 	var end_separator: HSeparator = HSeparator.new()
 	slot_list.add_child(end_separator)
+
 
 
 func _setup_stats_section() -> void:
