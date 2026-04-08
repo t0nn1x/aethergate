@@ -586,7 +586,6 @@ func _apply_responsive_layout() -> void:
 		if eq_btn == null:
 			continue
 		eq_btn.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
-		_apply_inventory_slot_visual_layout(eq_btn, inventory_slot_size)
 
 	_sync_windows_merged_board_background()
 	call_deferred("_sync_windows_desktop_merged_layout")
@@ -1050,12 +1049,10 @@ func _refresh_character_board(_slot: EquipmentData.EquipmentSlot = EquipmentData
 		if equipped != null:
 			var icon: Texture2D = _resolve_item_icon(equipped)
 			_set_equipment_slot_visual(btn, icon)
-			_apply_inventory_slot_visual_layout(btn, _last_inventory_slot_size)
 			name_label.text = equipped.display_name
 			name_label.remove_theme_color_override("font_color")
 		else:
 			_set_equipment_slot_visual(btn, null)
-			_apply_inventory_slot_visual_layout(btn, _last_inventory_slot_size)
 			name_label.text = "— Empty —"
 			name_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
 	# Update stat labels
@@ -1075,9 +1072,20 @@ func _set_equipment_slot_visual(btn: TextureButton, icon: Texture2D) -> void:
 		return
 	_ensure_slot_visual_nodes(btn)
 	var icon_node: TextureRect = btn.get_node_or_null("ItemIcon") as TextureRect
-	if icon_node:
-		icon_node.texture = icon
-		icon_node.visible = icon != null
+	if icon_node == null:
+		return
+	icon_node.texture = icon
+	icon_node.visible = icon != null
+	# Equipment buttons live inside containers (PanelContainer→MarginContainer→HBoxContainer),
+	# so manual pixel positioning doesn't work. Use anchor-fill instead so the icon
+	# stretches to fill the button regardless of how the container sizes it.
+	icon_node.set_anchors_preset(Control.PRESET_FULL_RECT)
+	icon_node.offset_left = 4.0
+	icon_node.offset_top = 4.0
+	icon_node.offset_right = -4.0
+	icon_node.offset_bottom = -4.0
+	icon_node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon_node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
 
 func _setup_character_board() -> void:
@@ -1136,6 +1144,7 @@ func _setup_character_board() -> void:
 		row.add_child(btn)
 		btn.configure(self, slot)
 		_ensure_slot_visual_nodes(btn)
+		_set_equipment_slot_visual(btn, null)
 		_equipment_slot_buttons[int(slot)] = btn
 
 		var slot_label: Label = Label.new()
