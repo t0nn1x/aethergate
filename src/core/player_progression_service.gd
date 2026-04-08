@@ -121,10 +121,13 @@ func build_player_snapshot() -> CombatantSnapshot:
 		var mastery: Node = _get_mastery_service()
 		var family_id: StringName = _equipment_component.get_weapon_family_id()
 		for skill: SkillData in _equipment_component.get_all_skill_grants():
-			var active: SkillData = mastery.call(
-				"get_active_skill_variant", skill, family_id, level
-			)
-			snap.skill_loadout.append(active)
+			if mastery != null:
+				var active: SkillData = mastery.call(
+					"get_active_skill_variant", skill, family_id, level
+				)
+				snap.skill_loadout.append(active)
+			else:
+				snap.skill_loadout.append(skill)
 		# 4. Passive effect from accessory
 		snap.passive_effect = _equipment_component.get_passive_effect()
 		# 5. Weapon family for post-combat mastery awarding
