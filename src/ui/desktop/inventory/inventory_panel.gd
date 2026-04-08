@@ -157,6 +157,21 @@ func build_slot_drag_data(slot_index: int) -> Variant:
 	}
 
 
+func build_equipment_drag_data(slot: EquipmentData.EquipmentSlot) -> Variant:
+	if _equipment_component == null:
+		return null
+	var item: EquipmentData = _equipment_component.get_item_in_slot(slot)
+	if item == null:
+		return null
+	return {
+		DRAG_DATA_TYPE_KEY:         DRAG_DATA_TYPE_EQUIPMENT_SLOT,
+		&"source_slot":             slot,
+		DRAG_DATA_SOURCE_PANEL_KEY: get_instance_id(),
+		DRAG_DATA_ICON_KEY:         _resolve_item_icon(item),
+		DRAG_DATA_AMOUNT_KEY:       1
+	}
+
+
 func create_slot_drag_preview(data: Variant) -> Control:
 	if not _is_valid_drag_payload(data):
 		return null
@@ -210,6 +225,10 @@ func create_slot_drag_preview(data: Variant) -> Control:
 
 
 func can_drop_slot_drag_data(target_slot_index: int, data: Variant) -> bool:
+	# Equipment-slot unequip path: must be before _is_valid_drag_payload (which rejects this type)
+	if data is Dictionary and data.get(DRAG_DATA_TYPE_KEY) == DRAG_DATA_TYPE_EQUIPMENT_SLOT:
+		return int(data.get(DRAG_DATA_SOURCE_PANEL_KEY, -1)) == get_instance_id() \
+			and _equipment_component != null
 	if not _is_valid_drag_payload(data):
 		return false
 	if target_slot_index < 0 or target_slot_index >= INVENTORY_SLOT_COUNT:
@@ -229,6 +248,21 @@ func can_drop_slot_drag_data(target_slot_index: int, data: Variant) -> bool:
 
 
 func drop_slot_drag_data(target_slot_index: int, data: Variant) -> void:
+	# Equipment-slot unequip path: must be before can_drop_slot_drag_data
+	if data is Dictionary and data.get(DRAG_DATA_TYPE_KEY) == DRAG_DATA_TYPE_EQUIPMENT_SLOT:
+		if not can_drop_slot_drag_data(target_slot_index, data):
+			return
+		var source_slot: EquipmentData.EquipmentSlot = data[&"source_slot"]
+		var item: EquipmentData = _equipment_component.get_item_in_slot(source_slot)
+		if item == null:
+			return
+		_equipment_component.unequip(source_slot)
+		var inv_data: Resource = _inventory_component.call("get_inventory_data")
+		inv_data.call("set_slot", target_slot_index, item, 1)
+		_inventory_component.call("notify_inventory_changed")
+		_refresh_inventory_slots_from_data()
+		_refresh_character_board()
+		return
 	if not can_drop_slot_drag_data(target_slot_index, data):
 		return
 
@@ -237,6 +271,52 @@ func drop_slot_drag_data(target_slot_index: int, data: Variant) -> void:
 	if source_slot_index < 0:
 		return
 	_swap_inventory_slots(source_slot_index, target_slot_index)
+
+
+func can_drop_on_equipment_slot(target_slot: EquipmentData.EquipmentSlot, data: Variant) -> bool:
+	if not (data is Dictionary):
+		return false
+	var payload: Dictionary = data
+	var drag_type: StringName = payload.get(DRAG_DATA_TYPE_KEY, &"")
+	# Equipment-to-equipment: not supported in this iteration
+	if drag_type == DRAG_DATA_TYPE_EQUIPMENT_SLOT:
+		return false
+	# Only accept inventory-slot drags
+	if drag_type != DRAG_DATA_TYPE_SLOT:
+		return false
+	if int(payload.get(DRAG_DATA_SOURCE_PANEL_KEY, -1)) != get_instance_id():
+		return false
+	if _equipment_component == null:
+		return false
+	var source_index: int = int(payload.get(DRAG_DATA_SOURCE_SLOT_KEY, -1))
+	var slot_data: Resource = _get_inventory_slot_data(source_index)
+	if not _slot_has_item(slot_data):
+		return false
+	var item: EquipmentData = slot_data.get("item") as EquipmentData
+	if item == null:
+		return false
+	return item.slot == target_slot
+
+
+func drop_on_equipment_slot(target_slot: EquipmentData.EquipmentSlot, data: Variant) -> void:
+	var source_index: int = int(data[DRAG_DATA_SOURCE_SLOT_KEY])
+	var slot_data: Resource = _get_inventory_slot_data(source_index)
+	if slot_data == null:
+		return
+	var item: EquipmentData = slot_data.get("item") as EquipmentData
+	if item == null:
+		return
+	# Capture displaced item BEFORE equipping (equip() returns void).
+	# equip() is infallible here: can_drop_on_equipment_slot verified item.slot == target_slot.
+	var displaced: EquipmentData = _equipment_component.get_item_in_slot(target_slot)
+	_equipment_component.equip(item)
+	var inv_data: Resource = _inventory_component.call("get_inventory_data")
+	inv_data.call("set_slot", source_index, null, 0)
+	if displaced != null:
+		inv_data.call("set_slot", source_index, displaced, 1)
+	_inventory_component.call("notify_inventory_changed")
+	_refresh_inventory_slots_from_data()
+	_refresh_character_board()
 
 
 func begin_touch_slot_drag(slot_index: int, screen_position: Vector2) -> bool:
@@ -278,6 +358,10 @@ func end_slot_drag_visual(slot_index: int) -> void:
 		return
 	_active_drag_source_slot_index = -1
 	_refresh_inventory_slots_from_data()
+
+
+func end_equipment_drag_visual(_slot: EquipmentData.EquipmentSlot) -> void:
+	_refresh_character_board()
 
 
 func get_inventory_slot_index_at_position(screen_position: Vector2) -> int:
