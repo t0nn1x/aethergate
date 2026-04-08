@@ -404,6 +404,10 @@ func _apply_textures() -> void:
 
 	for slot_button in _inventory_slots:
 		_apply_slot_texture(slot_button, slot_texture)
+	for btn_variant in _equipment_slot_buttons.values():
+		var eq_btn: TextureButton = btn_variant as TextureButton
+		if eq_btn != null:
+			_apply_slot_texture(eq_btn, slot_texture)
 
 
 func _setup_localization() -> void:
@@ -587,12 +591,6 @@ func _apply_responsive_layout() -> void:
 		if eq_btn == null:
 			continue
 		eq_btn.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
-	var row_min_height: float = inventory_slot_size + 8.0
-	for row_variant in _equipment_slot_rows.values():
-		var row_bg: Panel = row_variant as Panel
-		if row_bg == null:
-			continue
-		row_bg.custom_minimum_size = Vector2(0.0, row_min_height)
 
 	_sync_windows_merged_board_background()
 	call_deferred("_sync_windows_desktop_merged_layout")
@@ -1083,16 +1081,8 @@ func _set_equipment_slot_visual(btn: TextureButton, icon: Texture2D) -> void:
 		return
 	icon_node.texture = icon
 	icon_node.visible = icon != null
-	# Equipment buttons live inside containers (PanelContainer→MarginContainer→HBoxContainer),
-	# so manual pixel positioning doesn't work. Use anchor-fill instead so the icon
-	# stretches to fill the button regardless of how the container sizes it.
-	icon_node.set_anchors_preset(Control.PRESET_FULL_RECT)
-	icon_node.offset_left = 4.0
-	icon_node.offset_top = 4.0
-	icon_node.offset_right = -4.0
-	icon_node.offset_bottom = -4.0
-	icon_node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	icon_node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	# Use the same icon sizing as inventory slots.
+	_apply_inventory_slot_visual_layout(btn, _last_inventory_slot_size)
 
 
 func _setup_character_board() -> void:
@@ -1123,42 +1113,29 @@ func _setup_character_board() -> void:
 		var label_text: String = entry[1] as String
 		var slot_color: Color = entry[2] as Color
 
-		# Plain HBoxContainer row — no wrapper containers fighting the button size.
-		var row: HBoxContainer = HBoxContainer.new()
-		row.name = label_text + "Row"
-		row.add_theme_constant_override("separation", 8)
-		# Give the row a dark rounded background via a Panel behind it.
-		var row_bg: Panel = Panel.new()
+		# PanelContainer auto-sizes to its content — no more fixed Panel fighting the button.
+		var row_bg: PanelContainer = PanelContainer.new()
 		row_bg.name = label_text + "RowBg"
-		row_bg.custom_minimum_size = Vector2(0.0, initial_size + 8.0)
+		row_bg.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var row_style: StyleBoxFlat = StyleBoxFlat.new()
 		row_style.bg_color = Color(0.08, 0.08, 0.10, 0.55)
 		row_style.corner_radius_top_left = 4
 		row_style.corner_radius_top_right = 4
 		row_style.corner_radius_bottom_left = 4
 		row_style.corner_radius_bottom_right = 4
+		row_style.content_margin_left = 6.0
+		row_style.content_margin_right = 6.0
+		row_style.content_margin_top = 4.0
+		row_style.content_margin_bottom = 4.0
 		row_bg.add_theme_stylebox_override("panel", row_style)
 		slot_list.add_child(row_bg)
 		_equipment_slot_rows[int(slot)] = row_bg
 
-		# MarginContainer anchored to fill the Panel.
-		var margin: MarginContainer = MarginContainer.new()
-		margin.add_theme_constant_override("margin_left", 6)
-		margin.add_theme_constant_override("margin_right", 6)
-		margin.add_theme_constant_override("margin_top", 4)
-		margin.add_theme_constant_override("margin_bottom", 4)
-		margin.anchor_left = 0.0
-		margin.anchor_top = 0.0
-		margin.anchor_right = 1.0
-		margin.anchor_bottom = 1.0
-		margin.offset_left = 0.0
-		margin.offset_top = 0.0
-		margin.offset_right = 0.0
-		margin.offset_bottom = 0.0
-		margin.grow_horizontal = Control.GROW_DIRECTION_BOTH
-		margin.grow_vertical = Control.GROW_DIRECTION_BOTH
-		row_bg.add_child(margin)
-		margin.add_child(row)
+		# HBoxContainer is the direct child of PanelContainer — nothing in between.
+		var row: HBoxContainer = HBoxContainer.new()
+		row.name = label_text + "Row"
+		row.add_theme_constant_override("separation", 8)
+		row_bg.add_child(row)
 
 		var btn: TextureButton = EQUIPMENT_SLOT_BUTTON_SCRIPT.new() as TextureButton
 		btn.name = label_text + "SlotBtn"
@@ -1170,6 +1147,7 @@ func _setup_character_board() -> void:
 		row.add_child(btn)
 		btn.configure(self, slot)
 		_ensure_slot_visual_nodes(btn)
+		_apply_slot_texture(btn, slot_texture)
 		_set_equipment_slot_visual(btn, null)
 		_equipment_slot_buttons[int(slot)] = btn
 
