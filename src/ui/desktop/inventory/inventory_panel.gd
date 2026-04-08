@@ -947,7 +947,7 @@ func _refresh_character_board(_slot: EquipmentData.EquipmentSlot = EquipmentData
 		return
 	# Update equipment slot buttons and item name labels
 	for slot_int in _equipment_slot_buttons.keys():
-		var slot: EquipmentData.EquipmentSlot = slot_int as EquipmentData.EquipmentSlot
+		var slot: EquipmentData.EquipmentSlot = slot_int
 		var btn: TextureButton = _equipment_slot_buttons[slot_int] as TextureButton
 		var name_label: Label = _equipment_item_labels[slot_int] as Label
 		var equipped: EquipmentData = _equipment_component.get_item_in_slot(slot)
@@ -986,6 +986,8 @@ func _setup_character_board() -> void:
 	if _character_slots_root == null:
 		return
 	# Clear any leftover nodes
+	_equipment_slot_buttons.clear()
+	_equipment_item_labels.clear()
 	for child in _character_slots_root.get_children():
 		child.queue_free()
 
@@ -1001,7 +1003,7 @@ func _setup_character_board() -> void:
 		[EquipmentData.EquipmentSlot.ACCESSORY, "Accessory"],
 	]
 	for entry in slot_defs:
-		var slot: EquipmentData.EquipmentSlot = entry[0] as EquipmentData.EquipmentSlot
+		var slot: EquipmentData.EquipmentSlot = entry[0]
 		var label_text: String = entry[1] as String
 
 		var row: HBoxContainer = HBoxContainer.new()
@@ -1039,6 +1041,7 @@ func _setup_stats_section() -> void:
 	if skills_content == null:
 		return
 
+	_stat_value_labels.clear()
 	for child in skills_content.get_children():
 		child.queue_free()
 
