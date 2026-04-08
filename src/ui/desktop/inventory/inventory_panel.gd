@@ -1077,26 +1077,46 @@ func _setup_character_board() -> void:
 
 	var slot_list: VBoxContainer = VBoxContainer.new()
 	slot_list.name = "EquipmentSlotList"
+	slot_list.add_theme_constant_override("separation", 6)
 	_character_slots_root.add_child(slot_list)
 
 	var slot_defs: Array = [
-		[EquipmentData.EquipmentSlot.WEAPON,    "Weapon"],
-		[EquipmentData.EquipmentSlot.HELMET,    "Helmet"],
-		[EquipmentData.EquipmentSlot.CHEST,     "Chest"],
-		[EquipmentData.EquipmentSlot.BOOTS,     "Boots"],
-		[EquipmentData.EquipmentSlot.ACCESSORY, "Accessory"],
+		[EquipmentData.EquipmentSlot.WEAPON,    "Weapon",    Color(0.85, 0.55, 0.30)],
+		[EquipmentData.EquipmentSlot.HELMET,    "Helmet",    Color(0.55, 0.75, 0.85)],
+		[EquipmentData.EquipmentSlot.CHEST,     "Chest",     Color(0.70, 0.85, 0.60)],
+		[EquipmentData.EquipmentSlot.BOOTS,     "Boots",     Color(0.80, 0.65, 0.45)],
+		[EquipmentData.EquipmentSlot.ACCESSORY, "Accessory", Color(0.80, 0.55, 0.85)],
 	]
 	for entry in slot_defs:
 		var slot: EquipmentData.EquipmentSlot = entry[0]
 		var label_text: String = entry[1] as String
+		var slot_color: Color = entry[2] as Color
+
+		var row_panel: PanelContainer = PanelContainer.new()
+		row_panel.name = label_text + "Row"
+		var row_style: StyleBoxFlat = StyleBoxFlat.new()
+		row_style.bg_color = Color(0.08, 0.08, 0.10, 0.55)
+		row_style.corner_radius_top_left = 4
+		row_style.corner_radius_top_right = 4
+		row_style.corner_radius_bottom_left = 4
+		row_style.corner_radius_bottom_right = 4
+		row_panel.add_theme_stylebox_override("panel", row_style)
+		slot_list.add_child(row_panel)
+
+		var margin: MarginContainer = MarginContainer.new()
+		margin.add_theme_constant_override("margin_left", 6)
+		margin.add_theme_constant_override("margin_right", 6)
+		margin.add_theme_constant_override("margin_top", 6)
+		margin.add_theme_constant_override("margin_bottom", 6)
+		row_panel.add_child(margin)
 
 		var row: HBoxContainer = HBoxContainer.new()
-		row.name = label_text + "Row"
-		slot_list.add_child(row)
+		row.add_theme_constant_override("separation", 8)
+		margin.add_child(row)
 
 		var btn: TextureButton = EQUIPMENT_SLOT_BUTTON_SCRIPT.new() as TextureButton
 		btn.name = label_text + "SlotBtn"
-		btn.custom_minimum_size = Vector2(64.0, 64.0)
+		btn.custom_minimum_size = Vector2(48.0, 48.0)
 		btn.texture_normal = slot_texture  # @export Texture2D defined at top of this file
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		row.add_child(btn)
@@ -1106,15 +1126,20 @@ func _setup_character_board() -> void:
 
 		var slot_label: Label = Label.new()
 		slot_label.text = label_text
+		slot_label.custom_minimum_size = Vector2(68.0, 0.0)
+		slot_label.add_theme_color_override("font_color", slot_color)
 		row.add_child(slot_label)
 
 		var item_label: Label = Label.new()
 		item_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		item_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		item_label.text = "— Empty —"
-		item_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+		item_label.add_theme_color_override("font_color", Color(0.45, 0.45, 0.50))
 		row.add_child(item_label)
 		_equipment_item_labels[int(slot)] = item_label
+
+	var end_separator: HSeparator = HSeparator.new()
+	slot_list.add_child(end_separator)
 
 
 func _setup_stats_section() -> void:
@@ -1129,26 +1154,39 @@ func _setup_stats_section() -> void:
 	for child in skills_content.get_children():
 		child.queue_free()
 
+	skills_content.add_theme_constant_override("separation", 4)
+
 	var stat_defs: Array = [
 		[&"max_hp",     "Max HP"],
 		[&"max_energy", "Max Energy"],
 		[&"attack",     "Attack"],
 		[&"defense",    "Defense"],
 	]
-	for entry in stat_defs:
+	var stat_count: int = stat_defs.size()
+	for i: int in range(stat_count):
+		var entry: Array = stat_defs[i]
 		var key: StringName = entry[0] as StringName
 		var label_text: String = entry[1] as String
 
 		var row: HBoxContainer = HBoxContainer.new()
+		row.add_theme_constant_override("separation", 4)
 		skills_content.add_child(row)
 
 		var name_label: Label = Label.new()
 		name_label.text = label_text
+		name_label.custom_minimum_size = Vector2(80.0, 0.0)
+		name_label.add_theme_color_override("font_color", Color(0.65, 0.65, 0.70))
 		row.add_child(name_label)
 
 		var value_label: Label = Label.new()
 		value_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		value_label.text = "—"
+		value_label.add_theme_color_override("font_color", Color(0.95, 0.90, 0.75))
 		row.add_child(value_label)
 		_stat_value_labels[key] = value_label
+
+		if i < stat_count - 1:
+			var sep: HSeparator = HSeparator.new()
+			sep.add_theme_color_override("color", Color(0.3, 0.3, 0.35, 0.4))
+			skills_content.add_child(sep)
