@@ -206,6 +206,7 @@ func _wire_inventory_panel_dependency(player_instance: Player) -> void:
 		return
 	var inventory_component: Node = player_instance.get_node_or_null("PlayerInventoryComponent") as Node
 	ui_manager.bind_inventory_component(inventory_component)
+	ui_manager.bind_equipment_component(player_instance.equipment_component)
 
 
 func _initialize_creature_selection_controller() -> void:

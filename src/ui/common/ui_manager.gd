@@ -64,6 +64,13 @@ func bind_inventory_component(component: Node) -> void:
 		_inventory_panel.call("set_inventory_component", component)
 
 
+func bind_equipment_component(comp: PlayerEquipmentComponent) -> void:
+	if _inventory_panel == null:
+		return
+	if _inventory_panel.has_method("set_equipment_component"):
+		_inventory_panel.call("set_equipment_component", comp)
+
+
 func _refresh_ui_nodes() -> void:
 	_main_screen = get_node_or_null(main_screen_path) as MainScreen
 	_system_hud = get_node_or_null(system_hud_path) as SystemHud
@@ -156,7 +163,8 @@ func _wire_hud_signals() -> void:
 func _on_hud_slot_pressed(action_id: StringName, slot_index: int) -> void:
 	if is_menu_visible():
 		return
-	if action_id == StringName("inventory") or slot_index == inventory_hud_slot_index:
+	if action_id == StringName("inventory") or action_id == StringName("equipment") \
+			or slot_index == inventory_hud_slot_index:
 		toggle_inventory()
 
 
