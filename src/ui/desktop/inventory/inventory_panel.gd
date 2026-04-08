@@ -72,6 +72,7 @@ var _equipment_component: PlayerEquipmentComponent = null
 var _equipment_slot_buttons: Dictionary = {}
 var _equipment_item_labels: Dictionary = {}
 var _stat_value_labels: Dictionary = {}
+var _last_inventory_slot_size: float = 48.0
 var _active_drag_source_slot_index: int = -1
 var _touch_drag_source_slot_index: int = -1
 var _touch_drag_payload: Dictionary = {}
@@ -173,10 +174,14 @@ func build_equipment_drag_data(slot: EquipmentData.EquipmentSlot) -> Variant:
 
 
 func create_slot_drag_preview(data: Variant) -> Control:
-	if not _is_valid_drag_payload(data):
+	if not (data is Dictionary):
 		return null
-
-	var payload: Dictionary = data
+	var payload: Dictionary = data as Dictionary
+	var drag_type: StringName = payload.get(DRAG_DATA_TYPE_KEY, &"")
+	var is_inventory_drag: bool = drag_type == DRAG_DATA_TYPE_SLOT and int(payload.get(DRAG_DATA_SOURCE_PANEL_KEY, -1)) == get_instance_id()
+	var is_equipment_drag: bool = drag_type == DRAG_DATA_TYPE_EQUIPMENT_SLOT and int(payload.get(DRAG_DATA_SOURCE_PANEL_KEY, -1)) == get_instance_id()
+	if not is_inventory_drag and not is_equipment_drag:
+		return null
 	var preview_size: float = clampf(inventory_icon_size * drag_preview_icon_scale, 12.0, 64.0)
 
 	var preview_root: Control = Control.new()
@@ -572,9 +577,16 @@ func _apply_responsive_layout() -> void:
 	var min_touch_size: float = 44.0 if is_mobile else 36.0
 	inventory_slot_size = clampf(inventory_slot_size, maxf(min_inventory_slot_size, min_touch_size), max_inventory_slot_size)
 	inventory_slot_size = floor(inventory_slot_size)
+	_last_inventory_slot_size = inventory_slot_size
 	for slot_button in _inventory_slots:
 		slot_button.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
 		_apply_inventory_slot_visual_layout(slot_button, inventory_slot_size)
+	for btn_variant in _equipment_slot_buttons.values():
+		var eq_btn: TextureButton = btn_variant as TextureButton
+		if eq_btn == null:
+			continue
+		eq_btn.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
+		_apply_inventory_slot_visual_layout(eq_btn, inventory_slot_size)
 
 	_sync_windows_merged_board_background()
 	call_deferred("_sync_windows_desktop_merged_layout")
@@ -1038,10 +1050,12 @@ func _refresh_character_board(_slot: EquipmentData.EquipmentSlot = EquipmentData
 		if equipped != null:
 			var icon: Texture2D = _resolve_item_icon(equipped)
 			_set_equipment_slot_visual(btn, icon)
+			_apply_inventory_slot_visual_layout(btn, _last_inventory_slot_size)
 			name_label.text = equipped.display_name
 			name_label.remove_theme_color_override("font_color")
 		else:
 			_set_equipment_slot_visual(btn, null)
+			_apply_inventory_slot_visual_layout(btn, _last_inventory_slot_size)
 			name_label.text = "— Empty —"
 			name_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
 	# Update stat labels
@@ -1116,7 +1130,7 @@ func _setup_character_board() -> void:
 
 		var btn: TextureButton = EQUIPMENT_SLOT_BUTTON_SCRIPT.new() as TextureButton
 		btn.name = label_text + "SlotBtn"
-		btn.custom_minimum_size = Vector2(48.0, 48.0)
+		btn.custom_minimum_size = Vector2(_last_inventory_slot_size, _last_inventory_slot_size)
 		btn.texture_normal = slot_texture  # @export Texture2D defined at top of this file
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		row.add_child(btn)
