@@ -13,6 +13,8 @@ const DRAG_DATA_SOURCE_PANEL_KEY: StringName = &"source_panel_id"
 const DRAG_DATA_ICON_KEY: StringName = &"icon"
 const DRAG_DATA_AMOUNT_KEY: StringName = &"amount"
 const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
+const DRAG_DATA_TYPE_EQUIPMENT_SLOT: StringName = &"equipment_slot"
+const EQUIPMENT_SLOT_BUTTON_SCRIPT := preload("res://src/ui/desktop/inventory/equipment_slot_button.gd")
 
 @export var slot_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Panels/Slots/F_U_SlotA2.png")
 @export var circular_slot_texture: Texture2D = preload("res://src/ui/assets/UI-v1/Menu Buttons And Switch/Menu Buttons/button_slot.png")
@@ -65,8 +67,11 @@ const DRAG_DATA_TYPE_SLOT: StringName = &"inventory_slot"
 @onready var _character_slots_root: VBoxContainer = %CharacterSlots
 
 var _inventory_slots: Array[TextureButton] = []
-var _character_slots: Dictionary = {}
 var _inventory_component: Node
+var _equipment_component: PlayerEquipmentComponent = null
+var _equipment_slot_buttons: Dictionary = {}
+var _equipment_item_labels: Dictionary = {}
+var _stat_value_labels: Dictionary = {}
 var _active_drag_source_slot_index: int = -1
 var _touch_drag_source_slot_index: int = -1
 var _touch_drag_payload: Dictionary = {}
@@ -80,7 +85,6 @@ func _ready() -> void:
 		content_margin_path = NodePath("%ContentMargin")
 	super._ready()
 	_rebuild_inventory_slots()
-	_cache_character_slots()
 	_apply_windows_section_order()
 	_ensure_windows_merged_board_background()
 	_apply_textures()
@@ -297,13 +301,6 @@ func _apply_textures() -> void:
 	for slot_button in _inventory_slots:
 		_apply_slot_texture(slot_button, slot_texture)
 
-	for slot_name in _character_slots.keys():
-		var slot_button: TextureButton = _character_slots[slot_name] as TextureButton
-		if slot_button == null:
-			continue
-		var texture_to_apply: Texture2D = circular_slot_texture if slot_name == "HeadSlot" else slot_texture
-		_apply_slot_texture(slot_button, texture_to_apply)
-
 
 func _setup_localization() -> void:
 	_localization_service = get_node_or_null(localization_service_path)
@@ -400,28 +397,6 @@ func _rebuild_inventory_slots() -> void:
 		_inventory_slots.append(slot_button)
 
 
-func _cache_character_slots() -> void:
-	_character_slots.clear()
-	var expected_nodes: Array[String] = [
-		"HeadSlot",
-		"LeftShoulderSlot",
-		"RightShoulderSlot",
-		"LeftHandSlot",
-		"RightHandSlot",
-		"TorsoSlot",
-		"LegsSlot",
-		"LeftBootSlot",
-		"RightBootSlot",
-		"RingLeftSlot",
-		"RingRightSlot",
-		"RelicSlot"
-	]
-	for node_name in expected_nodes:
-		var slot_node: TextureButton = _character_slots_root.find_child(node_name, true, false) as TextureButton
-		if slot_node:
-			_character_slots[node_name] = slot_node
-
-
 func _apply_responsive_layout() -> void:
 	var viewport_size: Vector2 = get_overlay_viewport_size()
 	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
@@ -503,7 +478,6 @@ func _apply_responsive_layout() -> void:
 		slot_button.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
 		_apply_inventory_slot_visual_layout(slot_button, inventory_slot_size)
 
-	_apply_character_slot_sizes(inventory_slot_size)
 	_sync_windows_merged_board_background()
 	call_deferred("_sync_windows_desktop_merged_layout")
 
@@ -594,7 +568,8 @@ func _apply_windows_character_background_layout() -> void:
 	if board_rect.size.x <= 0.0 or board_rect.size.y <= 0.0:
 		return
 	var title_rect: Rect2 = _character_title.get_global_rect()
-	var slots_rect: Rect2 = _resolve_character_slots_global_rect()
+	var equipment_list: Control = _character_slots_root.get_node_or_null("EquipmentSlotList") as Control
+	var slots_rect: Rect2 = equipment_list.get_global_rect() if equipment_list != null else Rect2(Vector2.ZERO, Vector2.ZERO)
 	var has_character_content_rect: bool = (
 		title_rect.size.x > 0.0
 		and title_rect.size.y > 0.0
@@ -663,30 +638,6 @@ func _resolve_left_sections_global_rect() -> Rect2:
 	return Rect2(Vector2.ZERO, Vector2.ZERO)
 
 
-func _resolve_character_slots_global_rect() -> Rect2:
-	var has_rect: bool = false
-	var merged_rect: Rect2 = Rect2(Vector2.ZERO, Vector2.ZERO)
-
-	for slot_name in _character_slots.keys():
-		var slot_button: TextureButton = _character_slots[slot_name] as TextureButton
-		if slot_button == null:
-			continue
-		if not slot_button.is_visible_in_tree():
-			continue
-		var slot_rect: Rect2 = slot_button.get_global_rect()
-		if slot_rect.size.x <= 0.0 or slot_rect.size.y <= 0.0:
-			continue
-		if not has_rect:
-			merged_rect = slot_rect
-			has_rect = true
-		else:
-			merged_rect = merged_rect.merge(slot_rect)
-
-	if has_rect:
-		return merged_rect
-	return Rect2(Vector2.ZERO, Vector2.ZERO)
-
-
 func _reset_character_background_full_rect() -> void:
 	if _character_background == null:
 		return
@@ -698,32 +649,6 @@ func _reset_character_background_full_rect() -> void:
 	_character_background.offset_top = 0.0
 	_character_background.offset_right = 0.0
 	_character_background.offset_bottom = 0.0
-
-
-func _apply_character_slot_sizes(base_slot_size: float) -> void:
-	var s: float = base_slot_size
-	var sizes: Dictionary = {
-		"HeadSlot": Vector2(s * 1.4, s * 1.4),
-		"LeftShoulderSlot": Vector2(s * 0.9, s * 1.5),
-		"RightShoulderSlot": Vector2(s * 0.9, s * 1.5),
-		"LeftHandSlot": Vector2(s * 1.35, s * 0.72),
-		"RightHandSlot": Vector2(s * 1.35, s * 0.72),
-		"TorsoSlot": Vector2(s * 1.15, s * 2.05),
-		"LegsSlot": Vector2(s * 1.0, s * 2.05),
-		"LeftBootSlot": Vector2(s * 0.8, s * 1.5),
-		"RightBootSlot": Vector2(s * 0.8, s * 1.5),
-		"RingLeftSlot": Vector2(s * 0.62, s * 1.35),
-		"RingRightSlot": Vector2(s * 0.62, s * 1.35),
-		"RelicSlot": Vector2(s * 1.05, s * 1.55)
-	}
-
-	for slot_name in _character_slots.keys():
-		var slot_button: TextureButton = _character_slots[slot_name] as TextureButton
-		if slot_button == null:
-			continue
-		if not sizes.has(slot_name):
-			continue
-		slot_button.custom_minimum_size = (sizes[slot_name] as Vector2).round()
 
 
 func _connect_inventory_component_signals() -> void:
