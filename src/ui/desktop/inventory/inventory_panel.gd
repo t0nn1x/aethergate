@@ -71,6 +71,7 @@ var _inventory_component: Node
 var _equipment_component: PlayerEquipmentComponent = null
 var _equipment_slot_buttons: Dictionary = {}
 var _equipment_item_labels: Dictionary = {}
+var _equipment_slot_rows: Dictionary = {}
 var _stat_value_labels: Dictionary = {}
 var _last_inventory_slot_size: float = 48.0
 var _active_drag_source_slot_index: int = -1
@@ -586,6 +587,12 @@ func _apply_responsive_layout() -> void:
 		if eq_btn == null:
 			continue
 		eq_btn.custom_minimum_size = Vector2(inventory_slot_size, inventory_slot_size)
+	var row_min_height: float = inventory_slot_size + 12.0
+	for row_variant in _equipment_slot_rows.values():
+		var row_panel: PanelContainer = row_variant as PanelContainer
+		if row_panel == null:
+			continue
+		row_panel.custom_minimum_size = Vector2(0.0, row_min_height)
 
 	_sync_windows_merged_board_background()
 	call_deferred("_sync_windows_desktop_merged_layout")
@@ -1094,6 +1101,7 @@ func _setup_character_board() -> void:
 	# Clear any leftover nodes
 	_equipment_slot_buttons.clear()
 	_equipment_item_labels.clear()
+	_equipment_slot_rows.clear()
 	for child in _character_slots_root.get_children():
 		child.queue_free()
 
@@ -1124,6 +1132,7 @@ func _setup_character_board() -> void:
 		row_style.corner_radius_bottom_right = 4
 		row_panel.add_theme_stylebox_override("panel", row_style)
 		slot_list.add_child(row_panel)
+		_equipment_slot_rows[int(slot)] = row_panel
 
 		var margin: MarginContainer = MarginContainer.new()
 		margin.add_theme_constant_override("margin_left", 6)
@@ -1138,7 +1147,9 @@ func _setup_character_board() -> void:
 
 		var btn: TextureButton = EQUIPMENT_SLOT_BUTTON_SCRIPT.new() as TextureButton
 		btn.name = label_text + "SlotBtn"
-		btn.custom_minimum_size = Vector2(_last_inventory_slot_size, _last_inventory_slot_size)
+		# Size is driven by the row panel's minimum height; the button fills its cell.
+		btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		btn.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		btn.texture_normal = slot_texture  # @export Texture2D defined at top of this file
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		row.add_child(btn)
