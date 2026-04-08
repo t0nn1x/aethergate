@@ -1,4 +1,5 @@
 # src/ui/desktop/inventory/equipment_slot_button.gd
+class_name EquipmentSlotButton
 extends TextureButton
 
 var _slot: EquipmentData.EquipmentSlot = EquipmentData.EquipmentSlot.WEAPON
