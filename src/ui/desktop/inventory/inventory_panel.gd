@@ -85,6 +85,8 @@ func _ready() -> void:
 		content_margin_path = NodePath("%ContentMargin")
 	super._ready()
 	_rebuild_inventory_slots()
+	_setup_character_board()
+	_setup_stats_section()
 	_apply_windows_section_order()
 	_ensure_windows_merged_board_background()
 	_apply_textures()
@@ -121,6 +123,18 @@ func set_inventory_component(component: Node) -> void:
 	_inventory_component = next_component
 	_connect_inventory_component_signals()
 	_refresh_inventory_slots_from_data()
+
+
+func set_equipment_component(comp: PlayerEquipmentComponent) -> void:
+	if _equipment_component == comp:
+		return
+	if _equipment_component != null:
+		if _equipment_component.equipment_changed.is_connected(_refresh_character_board):
+			_equipment_component.equipment_changed.disconnect(_refresh_character_board)
+	_equipment_component = comp
+	if comp != null:
+		comp.equipment_changed.connect(_refresh_character_board)
+		_refresh_character_board()
 
 
 func build_slot_drag_data(slot_index: int) -> Variant:
@@ -926,3 +940,128 @@ func _set_inventory_slot_visual(slot_button: TextureButton, icon: Texture2D, amo
 	icon_node.texture = icon
 	icon_node.visible = icon != null
 	count_label.text = "" if icon == null or amount <= 0 else "x%d" % amount
+
+
+func _refresh_character_board(_slot: EquipmentData.EquipmentSlot = EquipmentData.EquipmentSlot.WEAPON, _item: EquipmentData = null) -> void:
+	if _equipment_component == null:
+		return
+	# Update equipment slot buttons and item name labels
+	for slot_int in _equipment_slot_buttons.keys():
+		var slot: EquipmentData.EquipmentSlot = slot_int as EquipmentData.EquipmentSlot
+		var btn: TextureButton = _equipment_slot_buttons[slot_int] as TextureButton
+		var name_label: Label = _equipment_item_labels[slot_int] as Label
+		var equipped: EquipmentData = _equipment_component.get_item_in_slot(slot)
+		if equipped != null:
+			var icon: Texture2D = _resolve_item_icon(equipped)
+			_set_equipment_slot_visual(btn, icon)
+			name_label.text = equipped.display_name
+			name_label.remove_theme_color_override("font_color")
+		else:
+			_set_equipment_slot_visual(btn, null)
+			name_label.text = "— Empty —"
+			name_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+	# Update stat labels
+	if _stat_value_labels.is_empty():
+		return
+	var snap: CombatantSnapshot = PlayerProgressionService.build_player_snapshot()
+	if snap == null or snap.base_stats == null:
+		return
+	_stat_value_labels[&"max_hp"].text    = str(snap.base_stats.max_hp)
+	_stat_value_labels[&"max_energy"].text = str(snap.base_stats.max_energy)
+	_stat_value_labels[&"attack"].text    = str(int(snap.base_stats.attack))
+	_stat_value_labels[&"defense"].text   = str(int(snap.base_stats.defense))
+
+
+func _set_equipment_slot_visual(btn: TextureButton, icon: Texture2D) -> void:
+	if btn == null:
+		return
+	_ensure_slot_visual_nodes(btn)
+	var icon_node: TextureRect = btn.get_node_or_null("ItemIcon") as TextureRect
+	if icon_node:
+		icon_node.texture = icon
+		icon_node.visible = icon != null
+
+
+func _setup_character_board() -> void:
+	if _character_slots_root == null:
+		return
+	# Clear any leftover nodes
+	for child in _character_slots_root.get_children():
+		child.queue_free()
+
+	var slot_list: VBoxContainer = VBoxContainer.new()
+	slot_list.name = "EquipmentSlotList"
+	_character_slots_root.add_child(slot_list)
+
+	var slot_defs: Array = [
+		[EquipmentData.EquipmentSlot.WEAPON,    "Weapon"],
+		[EquipmentData.EquipmentSlot.HELMET,    "Helmet"],
+		[EquipmentData.EquipmentSlot.CHEST,     "Chest"],
+		[EquipmentData.EquipmentSlot.BOOTS,     "Boots"],
+		[EquipmentData.EquipmentSlot.ACCESSORY, "Accessory"],
+	]
+	for entry in slot_defs:
+		var slot: EquipmentData.EquipmentSlot = entry[0] as EquipmentData.EquipmentSlot
+		var label_text: String = entry[1] as String
+
+		var row: HBoxContainer = HBoxContainer.new()
+		row.name = label_text + "Row"
+		slot_list.add_child(row)
+
+		var btn: TextureButton = EQUIPMENT_SLOT_BUTTON_SCRIPT.new() as TextureButton
+		btn.name = label_text + "SlotBtn"
+		btn.custom_minimum_size = Vector2(64.0, 64.0)
+		btn.texture_normal = slot_texture  # @export Texture2D defined at top of this file
+		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		row.add_child(btn)
+		btn.configure(self, slot)
+		_ensure_slot_visual_nodes(btn)
+		_equipment_slot_buttons[int(slot)] = btn
+
+		var slot_label: Label = Label.new()
+		slot_label.text = label_text
+		row.add_child(slot_label)
+
+		var item_label: Label = Label.new()
+		item_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		item_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		item_label.text = "— Empty —"
+		item_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+		row.add_child(item_label)
+		_equipment_item_labels[int(slot)] = item_label
+
+
+func _setup_stats_section() -> void:
+	# Find SkillsContent — the VBoxContainer inside SkillsSection
+	var skills_content: VBoxContainer = null
+	if _skills_section != null:
+		skills_content = _skills_section.find_child("SkillsContent", true, false) as VBoxContainer
+	if skills_content == null:
+		return
+
+	for child in skills_content.get_children():
+		child.queue_free()
+
+	var stat_defs: Array = [
+		[&"max_hp",     "Max HP"],
+		[&"max_energy", "Max Energy"],
+		[&"attack",     "Attack"],
+		[&"defense",    "Defense"],
+	]
+	for entry in stat_defs:
+		var key: StringName = entry[0] as StringName
+		var label_text: String = entry[1] as String
+
+		var row: HBoxContainer = HBoxContainer.new()
+		skills_content.add_child(row)
+
+		var name_label: Label = Label.new()
+		name_label.text = label_text
+		row.add_child(name_label)
+
+		var value_label: Label = Label.new()
+		value_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		value_label.text = "—"
+		row.add_child(value_label)
+		_stat_value_labels[key] = value_label
