@@ -12,7 +12,7 @@ messages = {
 [&"", &"ui.main.settings"]: [&"Налаштування"],
 [&"", &"ui.main.quit"]: [&"Вийти"],
 [&"", &"ui.main.play"]: [&"Грати"],
-[&"", &"ui.inventory.skills"]: [&"Навички"],
+[&"", &"ui.inventory.skills"]: [&"Статистика"],
 [&"", &"ui.inventory.inventory"]: [&"Інвентар"],
 [&"", &"ui.inventory.character"]: [&"Персонаж"],
 [&"", &"ui.hud.fight"]: [&"Бій"],

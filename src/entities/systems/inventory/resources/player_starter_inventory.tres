@@ -5,6 +5,7 @@
 [ext_resource type="Resource" path="res://src/entities/items/catalog/consumables/potions/health_potion/data/consumable_health_potion.tres" id="3"]
 [ext_resource type="Resource" path="res://src/entities/items/catalog/consumables/potions/mana_potion/data/consumable_mana_tonic.tres" id="4"]
 [ext_resource type="Resource" path="res://src/entities/items/catalog/materials/ore/iron_ore/data/material_iron_ore.tres" id="5"]
+[ext_resource type="Resource" path="res://src/entities/items/catalog/weapons/swords/iron_sword/data/iron_sword.tres" id="6_iron_sword"]
 
 [sub_resource type="Resource" id="InventorySlotData_health"]
 script = ExtResource("2")
@@ -20,6 +21,11 @@ amount = 3
 script = ExtResource("2")
 item = ExtResource("5")
 amount = 24
+
+[sub_resource type="Resource" id="InventorySlotData_iron_sword"]
+script = ExtResource("2")
+item = ExtResource("6_iron_sword")
+amount = 1
 
 [sub_resource type="Resource" id="InventorySlotData_empty_1"]
 script = ExtResource("2")
@@ -75,4 +81,4 @@ script = ExtResource("2")
 [resource]
 script = ExtResource("1")
 slot_count = 20
-slots = Array[Resource]([SubResource("InventorySlotData_health"), SubResource("InventorySlotData_mana"), SubResource("InventorySlotData_iron"), SubResource("InventorySlotData_empty_1"), SubResource("InventorySlotData_empty_2"), SubResource("Resource_5wkm7"), SubResource("Resource_0yag6"), SubResource("Resource_oiwnt"), SubResource("Resource_710bq"), SubResource("Resource_85c18"), SubResource("Resource_7iw1n"), SubResource("Resource_hlx7p"), SubResource("Resource_t5lg0"), SubResource("Resource_7wpm2"), SubResource("Resource_h2yda"), SubResource("Resource_gwky1"), SubResource("Resource_fnkjh"), SubResource("Resource_n4o4y"), SubResource("Resource_qdpmi"), SubResource("Resource_0sr8a")])
+slots = Array[Resource]([SubResource("InventorySlotData_health"), SubResource("InventorySlotData_mana"), SubResource("InventorySlotData_iron"), SubResource("InventorySlotData_iron_sword"), SubResource("InventorySlotData_empty_1"), SubResource("Resource_5wkm7"), SubResource("Resource_0yag6"), SubResource("Resource_oiwnt"), SubResource("Resource_710bq"), SubResource("Resource_85c18"), SubResource("Resource_7iw1n"), SubResource("Resource_hlx7p"), SubResource("Resource_t5lg0"), SubResource("Resource_7wpm2"), SubResource("Resource_h2yda"), SubResource("Resource_gwky1"), SubResource("Resource_fnkjh"), SubResource("Resource_n4o4y"), SubResource("Resource_qdpmi"), SubResource("Resource_0sr8a")])
